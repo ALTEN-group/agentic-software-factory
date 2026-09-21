@@ -1,13 +1,11 @@
 ---
 layout: home
+pageClass: is-home
 
 hero:
   name: Agentic Software Factory
-  text: Software Development at Maximum AI Capability
-  tagline: A modern operating model for software development using AI at maximum capability — from client meeting to production release.
-  image:
-    src: /logo.svg
-    alt: Agentic Software Factory
+  text: Operating Model for AI-Driven Delivery
+  tagline: Leveraging AI across the full software lifecycle — from client meeting to production release.
   actions:
     - theme: brand
       text: Get Started
@@ -21,8 +19,8 @@ features:
     title: Meeting-Driven Development
     details: Client meetings are transcribed, analyzed, and structured by AI in real time into formal Intent records, eliminating manual backlog grooming and lost context.
   - icon: ⚡
-    title: Zero developer coding
-    details: Developers do not write code syntax. Engineers operate as specification engineers, context architects, and deterministic control builders while AI generates 100% of code.
+    title: Autonomous code generation
+    details: AI agents autonomously generate 100% of code, tests, and documentation, while engineers operate as specification engineers, context architects, and deterministic control builders.
   - icon: 🛡️
     title: Dense deterministic controls
     details: Compilers, strict type systems, AST linters, contract tests, mutation testing, and SAST drive closed-loop AI auto-validation with autonomous self-healing.
@@ -42,79 +40,78 @@ features:
 Agentic Software Factory operates on **Meeting-Driven Development**: the development lifecycle begins in the client
 meeting and flows autonomously through AI generation to production release.
 
-Developers **do not write code syntax anymore**. Instead, engineers design specifications, curate
+AI agents autonomously generate 100% of code and tests. Engineers design specifications, curate
 the [Context Layer](./guide/context-layer), and build dense [deterministic controls](./guide/guardrails).
-AI agents autonomously generate code and tests, auto-validating against deterministic testbeds in
+AI agents auto-validate against deterministic testbeds in
 closed self-healing loops before requesting **minimum human validation** for high-level business intent.
 
 ```mermaid
 ---
-caption: Meeting-Driven Development — autonomous flow from client meeting to release
+caption: Meeting-Driven Development — the 6-layer operational lifecycle from client meeting to production release
 ---
-flowchart LR
-    subgraph MDD ["Meeting-Driven Development Loop"]
-        direction TB
-
-        subgraph Actors ["Accountable Humans"]
-            CUST["Customer / Stakeholder"]
-            PO["Product Lead"]
-            ENG["Specification Engineer"]
-        end
-
-        subgraph Process ["Autonomous AI Flow"]
-            MEET["1. Client Meeting"] --> L1(("AI Synthesis"))
-            L1 --> INTENT["2. Intent Record & Criteria"]
-            INTENT --> L2(("AI Planner"))
-            L2 --> PLAN["3. Architecture & Plan"]
-            PLAN --> L3(("AI Generator"))
-            L3 --> CODE["4. Code, Tests & Docs"]
-            
-            subgraph AutoVal ["AI Auto-Validation Loop"]
-                direction TB
-                CODE --> DC{"Deterministic Controls"}
-                DC -->|Fail / Errors| SH(("AI Self-Healing"))
-                SH -->|Auto-repair| CODE
-            end
-            
-            DC -->|100% Pass| MHV["5. Minimum Human Validation"]
-            MHV --> L5(("AI Release Engine"))
-            L5 --> RELEASE["6. Progressive Release"]
-        end
-
-        subgraph ContextKnowledge ["Committed Context & Controls"]
-            FORGE["Forge: Specs & ADRs"] --> L2
-            CTX["Context Layer: Instructions & Skills"] --> L3
-            HARNESS["Compilers, Linters, Mutation & Contract Tests"] --> DC
-        end
-
-        CUST -. Participates in .-> MEET
-        PO -. Participates in .-> MEET
-        ENG -. Participates in .-> MEET
-        ENG -. Signs off plan .-> PLAN
-        PO -. Validates intent .-> MHV
-        ENG -. Validates invariants .-> MHV
+flowchart TD
+    subgraph L1 ["L1 — Need: Client Need & Demand"]
+        direction LR
+        S_IN["<b>🎙️ Client Meeting</b><br/>Customer & Product Lead"]
+        --> S_AI["<b>🤖 Real-Time AI Extraction</b><br/>Transcribe dialogue & extract client need"]
+        --> S_OUT["<b>📋 Ranked Opportunity</b><br/>Verbatim quotes & blast-radius estimate"]
     end
 
-    classDef people fill:#8fce6a,stroke:#5a9c3a,color:#1a3d0a,stroke-width:1.5px;
-    classDef ai fill:#ffcc4d,stroke:#d99a00,color:#3d2e00,stroke-width:1.5px;
-    classDef task fill:#cfe8fb,stroke:#7fb3d9,color:#0a3050,stroke-width:1.5px;
-    classDef context fill:#f5a623,stroke:#c9791a,color:#3d2400,stroke-width:1.5px;
-    classDef gate fill:#e1d5e7,stroke:#9673a6,color:#3b1e54,stroke-width:1.5px;
+    subgraph L2 ["L2 — Spec: Executable Specifications"]
+        direction LR
+        I_AI["<b>🤖 AI Spec Drafting</b><br/>Parse Context Layer & discover boundaries"]
+        --> I_OUT["<b>📋 Executable Spec Record</b><br/>Problem, outcome metric & acceptance criteria"]
+        --> I_SIGN["<b>✍️ Spec Engineer Sign-Off</b><br/>Validate approach & sign off criteria"]
+    end
 
-    class CUST,PO,ENG people;
-    class L1,L2,L3,SH,L5 ai;
-    class MEET,INTENT,PLAN,CODE,RELEASE task;
-    class FORGE,CTX,HARNESS context;
-    class DC,MHV gate;
+    subgraph L3 ["L3 — Build: Autonomous AI Generation"]
+        direction LR
+        B_PLAN["<b>🤖 AI Agent Planning</b><br/>File scope & test strategy"]
+        --> B_GEN["<b>🤖 Autonomous Code Generation</b><br/>100% code, tests & documentation"]
+        --> B_LOCAL["<b>🛡️ Local Deterministic Controls</b><br/>Compilers, linters & unit tests"]
+        B_LOCAL -->|❌ Fail| B_HEAL["<b>🔄 AI Self-Healing</b><br/>Auto-repair error traces"]
+        B_HEAL --> B_GEN
+        B_LOCAL -->|✅ Pass| B_PR["<b>📦 Verified Pull Request</b><br/>100% green local proof"]
+    end
+
+    subgraph L4 ["L4 — Proof: Deterministic Auto-Validation"]
+        direction LR
+        P_CI["<b>🛡️ Dense Deterministic Harness</b><br/>AST rules, contracts, mutation & SAST"]
+        -->|✅ 100% Pass| P_MHV["<b>🎯 Minimum Human Validation</b><br/>Verify business intent & invariants"]
+        --> P_MERGE["<b>✅ Merge to Main</b><br/>Release trigger"]
+        P_CI -->|❌ Fail| P_HEAL["<b>🔄 Autonomous AI Self-Repair</b><br/>Auto-repair code in CI"]
+        P_HEAL --> P_CI
+    end
+
+    subgraph L5 ["L5 — Release: Progressive Rollout"]
+        direction LR
+        R_CANARY["<b>🚀 Canary Rollout</b><br/>Automated health verification"]
+        --> R_FLAG["<b>🚩 Feature Flag</b><br/>Decoupled activation"]
+    end
+
+    subgraph L6 ["L6 — Learn: Outcome Feedback"]
+        direction LR
+        M_TELE["<b>📈 Production Telemetry</b><br/>Observe outcome metric in reality"]
+        --> M_LEDGER["<b>⚖️ Hypothesis Ledger</b><br/>Validated, inconclusive, or deleted"]
+        --> M_LOOP["<b>🔄 Feedback to L1 & Context</b><br/>Refines specs and Context Layer"]
+    end
+
+    S_OUT ==> I_AI
+    I_SIGN ==> B_PLAN
+    B_PR ==> P_CI
+    P_MERGE ==> R_CANARY
+    R_FLAG ==> M_TELE
+    M_LOOP -. Feeds back into Need .-> S_IN
 ```
 
-| Component | Nature | Role in the operating model |
-|---|---|---|
-| 🎙️ Client Meeting | Collaboration | The primary trigger for software evolution; transcribed and extracted by AI in real time |
-| 🟨 AI Agents | Autonomous | Synthesizes intent, designs plans, generates 100% of code, tests, and release notes |
-| 🟧 Context & Controls | Committed Assets | Instructions, skills, specs, compilers, AST linters, mutation tests, and contract suites |
-| 🟪 AI Auto-Validation | Closed-Loop | Autonomous execution of deterministic controls with self-healing iterations until all pass |
-| 🟩 Minimum Human Validation | Targeted Sign-Off | High-level confirmation of business intent and safety invariants — never manual syntax review |
+| Layer | Focus | Input $\rightarrow$ Output | Owner & Role of AI |
+|---|---|---|---|
+| **[L1 Need](./guide/layer-need)** | Client Need & Demand | Client meeting $\rightarrow$ Ranked Opportunity | **Product Lead**: AI transcribes meeting and extracts verbatim customer pain in real time |
+| **[L2 Spec](./guide/layer-spec)** | Executable Specifications | Opportunity $\rightarrow$ Executable Spec Record | **Spec Engineer + Product Lead**: AI drafts formal acceptance criteria, boundaries, and ADRs |
+| **[L3 Build](./guide/layer-build)** | Autonomous AI Generation | Spec Record + Context Layer $\rightarrow$ Verified PR | **Supervised AI Build Agent**: AI generates 100% of code/tests with local self-healing |
+| **[L4 Proof](./guide/layer-proof)** | Deterministic Auto-Validation | Pull Request $\rightarrow$ Mathematical Proof & Merge | **Squad + Platform Rails**: CI auto-validates 7 deterministic gates; humans validate intent |
+| **[L5 Release](./guide/layer-release)** | Progressive Rollout | Merged `main` $\rightarrow$ Production Value | **Squad on Platform Rails**: Automated staging, canary rollout, and feature flag activation |
+| **[L6 Learn](./guide/layer-learn)** | Outcome Feedback | Production Behavior $\rightarrow$ Hypothesis Verdict | **Squad + Enablement**: Measures outcome metrics; feeds new needs to L1 and Context Layer |
 
 This operational flow turns the [Build](./guide/layer-build) and [Proof](./guide/layer-proof) layers
 into an autonomous engine: client dialogue replaces stale tickets, the [Context Layer](./guide/context-layer)

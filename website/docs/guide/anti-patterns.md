@@ -42,11 +42,11 @@ hand-offs. Boundaries follow outcomes.
 
 ## Process & Quality
 
-### Skipping Intent
+### Skipping Spec
 
 Feeding a vague meeting snippet straight to a build agent without structuring acceptance criteria.
 The model fills the gaps with plausible assumptions, and auto-validation cannot verify what was
-never specified. Ambiguity is cheapest to remove in [L2 Intent](./layer-intent).
+never specified. Ambiguity is cheapest to remove in [L2 Spec](./layer-spec).
 
 ### Weak deterministic controls ("Trust the model")
 

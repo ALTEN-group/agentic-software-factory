@@ -15,12 +15,12 @@ Terms used throughout Agentic Software Factory, with the precise meaning they ca
 | **Pillar** | A concern that crosses every layer: People, Governance, Context. |
 | **Squad** | A small cross-functional team that owns a user outcome end-to-end, from client discovery to production support. |
 | **Outcome** | A measurable change in customer or business behaviour. Not a feature, not a ticket. |
-| **Signal** | Any raw input suggesting something is worth doing, prioritized via client meetings, usage data, and experiments. |
-| **Intent** | A signal turned into a decidable, testable statement: problem, outcome metric, acceptance criteria, constraints, and architecture. |
+| **Need** | Any raw input suggesting something is worth doing, prioritized via client meetings, usage data, and experiments. |
+| **Spec** | A prioritized need turned into a decidable, machine-testable statement: problem, outcome metric, acceptance criteria, constraints, and architecture. |
 | **Exit gate** | The condition a work item must satisfy to leave a layer. Gates are automated via deterministic controls wherever possible. |
 | **Blast radius** | The maximum damage a change can do if it is wrong. Determines the level of minimum human validation required. |
 | **Context Layer** | The committed corpus the organization feeds to models: instructions, skills, agents, specs, ADRs. |
-| **Forge** | The packaged bundle of specs, ADRs, and instructions assembled for a specific work item, fed to the model at the [Intent](./layer-intent) planning step. |
+| **Forge** | The packaged bundle of specs, ADRs, and instructions assembled for a specific work item, fed to the model at the [Spec](./layer-spec) planning step. |
 | **Instruction** | A standing rule injected automatically when matching files are in context. |
 | **Skill** | An on-demand, named workflow with a contract, references, and sometimes scripts. |
 | **Agent** | A named specialist configuration selected explicitly for a bounded kind of work. |

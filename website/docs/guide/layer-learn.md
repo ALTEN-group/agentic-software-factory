@@ -13,7 +13,7 @@ operating model.
 
 | Dimension | Examples | Feeds |
 |---|---|---|
-| **Outcome** | The metric named in the [Intent](./layer-intent) record | Was it worth building? |
+| **Outcome** | The metric named in the [Spec](./layer-spec) record | Was it worth building? |
 | **System health** | Latency, error rate, saturation, availability | Incident response |
 | **Flow** | Lead time, deployment frequency, change failure rate, time to restore | [Metrics](./metrics) |
 | **AI leverage** | Acceptance rate, rework rate, cost per change | [Evaluation](./evaluation) |
@@ -64,5 +64,5 @@ The [Context Layer](./context-layer) is maintained here, from evidence, not from
 
 ## Exit gate
 
-The loop closes when a Learn output has become a new [Signal](./layer-signal) row, a Context Layer
+The loop closes when a Learn output has become a new [Need](./layer-need) row, a Context Layer
 change, or a deletion. A learning that produces none of these three was not a learning.

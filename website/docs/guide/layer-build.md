@@ -1,6 +1,6 @@
 # L3 — Build
 
-Where intent becomes code. In Agentic Software Factory, **developers do not code anymore**: AI agents autonomously
+Where specifications become code. In Agentic Software Factory, **developers do not code manually**: AI agents autonomously
 generate 100% of the code, tests, and documentation, operating in closed self-healing loops against
 dense deterministic controls.
 
@@ -8,7 +8,7 @@ dense deterministic controls.
 
 | Input | Output | Owner |
 |---|---|---|
-| A work item that passed the [Intent](./layer-intent) gate + the [Context Layer](./context-layer) | A verified pull request with code, comprehensive tests, and documentation that passes all local deterministic controls | Specification engineer (supervising autonomous AI agents) |
+| A work item that passed the [Spec](./layer-spec) gate + the [Context Layer](./context-layer) | A verified pull request with code, comprehensive tests, and documentation that passes all local deterministic controls | Specification engineer (supervising autonomous AI agents) |
 
 ## The autonomous build loop
 
@@ -24,7 +24,7 @@ sequenceDiagram
   participant dc as Deterministic Controls (Local)
   participant r as Repository / PR
 
-  e->>a: Intent record + Context Layer (Forge, instructions, skills)
+  e->>a: Spec record + Context Layer (Forge, instructions, skills)
   a-->>e: Implementation plan & file scope
   e->>a: Approve plan & boundary constraints
   
@@ -44,7 +44,7 @@ sequenceDiagram
   r-->>e: Ready for Minimum Human Validation in L4
 ```
 
-1. **Plan first.** The AI agent reviews the Intent record and the Context Layer, proposing a detailed
+1. **Plan first.** The AI agent reviews the Spec record and the Context Layer, proposing a detailed
    plan (affected files, interfaces, and test strategy). The specification engineer validates scope
    in seconds.
 2. **Autonomous generation.** The agent autonomously generates the application logic, database

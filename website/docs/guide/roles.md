@@ -9,7 +9,7 @@ context curation, deterministic testing, and safety governance.
 ### Product lead
 
 - Owns customer relationship and outcome metrics.
-- Leads client meetings and collaborates with AI to synthesize the [Signal](./layer-signal) backlog.
+- Leads client meetings and collaborates with AI to synthesize the [Need](./layer-need) backlog.
 - Ranks the opportunity scorecard and defends business value decisions.
 - Validates that finished software faithfully solves the client's business need.
 - Decides *do now / experiment / later / no* — recording the rationale for `no`.
@@ -18,7 +18,7 @@ context curation, deterministic testing, and safety governance.
 
 - **Does not write code syntax manually.**
 - Attends client meetings to capture deep technical constraints and domain models.
-- Refines AI-synthesized [Intent](./layer-intent) records, defining unambiguous, testable acceptance criteria.
+- Refines AI-synthesized [Spec](./layer-spec) records, defining unambiguous, testable acceptance criteria.
 - Validates the AI agent's technical plan before autonomous code generation starts.
 - Designs and commits **dense deterministic controls** (types, linters, contract suites, mutation tests).
 - Conducts **Minimum Human Validation** focusing on client intent and safety invariants — never line-by-line syntax reviews.
@@ -65,7 +65,7 @@ context curation, deterministic testing, and safety governance.
 ### AI enablement lead
 
 - Owns the [AI usage policy](./ai-policy), model routing gateways, and cost attribution.
-- Provides client meeting intelligence infrastructure (transcription, extraction, Intent generation).
+- Provides client meeting intelligence infrastructure (transcription, extraction, Spec generation).
 - Owns the organization-wide evaluation harness.
 
 ## Role matrix per layer
@@ -73,8 +73,8 @@ context curation, deterministic testing, and safety governance.
 | Layer | Accountable | Consulted | AI Agent Execution |
 |---|---|---|---|
 | [L0 Foundation](./layer-foundation) | Platform owner | Engineering lead, security owner | Self-service template generation & monitoring |
-| [L1 Signal](./layer-signal) | Product lead | Specification engineer, client | **Meeting transcription & Intent extraction** |
-| [L2 Intent](./layer-intent) | Product lead + Specification engineer | Architect, designer, security | **Specification drafting & ambiguity detection** |
+| [L1 Need](./layer-need) | Product lead | Specification engineer, client | **Meeting transcription & need extraction** |
+| [L2 Spec](./layer-spec) | Product lead + Specification engineer | Architect, designer, security | **Specification drafting & ambiguity detection** |
 | [L3 Build](./layer-build) | Specification engineer | Architect (high-risk) | **100% Autonomous code & test generation** |
 | [L4 Proof](./layer-proof) | Specification engineer (Minimum Human Validation) | Security owner (high-risk) | **Closed-loop deterministic auto-validation** |
 | [L5 Release](./layer-release) | Squad | Product lead, platform | **Progressive rollout & anomaly monitoring** |

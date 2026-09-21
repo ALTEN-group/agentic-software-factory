@@ -1,8 +1,11 @@
-website/node_modules/*
-website/docs/.vitepress/cache
-website/docs/.vitepress/dist
-docker/conf/.env.dev
-docker/conf/.env.prod
+# Node / VitePress
+website/node_modules/
+website/docs/.vitepress/cache/
+website/docs/.vitepress/dist/
+
+# OS / Editor
 *.log
 .DS_Store
 Thumbs.db
+*.swp
+*.swo

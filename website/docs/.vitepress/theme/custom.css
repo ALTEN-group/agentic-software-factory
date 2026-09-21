@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+/**
+ * Custom Theme Styles: ALTEN Royal Blue Palette & Mermaid Diagram Styling
+ */
+
+:root {
+  --vp-c-brand-1: #2563eb;
+  --vp-c-brand-2: #1d4ed8;
+  --vp-c-brand-3: #1e40af;
+  --vp-c-brand-soft: rgba(37, 99, 235, 0.14);
+  --vp-nav-logo-height: 38px;
+}
+
+/* Top-Left Navbar Brandmark */
+.VPNavBarTitle .logo,
+.VPNav .logo {
+  height: 38px !important;
+  max-height: 38px !important;
+  width: auto !important;
+}
+
+/* Hide top-left navbar logo on home page to avoid repetition with the hero title brandmark */
+.VPNavBar.home .VPNavBarTitle,
+.is-home .VPNavBarTitle,
+.Layout.is-home .VPNavBarTitle {
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+/* ==========================================================================
+   Hero Brandmark Lockup
+   ========================================================================== */
+
+.hero-brand-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.hero-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 24px;
+}
+
+.hero-brand-emblem-wrap {
+  width: 78px;
+  height: 78px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 70%);
+  border-radius: 18px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+
+.hero-brand-emblem-wrap:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+.hero-emblem-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hero-brand-titles {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brand-title-agentic {
+  font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: #1d4ed8;
+  margin: 0;
+  padding: 0;
+  border-top: none;
+}
+
+.dark .brand-title-agentic {
+  color: #60a5fa;
+  background: linear-gradient(135deg, #bfdbfe 0%, #60a5fa 45%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-title-factory {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  color: #475569;
+  margin-top: 5px;
+}
+
+.dark .brand-title-factory {
+  color: #94a3b8;
+  letter-spacing: 0.15em;
+}
+
+.hero-headline {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--vp-c-text-1);
+  margin: 0 0 14px 0;
+  border-top: none;
+  padding-top: 0;
+  max-width: 580px;
+}
+
+.hero-tagline {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--vp-c-text-2);
+  max-width: 540px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .hero-brand-header {
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+  .hero-brand-emblem-wrap {
+    width: 60px;
+    height: 60px;
+  }
+  .brand-title-agentic {
+    font-size: 38px;
+  }
+  .brand-title-factory {
+    font-size: 16px;
+  }
+  .hero-headline {
+    font-size: 22px;
+  }
+  .hero-tagline {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-brand-header {
+    gap: 12px;
+  }
+  .hero-brand-emblem-wrap {
+    width: 48px;
+    height: 48px;
+  }
+  .brand-title-agentic {
+    font-size: 28px;
+  }
+  .brand-title-factory {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+  }
+  .hero-headline {
+    font-size: 18px;
+  }
+}
+
+.dark {
+  --vp-c-brand-1: #3b82f6;
+  --vp-c-brand-2: #60a5fa;
+  --vp-c-brand-3: #1d4ed8;
+  --vp-c-brand-soft: rgba(59, 130, 246, 0.16);
+}
+
+/* ==========================================================================
+   Mermaid Diagrams: Aesthetic Styling, Typography & Layout Fixes
+   ========================================================================== */
+
+.mermaid,
+.vp-doc .mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(180deg, var(--vp-c-bg-soft) 0%, var(--vp-c-bg-alt) 100%);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  overflow-x: auto;
+  overflow-y: visible;
+  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.06);
+}
+
+.dark .mermaid,
+.dark .vp-doc .mermaid {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.6) 100%);
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.35);
+}
+
+.mermaid svg,
+.vp-doc .mermaid svg {
+  max-width: 100%;
+  height: auto;
+  overflow: visible !important;
+}
+
+/* Normalize typography inside foreignObject to prevent bottom text clipping */
+.mermaid .nodeLabel,
+.mermaid .label,
+.mermaid foreignObject,
+.mermaid foreignObject div,
+.mermaid foreignObject span,
+.mermaid foreignObject p,
+.mermaid foreignObject i,
+.mermaid foreignObject em,
+.vp-doc .mermaid .nodeLabel,
+.vp-doc .mermaid .label,
+.vp-doc .mermaid foreignObject,
+.vp-doc .mermaid foreignObject div,
+.vp-doc .mermaid foreignObject span,
+.vp-doc .mermaid foreignObject p,
+.vp-doc .mermaid foreignObject i,
+.vp-doc .mermaid foreignObject em {
+  line-height: 1.35 !important;
+  font-family: var(--vp-font-family-base) !important;
+  font-size: 13px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+
+/* Modern Card Geometry: Rounded corners, sleek borders, smooth drop-shadow */
+.mermaid .node rect,
+.mermaid .node polygon,
+.mermaid .node path,
+.vp-doc .mermaid .node rect,
+.vp-doc .mermaid .node polygon,
+.vp-doc .mermaid .node path {
+  rx: 8px !important;
+  ry: 8px !important;
+  stroke-width: 1.75px !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+  overflow: visible !important;
+}
+
+/* Subgraph Containers */
+.mermaid .cluster rect,
+.vp-doc .mermaid .cluster rect {
+  rx: 12px !important;
+  ry: 12px !important;
+  stroke-dasharray: 4 4 !important;
+  stroke-width: 1.5px !important;
+  fill-opacity: 0.45 !important;
+  overflow: visible !important;
+}
+
+/* Edge / Connector Paths & Arrow Markers */
+.mermaid .edgePath path.path,
+.vp-doc .mermaid .edgePath path.path {
+  stroke: #3b82f6 !important;
+  stroke-width: 2px !important;
+  stroke-linecap: round !important;
+}
+
+.mermaid .marker,
+.vp-doc .mermaid .marker {
+  fill: #3b82f6 !important;
+  stroke: #3b82f6 !important;
+}
+
+/* Edge Labels: Neutralize Mermaid default grey background boxes and rects */
+.mermaid g.edgeLabel,
+.vp-doc .mermaid g.edgeLabel {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.mermaid .edgeLabel rect,
+.mermaid .label rect,
+.mermaid rect.background,
+.vp-doc .mermaid .edgeLabel rect,
+.vp-doc .mermaid .label rect,
+.vp-doc .mermaid rect.background {
+  fill: transparent !important;
+  stroke: none !important;
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
+.mermaid .labelBkg,
+.mermaid [class*="labelBkg"],
+.mermaid div.labelBkg,
+.mermaid .edgeLabel p,
+.vp-doc .mermaid .labelBkg,
+.vp-doc .mermaid [class*="labelBkg"],
+.vp-doc .mermaid div.labelBkg,
+.vp-doc .mermaid .edgeLabel p {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Edge Label Badges: Clean, theme-adaptive pill badges */
+.mermaid .edgeLabel span,
+.mermaid span.edgeLabel,
+.mermaid .edgeLabel foreignObject div span,
+.vp-doc .mermaid .edgeLabel span,
+.vp-doc .mermaid span.edgeLabel,
+.vp-doc .mermaid .edgeLabel foreignObject div span {
+  display: inline-block !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  background-color: var(--vp-c-bg) !important;
+  padding: 2px 8px !important;
+  border-radius: 6px !important;
+  border: 1px solid var(--vp-c-divider) !important;
+  color: var(--vp-c-text-2) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.mermaid .edgeLabel text,
+.mermaid .edgeLabel tspan,
+.vp-doc .mermaid .edgeLabel text,
+.vp-doc .mermaid .edgeLabel tspan {
+  font-size: 11.5px !important;
+  fill: var(--vp-c-text-2) !important;
+}

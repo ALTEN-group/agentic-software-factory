@@ -50,8 +50,8 @@ flowchart TB
     governance[Governance - Minimum Human Validation & Guardrails]
     context[Context - Context Layer & Deterministic Controls]
   end
-  l1[L1 Signal - Meeting-Driven Demand] --> l2[L2 Intent - Executable Specifications] --> l3[L3 Build - Autonomous AI Generation] --> l4[L4 Proof - Deterministic Auto-Validation] --> l5[L5 Release - Progressive Rollout] --> l6[L6 Learn - Outcome Feedback]
-  l6 -. feedback to client signals .-> l1
+  l1[L1 Need - Client Need & Demand] --> l2[L2 Spec - Executable Specifications] --> l3[L3 Build - Autonomous AI Generation] --> l4[L4 Proof - Deterministic Auto-Validation] --> l5[L5 Release - Progressive Rollout] --> l6[L6 Learn - Outcome Feedback]
+  l6 -. feedback to client needs .-> l1
   l0[L0 Foundation - Rails & Tooling] --- l1
   l0 --- l3
   l0 --- l5
@@ -60,12 +60,12 @@ flowchart TB
 | Layer | Name | Question it answers |
 |---|---|---|
 | L0 | [Foundation](./layer-foundation) | What does every squad get for free? |
-| L1 | [Signal](./layer-signal) | What did the client ask for, and what is worth doing? |
-| L2 | [Intent](./layer-intent) | What exactly are we building, and what are the deterministic acceptance criteria? |
+| L1 | [Need](./layer-need) | What does the client actually need, and what is worth doing? |
+| L2 | [Spec](./layer-spec) | What exactly are we building, and what are the deterministic acceptance criteria? |
 | L3 | [Build](./layer-build) | How do AI agents autonomously generate the implementation? |
 | L4 | [Proof](./layer-proof) | How do deterministic controls auto-validate the change, and where is minimum human validation applied? |
 | L5 | [Release](./layer-release) | How does it reach users progressively without risk? |
-| L6 | [Learn](./layer-learn) | What did reality say, and how does it refine client intent and the Context Layer? |
+| L6 | [Learn](./layer-learn) | What did reality say, and how does it refine client needs and the Context Layer? |
 
 | Pillar | Owns | Reference |
 |---|---|---|

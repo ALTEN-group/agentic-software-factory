@@ -1,12 +1,12 @@
 {
   "name": "agentic-software-factory-docs",
   "version": "0.1.0",
-  "description": "Documentation for Agentic Software Factory, the operating model for AI-assisted software delivery.",
+  "description": "Documentation for Agentic Software Factory, the operating model for AI-assisted software development.",
   "private": true,
   "scripts": {
-    "dev": "vitepress dev docs --host",
+    "dev": "vitepress dev docs --host --port 5175",
     "build": "vitepress build docs",
-    "preview": "vitepress preview docs"
+    "preview": "vitepress preview docs --port 5175"
   },
   "author": "ALTEN",
   "license": "MIT",

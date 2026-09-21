@@ -1,13 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Agentic Software Factory">
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="fsf" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#41d1ff" />
-      <stop offset="100%" stop-color="#bd34fe" />
+    <linearGradient id="favTop" x1="10" y1="8" x2="54" y2="30" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="favLeft" x1="10" y1="20" x2="32" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <linearGradient id="favRight" x1="32" y1="20" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="favCyan" x1="26" y1="24" x2="38" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
     </linearGradient>
   </defs>
-  <g fill="url(#fsf)">
-    <path d="M32 6 58 19 32 32 6 19z" />
-    <path d="M32 36 58 23v7L32 43 6 30v-7z" opacity=".7" />
-    <path d="M32 47 58 34v7L32 54 6 41v-7z" opacity=".45" />
-  </g>
+
+  <!-- Isometric Sawtooth Roof -->
+  <path d="M32 5L56 18L45 24L32 17L19 24L8 18L32 5Z" fill="url(#favTop)" stroke="#93C5FD" stroke-width="1.2" stroke-linejoin="round"/>
+
+  <!-- Left Facet -->
+  <path d="M8 18L32 31V58L8 45V18Z" fill="url(#favLeft)"/>
+
+  <!-- Right Facet -->
+  <path d="M32 31L56 18V45L32 58V31Z" fill="url(#favRight)"/>
+
+  <!-- Glowing Autonomous Delta Conduit (A) -->
+  <path d="M32 20L47 45H37L32 37L27 45H17L32 20Z" fill="url(#favCyan)"/>
+  <polygon points="32,28 36,36 28,36" fill="#FFFFFF"/>
+
+  <!-- Seam line -->
+  <line x1="32" y1="17" x2="32" y2="58" stroke="#38BDF8" stroke-width="1.5" stroke-opacity="0.8"/>
 </svg>

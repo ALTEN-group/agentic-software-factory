@@ -14,18 +14,15 @@ fi
 
 cd "$(dirname "$0")/.."
 
-ENV_FILE="docker/conf/.env.dev"
-if [[ ! -f "$ENV_FILE" ]]; then
-  ENV_FILE="docker/conf/.env.dev.example"
-fi
-
 echo -e "${YELLOW}🛑 Stopping Agentic Software Factory development environment...${NC}"
 
 if [[ "$REMOVE_IMAGES" == true ]]; then
-  docker compose -f docker/docker-compose.yml --env-file "$ENV_FILE" down --rmi all
+  docker compose -p agentic-software-factory -f docker/docker-compose.yml down --rmi all
+  docker compose -p docker -f docker/docker-compose.yml down 2>/dev/null || true
   echo -e "${RED}✅ Development environment stopped and images removed!${NC}"
 else
-  docker compose -f docker/docker-compose.yml --env-file "$ENV_FILE" down
+  docker compose -p agentic-software-factory -f docker/docker-compose.yml down
+  docker compose -p docker -f docker/docker-compose.yml down 2>/dev/null || true
   echo -e "${RED}✅ Development environment stopped!${NC}"
   echo -e "Run '${YELLOW}./scripts/stop-dev.sh --rmi${NC}' to also remove Docker images."
 fi

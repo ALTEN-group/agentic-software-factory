@@ -7,11 +7,16 @@ How this documentation site is run in development and published in production.
 The site runs in a container so that contributors need only Docker.
 
 ```sh
-cp docker/conf/.env.dev.example docker/conf/.env.dev
-docker compose -f docker/docker-compose.yml --env-file docker/conf/.env.dev up --build
+./scripts/start-dev.sh
 ```
 
-The site is served on <http://localhost:5173> with hot reload.
+or manually:
+
+```sh
+docker compose -p agentic-software-factory -f docker/docker-compose.yml up --build
+```
+
+The site is served on `http://localhost:5175/docs/` with hot reload.
 
 ### What the stack does
 
@@ -19,10 +24,9 @@ The site is served on <http://localhost:5173> with hot reload.
 |---|---|
 | Service | `website` |
 | Image | built from `website/dockerfile` (`node:${NODE_VERSION}`, non-root) |
-| Container / hostname | `${WEBSITE_HOST}` |
-| Published port | `${WEBSITE_PORT}` → `5173` |
-| Network | `${APP_NAME}-internal-${ENV_NAME}` |
-| Node modules | named volume `${APP_NAME}-website-node-modules-${ENV_NAME}` |
+| Container / hostname | `agentic-software-factory-docs` |
+| Published port | `${PORT:-5175}` → `5175` |
+| Node modules | named volume `website_node_modules` |
 
 ### Bind mounts
 
@@ -39,13 +43,13 @@ overwritten by a host directory. The service command reinstalls on start, which 
 
 ```sh
 # stop the stack
-docker compose -f docker/docker-compose.yml --env-file docker/conf/.env.dev down
+./scripts/stop-dev.sh
 
 # rebuild the image after changing the dockerfile
-docker compose -f docker/docker-compose.yml --env-file docker/conf/.env.dev build --no-cache website
+docker compose -p agentic-software-factory -f docker/docker-compose.yml build --no-cache website
 
 # drop the dependency volume when a lockfile change misbehaves
-docker compose -f docker/docker-compose.yml --env-file docker/conf/.env.dev down -v
+docker compose -p agentic-software-factory -f docker/docker-compose.yml down -v
 ```
 
 ## Development — Node
@@ -95,4 +99,4 @@ step.
 | Mermaid diagrams do not render | `fastdom` not pre-bundled | Keep `vite.optimizeDeps.include` as configured |
 | Changes not picked up in Docker | Editing outside the bind-mounted `docs/` | Mount the path or restart the service |
 | Install loops on start | Stale named volume | `down -v`, then `up --build` |
-| Permission errors on mounted files | `UID`/`GID` mismatch with the host user | Set them in `docker/conf/.env.dev` |
+| Permission errors on mounted files | `UID`/`GID` mismatch with the host user | Override inline: `UID=$(id -u) GID=$(id -g) ./scripts/start-dev.sh` |

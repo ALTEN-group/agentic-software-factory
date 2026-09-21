@@ -12,9 +12,28 @@ export default withMermaid(defineConfig({
   description: 'The operating layer that connects strategy, execution, AI, and delivery into one continuous system.',
   base,
   vite: {
+    server: {
+      port: 5175,
+      host: true,
+    },
     // mermaid >= 11.16 pulls CJS-only fastdom, which vitepress-plugin-mermaid does not pre-bundle
     optimizeDeps: {
       include: ['fastdom', 'fastdom/extensions/fastdom-promised.js'],
+    },
+  },
+  mermaid: {
+    fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+    flowchart: {
+      htmlLabels: true,
+      padding: 18,
+      nodeSpacing: 50,
+      rankSpacing: 45,
+      curve: 'basis',
+    },
+    themeVariables: {
+      fontSize: '13.5px',
+      fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+      edgeLabelBackground: 'transparent',
     },
   },
   head: [
@@ -35,8 +54,8 @@ export default withMermaid(defineConfig({
         text: 'The Stack',
         items: [
           { text: 'L0 — Foundation', link: '/guide/layer-foundation' },
-          { text: 'L1 — Signal', link: '/guide/layer-signal' },
-          { text: 'L2 — Intent', link: '/guide/layer-intent' },
+          { text: 'L1 — Need', link: '/guide/layer-need' },
+          { text: 'L2 — Spec', link: '/guide/layer-spec' },
           { text: 'L3 — Build', link: '/guide/layer-build' },
           { text: 'L4 — Proof', link: '/guide/layer-proof' },
           { text: 'L5 — Release', link: '/guide/layer-release' },

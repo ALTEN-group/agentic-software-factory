@@ -8,23 +8,14 @@ NC='\033[0m' # No Color
 
 cd "$(dirname "$0")/.."
 
-ENV_FILE="docker/conf/.env.dev"
-if [[ ! -f "$ENV_FILE" ]]; then
-  cp docker/conf/.env.dev.example "$ENV_FILE"
-  echo -e "${YELLOW}Created ${ENV_FILE} from .env.dev.example.${NC}"
-fi
-
 echo -e "${YELLOW}🚀 Starting Agentic Software Factory development environment...${NC}"
 
 # Build and start services using Docker Compose
-docker compose -f docker/docker-compose.yml --env-file "$ENV_FILE" up --build -d
-
-PORT=$(grep -E '^WEBSITE_PORT=' "$ENV_FILE" | cut -d '=' -f2)
-PORT=${PORT:-5173}
+docker compose -p agentic-software-factory -f docker/docker-compose.yml up --build -d
 
 echo -e ""
 echo -e "${GREEN}✅ Agentic Software Factory documentation website is running!${NC}"
-echo -e "📖 Open in browser: ${YELLOW}http://localhost:${PORT}${NC}"
+echo -e "📖 Open in browser: ${YELLOW}http://localhost:5175/docs/${NC}"
 echo -e ""
 echo -e "Run '${YELLOW}./scripts/stop-dev.sh${NC}' to stop the container."
-echo -e "Run '${YELLOW}docker compose -f docker/docker-compose.yml --env-file ${ENV_FILE} logs -f${NC}' to view logs."
+echo -e "Run '${YELLOW}docker compose -p agentic-software-factory -f docker/docker-compose.yml logs -f${NC}' to view logs."
