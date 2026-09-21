@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Flow Stack">
+  <defs>
+    <linearGradient id="fs" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#41d1ff" />
+      <stop offset="100%" stop-color="#bd34fe" />
+    </linearGradient>
+  </defs>
+  <g fill="url(#fs)">
+    <path d="M32 4 58 17 32 30 6 17z" />
+    <path d="M32 34 58 21v6L32 40 6 27v-6z" opacity=".7" />
+    <path d="M32 44 58 31v6L32 50 6 37v-6z" opacity=".45" />
+  </g>
+  <path d="M6 47 32 60 58 47" fill="none" stroke="url(#fs)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".3" />
+</svg>

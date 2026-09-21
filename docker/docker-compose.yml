@@ -1,0 +1,37 @@
+services:
+
+  website:
+    build:
+      context: ${PWD}/website
+      dockerfile: dockerfile
+      args:
+        UID: ${UID}
+        GID: ${GID}
+        TZ: ${TZ}
+        NODE_VERSION: ${NODE_VERSION}
+        NODE_ENV: ${NODE_ENV}
+    container_name: ${WEBSITE_HOST}
+    hostname: ${WEBSITE_HOST}
+    environment:
+      # served at the root in dev, so the dev default of /docs/ is overridden
+      VITEPRESS_BASE: ${VITEPRESS_BASE}
+    volumes:
+      - ${PWD}/website/package.json:/usr/src/app/package.json:ro
+      - ${PWD}/website/docs:/usr/src/app/docs
+      - website_node_modules:/usr/src/app/node_modules
+    # reinstall on start so package.json edits reach the node_modules volume
+    command: sh -c "npm i --loglevel=error --ignore-scripts --no-fund && node --run dev"
+    ports:
+      - "${WEBSITE_PORT}:5173"
+    networks:
+      - internal
+    labels:
+      - "stack.name=${STACK_NAME}"
+
+networks:
+  internal:
+    name: ${APP_NAME}-internal-${ENV_NAME}
+
+volumes:
+  website_node_modules:
+    name: ${APP_NAME}-website-node-modules-${ENV_NAME}

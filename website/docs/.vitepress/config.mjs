@@ -1,0 +1,92 @@
+import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
+
+const defaultBase = process.env.NODE_ENV === 'production'
+  ? (process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/` : '/flow-stack/')
+  : '/docs/'
+const rawBase = process.env.VITEPRESS_BASE || defaultBase
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`
+
+export default withMermaid(defineConfig({
+  title: 'Flow Stack',
+  description: 'The operating layer that connects strategy, execution, AI, and delivery into one continuous system.',
+  base,
+  vite: {
+    // mermaid >= 11.16 pulls CJS-only fastdom, which vitepress-plugin-mermaid does not pre-bundle
+    optimizeDeps: {
+      include: ['fastdom', 'fastdom/extensions/fastdom-promised.js'],
+    },
+  },
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}favicon.svg` }],
+  ],
+  themeConfig: {
+    logo: '/logo.svg',
+    siteTitle: false,
+    sidebar: [
+      {
+        items: [
+          { text: 'Overview', link: '/guide/overview' },
+          { text: 'Principles', link: '/guide/principles' },
+          { text: 'Glossary', link: '/guide/glossary' },
+        ],
+      },
+      {
+        text: 'The Stack',
+        items: [
+          { text: 'L0 — Foundation', link: '/guide/layer-foundation' },
+          { text: 'L1 — Signal', link: '/guide/layer-signal' },
+          { text: 'L2 — Intent', link: '/guide/layer-intent' },
+          { text: 'L3 — Build', link: '/guide/layer-build' },
+          { text: 'L4 — Proof', link: '/guide/layer-proof' },
+          { text: 'L5 — Release', link: '/guide/layer-release' },
+          { text: 'L6 — Learn', link: '/guide/layer-learn' },
+        ],
+      },
+      {
+        text: 'People',
+        items: [
+          { text: 'Squads', link: '/guide/squads' },
+          { text: 'Roles', link: '/guide/roles' },
+          { text: 'Enablement', link: '/guide/enablement' },
+        ],
+      },
+      {
+        text: 'Governance',
+        items: [
+          { text: 'Decision Rights', link: '/guide/decision-rights' },
+          { text: 'AI Usage Policy', link: '/guide/ai-policy' },
+          { text: 'Guardrails', link: '/guide/guardrails' },
+        ],
+      },
+      {
+        text: 'AI Operating Layer',
+        items: [
+          { text: 'Context Layer', link: '/guide/context-layer' },
+          { text: 'Tooling', link: '/guide/tooling' },
+          { text: 'Evaluation', link: '/guide/evaluation' },
+        ],
+      },
+      {
+        text: 'Running the Model',
+        items: [
+          { text: 'Cadence', link: '/guide/cadence' },
+          { text: 'Metrics', link: '/guide/metrics' },
+          { text: 'Adoption Roadmap', link: '/guide/adoption' },
+          { text: 'Anti-patterns', link: '/guide/anti-patterns' },
+        ],
+      },
+      {
+        text: 'This Site',
+        items: [
+          { text: 'Deployment', link: '/guide/deployment' },
+          { text: 'Configuration', link: '/guide/configuration' },
+        ],
+      },
+    ],
+    socialLinks: [],
+    footer: {
+      message: 'Published and maintained by ALTEN',
+    },
+  },
+}))

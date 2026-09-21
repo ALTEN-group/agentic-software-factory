@@ -1,0 +1,29 @@
+{
+  "name": "flow-stack-docs",
+  "version": "0.1.0",
+  "description": "Documentation for Flow Stack, the operating model for AI-assisted software delivery.",
+  "private": true,
+  "scripts": {
+    "dev": "vitepress dev docs --host",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs"
+  },
+  "author": "ALTEN",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ALTEN-group/flow-stack.git",
+    "directory": "website"
+  },
+  "bugs": {
+    "url": "https://github.com/ALTEN-group/flow-stack/issues"
+  },
+  "homepage": "https://github.com/ALTEN-group/flow-stack#readme",
+  "devDependencies": {
+    "vitepress": "1.6.4"
+  },
+  "dependencies": {
+    "mermaid": "11.17.0",
+    "vitepress-plugin-mermaid": "2.0.17"
+  }
+}
