@@ -13,15 +13,15 @@ stack has none.
 
 | Variable | Default | Description |
 |---|---|---|
-| `APP_NAME` | `flow-stack` | Short slug used in network and volume names |
+| `APP_NAME` | `agentic-software-factory` | Short slug used in network and volume names |
 | `ENV_NAME` | `local` | Environment suffix: `local`, `production`, … |
-| `STACK_NAME` | `flow-stack-local` | `${APP_NAME}-${ENV_NAME}`; carried as the `stack.name` label |
+| `STACK_NAME` | `agentic-software-factory-local` | `${APP_NAME}-${ENV_NAME}`; carried as the `stack.name` label |
 
 ## Website service
 
 | Variable | Default | Description |
 |---|---|---|
-| `WEBSITE_HOST` | `flow-stack-website-local` | Container name and hostname |
+| `WEBSITE_HOST` | `agentic-software-factory-website-local` | Container name and hostname |
 | `WEBSITE_PORT` | `5173` | Host port mapped to the VitePress dev server |
 | `NODE_VERSION` | `22-alpine` | Base image tag; must be Alpine-based, the dockerfile uses `apk` |
 | `NODE_ENV` | `development` | Node environment inside the container |

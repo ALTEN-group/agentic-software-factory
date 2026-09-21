@@ -1,6 +1,6 @@
 # L3 — Build
 
-Where intent becomes code. In Flow Stack, **developers do not code anymore**: AI agents autonomously
+Where intent becomes code. In Agentic Software Factory, **developers do not code anymore**: AI agents autonomously
 generate 100% of the code, tests, and documentation, operating in closed self-healing loops against
 dense deterministic controls.
 

@@ -42,7 +42,7 @@ jobs:
       - name: Build
         working-directory: website
         env:
-          VITEPRESS_BASE: ${{ steps.pages.outputs.base_path || '/flow-stack/' }}
+          VITEPRESS_BASE: ${{ steps.pages.outputs.base_path || '/agentic-software-factory/' }}
         run: npm run build
 
       - name: Upload artifact

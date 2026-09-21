@@ -1,6 +1,6 @@
 # L6 — Learn
 
-The layer that closes the loop. Without it, Flow Stack is a delivery pipeline; with it, it is an
+The layer that closes the loop. Without it, Agentic Software Factory is a delivery pipeline; with it, it is an
 operating model.
 
 ## Purpose

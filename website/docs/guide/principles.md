@@ -1,6 +1,6 @@
 # Principles
 
-Nine principles govern every decision in Flow Stack. When a rule in this documentation conflicts
+Nine principles govern every decision in Agentic Software Factory. When a rule in this documentation conflicts
 with local convenience, the principle wins.
 
 ## 1. Meeting-driven and customer-anchored

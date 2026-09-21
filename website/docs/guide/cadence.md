@@ -1,6 +1,6 @@
 # Cadence
 
-Flow Stack replaces manual status meetings with **Meeting-Driven Development**: live sessions with
+Agentic Software Factory replaces manual status meetings with **Meeting-Driven Development**: live sessions with
 clients and stakeholders directly seed the autonomous development engine. Everything else is
 asynchronous, written, and linked from the Intent record.
 
@@ -13,12 +13,12 @@ asynchronous, written, and linked from the Intent record.
 | **Weekly Signal & Opportunity review** | 45 min | Squad | Human decision | Prioritized Signal backlog with client evidence attached |
 | **Bi-weekly Hypothesis ledger** | 45 min | Product lead, Data owner, Squad | Human decision | Validated / invalidated outcome verdicts & feature deletions |
 | **Monthly Context & Leverage review** | 60 min | Squads + AI enablement | Governance | Model routing, self-healing performance, pruned instructions |
-| **Quarterly Operating-Model Retrospective** | Half day | Organization | Strategy | Improvements to Flow Stack itself |
+| **Quarterly Operating-Model Retrospective** | Half day | Organization | Strategy | Improvements to Agentic Software Factory itself |
 
 There is **no daily standup meeting**. Status is a link to the active PR, deterministic testbed, and
 preview deployment.
 
-## The rules of client meetings in Flow Stack
+## The rules of client meetings in Agentic Software Factory
 
 1. **AI is an active participant**: The meeting is recorded and transcribed in real time by the
    sanctioned meeting intelligence tool.

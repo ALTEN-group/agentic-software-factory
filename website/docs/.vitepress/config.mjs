@@ -2,13 +2,13 @@ import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
 
 const defaultBase = process.env.NODE_ENV === 'production'
-  ? (process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/` : '/flow-stack/')
+  ? (process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/` : '/agentic-software-factory/')
   : '/docs/'
 const rawBase = process.env.VITEPRESS_BASE || defaultBase
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`
 
 export default withMermaid(defineConfig({
-  title: 'Flow Stack',
+  title: 'Agentic Software Factory',
   description: 'The operating layer that connects strategy, execution, AI, and delivery into one continuous system.',
   base,
   vite: {

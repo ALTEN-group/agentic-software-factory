@@ -1,7 +1,7 @@
 # Context Layer
 
 The Context Layer is the organization's knowledge in a form a model can consume. It is the single
-highest-leverage investment in Flow Stack, and the one most organizations skip in favour of better
+highest-leverage investment in Agentic Software Factory, and the one most organizations skip in favour of better
 prompts.
 
 ## Why it exists

@@ -1,6 +1,6 @@
 # Evaluation
 
-Prompts, instructions, skills, agents, and models are software. Flow Stack changes them the way it
+Prompts, instructions, skills, agents, and models are software. Agentic Software Factory changes them the way it
 changes any other software: with a test suite and a bar to clear.
 
 ## What is evaluated

@@ -19,7 +19,7 @@ if [[ ! -f "$ENV_FILE" ]]; then
   ENV_FILE="docker/conf/.env.dev.example"
 fi
 
-echo -e "${YELLOW}🛑 Stopping Flow Stack development environment...${NC}"
+echo -e "${YELLOW}🛑 Stopping Agentic Software Factory development environment...${NC}"
 
 if [[ "$REMOVE_IMAGES" == true ]]; then
   docker compose -f docker/docker-compose.yml --env-file "$ENV_FILE" down --rmi all

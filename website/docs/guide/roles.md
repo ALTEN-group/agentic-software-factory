@@ -1,6 +1,6 @@
 # Roles
 
-Roles in Flow Stack describe **accountabilities**, not legacy job descriptions. Because developers
+Roles in Agentic Software Factory describe **accountabilities**, not legacy job descriptions. Because developers
 **do not write code syntax**, engineering accountabilities shift entirely toward specification,
 context curation, deterministic testing, and safety governance.
 

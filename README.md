@@ -2,7 +2,7 @@
 
 The modern operating model for software development using AI at maximum capability.
 
-Flow Stack is an **operating model**, not a product: it describes how an organization builds and runs
+Agentic Software Factory is an **operating model**, not a product: it describes how an organization builds and runs
 software where **AI is leveraged across the entire process** — from the client meeting to production release:
 
 - **Meeting-Driven Development**: Software requirements, architecture, and tasks originate directly from client and stakeholder meetings, transcribed and structured into formal Intent records by AI in real time.
@@ -15,7 +15,7 @@ This repository holds the documentation site for that model.
 ## Structure
 
 ```
-flow-stack/
+agentic-software-factory/
   website/                  # VitePress documentation site
     docs/
       index.md

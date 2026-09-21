@@ -1,6 +1,6 @@
 # Anti-patterns
 
-Behaviours that look like Flow Stack adoption and quietly reverse its intent. Each one has been the
+Behaviours that look like Agentic Software Factory adoption and quietly reverse its intent. Each one has been the
 cause of a failed transformation somewhere.
 
 ## Operational & Engineering
@@ -8,7 +8,7 @@ cause of a failed transformation somewhere.
 ### Developers still writing code syntax
 
 The fatal anti-pattern: developers treating AI as a glorified autocomplete while continuing to
-manually write application logic, boilerplate, and tests. In Flow Stack, developers do not write
+manually write application logic, boilerplate, and tests. In Agentic Software Factory, developers do not write
 code; they design specifications, build deterministic controls, and curate the Context Layer.
 Hand-coding creates bottlenecks, uncommitted tribal habits, and low AI leverage.
 
@@ -102,7 +102,7 @@ requests behind deterministic controls; humans validate before merge.
 Spreading work across disconnected SaaS tools (Jira for tickets, Confluence for specs, Slack for
 discussions, Jenkins for CI, and Git for code). This fragments the knowledge graph that AI agents
 depend on, forcing brittle integrations, synchronization lags, and loss of original client meeting
-context. Flow Stack consolidates the lifecycle into a single unified substrate (such as the GitHub
+context. Agentic Software Factory consolidates the lifecycle into a single unified substrate (such as the GitHub
 ecosystem) where business needs, code, deterministic CI, and releases share one unbroken context graph.
 
 ## Measurement

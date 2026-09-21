@@ -1,6 +1,6 @@
 # L1 — Signal
 
-Where demand enters the system. In Flow Stack, Signal is **Meeting-Driven**: it turns real-time client
+Where demand enters the system. In Agentic Software Factory, Signal is **Meeting-Driven**: it turns real-time client
 conversations and telemetry into a structured, comparable set of opportunities.
 
 ## Purpose
@@ -12,7 +12,7 @@ conversations and telemetry into a structured, comparable set of opportunities.
 ## Meeting-Driven Signal capture
 
 In traditional models, requirements decay across manual meeting notes, Jira tickets, and developer
-interpretations. In Flow Stack's **Meeting-Driven Development (MDD)**:
+interpretations. In Agentic Software Factory's **Meeting-Driven Development (MDD)**:
 
 1. **Client dialogue is captured in real time**: Client meetings (discovery sessions, feature requests,
    operational reviews) are transcribed and synthesized by AI models during or immediately after the session.

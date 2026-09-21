@@ -1,6 +1,6 @@
 # L4 — Proof
 
-Quality is not a phase and not a human line-by-line reading marathon. In Flow Stack, Proof is the
+Quality is not a phase and not a human line-by-line reading marathon. In Agentic Software Factory, Proof is the
 layer that combines **dense deterministic controls for AI auto-validation** with **minimum human
 validation** to guarantee that generated software is correct, safe, and aligned with client intent.
 
@@ -18,7 +18,7 @@ a dangerous anti-pattern:
 - **Cognitive bottleneck**: Delivery velocity collapses back to the speed of manual reading.
 - **False security**: "Looks good to me" provides zero mathematical guarantee.
 
-Flow Stack solves this by shifting the verification burden to **dense, objective, deterministic
+Agentic Software Factory solves this by shifting the verification burden to **dense, objective, deterministic
 controls** that execute in closed loops, reserving human attention strictly for high-level business
 intent and safety boundaries.
 

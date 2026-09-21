@@ -1,6 +1,6 @@
 # Decision Rights
 
-Speed comes from knowing who decides. Flow Stack makes decision rights explicit so that squads never
+Speed comes from knowing who decides. Agentic Software Factory makes decision rights explicit so that squads never
 wait for permission they did not need, and never take a decision that was not theirs.
 
 ## Default
@@ -48,7 +48,7 @@ named person. "The AI agent validated and merged it" is not a permissible audit 
 
 ## Line-by-line review ban
 
-In Flow Stack, **line-by-line manual code syntax review is officially banned as a gate**:
+In Agentic Software Factory, **line-by-line manual code syntax review is officially banned as a gate**:
 - If a check can be evaluated deterministically (types, formatting, linting, complexity, contracts, unit correctness), it **must be enforced by deterministic controls** in CI.
 - Human review is strictly **Minimum Human Validation**: checking the client intent, reviewing the preview environment, verifying invariant safety, and confirming rollback readiness.
 

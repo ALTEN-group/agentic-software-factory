@@ -1,6 +1,6 @@
 # Adoption Roadmap
 
-Flow Stack is adopted in four stages. Each stage has an entry condition, a scope, and an exit
+Agentic Software Factory is adopted in four stages. Each stage has an entry condition, a scope, and an exit
 signal. Skipping a stage is the most reliable way to fail.
 
 ## Stage 0 — Baseline (2 weeks)

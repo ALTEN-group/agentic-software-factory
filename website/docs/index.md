@@ -2,12 +2,12 @@
 layout: home
 
 hero:
-  name: Flow Stack
-  text: The Agentic Software Factory
+  name: Agentic Software Factory
+  text: Software Development at Maximum AI Capability
   tagline: A modern operating model for software development using AI at maximum capability — from client meeting to production release.
   image:
     src: /logo.svg
-    alt: Flow Stack
+    alt: Agentic Software Factory
   actions:
     - theme: brand
       text: Get Started
@@ -39,7 +39,7 @@ features:
 
 ## Development process: Meeting-Driven Development
 
-Flow Stack operates on **Meeting-Driven Development**: the development lifecycle begins in the client
+Agentic Software Factory operates on **Meeting-Driven Development**: the development lifecycle begins in the client
 meeting and flows autonomously through AI generation to production release.
 
 Developers **do not write code syntax anymore**. Instead, engineers design specifications, curate

@@ -1,7 +1,7 @@
 {
-  "name": "flow-stack-docs",
+  "name": "agentic-software-factory-docs",
   "version": "0.1.0",
-  "description": "Documentation for Flow Stack, the operating model for AI-assisted software delivery.",
+  "description": "Documentation for Agentic Software Factory, the operating model for AI-assisted software delivery.",
   "private": true,
   "scripts": {
     "dev": "vitepress dev docs --host",
@@ -12,13 +12,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ALTEN-group/flow-stack.git",
+    "url": "git+https://github.com/ALTEN-group/agentic-software-factory.git",
     "directory": "website"
   },
   "bugs": {
-    "url": "https://github.com/ALTEN-group/flow-stack/issues"
+    "url": "https://github.com/ALTEN-group/agentic-software-factory/issues"
   },
-  "homepage": "https://github.com/ALTEN-group/flow-stack#readme",
+  "homepage": "https://github.com/ALTEN-group/agentic-software-factory#readme",
   "devDependencies": {
     "vitepress": "1.6.4"
   },

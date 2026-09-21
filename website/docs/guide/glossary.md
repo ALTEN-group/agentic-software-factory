@@ -1,8 +1,8 @@
 # Glossary
 
-Terms used throughout Flow Stack, with the precise meaning they carry in this model.
+Terms used throughout Agentic Software Factory, with the precise meaning they carry in this model.
 
-| Term | Meaning in Flow Stack |
+| Term | Meaning in Agentic Software Factory |
 |---|---|
 | **Operating model** | How people, process, tools, decisions, and responsibilities fit together to deliver and run software. |
 | **Meeting-Driven Development (MDD)** | The operating flow where software changes originate directly in client and stakeholder conversations, transcribed, synthesized, and structured into formal Intent records by AI in real time. |

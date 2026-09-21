@@ -1,7 +1,7 @@
 # Guardrails
 
 Guardrails are the automated, deterministic controls that make the safe path the only path.
-Flow Stack relies on them fundamentally because **developers do not code manually** and AI agents
+Agentic Software Factory relies on them fundamentally because **developers do not code manually** and AI agents
 generate massive volumes of change at high velocity.
 
 ## Principle
@@ -9,7 +9,7 @@ generate massive volumes of change at high velocity.
 > A squad or AI agent should have to work hard to do something unsafe, and should never have to work
 > hard to do something safe.
 
-Any rule that only exists in a policy document is not a guardrail. It is a hope. In Flow Stack,
+Any rule that only exists in a policy document is not a guardrail. It is a hope. In Agentic Software Factory,
 **all guardrails are executable, deterministic, and non-probabilistic**.
 
 ## Deterministic auto-validation guardrails

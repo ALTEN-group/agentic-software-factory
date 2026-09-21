@@ -1,6 +1,6 @@
 # Tooling: The Unified Substrate
 
-In Flow Stack, tooling is not an arbitrary collection of disconnected SaaS products. Tool sprawl is
+In Agentic Software Factory, tooling is not an arbitrary collection of disconnected SaaS products. Tool sprawl is
 the primary cause of **AI context fragmentation**: when business requirements live in Jira, meeting
 notes in Confluence, discussions in Slack, code in Git, pipelines in Jenkins, and releases in an external
 portal, the AI agent's context is broken across authentication silos, sync lags, and incompatible APIs.
@@ -23,7 +23,7 @@ portal, the AI agent's context is broken across authentication silos, sync lags,
 
 ## The unified GitHub operating stack
 
-Flow Stack implements this unified model by utilizing the GitHub platform end-to-end:
+Agentic Software Factory implements this unified model by utilizing the GitHub platform end-to-end:
 
 | Lifecycle Stage | Capability | GitHub Native Implementation | Why it preserves AI context |
 |---|---|---|---|

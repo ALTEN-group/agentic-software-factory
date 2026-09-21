@@ -1,12 +1,12 @@
 # Squads
 
-Flow Stack aligns product, specification engineering, and customer outcomes into autonomous squads.
+Agentic Software Factory aligns product, specification engineering, and customer outcomes into autonomous squads.
 A squad is the smallest unit that can own an outcome end-to-end — from client meeting to production
 release.
 
 ## The shift in engineering roles
 
-In Flow Stack, **developers do not write code syntax anymore**. The squad structure reflects this:
+In Agentic Software Factory, **developers do not write code syntax anymore**. The squad structure reflects this:
 
 - **No manual coders**: AI agents generate 100% of code, tests, and documentation.
 - **Specification Engineers**: Engineers become domain architects, specification designers, and

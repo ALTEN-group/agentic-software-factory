@@ -1,6 +1,6 @@
 # Overview
 
-Flow Stack is an **operating model**: the way a software organization actually works to deliver,
+Agentic Software Factory is an **operating model**: the way a software organization actually works to deliver,
 support, and improve software. It defines how people, processes, tools, decisions, and
 responsibilities fit together.
 
@@ -8,12 +8,12 @@ It is not an architecture, not a methodology certificate, and not a tool. It is 
 and process architecture behind building and running software — rebuilt for a world where **AI is
 leveraged at maximum capability across the entire lifecycle, from the client meeting to release**.
 
-> **Flow Stack is the modern operating model that connects client dialogue, autonomous AI execution,
+> **Agentic Software Factory is the modern operating model that connects client dialogue, autonomous AI execution,
 > deterministic verification, and continuous delivery into one continuous system.**
 
 ## The core pillars of the model
 
-Flow Stack is built around four fundamental shifts:
+Agentic Software Factory is built around four fundamental shifts:
 
 1. **Meeting-Driven Development**: Software development begins directly in the client or stakeholder
    meeting. AI captures, transcribes, and extracts business intent into structured specifications,
@@ -32,18 +32,16 @@ Flow Stack is built around four fundamental shifts:
 
 ## Why the name
 
-- **Flow** — movement, momentum, value moving from a client conversation to production without friction.
-- **Stack** — a layered system where each layer has an owner, an input, an output, and a gate.
-
-Work *flows* through the *stack*. The stack is stable; the flow is continuous.
+- **Agentic** — autonomous AI agents driving implementation, testing, and self-healing in closed loops.
+- **Software Factory** — an industrialized, repeatable system where software moves predictably from client intent to verified production release through layered gates.
 
 ## The shape of the model
 
-Flow Stack is made of **seven layers** crossed by **three pillars**.
+Agentic Software Factory is made of **seven layers** crossed by **three pillars**.
 
 ```mermaid
 ---
-caption: Flow Stack layers and pillars
+caption: Agentic Software Factory layers and pillars
 ---
 
 flowchart TB
@@ -78,9 +76,9 @@ flowchart TB
 ## What is different from a classic software organization
 
 A classic organization relies on manual coding, tribal knowledge, and labor-intensive reviews.
-Flow Stack reorganizes every role around maximum AI capability:
+Agentic Software Factory reorganizes every role around maximum AI capability:
 
-| Classic organization | Flow Stack (Agentic Software Factory) |
+| Classic organization | Agentic Software Factory |
 |---|---|
 | Developers write syntax manually in an IDE | Developers **do not code**; AI generates 100% of code, tests, and docs |
 | Engineers spend hours on line-by-line PR reviews | Dense **deterministic controls auto-validate**; humans do **minimum validation** on intent |
@@ -94,7 +92,7 @@ Flow Stack reorganizes every role around maximum AI capability:
 When code generation becomes autonomous and cheap, the bottleneck moves. It is never *writing* code;
 it is **capturing true client intent, and proving deterministically that what was generated satisfies it**.
 
-Flow Stack therefore invests heavily in:
+Agentic Software Factory therefore invests heavily in:
 - **L1 / L2 (Meeting-Driven Intent)**: Capturing client needs directly through AI synthesis and transforming them into unambiguous, testable specifications.
 - **L4 (Deterministic Proof)**: Building dense, ungameable deterministic harnesses that auto-validate AI generation in closed self-healing loops before asking for minimum human sign-off.
 
