@@ -5,17 +5,25 @@ a decision depends on it.
 
 ## Flow metrics
 
-The four delivery metrics, measured per squad, trended over rolling four-week windows.
+The core delivery metrics, measured per squad over rolling four-week windows:
 
-| Metric | Definition | Direction |
+| Metric | Definition | Direction | Target |
+|---|---|---|---|
+| **Meeting-to-Production Lead Time** | Client meeting transcription → running in production | Down | < 24–48 hours for standard changes |
+| **Deployment frequency** | Production deployments per week | Up | Multiple daily deployments |
+| **Change failure rate** | Deployments causing rollback, flag shutoff, or incident | Down | < 1% |
+| **Time to restore** | Detection of production fault → mitigation | Down | < 15 minutes |
+
+## AI autonomy & leverage metrics
+
+| Metric | Definition | Watch for |
 |---|---|---|
-| **Lead time for change** | First commit → running in production | Down |
-| **Deployment frequency** | Production deployments per week | Up |
-| **Change failure rate** | Deployments causing a rollback, flag-off, or incident | Down |
-| **Time to restore** | Detection → mitigation | Down |
-
-These are health indicators, not targets. A squad gaming deployment frequency with empty deploys has
-broken the instrument, not improved the flow.
+| **AI code generation share** | Percentage of code, tests, and docs written by AI | Must be **100%** (zero human syntax typing) |
+| **Deterministic auto-validation pass rate** | PRs passing all deterministic gates on first agent run | < 75% indicates Context Layer drift or missing instructions |
+| **Self-healing cycle count** | Number of auto-repair loops required before green pass | > 3 loops indicates poor task decomposition in Intent |
+| **Minimum human validation turnaround** | Time elapsed between all-green deterministic pass and human sign-off | Rising indicates reviewers are slipping into manual reading anti-patterns |
+| **Human rework rate** | PRs where human intervention was required to alter code syntax | Must trend to **0%**; fixes should be made to context, not code |
+| **Cost per merged change** | Model spend / merged changes | Cost spikes without corresponding lead time reduction |
 
 ## Outcome metrics
 

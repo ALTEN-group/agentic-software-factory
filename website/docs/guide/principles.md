@@ -3,60 +3,68 @@
 Nine principles govern every decision in Flow Stack. When a rule in this documentation conflicts
 with local convenience, the principle wins.
 
-## 1. Build quickly, validate constantly
+## 1. Meeting-driven and customer-anchored
 
-Shipping is how a hypothesis becomes evidence. Anything that delays feedback — long branches,
-batched releases, manual approval queues — is treated as a defect in the model, not a fact of life.
+Software evolution begins directly in client and stakeholder conversations. AI transcribes and
+structures client dialogue into formal Intent in real time. Requirements are never lost in
+translation through layers of manual ticket filing.
 
-## 2. Automate everything repetitive
+## 2. Developers do not code syntax
 
-Any task performed the same way three times is a candidate for automation: a script, a CI job, a
-skill, or an agent. The team's scarce resource is judgement, not keystrokes.
+Writing code is an automated capability of AI agents, not a human activity. Engineers operate as
+**Specification Engineers**, **Context Architects**, and **Deterministic Control Builders**. Human
+attention is spent on client empathy, system invariants, architecture, and verification harnesses —
+never on manual typing of syntax.
 
-## 3. Keep human judgement on high-risk decisions
+## 3. Auto-validation through dense deterministic controls
 
-AI is a multiplier, never an uncontrolled autonomous actor. The higher the blast radius, the more
-explicit the human accountability. See [Decision Rights](./decision-rights).
+Code correctness is proven by deterministic, non-probabilistic controls: compilers, strict type
+checkers, AST linters, contract tests, mutation testing, and security scanners. AI agents run in
+closed self-healing loops against these controls until every automated gate passes.
 
-## 4. Decisions are made close to the customer
+## 4. Minimum human validation, maximum leverage
 
-Squads decide inside their outcome. Escalation is for cross-squad conflicts, security exposure, and
-external commitments — not for routine trade-offs.
+Humans do not perform line-by-line code reviews on generated syntax. Once deterministic controls
+auto-validate a change, human review is minimized and laser-focused on business intent, customer
+outcome, and blast-radius safety. See [Decision Rights](./decision-rights).
 
 ## 5. Context beats prompting
 
-A well-fed model with a poor prompt outperforms a well-prompted model with no context. The
-organization invests in the [Context Layer](./context-layer) before it invests in prompt tricks.
+A well-fed model with an average prompt outperforms a well-prompted model with no context. The
+organization invests in the committed [Context Layer](./context-layer) (instructions, skills,
+agents, and specs) before it invests in prompt engineering.
 
 ## 6. Everything that matters is a committed artifact
 
-Instructions, skills, agent definitions, specs, ADRs, test plans, and runbooks live in the
-repository, are reviewed, and are versioned. Nothing operationally important lives only in a chat
-history.
+Instructions, skills, agent definitions, specs, ADRs, deterministic control suites, and runbooks
+live in the repository, are versioned, and evolve through pull requests. Nothing operationally
+important lives only in a transient chat session or meeting memory.
 
-## 7. Generated code is a draft until proven
+## 7. Generated code is a draft until proven deterministically
 
-Output from a model has the same status as output from a new hire: plausible, useful, unverified.
-[Proof](./layer-proof) is the layer that converts drafts into changes the team stands behind.
+Output from a model is inherently unverified until it satisfies the entire battery of deterministic
+controls. [Proof](./layer-proof) is the automated layer that converts probabilistic drafts into
+mathematically and behaviorally proven systems.
 
 ## 8. Secure and compliant by default
 
-Guardrails are applied by the platform, not by discipline. A squad should have to work hard to do
-something unsafe. See [Guardrails](./guardrails).
+Guardrails are applied by the platform through policy-as-code and automated scanners, not by human
+discipline. A squad or agent should have to work hard to do something unsafe. See [Guardrails](./guardrails).
 
-## 9. Optimize flow, never output
+## 9. Optimize flow, never output volume
 
-More pull requests is not progress. The model is steered by lead time, change failure rate, and
-customer outcomes. See [Metrics](./metrics).
+Generating more lines of code or opening more pull requests is not progress. The model is steered
+by meeting-to-release lead time, deterministic pass rates, change failure rate, and real client
+value. See [Metrics](./metrics).
 
 ## Principle conflicts
 
 When two principles collide, this is the resolution order:
 
 1. Safety and compliance (8, 3)
-2. Customer outcome (4, 1)
-3. Flow (9, 2)
-4. Leverage (5, 6, 7)
+2. Customer outcome and intent (1, 4)
+3. Flow and auto-validation (9, 2)
+4. Leverage and context (5, 6, 7)
 
 A squad that cannot resolve a conflict in that order escalates it as a governance question, not as
 an engineering question.

@@ -1,58 +1,38 @@
 # Cadence
 
-Flow Stack keeps a small number of fixed rituals. Everything else is asynchronous, written, and
-linked from the work item.
+Flow Stack replaces manual status meetings with **Meeting-Driven Development**: live sessions with
+clients and stakeholders directly seed the autonomous development engine. Everything else is
+asynchronous, written, and linked from the Intent record.
 
-## Daily
+## Meeting-Driven rituals
 
-| Ritual | Duration | Participants | Output |
-|---|---|---|---|
-| Async written check-in | — | Squad | Blockers surfaced within the hour |
-| Flow board review | 10 min | Squad | Items unblocked or escalated |
+| Ritual | Duration | Participants | Nature | Output |
+|---|---|---|---|---|
+| **Client / Stakeholder Meeting** | 30–45 min | Client, Product lead, Specification engineer | **Meeting-Driven trigger** | Real-time AI transcription, extracted problems & criteria |
+| **Async Flow check-in** | — | Squad | Written / Telemetry | Blocker alerts & agent iteration logs |
+| **Weekly Signal & Opportunity review** | 45 min | Squad | Human decision | Prioritized Signal backlog with client evidence attached |
+| **Bi-weekly Hypothesis ledger** | 45 min | Product lead, Data owner, Squad | Human decision | Validated / invalidated outcome verdicts & feature deletions |
+| **Monthly Context & Leverage review** | 60 min | Squads + AI enablement | Governance | Model routing, self-healing performance, pruned instructions |
+| **Quarterly Operating-Model Retrospective** | Half day | Organization | Strategy | Improvements to Flow Stack itself |
 
-There is no status meeting. Status is a link.
+There is **no daily standup meeting**. Status is a link to the active PR, deterministic testbed, and
+preview deployment.
 
-## Weekly
+## The rules of client meetings in Flow Stack
 
-| Ritual | Duration | Participants | Output |
-|---|---|---|---|
-| Opportunity review | 45 min | Squad | Updated [Signal](./layer-signal) ranking |
-| Flow & health review | 30 min | Squad | Actions on lead time, failures, alerts |
-| Release digest | Async | All | AI-drafted, human-approved summary |
+1. **AI is an active participant**: The meeting is recorded and transcribed in real time by the
+   sanctioned meeting intelligence tool.
+2. **Real-time Intent structuring**: During or immediately following the meeting, AI structures
+   dialogue into the five Intent fields (Problem, Outcome metric, Acceptance criteria, Constraints, Out of scope).
+3. **Specification engineer in attendance**: Rather than isolating developers behind ticket queues,
+   engineers participate directly to ensure domain context and system invariants are captured accurately.
+4. **Instant client validation**: Key acceptance criteria synthesized by AI are reviewed with the
+   client before the meeting concludes, locking in intent at zero rework cost.
 
-## Bi-weekly
+## Internal meeting rules
 
-| Ritual | Duration | Participants | Output |
-|---|---|---|---|
-| Hypothesis ledger | 45 min | Product lead, data owner, squad | Validated / inconclusive / invalidated verdicts, and deletions |
-
-## Monthly
-
-| Ritual | Duration | Participants | Output |
-|---|---|---|---|
-| AI leverage & cost review | 60 min | Squads + AI enablement | Model routing changes, workflows retired or redesigned |
-| Security review | 60 min | Security owner + leads | Threat model updates, guardrail changes |
-
-## Quarterly
-
-| Ritual | Duration | Participants | Output |
-|---|---|---|---|
-| Operating-model retrospective | Half day | Whole organization | Changes to Flow Stack itself |
-| Outcome review | Half day | Leads + squads | Squad boundaries, outcome ownership, budget |
-
-The operating-model retrospective is the one that keeps this documentation honest: any page here
-that no longer matches how the company works is either fixed or deleted during it.
-
-## Meeting rules
-
-1. A meeting with no decision and no artifact is cancelled permanently.
-2. Every recurring meeting has an owner and an expiry date.
-3. Pre-reads are AI-drafted and circulated at least a day ahead; the meeting is for the decision,
-   not the reading.
-4. Decisions are written into the work item or ADR before the meeting ends.
-
-## Interrupts
-
-Incidents and customer-blocking defects pre-empt everything. Everything else waits for the next
-ritual — an interruption that cannot wait a week is rare and should be treated as evidence, not as
-normal.
+1. A meeting with no decision and no committed artifact is cancelled permanently.
+2. Every recurring meeting has an owner and an expiration date.
+3. Pre-reads are AI-drafted and circulated ahead of time; meetings are reserved for debate and decisions,
+   not for reading slides.
+4. Decisions are written into the repository (Intent record, ADR, or scorecard) before the call ends.

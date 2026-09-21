@@ -9,18 +9,23 @@ prompts.
 A model has no memory of your codebase, your conventions, or your decisions. Every session starts
 from zero. Without a context layer, each engineer re-explains the same things, differently, forever.
 
-> Context beats prompting. A well-fed model with an average prompt outperforms a well-prompted model
-> with no context.
+In an operating model where **developers do not code** and **AI writes 100% of the implementation**,
+the Context Layer is the primary programming language of the organization.
+
+> Context beats prompting. A well-fed model with committed repository context outperforms a
+> well-prompted model with no context.
 
 ## Primitives
 
 | Primitive | Loaded | Use for |
 |---|---|---|
-| **Instruction** | Automatically, when matching files are in context | Stable standards: conventions, structure, security rules |
-| **Skill** | On demand, by name or description | Multi-step workflows with a contract and reusable references |
-| **Agent** | Explicitly selected | A bounded specialty with its own tools and scope |
-| **Spec** | Referenced | What a system actually does, generated from code and kept current |
-| **ADR** | Referenced | Why a decision was taken, and what was rejected |
+| **Instruction** | Automatically, when matching files are in context | Stable standards: conventions, structure, security rules, deterministic requirements |
+| **Skill** | On demand, by name or description | Multi-step workflows with a contract and reusable references (e.g. running mutation tests, generating API schemas) |
+| **Agent** | Explicitly selected | A bounded specialist configuration with dedicated tools (e.g. Build Agent, Self-Healing Agent, Spec Agent) |
+| **Spec** | Referenced | Ground truth of what the system actually does, kept current with every release |
+| **ADR** | Referenced | Architectural choices, invariants, and rejected alternatives |
+| **Forge** | Assembled per work item | The bundle of client meeting transcripts, Intent records, specs, ADRs, and instructions fed to the AI build agent |
+| **Deterministic Harness** | Executed in CI/local | The suite of linters, strict type checks, contract tests, and mutation suites that auto-validate AI output |
 
 ### Choosing between them
 
@@ -72,9 +77,11 @@ flowchart LR
   decide -->|standing rule| inst[Instruction]
   decide -->|procedure| skill[Skill]
   decide -->|specialty| agent[Agent]
+  decide -->|invariant / boundary| test[Deterministic Control]
   inst --> eval[Evaluation]
   skill --> eval
   agent --> eval
+  test --> eval
   eval -->|passes bar| merge[Merged]
   eval -->|fails| back[Revised or dropped]
   merge --> work
@@ -87,7 +94,8 @@ untested code is not merged.
 
 | Signal | Healthy | Unhealthy |
 |---|---|---|
-| Repeated manual corrections | Trending down | Flat or rising |
+| Self-healing iterations needed | Trending down (1–2 loops) | Flat or hitting limit (> 4 loops) |
+| Manual human corrections during validation | Near zero | Frequent |
 | Instruction count | Stable, each one used | Growing without pruning |
-| Time for a newcomer's first merged change | Days | Weeks |
+| Deterministic test pass on first agent pass | > 80% | < 50% |
 | Generated output matching codebase conventions | High | Requires rewriting |

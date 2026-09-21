@@ -5,15 +5,34 @@ support, and improve software. It defines how people, processes, tools, decision
 responsibilities fit together.
 
 It is not an architecture, not a methodology certificate, and not a tool. It is the organizational
-and process architecture behind building and running software — rebuilt for a world where a large
-share of the work is produced by AI and validated by humans.
+and process architecture behind building and running software — rebuilt for a world where **AI is
+leveraged at maximum capability across the entire lifecycle, from the client meeting to release**.
 
-> **Flow Stack is the operating layer that connects strategy, execution, AI, and delivery into one
-> continuous system.**
+> **Flow Stack is the modern operating model that connects client dialogue, autonomous AI execution,
+> deterministic verification, and continuous delivery into one continuous system.**
+
+## The core pillars of the model
+
+Flow Stack is built around four fundamental shifts:
+
+1. **Meeting-Driven Development**: Software development begins directly in the client or stakeholder
+   meeting. AI captures, transcribes, and extracts business intent into structured specifications,
+   eliminating the telephone game of manual ticket writing and backlog grooming.
+2. **Zero Developer Coding**: Developers **do not write code syntax anymore**. Engineers operate as
+   **Specification Engineers**, **Context Architects**, and **Deterministic Control Builders**,
+   while AI agents autonomously generate 100% of code, tests, and documentation.
+3. **Dense Deterministic Controls for AI Auto-Validation**: Rather than relying on fuzzy prompts or
+   superficial AI self-review, the platform establishes dense, binary, non-probabilistic controls:
+   compilers, strict type systems, AST linters, contract verifications, mutation testing, and
+   security scanners. AI agents execute against these controls in closed self-healing loops until
+   every gate passes.
+4. **Minimum Human Validation**: Manual line-by-line code review of generated code is an obsolete
+   bottleneck. Once deterministic controls auto-validate 100% of the implementation, humans perform
+   targeted validation strictly on business intent, user experience, and risk invariants.
 
 ## Why the name
 
-- **Flow** — movement, momentum, value moving from an idea to a customer without friction.
+- **Flow** — movement, momentum, value moving from a client conversation to production without friction.
 - **Stack** — a layered system where each layer has an owner, an input, an output, and a gate.
 
 Work *flows* through the *stack*. The stack is stable; the flow is continuous.
@@ -29,13 +48,13 @@ caption: Flow Stack layers and pillars
 
 flowchart TB
   subgraph pillars[Pillars - cross every layer]
-    people[People]
-    governance[Governance]
-    context[Context]
+    people[People - Specification Engineers & Outcome Owners]
+    governance[Governance - Minimum Human Validation & Guardrails]
+    context[Context - Context Layer & Deterministic Controls]
   end
-  l1[L1 Signal] --> l2[L2 Intent] --> l3[L3 Build] --> l4[L4 Proof] --> l5[L5 Release] --> l6[L6 Learn]
-  l6 -. feedback .-> l1
-  l0[L0 Foundation] --- l1
+  l1[L1 Signal - Meeting-Driven Demand] --> l2[L2 Intent - Executable Specifications] --> l3[L3 Build - Autonomous AI Generation] --> l4[L4 Proof - Deterministic Auto-Validation] --> l5[L5 Release - Progressive Rollout] --> l6[L6 Learn - Outcome Feedback]
+  l6 -. feedback to client signals .-> l1
+  l0[L0 Foundation - Rails & Tooling] --- l1
   l0 --- l3
   l0 --- l5
 ```
@@ -43,46 +62,48 @@ flowchart TB
 | Layer | Name | Question it answers |
 |---|---|---|
 | L0 | [Foundation](./layer-foundation) | What does every squad get for free? |
-| L1 | [Signal](./layer-signal) | What is worth doing? |
-| L2 | [Intent](./layer-intent) | What exactly are we building, and how will we know it works? |
-| L3 | [Build](./layer-build) | How is it implemented? |
-| L4 | [Proof](./layer-proof) | Why do we believe it is correct and safe? |
-| L5 | [Release](./layer-release) | How does it reach users without risk? |
-| L6 | [Learn](./layer-learn) | What did reality say, and what changes because of it? |
+| L1 | [Signal](./layer-signal) | What did the client ask for, and what is worth doing? |
+| L2 | [Intent](./layer-intent) | What exactly are we building, and what are the deterministic acceptance criteria? |
+| L3 | [Build](./layer-build) | How do AI agents autonomously generate the implementation? |
+| L4 | [Proof](./layer-proof) | How do deterministic controls auto-validate the change, and where is minimum human validation applied? |
+| L5 | [Release](./layer-release) | How does it reach users progressively without risk? |
+| L6 | [Learn](./layer-learn) | What did reality say, and how does it refine client intent and the Context Layer? |
 
 | Pillar | Owns | Reference |
 |---|---|---|
-| People | Squad shape, ownership, enablement functions | [Squads](./squads) |
-| Governance | Decision rights, AI policy, risk gates | [Decision Rights](./decision-rights) |
-| Context | Instructions, skills, agents, specs, evaluation | [Context Layer](./context-layer) |
+| People | Squad shape, specification engineering, minimum human sign-off | [Squads](./squads) |
+| Governance | Decision rights, AI policy, blast-radius risk gates | [Decision Rights](./decision-rights) |
+| Context | Instructions, skills, agents, specs, deterministic testbeds | [Context Layer](./context-layer) |
 
-## What is different from a classic startup model
+## What is different from a classic software organization
 
-A classic startup operating model is already lightweight: small teams, direct communication,
-continuous deployment, minimal approvals, strong automation. Flow Stack keeps all of that and
-changes four things.
+A classic organization relies on manual coding, tribal knowledge, and labor-intensive reviews.
+Flow Stack reorganizes every role around maximum AI capability:
 
-| Classic startup | Flow Stack |
+| Classic organization | Flow Stack (Agentic Software Factory) |
 |---|---|
-| AI used ad hoc, per developer | AI is a platform capability with owners, versions, and budgets |
-| Knowledge lives in heads and Slack | Knowledge lives in the [Context Layer](./context-layer), committed to the repository |
-| Review effort spread evenly across changes | Review effort concentrated on risk, because volume of generated code is no longer the constraint |
-| Velocity measured in stories | Flow measured in lead time, failure rate, and [AI leverage](./metrics) |
+| Developers write syntax manually in an IDE | Developers **do not code**; AI generates 100% of code, tests, and docs |
+| Engineers spend hours on line-by-line PR reviews | Dense **deterministic controls auto-validate**; humans do **minimum validation** on intent |
+| Requirements lost in manual tickets and hand-offs | **Meeting-Driven Development**: AI transcribes and structures client meetings into formal Intent |
+| Knowledge lives in heads, chats, and outdated wikis | Knowledge lives in the committed [Context Layer](./context-layer) (instructions, skills, specs) |
+| AI used ad hoc as an autocomplete assistant | Autonomous AI agents operate with closed-loop self-healing under platform guardrails |
+| Velocity measured in story points and PR volume | Flow measured in meeting-to-release lead time, deterministic pass rates, and customer outcomes |
 
 ## The core constraint
 
-When generation becomes cheap, the bottleneck moves. It is no longer *writing* code; it is
-**deciding what to build, and proving that what was built is correct**.
+When code generation becomes autonomous and cheap, the bottleneck moves. It is never *writing* code;
+it is **capturing true client intent, and proving deterministically that what was generated satisfies it**.
 
-Flow Stack therefore invests deliberately in L1/L2 (deciding) and L4 (proving), and treats L3
-(writing) as the layer to automate hardest.
+Flow Stack therefore invests heavily in:
+- **L1 / L2 (Meeting-Driven Intent)**: Capturing client needs directly through AI synthesis and transforming them into unambiguous, testable specifications.
+- **L4 (Deterministic Proof)**: Building dense, ungameable deterministic harnesses that auto-validate AI generation in closed self-healing loops before asking for minimum human sign-off.
 
 ```
-Idea  →  Signal  →  Intent  →  Build  →  Proof  →  Release  →  Learn
-          ^^^^^^    ^^^^^^              ^^^^^                  |
-          human judgement               human judgement        |
-                     |                                         |
-                     +-----------------------------------------+
+Client Meeting  →  Signal  →  Intent  →  Build (AI)  →  Proof (Auto-Val)  →  Release  →  Learn
+      |             ^^^^^^    ^^^^^^                        ^^^^^                         |
+      +----------> Human Intent Validation            Minimum Human Sign-off              |
+                                                               |                          |
+                                                               +--------------------------+
 ```
 
 ## Where to go next

@@ -8,11 +8,12 @@ changes any other software: with a test suite and a bar to clear.
 | Change | Must be evaluated |
 |---|---|
 | New or amended instruction | Yes |
-| New or amended skill or agent | Yes |
-| Model swap or version bump | Yes |
-| Gateway routing change | Yes |
-| Tool configuration affecting output | Yes |
-| A one-off prompt in a single session | No |
+| New or amended skill or specialized agent | Yes |
+| Model swap or version upgrade | Yes |
+| Gateway routing or prompt template change | Yes |
+| Deterministic control updates or mutation threshold changes | Yes |
+| Meeting extraction or Intent generation prompts | Yes |
+| A transient prompt in an isolated session | No |
 
 ## The harness
 
@@ -21,12 +22,13 @@ the output.
 
 | Case type | Asserts |
 |---|---|
-| **Convention** | Output follows the codebase's structure, naming, and library choices |
-| **Correctness** | Generated code compiles, passes its own tests, satisfies criteria |
-| **Refusal** | The assistant refuses out-of-policy requests (restricted data, unsafe actions) |
-| **Scope** | The change touches only the files it should |
-| **Regression** | A previously fixed failure does not return |
-| **Cost** | Tokens and latency stay within the workload's budget |
+| **Convention** | Output strictly complies with repository AST rules, naming, and architectural layers |
+| **Correctness** | Generated code compiles cleanly, passes 100% of unit/contract tests, and kills mutations |
+| **Meeting Extraction** | Extracts the true problem, constraints, and criteria from standard test meeting transcripts without hallucination |
+| **Self-Healing Efficiency** | Measures whether agent recovers from simulated compiler/test errors within 2 iterations |
+| **Refusal** | Agent refuses out-of-policy requests (unredacted PII, direct production execution) |
+| **Scope** | Agent touches only declared files and does not modify unapproved dependencies |
+| **Cost & Latency** | Token consumption and execution latency remain within budget |
 
 Cases live with the context artifact they cover and run in CI.
 

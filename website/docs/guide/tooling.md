@@ -1,59 +1,76 @@
-# Tooling
+# Tooling: The Unified Substrate
 
-Flow Stack does not mandate vendors. It mandates that each function below has exactly one sanctioned
-tool, integrated with the others, owned by a named role.
+In Flow Stack, tooling is not an arbitrary collection of disconnected SaaS products. Tool sprawl is
+the primary cause of **AI context fragmentation**: when business requirements live in Jira, meeting
+notes in Confluence, discussions in Slack, code in Git, pipelines in Jenkins, and releases in an external
+portal, the AI agent's context is broken across authentication silos, sync lags, and incompatible APIs.
 
-## Tool map
+> **To maximize AI capability, minimize tooling sprawl.** Consolidate the entire lifecycle into a
+> **single unified substrate** — exemplified by the **GitHub ecosystem** — where business needs,
+> code, deterministic verification, and release share one unbroken context graph.
 
-| Function | Requirement | Owner |
+## Why a single substrate matters for AI
+
+1. **Zero context loss from meeting to release**: An AI agent can read the original client meeting
+   notes in an Issue, trace the Intent criteria, inspect the repository Context Layer, generate the code
+   in a Pull Request, read CI failure logs from Actions, and publish the Release without leaving the platform.
+2. **Native bidirectional links**: Every PR is natively linked to its Issue, branch, commit, check run,
+   preview environment, and release tag. No third-party integrations or fragile webhook syncs required.
+3. **Unified permission and security boundary**: The model, agent runner, and CI pipeline operate under
+   one consistent role-based access control (RBAC) and audit log.
+4. **Token and latency optimization**: AI agents fetch rich, structured context via native platform APIs
+   in milliseconds instead of navigating dozens of external tool APIs.
+
+## The unified GitHub operating stack
+
+Flow Stack implements this unified model by utilizing the GitHub platform end-to-end:
+
+| Lifecycle Stage | Capability | GitHub Native Implementation | Why it preserves AI context |
+|---|---|---|---|
+| **L1 Signal & L2 Intent** | Meeting notes, backlog & issue tracking | **GitHub Issues** + **GitHub Projects** | Transcripts, problem statements, and Intent records live directly where code lives |
+| **L1 Signal Discussions** | Stakeholder Q&A, client meeting discussions | **GitHub Discussions** | Asynchronous dialogue and client decisions stay permanently indexed next to the repo |
+| **Context & Architecture** | Instructions, skills, specs, ADRs | **Repository Markdown (`.github/`, `docs/`)** | Context Layer files are versioned artifacts loaded directly into agent prompts |
+| **L3 Build** | Autonomous code & test generation | **GitHub Copilot / Coding Agents / CLI** | Agents operate natively against repository files, branches, and issue context |
+| **L4 Proof: Deterministic Harness** | AST lint, strict types, unit, mutation & contract tests | **GitHub Actions** | Deterministic gates run in CI; error logs stream directly back to self-healing agents |
+| **L4 Proof: Preview Environments** | Ephemeral preview deployments | **GitHub Environments & Deployments** | Live preview links post directly to the PR for Minimum Human Validation |
+| **L4 Proof: Security & Compliance** | Secret scanning, SAST, dependency review | **GitHub Advanced Security (CodeQL, Dependabot, Push Protection)** | Automatic blocking of vulnerabilities before code can ever merge |
+| **L4 Proof: Human Validation** | Minimum Human Validation sign-off | **GitHub Pull Requests & Reviewers** | Risk-weighted approvals tied to blast radius and preview verification |
+| **L5 Release** | Progressive deployment & immutable artifacts | **GitHub Actions + GitHub Releases / Packages** | Versioned tags, signed packages, and automated changelogs generated from Intent |
+| **L6 Learn** | Telemetry correlation & issue retrospectives | **GitHub Issues & Discussions** | Incidents and hypothesis ledger entries link directly to the PRs and releases that caused them |
+
+## The unbroken context chain
+
+In a unified GitHub stack, the AI agent traverses a single unbroken chain:
+
+```mermaid
+---
+caption: Unbroken AI context chain in a unified GitHub ecosystem
+---
+flowchart LR
+    MEET["Client Meeting<br>(Issue / Discussion)"] -->|AI Intent Synthesis| INTENT["Intent Record<br>(GitHub Issue)"]
+    INTENT -->|Linked Branch & Agent| PR["AI Generation<br>(GitHub Pull Request)"]
+    PR -->|Automated Trigger| CI["Deterministic Harness<br>(GitHub Actions)"]
+    CI -->|Failure Diagnostics| SH["AI Self-Healing<br>(Iterative Commit to PR)"]
+    SH -->|Re-run| CI
+    CI -->|100% Pass| PREVIEW["Preview Deploy<br>(GitHub Environment)"]
+    PREVIEW -->|Targeted Sign-off| MHV["Min. Human Validation<br>(PR Approval)"]
+    MHV -->|Merge to Main| REL["Progressive Release<br>(GitHub Actions & Releases)"]
+```
+
+## Model selection & gateway
+
+While the workspace and delivery substrate is unified on GitHub, model routing remains flexible:
+
+| Workload | Recommended Tier | Objective |
 |---|---|---|
-| Source control | Protected branches, code owners, required checks | Platform |
-| CI/CD | Reproducible builds, immutable artifacts, progressive deploy | Platform |
-| Work tracking | One item per intent record, linked to pull requests | Product lead |
-| AI coding assistant | Enterprise tenancy, repository context, agent mode | AI enablement |
-| Model gateway | Routing, quotas, cost attribution, audit logging | AI enablement |
-| Evaluation harness | Deterministic scoring of prompt/model/agent changes | AI enablement |
-| Observability | Metrics, logs, traces, correlated with deploys | Platform |
-| Incident management | Paging, timeline, postmortem template | Platform |
-| Feature flags | Runtime toggles, percentage rollout, audit trail | Platform |
-| Experimentation | Assignment, exposure logging, statistical readout | Data enablement |
-| Security scanning | SAST, dependencies, secrets, images | Security |
-| Documentation | Versioned with the code, published automatically | Squad |
+| Meeting transcription & initial extraction | Speech-to-text + Fast summarizer | High volume, low latency |
+| Intent structuring & ambiguity detection | Reasoning / Frontier | Precise boundary definitions and boolean acceptance criteria |
+| Autonomous code & test generation (L3 Build) | High-capability Coding Agent | Strict adherence to Context Layer instructions |
+| Closed-loop self-healing (syntax/type errors) | Fast coding model | Rapid iterative fixing of compiler and linter diagnostics |
+| Architecture reasoning & cross-service ADRs | Frontier reasoning model | Broad context window and systemic invariant verification |
 
-## Integration rules
+## Eliminating tool sprawl
 
-Tools are only useful when they are connected. The mandatory links:
-
-```
-intent record  ←→  branch / pull request  ←→  build artifact  ←→  deployment  ←→  telemetry
-```
-
-Given a production metric anomaly, an engineer must be able to reach the intent record that caused
-it in under a minute, through links, not through memory.
-
-## Model selection
-
-The gateway routes each workload to the cheapest model that clears its quality bar.
-
-| Workload | Typical tier |
-|---|---|
-| Summarization, clustering, classification | Small / fast |
-| Code generation within known patterns | Mid |
-| Architecture reasoning, incident diagnosis, cross-file refactors | Large / reasoning |
-| Bulk, deterministic transformations | Smallest that passes evaluation |
-
-Model choice is a measured decision, revisited monthly against [Evaluation](./evaluation) results
-and cost, never a preference.
-
-## Context hygiene in tools
-
-- Scope assistants to the smallest relevant part of the repository.
-- Prefer committed context artifacts over ad hoc pasted context.
-- Start a new session per work item; stale sessions carry stale assumptions.
-- Pin model, prompt, and agent versions in CI so that builds are reproducible.
-
-## Tool sprawl
-
-Adding a second tool for an existing function requires an ADR and a removal date for one of them.
-Two tools for one function means two sources of truth, and a context layer that has to describe
-both.
+Every external tool introduced into the software factory imposes a **context penalty**:
+- If a tool does not natively integrate into the agent's context graph, it creates an information black hole.
+- Any proposal to adopt an external SaaS tool outside the core substrate requires an ADR proving that the capability cannot be met natively and detailing how AI context will be preserved without loss.

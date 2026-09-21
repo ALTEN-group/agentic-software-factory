@@ -3,7 +3,27 @@
 Behaviours that look like Flow Stack adoption and quietly reverse its intent. Each one has been the
 cause of a failed transformation somewhere.
 
-## Organizational
+## Operational & Engineering
+
+### Developers still writing code syntax
+
+The fatal anti-pattern: developers treating AI as a glorified autocomplete while continuing to
+manually write application logic, boilerplate, and tests. In Flow Stack, developers do not write
+code; they design specifications, build deterministic controls, and curate the Context Layer.
+Hand-coding creates bottlenecks, uncommitted tribal habits, and low AI leverage.
+
+### Manual line-by-line syntax reviews
+
+Engineers spending hours reading thousands of lines of generated diffs in pull requests. This causes
+reviewer fatigue, blinds reviewers to deep logic errors, and stalls delivery. If a check can be
+verified deterministically (types, formatting, linting, complexity, contracts, unit correctness),
+it **must be enforced by deterministic controls** in CI. Humans perform Minimum Human Validation on
+client intent and safety invariants only.
+
+### Skipping client meetings & building from stale tickets
+
+Engineers isolated from client dialogue, relying on third-hand ticket summaries. In Meeting-Driven
+Development, client dialogue is the primary signal source, captured and structured by AI in real time.
 
 ### The AI centre of excellence that owns delivery
 
@@ -13,52 +33,49 @@ ownership, and the practice never spreads. Enablement ships capabilities, not fe
 ### Enablement as an approval board
 
 Platform or security turning into a gate squads must ask permission from. The correct answer to
-recurring approval requests is a [guardrail](./guardrails), not a meeting.
+recurring approval requests is an automated deterministic guardrail, not a meeting.
 
 ### Technology-layer squads
 
 "Frontend squad", "API squad", "data squad". Every user outcome then requires three squads and two
 hand-offs. Boundaries follow outcomes.
 
-### Velocity mandates
-
-"Every squad must reach 40 % AI-generated code." Teams comply by generating code they do not need.
-[Metrics](./metrics) steer; they are not quotas.
-
-## Process
+## Process & Quality
 
 ### Skipping Intent
 
-Feeding a vague ticket straight to an assistant. The model fills the gaps with plausible
-assumptions, and the review discovers them at the most expensive moment. Ambiguity is cheapest to
-remove in [L2](./layer-intent).
+Feeding a vague meeting snippet straight to a build agent without structuring acceptance criteria.
+The model fills the gaps with plausible assumptions, and auto-validation cannot verify what was
+never specified. Ambiguity is cheapest to remove in [L2 Intent](./layer-intent).
 
-### Review by rubber stamp
+### Weak deterministic controls ("Trust the model")
 
-Approving large generated diffs because the pipeline is green. Tests prove the code does what the
-tests say, not what the customer needs. [Proof](./layer-proof) requires a human who can explain the
-change.
+Relying on LLM self-critique or superficial unit tests that do not test invariants. Generated code
+must face dense deterministic controls: compilers, strict type systems, AST linters, contract tests,
+and mutation testing.
+
+### Hand-fixing generated bugs
+
+An engineer spotting a bug in generated output and manually typing the fix into the code file.
+The correct response is: add a deterministic test or update the [Context Layer](./context-layer)
+instruction, then let the AI agent regenerate and heal the implementation.
 
 ### Uniform review effort
 
-Spending the same attention on a copy change and a permissions change. Review is risk-weighted or it
-is theatre.
+Spending the same attention on an internal refactor and an auth/PII permissions change. Review is
+risk-weighted or it is theatre.
 
 ### Batching releases
 
 Holding changes for a weekly release "for safety". Batching multiplies blast radius and destroys the
 correlation between a change and its effect.
 
-### Postmortems with twenty actions
-
-None of them get done, and the next incident is the same one. Three actions, owners, dates.
-
-## AI usage
+## Context & AI usage
 
 ### Prompting instead of context
 
-Increasingly elaborate prompts re-explaining the same conventions. That is a missing
-[Context Layer](./context-layer), not a prompting skill gap.
+Increasingly elaborate prompts re-explaining the same conventions in chat. That is a missing
+[Context Layer](./context-layer), not a prompt engineering skill gap.
 
 ### The everything instruction
 
@@ -78,26 +95,24 @@ Trying a new model on one prompt, liking it, enabling it for everyone. Without
 ### Agents with production credentials
 
 An agent able to act directly on production because it was convenient. Agents act through pull
-requests; humans merge.
+requests behind deterministic controls; humans validate before merge.
 
-### Shadow tooling
+### Tool sprawl and context fragmentation
 
-Personal accounts used for company work because the sanctioned tool is slower. This is a symptom:
-fix the sanctioned path, then close the shadow one.
+Spreading work across disconnected SaaS tools (Jira for tickets, Confluence for specs, Slack for
+discussions, Jenkins for CI, and Git for code). This fragments the knowledge graph that AI agents
+depend on, forcing brittle integrations, synchronization lags, and loss of original client meeting
+context. Flow Stack consolidates the lifecycle into a single unified substrate (such as the GitHub
+ecosystem) where business needs, code, deterministic CI, and releases share one unbroken context graph.
 
 ## Measurement
 
-### Counting output
+### Counting output volume
 
-Lines, pull requests, suggestions accepted. Generation makes all of these trivially inflatable and
-none of them meaningful.
+Lines of code, pull requests, suggestions accepted. Generation makes all of these trivially
+inflatable and none of them meaningful.
 
 ### Never deleting anything
 
 A codebase where invalidated features accumulate because deleting feels like waste. Every dead
 feature taxes every future generation pass and every future reviewer.
-
-### Reporting improvement without a baseline
-
-Claiming a gain that was never measured before the change. [Adoption](./adoption) starts with Stage
-0 for exactly this reason.

@@ -1,10 +1,14 @@
-# Agentic Software factory
+# Agentic Software Factory
 
-The operating layer that connects strategy, execution, AI, and delivery into one continuous system.
+The modern operating model for software development using AI at maximum capability.
 
-Flow Stack is an **operating model**, not a product: it describes how a startup-mode software
-organization is structured, how work moves from signal to production, and where AI is used as a
-multiplier while humans stay accountable.
+Flow Stack is an **operating model**, not a product: it describes how an organization builds and runs
+software where **AI is leveraged across the entire process** — from the client meeting to production release:
+
+- **Meeting-Driven Development**: Software requirements, architecture, and tasks originate directly from client and stakeholder meetings, transcribed and structured into formal Intent records by AI in real time.
+- **Zero Developer Coding**: Developers do not write code syntax. Engineers operate as specification engineers, context architects, and deterministic control builders while AI autonomously writes 100% of the code and tests.
+- **Dense Deterministic Controls**: Compilers, strict type checkers, AST linters, contract tests, mutation testing, and security scanners form automated, executable testbeds.
+- **AI Auto-Validation & Minimum Human Validation**: AI agents execute in closed self-healing loops against deterministic controls until all gates pass. Human review is minimized and strictly focused on business intent, customer value, and safety invariants rather than line-by-line syntax checking.
 
 This repository holds the documentation site for that model.
 

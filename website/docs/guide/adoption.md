@@ -14,32 +14,38 @@ signal. Skipping a stage is the most reliable way to fail.
 
 **Exit:** a written current-state map and a baseline metric set everyone agrees is true.
 
-## Stage 1 — Foundation and guardrails (4–8 weeks)
+## Stage 1 — Foundation, deterministic harness & guardrails (4–8 weeks)
 
-**Goal:** make the safe, fast path exist before asking anyone to use it.
+**Goal:** make the safe, autonomous path exist before asking squads to stop writing manual code.
 
-- Stand up [Foundation](./layer-foundation): environments from source, one pipeline skeleton,
-  preview deploys.
-- Turn on [Guardrails](./guardrails): branch protection, scanning, secret push protection.
-- Publish the [AI Usage Policy](./ai-policy) and sanction the tools.
-- Set up the model gateway with quotas and cost attribution.
+- Stand up [Foundation](./layer-foundation): environments from source, unified pipeline skeleton,
+  ephemeral preview deploys.
+- Build the **deterministic harness**: AST linters, strict compilers (`tsc --strict`), contract test runners,
+  mutation testing framework (Stryker), and security scanners (Semgrep, Trivy).
+- Establish the **meeting intelligence pipeline**: automated transcription, speaker diarization,
+  and AI Intent extraction tools.
+- Turn on [Guardrails](./guardrails): branch protection, secret push protection, and policy-as-code.
+- Publish the [AI Usage Policy](./ai-policy) and configure model gateways with quotas and cost attribution.
 
-**Exit:** a new service can be created, deployed to preview, and merged to production without a
-ticket to a human.
+**Exit:** an AI agent can generate code, run against local deterministic controls, deploy an ephemeral
+preview, and open a PR without manual intervention.
 
-## Stage 2 — One squad, full stack (1 quarter)
+## Stage 2 — One squad, full Meeting-Driven flow (1 quarter)
 
-**Goal:** run the whole model somewhere real before scaling it.
+**Goal:** run the complete model somewhere real before scaling it.
 
-- Pick one squad with a genuine outcome and a supportive lead. Not the most critical system; not
-  the least.
-- Run L1 → L6 as written: scorecard, intent records, plan-first build loop, risk-weighted review,
-  progressive release, hypothesis ledger.
-- Build the first [Context Layer](./context-layer) artifacts from observed corrections.
-- Stand up the [evaluation](./evaluation) harness with its first twenty cases.
+- Pick one squad with an active client engagement and an open-minded lead.
+- Run L1 → L6 as written:
+  - Client meetings transcribed and structured by AI directly into Intent records.
+  - Zero developer coding: AI generates 100% of code, tests, and documentation.
+  - Closed-loop AI self-healing against deterministic controls.
+  - Minimum Human Validation focused strictly on client intent and safety invariants.
+  - Progressive release with automated rollback triggers.
+- Build the first [Context Layer](./context-layer) artifacts (instructions, skills, specialized agents).
+- Stand up the [evaluation](./evaluation) harness with baseline regression cases.
 
-**Exit:** the pilot squad's lead time and change failure rate have improved, and it can describe the
-model without reading this site.
+**Exit:** the pilot squad's meeting-to-release lead time drops significantly, developers have stopped
+typing code syntax, and change failure rate remains near zero.
 
 ## Stage 3 — Scale by pull (2–3 quarters)
 

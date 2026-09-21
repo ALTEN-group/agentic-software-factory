@@ -1,77 +1,100 @@
 # L3 — Build
 
-Where intent becomes code. This is the layer Flow Stack automates hardest, because generation is
-the cheapest part of the system and the least valuable place to spend human attention.
+Where intent becomes code. In Flow Stack, **developers do not code anymore**: AI agents autonomously
+generate 100% of the code, tests, and documentation, operating in closed self-healing loops against
+dense deterministic controls.
 
 ## Purpose
 
 | Input | Output | Owner |
 |---|---|---|
-| A work item that passed the [Intent](./layer-intent) gate | A pull request with code, tests, and documentation | Engineer |
+| A work item that passed the [Intent](./layer-intent) gate + the [Context Layer](./context-layer) | A verified pull request with code, comprehensive tests, and documentation that passes all local deterministic controls | Specification engineer (supervising autonomous AI agents) |
 
-## The loop
+## The autonomous build loop
 
 ```mermaid
 ---
-caption: Build loop for a single work item
+caption: Autonomous Build loop with closed-loop self-healing
 ---
 
 sequenceDiagram
   autonumber
-  actor e as Engineer
-  participant a as AI assistant
-  participant r as Repository
-  participant ci as CI
-  e->>a: Intent record + context layer
-  a-->>e: Implementation plan
-  e->>a: Approve or correct scope
-  a->>r: Code + tests + docs
-  e->>r: Review logic, design, business intent
-  r->>ci: Open pull request
-  ci-->>e: Gates, AI review pass, preview deploy
+  actor e as Specification Engineer
+  participant a as AI Build Agent
+  participant dc as Deterministic Controls (Local)
+  participant r as Repository / PR
+
+  e->>a: Intent record + Context Layer (Forge, instructions, skills)
+  a-->>e: Implementation plan & file scope
+  e->>a: Approve plan & boundary constraints
+  
+  rect rgb(240, 248, 255)
+    Note over a,dc: Closed-Loop AI Auto-Validation (Self-Healing)
+    loop Until 100% Deterministic Pass
+      a->>a: Generate / edit code, tests & documentation
+      a->>dc: Run compiler, strict type check, AST linter & unit tests
+      dc-->>a: Execution result (pass or failure logs)
+      opt On Failure
+        a->>a: Analyze error trace, auto-repair implementation
+      end
+    end
+  end
+
+  a->>r: Open pull request with 100% green deterministic proof
+  r-->>e: Ready for Minimum Human Validation in L4
 ```
 
-1. **Plan first.** The assistant proposes an implementation plan before touching files. The engineer
-   corrects scope here, where correction costs seconds.
-2. **Generate against context.** The [Context Layer](./context-layer) supplies conventions, so the
-   output matches the codebase instead of matching the internet.
-3. **Generate tests with the code**, never after. Tests derive from the acceptance criteria, not
-   from the implementation.
-4. **Review by intent.** The engineer reads for logic, design, and business alignment — not for
-   formatting, which the pipeline already owns.
-5. **Commit small.** One work item, one pull request, ideally under a day of flow time.
+1. **Plan first.** The AI agent reviews the Intent record and the Context Layer, proposing a detailed
+   plan (affected files, interfaces, and test strategy). The specification engineer validates scope
+   in seconds.
+2. **Autonomous generation.** The agent autonomously generates the application logic, database
+   migrations, tests, and documentation. No human developer writes code syntax.
+3. **Closed-loop auto-validation.** The agent runs the local deterministic control harness (type
+   checker, linter, unit and contract tests). If any control fails, the agent parses the failure,
+   repairs the code, and re-runs the controls automatically without human intervention.
+4. **Context alignment.** The [Context Layer](./context-layer) enforces codebase idioms, architectural
+   boundaries, and library choices so the generated code is consistent with the existing system.
+5. **Committed proof.** Once all local deterministic controls pass, the agent commits the change,
+   opens a pull request, and hands off to [L4 Proof](./layer-proof).
 
 ## Where AI is used
 
-| Task | Typical AI share |
-|---|---|
-| Boilerplate, scaffolding, wiring | High |
-| Unit and integration test generation | High |
-| API clients, DTOs, mappers, migrations | High |
-| Refactoring within a known pattern | High |
-| Documentation and release notes | High |
-| Bug root-cause analysis | Medium |
-| Cross-cutting architecture change | Low |
-| Security-sensitive logic | Low, always human-authored review |
+Writing software syntax is entirely delegated to AI agents:
+
+| Task | AI share | Human role (Specification Engineer) |
+|---|---|---|
+| Domain logic and application services | **100%** | Validate intent fidelity against client meeting |
+| Scaffolding, boilerplate, wiring | **100%** | Zero human involvement |
+| Unit, integration, and contract tests | **100%** | Verify tests derive from intent criteria |
+| API clients, DTOs, mappers, migrations | **100%** | Ensure backwards compatibility constraints are met |
+| Architectural refactoring within patterns | **100%** | Confirm system boundaries |
+| Documentation, OpenAPI specs, runbooks | **100%** | High-level review for clarity |
+| Self-healing bug fixes and syntax repairs | **100%** | Intervene only if the agent reaches iteration limit |
 
 ## Non-negotiable rules
 
-- **AI accelerates the work; humans own correctness, architecture, and the final merge.**
-- No merge without a human who can explain the change without the assistant open.
-- Generated code that the engineer cannot justify is deleted, not merged "because tests pass".
-- Secrets, credentials, and customer data never enter a prompt. See [Guardrails](./guardrails).
-- Every dependency an assistant adds is reviewed like a dependency a human adds.
+- **Developers do not write manual code.** Any attempt to manually hand-craft code in an IDE is an
+  anti-pattern that bypasses the Context Layer and slows down delivery.
+- **Self-healing before PR.** An agent is never permitted to open a pull request with failing
+  compilation, linting, or broken tests. The agent must resolve errors deterministically.
+- **Tests are generated alongside code, never retrofitted.** Tests are derived strictly from the
+  acceptance criteria in the Intent record, not generated as an afterthought to fit the code.
+- **Context is the steering wheel.** If an agent produces incorrect code or misunderstands a pattern,
+  the engineer updates the [Context Layer](./context-layer) (instructions or skills) rather than
+  manually fixing the files.
+- **Dependencies are bounded.** Any new dependency introduced by an agent must be explicitly declared
+  in the plan and evaluated against security and licensing guardrails.
 
 ## Branching
 
-Short-lived branches from `main`, merged through a pull request. Long-running branches are a flow
-defect: they batch risk and defeat progressive delivery in [Release](./layer-release).
+Short-lived feature branches created directly by agents from `main`, merged through pull requests.
+Long-running branches are forbidden: they create merge conflicts that break agentic context.
 
 ## Exit gate
 
-A pull request leaves Build when:
+A pull request leaves Build and enters [Proof](./layer-proof) when:
 
-1. all acceptance criteria have a corresponding test,
-2. the pipeline is green including the security scan,
-3. a human reviewer has approved at the level the blast radius requires,
-4. documentation affected by the change is updated in the same pull request.
+1. 100% of the code, tests, and documentation are generated by the agent,
+2. all acceptance criteria have corresponding automated tests,
+3. the complete local deterministic control harness passes with zero warnings or errors,
+4. the agent produces a structured summary of changes mapped directly to the original client meeting intent.

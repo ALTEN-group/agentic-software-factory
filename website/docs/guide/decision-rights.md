@@ -30,20 +30,27 @@ Escalate only for: cross-squad conflict, security exposure, compliance obligatio
 commitment, or budget impact. An escalation names the decision, the options, the recommendation, and
 the date by which silence means the recommendation is adopted.
 
-## AI-specific accountability
+## AI-specific accountability and Minimum Human Validation
 
-AI supports decisions. Humans stay accountable for:
+AI executes the process at maximum capability: meeting transcription, intent structuring, 100% of
+code generation, and closed-loop deterministic auto-validation.
 
-- customer-facing commitments,
-- production incidents,
-- security-sensitive changes,
-- model, prompt, or agent changes affecting trust and compliance,
-- final acceptance of code and releases.
+However, **accountability always resolves to a named person**:
+- Humans decide **what** problem to solve and approve client commitments.
+- Humans validate high-level business intent and safety invariants (**Minimum Human Validation**).
+- Humans sign off on high-blast radius security, compliance, and architectural boundaries.
+- Humans own incident resolution and postmortem actions.
 
 ::: danger
-No decision in the table above may be recorded as made by a tool. Every row resolves to a named
-person. "The agent decided" is not a valid audit answer.
+No decision in the table above may be recorded as made by a tool or agent. Every row resolves to a
+named person. "The AI agent validated and merged it" is not a permissible audit record.
 :::
+
+## Line-by-line review ban
+
+In Flow Stack, **line-by-line manual code syntax review is officially banned as a gate**:
+- If a check can be evaluated deterministically (types, formatting, linting, complexity, contracts, unit correctness), it **must be enforced by deterministic controls** in CI.
+- Human review is strictly **Minimum Human Validation**: checking the client intent, reviewing the preview environment, verifying invariant safety, and confirming rollback readiness.
 
 ## Reversibility
 
@@ -51,9 +58,9 @@ The weight of a decision is set by how hard it is to undo.
 
 | Type | Bar | Example |
 |---|---|---|
-| **Reversible** | Decide fast, alone, in a pull request | Internal refactor, copy change |
-| **Costly to reverse** | Decide with one consulted party, record an ADR | New endpoint, new dependency |
-| **Irreversible** | Decide with the accountable owner, document the plan and the fallback | Destructive migration, vendor lock-in, public contract break |
+| **Reversible** | Zero-touch auto-merge or 1-click validation once all deterministic controls are green | Internal refactor, copy change, non-breaking logic update |
+| **Costly to reverse** | Single specification engineer validation + ADR | New public endpoint, new external dependency, schema addition |
+| **Irreversible** | Dual human sign-off (Lead + Security) + verified rollback plan | Destructive data migration, breaking public API contract, infrastructure re-architecture |
 
 Treating a reversible decision as irreversible is as expensive as the opposite — it just costs time
 instead of money.

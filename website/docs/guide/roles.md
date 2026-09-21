@@ -1,73 +1,81 @@
 # Roles
 
-Roles in Flow Stack describe **accountabilities**, not job titles or headcount. One person can hold
-several; a role is never held by nobody.
+Roles in Flow Stack describe **accountabilities**, not legacy job descriptions. Because developers
+**do not write code syntax**, engineering accountabilities shift entirely toward specification,
+context curation, deterministic testing, and safety governance.
 
 ## Squad roles
 
 ### Product lead
 
-- Owns the outcome and its metric.
-- Ranks the [Signal](./layer-signal) list and defends the ranking.
-- Signs off customer-facing wording and commitments.
-- Decides *do now / experiment / later / no* — and records the reason for `no`.
+- Owns customer relationship and outcome metrics.
+- Leads client meetings and collaborates with AI to synthesize the [Signal](./layer-signal) backlog.
+- Ranks the opportunity scorecard and defends business value decisions.
+- Validates that finished software faithfully solves the client's business need.
+- Decides *do now / experiment / later / no* — recording the rationale for `no`.
 
-### Engineer
+### Specification Engineer (formerly Developer)
 
-- Owns correctness, architecture inside the outcome, and the final merge.
-- Validates every AI implementation plan before code is generated.
-- Carries production support for what the squad ships.
-- Cannot delegate accountability for a change to an assistant.
+- **Does not write code syntax manually.**
+- Attends client meetings to capture deep technical constraints and domain models.
+- Refines AI-synthesized [Intent](./layer-intent) records, defining unambiguous, testable acceptance criteria.
+- Validates the AI agent's technical plan before autonomous code generation starts.
+- Designs and commits **dense deterministic controls** (types, linters, contract suites, mutation tests).
+- Conducts **Minimum Human Validation** focusing on client intent and safety invariants — never line-by-line syntax reviews.
+- Carries operational and production support for what the squad deploys.
+
+### Architect
+
+- Owns cross-cutting architectural cohesion, system boundaries, and API standards.
+- Validates technical design plans for high-blast radius initiatives before [Build](./layer-build) begins.
+- Reviews and signs Architecture Decision Records (ADRs).
+- Shared across squads; ensures that autonomous agent code generation does not fragment architectural patterns.
 
 ### Designer
 
-- Owns interaction, flow, and content quality.
-- Provides the acceptance criteria for anything a user sees.
+- Owns user experience, interaction architecture, and design tokens.
+- Defines observable UI/UX criteria directly from client conversations.
+- Validates the live preview environment during Minimum Human Validation.
 
-### Data / analytics owner
+### AI / Context Specialist
 
-- Owns instrumentation and metric definitions.
-- Designs experiments and calls their outcome honestly.
-- Guards against metric drift and vanity metrics.
-
-### AI / automation specialist
-
-- Owns the squad's slice of the [Context Layer](./context-layer).
-- Packages recurring work into skills and agents.
-- Runs [evaluation](./evaluation) before a model, prompt, or agent change is adopted.
+- Curates and maintains the squad's [Context Layer](./context-layer) (instructions, skills, specialized agents).
+- Tunes deterministic harnesses and closed-loop self-healing agent configurations.
+- Runs [evaluation](./evaluation) before new models, system prompts, or agent roles are adopted.
 
 ## Enablement roles
 
 ### Engineering lead
 
-- Owns cross-squad technical coherence and the ADR bar.
+- Owns cross-squad technical architecture and ADR governance.
 - Final technical arbiter on **Critical** blast-radius changes.
-- Owns the health of [Foundation](./layer-foundation) from the squads' point of view.
+- Ensures the platform Foundation provides world-class agentic development rails.
 
-### Security owner
+### Security & compliance owner
 
-- Owns secure defaults and the threat model.
-- Mandatory reviewer on auth, permissions, PII, billing, and infrastructure changes.
-- Owns the data classification rules that bound AI usage.
+- Defines automated security guardrails and policy-as-code rules (OPA / Semgrep).
+- Mandatory reviewer on high-blast radius changes (auth, encryption, billing, PII).
+- Enforces data classification boundaries preventing client PII from leaking to external models.
 
 ### Platform owner
 
-- Owns environments, pipelines, and shared services.
-- Accountable for self-service: any capability requiring a ticket is a defect.
+- Owns self-service environments, deterministic CI/CD runners, and progressive deployment rails.
+- Ensures agent sandboxes and preview environments deploy instantly without manual intervention.
 
 ### AI enablement lead
 
-- Owns the [AI usage policy](./ai-policy), model access, quotas, and cost attribution.
-- Owns the evaluation harness and the bar a change must clear to be adopted.
+- Owns the [AI usage policy](./ai-policy), model routing gateways, and cost attribution.
+- Provides client meeting intelligence infrastructure (transcription, extraction, Intent generation).
+- Owns the organization-wide evaluation harness.
 
 ## Role matrix per layer
 
-| Layer | Accountable | Consulted |
-|---|---|---|
-| [L0 Foundation](./layer-foundation) | Platform owner | Engineering lead, security owner |
-| [L1 Signal](./layer-signal) | Product lead | Data owner, engineers |
-| [L2 Intent](./layer-intent) | Product lead + engineer | Designer, security owner (high risk) |
-| [L3 Build](./layer-build) | Engineer | AI specialist |
-| [L4 Proof](./layer-proof) | Engineer | Security owner (high risk), designer |
-| [L5 Release](./layer-release) | Squad | Platform owner, product lead |
-| [L6 Learn](./layer-learn) | Product lead + data owner | Whole squad, AI enablement |
+| Layer | Accountable | Consulted | AI Agent Execution |
+|---|---|---|---|
+| [L0 Foundation](./layer-foundation) | Platform owner | Engineering lead, security owner | Self-service template generation & monitoring |
+| [L1 Signal](./layer-signal) | Product lead | Specification engineer, client | **Meeting transcription & Intent extraction** |
+| [L2 Intent](./layer-intent) | Product lead + Specification engineer | Architect, designer, security | **Specification drafting & ambiguity detection** |
+| [L3 Build](./layer-build) | Specification engineer | Architect (high-risk) | **100% Autonomous code & test generation** |
+| [L4 Proof](./layer-proof) | Specification engineer (Minimum Human Validation) | Security owner (high-risk) | **Closed-loop deterministic auto-validation** |
+| [L5 Release](./layer-release) | Squad | Product lead, platform | **Progressive rollout & anomaly monitoring** |
+| [L6 Learn](./layer-learn) | Product lead + data owner | Whole squad, AI specialist | **Outcome correlation & Context Layer updates** |
