@@ -27,16 +27,16 @@ Agentic Software Factory implements this unified model by utilizing the GitHub p
 
 | Lifecycle Stage | Capability | GitHub Native Implementation | Why it preserves AI context |
 |---|---|---|---|
-| **L1 Signal & L2 Intent** | Meeting notes, backlog & issue tracking | **GitHub Issues** + **GitHub Projects** | Transcripts, problem statements, and Intent records live directly where code lives |
-| **L1 Signal Discussions** | Stakeholder Q&A, client meeting discussions | **GitHub Discussions** | Asynchronous dialogue and client decisions stay permanently indexed next to the repo |
-| **Context & Architecture** | Instructions, skills, specs, ADRs | **Repository Markdown (`.github/`, `docs/`)** | Context Layer files are versioned artifacts loaded directly into agent prompts |
-| **L3 Build** | Autonomous code & test generation | **GitHub Copilot / Coding Agents / CLI** | Agents operate natively against repository files, branches, and issue context |
-| **L4 Proof: Deterministic Harness** | AST lint, strict types, unit, mutation & contract tests | **GitHub Actions** | Deterministic gates run in CI; error logs stream directly back to self-healing agents |
-| **L4 Proof: Preview Environments** | Ephemeral preview deployments | **GitHub Environments & Deployments** | Live preview links post directly to the PR for Minimum Human Validation |
-| **L4 Proof: Security & Compliance** | Secret scanning, SAST, dependency review | **GitHub Advanced Security (CodeQL, Dependabot, Push Protection)** | Automatic blocking of vulnerabilities before code can ever merge |
-| **L4 Proof: Human Validation** | Minimum Human Validation sign-off | **GitHub Pull Requests & Reviewers** | Risk-weighted approvals tied to blast radius and preview verification |
-| **L5 Release** | Progressive deployment & immutable artifacts | **GitHub Actions + GitHub Releases / Packages** | Versioned tags, signed packages, and automated changelogs generated from Intent |
-| **L6 Learn** | Telemetry correlation & issue retrospectives | **GitHub Issues & Discussions** | Incidents and hypothesis ledger entries link directly to the PRs and releases that caused them |
+| **1 — Need & 2 — Plan** | Meeting notes, backlog & issue tracking | **GitHub Issues** + **GitHub Projects** | Transcripts, problem statements, and Plan records live directly where code lives |
+| **Context & Architecture** | Instructions, skills, specs, ADRs, agents | **Repository Markdown (`.github/`, `docs/`)** | Persistent Context and curated agent catalogs (e.g., via `coding-pal`) loaded directly into agent prompts |
+| **The Forge (Asset Reuse)** | Reusable code & in-context templates | **Enterprise package registries & templates** | Pre-built modules and in-context templates (e.g., `Gatelin`, `foxnox`) injected into agent prompts to avoid bespoke coding |
+| **3 — Code** | Autonomous code & test generation | **GitHub Copilot / Coding Agents / CLI** | Agents operate natively against repository files, branches, and issue context |
+| **4 — Proof: Deterministic Harness** | AST lint, strict types, unit, mutation & contract tests | **GitHub Actions** | Deterministic gates run in CI; error logs stream directly back to self-healing agents |
+| **4 — Proof: Preview Environments** | Ephemeral preview deployments | **GitHub Environments & Deployments** | Live preview links post directly to the PR for Minimum Human Validation |
+| **4 — Proof: Security & Compliance** | Secret scanning, SAST, dependency review | **GitHub Advanced Security (CodeQL, Dependabot, Push Protection)** | Automatic blocking of vulnerabilities before code can ever merge |
+| **4 — Proof: Human Validation** | Minimum Human Validation sign-off | **GitHub Pull Requests & Reviewers** | Risk-weighted approvals tied to blast radius and preview verification |
+| **5 — Release** | Progressive deployment & immutable artifacts | **GitHub Actions + GitHub Releases / Packages** | Versioned tags, signed packages, and automated changelogs generated from Plan |
+| **6 — Learn** | Telemetry correlation & issue retrospectives | **GitHub Issues & Discussions** | Incidents and hypothesis ledger entries link directly to the PRs and releases that caused them |
 
 ## The unbroken context chain
 
@@ -47,7 +47,7 @@ In a unified GitHub stack, the AI agent traverses a single unbroken chain:
 caption: Unbroken AI context chain in a unified GitHub ecosystem
 ---
 flowchart LR
-    MEET["Client Meeting<br>(Issue / Discussion)"] -->|AI Intent Synthesis| INTENT["Intent Record<br>(GitHub Issue)"]
+    MEET["Client Meeting<br>(Issue / Discussion)"] -->|AI Spec Synthesis| INTENT["Spec Record<br>(GitHub Issue)"]
     INTENT -->|Linked Branch & Agent| PR["AI Generation<br>(GitHub Pull Request)"]
     PR -->|Automated Trigger| CI["Deterministic Harness<br>(GitHub Actions)"]
     CI -->|Failure Diagnostics| SH["AI Self-Healing<br>(Iterative Commit to PR)"]
@@ -64,8 +64,8 @@ While the workspace and delivery substrate is unified on GitHub, model routing r
 | Workload | Recommended Tier | Objective |
 |---|---|---|
 | Meeting transcription & initial extraction | Speech-to-text + Fast summarizer | High volume, low latency |
-| Intent structuring & ambiguity detection | Reasoning / Frontier | Precise boundary definitions and boolean acceptance criteria |
-| Autonomous code & test generation (L3 Build) | High-capability Coding Agent | Strict adherence to Context Layer instructions |
+| Spec structuring & ambiguity detection | Reasoning / Frontier | Precise boundary definitions and boolean acceptance criteria |
+| Autonomous code & test generation (Build) | High-capability Coding Agent | Strict adherence to Context Layer instructions |
 | Closed-loop self-healing (syntax/type errors) | Fast coding model | Rapid iterative fixing of compiler and linter diagnostics |
 | Architecture reasoning & cross-service ADRs | Frontier reasoning model | Broad context window and systemic invariant verification |
 

@@ -47,19 +47,18 @@ export default withMermaid(defineConfig({
         items: [
           { text: 'Overview', link: '/guide/overview' },
           { text: 'Principles', link: '/guide/principles' },
-          { text: 'Glossary', link: '/guide/glossary' },
         ],
       },
       {
         text: 'The Stack',
         items: [
-          { text: 'L0 — Foundation', link: '/guide/layer-foundation' },
-          { text: 'L1 — Need', link: '/guide/layer-need' },
-          { text: 'L2 — Spec', link: '/guide/layer-spec' },
-          { text: 'L3 — Build', link: '/guide/layer-build' },
-          { text: 'L4 — Proof', link: '/guide/layer-proof' },
-          { text: 'L5 — Release', link: '/guide/layer-release' },
-          { text: 'L6 — Learn', link: '/guide/layer-learn' },
+          { text: '0 — Foundation', link: '/guide/layer-foundation' },
+          { text: '1 — Need', link: '/guide/layer-need' },
+          { text: '2 — Plan', link: '/guide/layer-plan' },
+          { text: '3 — Code', link: '/guide/layer-code' },
+          { text: '4 — Proof', link: '/guide/layer-proof' },
+          { text: '5 — Release', link: '/guide/layer-release' },
+          { text: '6 — Learn', link: '/guide/layer-learn' },
         ],
       },
       {
@@ -83,7 +82,6 @@ export default withMermaid(defineConfig({
         items: [
           { text: 'Context Layer', link: '/guide/context-layer' },
           { text: 'Tooling', link: '/guide/tooling' },
-          { text: 'Evaluation', link: '/guide/evaluation' },
         ],
       },
       {
@@ -93,13 +91,6 @@ export default withMermaid(defineConfig({
           { text: 'Metrics', link: '/guide/metrics' },
           { text: 'Adoption Roadmap', link: '/guide/adoption' },
           { text: 'Anti-patterns', link: '/guide/anti-patterns' },
-        ],
-      },
-      {
-        text: 'This Site',
-        items: [
-          { text: 'Deployment', link: '/guide/deployment' },
-          { text: 'Configuration', link: '/guide/configuration' },
         ],
       },
     ],

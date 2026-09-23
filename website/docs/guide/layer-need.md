@@ -1,4 +1,4 @@
-# L1 — Need
+# 1 — Need
 
 Where demand enters the system. In Agentic Software Factory, Need is **Meeting-Driven**: it turns real-time client
 conversations, stakeholder interviews, and operational telemetry into a structured, comparable set of prioritized needs.
@@ -7,7 +7,7 @@ conversations, stakeholder interviews, and operational telemetry into a structur
 
 | Input | Output | Owner |
 |---|---|---|
-| Client meetings, stakeholder interviews, usage telemetry, support tickets, experiments, incidents | A ranked opportunity list with verbatim client evidence and initial blast-radius estimates | Product lead of the squad |
+| Client meetings, stakeholder interviews, usage telemetry, support tickets + **[Persistent Context Layer](./context-layer)** (domain glossary, existing specs, product scope) | A ranked opportunity list with verbatim client evidence, existing system mappings, and blast-radius estimates | Product lead of the squad |
 
 ## Meeting-Driven Need capture
 
@@ -16,8 +16,7 @@ interpretations. In Agentic Software Factory's **Meeting-Driven Development (MDD
 
 1. **Client dialogue is captured in real time**: Client meetings (discovery sessions, feature requests,
    operational reviews) are transcribed and synthesized by AI models during or immediately after the session.
-2. **Semantic need extraction**: AI extracts verbatim problem statements, requested capabilities,
-   business constraints, and domain terminology directly from the client's words.
+2. **Context-aware semantic need extraction**: Powered by the **[Persistent Context Layer](./context-layer)**, AI maps client dialogue against existing system specifications, domain glossaries, and current architecture boundaries, identifying whether the need extends an existing capability or introduces a new domain.
 3. **Traceability to the voice of the customer**: Every extracted need links directly to the
    timestamped transcript or audio quote, preventing requirement drift throughout downstream layers.
 
@@ -30,7 +29,7 @@ interpretations. In Agentic Software Factory's **Meeting-Driven Development (MDD
 | Support tickets | Continuous | Clustered weekly | Operational friction signals |
 | Live experiments | Per hypothesis | 1–3 running per squad | Empirical behavioral validation |
 | Sales and field notes | Continuous | Structured deal logs | Market demand signals |
-| Incidents and postmortems | On occurrence | Directly from [L6](./layer-learn) | Reliability signals |
+| Incidents and postmortems | On occurrence | Directly from [6 — Learn](./layer-learn) | Reliability signals |
 
 ## Where AI is used
 

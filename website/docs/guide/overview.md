@@ -30,6 +30,13 @@ Agentic Software Factory is built around four fundamental shifts:
    bottleneck. Once deterministic controls auto-validate 100% of the implementation, humans perform
    targeted validation strictly on business intent, user experience, and risk invariants.
 
+### The three foundational enablers
+
+The autonomous delivery pipeline is underpinned by three persistent enabler layers:
+- **[The Forge](./layer-plan#reusable-assets-the-enterprise-forge)**: Reusable microservices, hardened modules, and certified interface contracts that empower the Plan and Code phases.
+- **[Persistent Context Layer](./context-layer)**: Committed repository instructions, specialized agent skills, existing specs, and ADRs that govern Plan, Code, and Proof self-repair.
+- **[Deterministic Controls](./guardrails)**: Ungameable automated testbeds, strict type-checks, interface contracts, and mutation suites that auto-validate generated software in closed loops before minimum human sign-off.
+
 ## Why the name
 
 - **Agentic** — autonomous AI agents driving implementation, testing, and self-healing in closed loops.
@@ -50,22 +57,22 @@ flowchart TB
     governance[Governance - Minimum Human Validation & Guardrails]
     context[Context - Context Layer & Deterministic Controls]
   end
-  l1[L1 Need - Client Need & Demand] --> l2[L2 Spec - Executable Specifications] --> l3[L3 Build - Autonomous AI Generation] --> l4[L4 Proof - Deterministic Auto-Validation] --> l5[L5 Release - Progressive Rollout] --> l6[L6 Learn - Outcome Feedback]
+  l1[1. Need - Client Need & Demand] --> l2[2. Plan - Actionable Plan & Spec] --> l3[3. Code - Autonomous AI Generation] --> l4[4. Proof - Deterministic Auto-Validation] --> l5[5. Release - Progressive Rollout] --> l6[6. Learn - Outcome Feedback]
   l6 -. feedback to client needs .-> l1
-  l0[L0 Foundation - Rails & Tooling] --- l1
+  l0[0. Foundation - Rails & Tooling] --- l1
   l0 --- l3
   l0 --- l5
 ```
 
-| Layer | Name | Question it answers |
-|---|---|---|
-| L0 | [Foundation](./layer-foundation) | What does every squad get for free? |
-| L1 | [Need](./layer-need) | What does the client actually need, and what is worth doing? |
-| L2 | [Spec](./layer-spec) | What exactly are we building, and what are the deterministic acceptance criteria? |
-| L3 | [Build](./layer-build) | How do AI agents autonomously generate the implementation? |
-| L4 | [Proof](./layer-proof) | How do deterministic controls auto-validate the change, and where is minimum human validation applied? |
-| L5 | [Release](./layer-release) | How does it reach users progressively without risk? |
-| L6 | [Learn](./layer-learn) | What did reality say, and how does it refine client needs and the Context Layer? |
+| Stage | Question it answers |
+|---|---|
+| [0 — Foundation](./layer-foundation) | What does every squad get for free? |
+| [1 — Need](./layer-need) | What does the client actually need, and what is worth doing? |
+| [2 — Plan](./layer-plan) | What are we building, what Forge assets and Persistent Context can we compose, and what are the deterministic criteria? |
+| [3 — Code](./layer-code) | How do AI agents autonomously generate the implementation using The Forge and Persistent Context? |
+| [4 — Proof](./layer-proof) | How do deterministic controls auto-validate the change, and where is minimum human validation applied? |
+| [5 — Release](./layer-release) | How does it reach users progressively without risk? |
+| [6 — Learn](./layer-learn) | What did reality say, and how does it refine client needs, The Forge, and the Context Layer? |
 
 | Pillar | Owns | Reference |
 |---|---|---|
@@ -93,19 +100,19 @@ When code generation becomes autonomous and cheap, the bottleneck moves. It is n
 it is **capturing true client intent, and proving deterministically that what was generated satisfies it**.
 
 Agentic Software Factory therefore invests heavily in:
-- **L1 / L2 (Meeting-Driven Intent)**: Capturing client needs directly through AI synthesis and transforming them into unambiguous, testable specifications.
-- **L4 (Deterministic Proof)**: Building dense, ungameable deterministic harnesses that auto-validate AI generation in closed self-healing loops before asking for minimum human sign-off.
+- **Need / Plan (Meeting-Driven Intent)**: Capturing client needs directly through AI synthesis, composing from reusable Forge assets and repository Persistent Context, and transforming them into unambiguous, testable specifications.
+- **Code (Autonomous Generation)**: Leveraging bound Forge packages and repository Context Layer skills so AI agents generate 100% of code without reinventing wheels.
+- **Proof (Deterministic Auto-Validation)**: Building dense, ungameable deterministic harnesses that auto-validate AI generation in closed self-healing loops before asking for minimum human sign-off.
 
 ```
-Client Meeting  →  Signal  →  Intent  →  Build (AI)  →  Proof (Auto-Val)  →  Release  →  Learn
-      |             ^^^^^^    ^^^^^^                        ^^^^^                         |
-      +----------> Human Intent Validation            Minimum Human Sign-off              |
-                                                               |                          |
-                                                               +--------------------------+
+Client Meeting  →  1. Need  →  2. Plan  →  3. Code (AI)  →  4. Proof (Auto-Val)  →  5. Release  →  6. Learn
+      |                ^^^^        ^^^^                             ^^^^^                             |
+      +--------------> Human Intent Validation                    Minimum Human Sign-off              |
+                                                                            |                         |
+                                                                            +-------------------------+
 ```
 
 ## Where to go next
 
-- New to the model: read [Principles](./principles), then walk L1 → L6.
+- New to the model: read [Principles](./principles), then walk Stages 1 → 6 (Need → Learn).
 - Adopting it in an existing organization: start with the [Adoption Roadmap](./adoption).
-- Looking for definitions: see the [Glossary](./glossary).
