@@ -1,4 +1,4 @@
-# L6 — Learn
+# 6 — Learn
 
 The layer that closes the loop. Without it, Agentic Software Factory is a delivery pipeline; with it, it is an
 operating model.
@@ -13,10 +13,10 @@ operating model.
 
 | Dimension | Examples | Feeds |
 |---|---|---|
-| **Outcome** | The metric named in the [Spec](./layer-spec) record | Was it worth building? |
+| **Outcome** | The metric named in the [2 — Plan](./layer-plan) record | Was it worth building? |
 | **System health** | Latency, error rate, saturation, availability | Incident response |
 | **Flow** | Lead time, deployment frequency, change failure rate, time to restore | [Metrics](./metrics) |
-| **AI leverage** | Acceptance rate, rework rate, cost per change | [Evaluation](./evaluation) |
+| **AI leverage** | Acceptance rate, rework rate, cost per change | Model and prompt evaluations |
 | **Cost** | Infrastructure and model spend per squad and per feature | Prioritization |
 
 ## The hypothesis ledger

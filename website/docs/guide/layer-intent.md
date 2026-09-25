@@ -1,7 +1,7 @@
-# L2 — Spec (formerly Intent)
+# 2 — Plan (formerly Intent)
 
 ::: info Note
-**L2 Intent** has been renamed to **[L2 Spec](./layer-spec)** to use more concrete, precise engineering language.
+**Intent** has been renamed to **[2 — Plan](./layer-plan)** to reflect the actionable planning and specification phase of the factory.
 :::
 
-Please visit **[L2 — Spec](./layer-spec)** for the full documentation.
+Please visit **[2 — Plan](./layer-plan)** for the full documentation.

@@ -18,12 +18,12 @@ signal. Skipping a stage is the most reliable way to fail.
 
 **Goal:** make the safe, autonomous path exist before asking squads to stop writing manual code.
 
-- Stand up [Foundation](./layer-foundation): environments from source, unified pipeline skeleton,
+- Stand up [0 — Foundation](./layer-foundation): environments from source, unified pipeline skeleton,
   ephemeral preview deploys.
 - Build the **deterministic harness**: AST linters, strict compilers (`tsc --strict`), contract test runners,
   mutation testing framework (Stryker), and security scanners (Semgrep, Trivy).
 - Establish the **meeting intelligence pipeline**: automated transcription, speaker diarization,
-  and AI Intent extraction tools.
+  and AI Spec extraction tools.
 - Turn on [Guardrails](./guardrails): branch protection, secret push protection, and policy-as-code.
 - Publish the [AI Usage Policy](./ai-policy) and configure model gateways with quotas and cost attribution.
 
@@ -35,14 +35,14 @@ preview, and open a PR without manual intervention.
 **Goal:** run the complete model somewhere real before scaling it.
 
 - Pick one squad with an active client engagement and an open-minded lead.
-- Run L1 → L6 as written:
-  - Client meetings transcribed and structured by AI directly into Intent records.
+- Run Stages 1 → 6 (Need → Learn) as written:
+  - Client meetings transcribed and structured by AI directly into Spec records.
   - Zero developer coding: AI generates 100% of code, tests, and documentation.
   - Closed-loop AI self-healing against deterministic controls.
   - Minimum Human Validation focused strictly on client intent and safety invariants.
   - Progressive release with automated rollback triggers.
 - Build the first [Context Layer](./context-layer) artifacts (instructions, skills, specialized agents).
-- Stand up the [evaluation](./evaluation) harness with baseline regression cases.
+- Stand up the evaluation harness with baseline regression cases.
 
 **Exit:** the pilot squad's meeting-to-release lead time drops significantly, developers have stopped
 typing code syntax, and change failure rate remains near zero.

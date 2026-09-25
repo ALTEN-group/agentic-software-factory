@@ -18,7 +18,7 @@ context curation, deterministic testing, and safety governance.
 
 - **Does not write code syntax manually.**
 - Attends client meetings to capture deep technical constraints and domain models.
-- Refines AI-synthesized [Spec](./layer-spec) records, defining unambiguous, testable acceptance criteria.
+- Refines AI-synthesized [Plan](./layer-plan) records, defining unambiguous, testable acceptance criteria.
 - Validates the AI agent's technical plan before autonomous code generation starts.
 - Designs and commits **dense deterministic controls** (types, linters, contract suites, mutation tests).
 - Conducts **Minimum Human Validation** focusing on client intent and safety invariants — never line-by-line syntax reviews.
@@ -27,7 +27,7 @@ context curation, deterministic testing, and safety governance.
 ### Architect
 
 - Owns cross-cutting architectural cohesion, system boundaries, and API standards.
-- Validates technical design plans for high-blast radius initiatives before [Build](./layer-build) begins.
+- Validates technical design plans for high-blast radius initiatives before [Code](./layer-code) begins.
 - Reviews and signs Architecture Decision Records (ADRs).
 - Shared across squads; ensures that autonomous agent code generation does not fragment architectural patterns.
 
@@ -41,7 +41,7 @@ context curation, deterministic testing, and safety governance.
 
 - Curates and maintains the squad's [Context Layer](./context-layer) (instructions, skills, specialized agents).
 - Tunes deterministic harnesses and closed-loop self-healing agent configurations.
-- Runs [evaluation](./evaluation) before new models, system prompts, or agent roles are adopted.
+- Runs evaluations before new models, system prompts, or agent roles are adopted.
 
 ## Enablement roles
 
@@ -70,12 +70,12 @@ context curation, deterministic testing, and safety governance.
 
 ## Role matrix per layer
 
-| Layer | Accountable | Consulted | AI Agent Execution |
+| Stage | Accountable | Consulted | AI Agent Execution |
 |---|---|---|---|
-| [L0 Foundation](./layer-foundation) | Platform owner | Engineering lead, security owner | Self-service template generation & monitoring |
-| [L1 Need](./layer-need) | Product lead | Specification engineer, client | **Meeting transcription & need extraction** |
-| [L2 Spec](./layer-spec) | Product lead + Specification engineer | Architect, designer, security | **Specification drafting & ambiguity detection** |
-| [L3 Build](./layer-build) | Specification engineer | Architect (high-risk) | **100% Autonomous code & test generation** |
-| [L4 Proof](./layer-proof) | Specification engineer (Minimum Human Validation) | Security owner (high-risk) | **Closed-loop deterministic auto-validation** |
-| [L5 Release](./layer-release) | Squad | Product lead, platform | **Progressive rollout & anomaly monitoring** |
-| [L6 Learn](./layer-learn) | Product lead + data owner | Whole squad, AI specialist | **Outcome correlation & Context Layer updates** |
+| [0 — Foundation](./layer-foundation) | Platform owner | Engineering lead, security owner | Self-service template generation & monitoring |
+| [1 — Need](./layer-need) | Product lead | Specification engineer, client | **Meeting transcription & need extraction** |
+| [2 — Plan](./layer-plan) | Product lead + Specification engineer | Architect, designer, security | **Plan & spec drafting, ambiguity detection** |
+| [3 — Code](./layer-code) | Specification engineer | Architect (high-risk) | **100% Autonomous code & test generation** |
+| [4 — Proof](./layer-proof) | Specification engineer (Minimum Human Validation) | Security owner (high-risk) | **Closed-loop deterministic auto-validation** |
+| [5 — Release](./layer-release) | Squad | Product lead, platform | **Progressive rollout & anomaly monitoring** |
+| [6 — Learn](./layer-learn) | Product lead + data owner | Whole squad, AI specialist | **Outcome correlation & Context Layer updates** |

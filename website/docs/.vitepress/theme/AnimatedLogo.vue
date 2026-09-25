@@ -94,7 +94,7 @@
               <!-- Tab File Title -->
               <text x="145" y="57" fill="#94A3B8" font-size="7" font-family="ui-monospace, monospace" font-weight="600">service.agent.ts</text>
               <rect x="208" y="49" width="38" height="10" rx="3" fill="#1E3A8A" fill-opacity="0.6" stroke="#38BDF8" stroke-width="0.7" />
-              <text x="227" y="56.5" fill="#38BDF8" font-size="5.5" font-family="ui-monospace, monospace" font-weight="700" text-anchor="middle">AI BUILD</text>
+              <text x="227" y="56.5" fill="#38BDF8" font-size="5.5" font-family="ui-monospace, monospace" font-weight="700" text-anchor="middle">AI CODE</text>
 
               <!-- Code Lines with Syntax Coloring -->
               <!-- Gutter Line Numbers -->
@@ -203,27 +203,27 @@
       <!-- Bottom Pipeline Stream Ticker -->
       <div class="pipeline-ticker">
         <div class="ticker-step step-need">
-          <span class="step-num">L1</span>
+          <span class="step-num">1</span>
           <span class="step-name">NEED</span>
         </div>
         <div class="ticker-arrow">→</div>
-        <div class="ticker-step step-spec">
-          <span class="step-num">L2</span>
-          <span class="step-name">SPEC</span>
+        <div class="ticker-step step-plan">
+          <span class="step-num">2</span>
+          <span class="step-name">PLAN</span>
         </div>
         <div class="ticker-arrow">→</div>
-        <div class="ticker-step step-build active">
-          <span class="step-num">L3</span>
-          <span class="step-name">BUILD</span>
+        <div class="ticker-step step-code active">
+          <span class="step-num">3</span>
+          <span class="step-name">CODE</span>
         </div>
         <div class="ticker-arrow">→</div>
         <div class="ticker-step step-proof verified">
-          <span class="step-num">L4</span>
+          <span class="step-num">4</span>
           <span class="step-name">PROOF</span>
         </div>
         <div class="ticker-arrow">→</div>
         <div class="ticker-step step-release">
-          <span class="step-num">L5</span>
+          <span class="step-num">5</span>
           <span class="step-name">RELEASE</span>
         </div>
       </div>
@@ -442,23 +442,23 @@
   transition: color 0.2s ease;
 }
 
-/* L1 NEED: Warm Amber / Discovery */
+/* 1 NEED: Warm Amber / Discovery */
 .ticker-step.step-need .step-num { color: #f59e0b; }
 .ticker-step.step-need .step-name { color: #fbbf24; }
 
-/* L2 SPEC: Electric Indigo / Specification */
-.ticker-step.step-spec .step-num { color: #818cf8; }
-.ticker-step.step-spec .step-name { color: #a5b4fc; }
+/* 2 PLAN: Electric Indigo / Planning & Spec */
+.ticker-step.step-plan .step-num { color: #818cf8; }
+.ticker-step.step-plan .step-name { color: #a5b4fc; }
 
-/* L3 BUILD: Cyan / Autonomous Execution */
-.ticker-step.step-build .step-num { color: #38bdf8; }
-.ticker-step.step-build .step-name { color: #38bdf8; text-shadow: 0 0 6px rgba(56, 189, 248, 0.6); }
+/* 3 CODE: Cyan / Autonomous Execution */
+.ticker-step.step-code .step-num { color: #38bdf8; }
+.ticker-step.step-code .step-name { color: #38bdf8; text-shadow: 0 0 6px rgba(56, 189, 248, 0.6); }
 
-/* L4 PROOF: Emerald / Deterministic Verification */
+/* 4 PROOF: Emerald / Deterministic Verification */
 .ticker-step.step-proof .step-num { color: #34d399; }
 .ticker-step.step-proof .step-name { color: #34d399; }
 
-/* L5 RELEASE: Violet-Fuchsia / Production Rollout */
+/* 5 RELEASE: Violet-Fuchsia / Production Rollout */
 .ticker-step.step-release .step-num { color: #c084fc; }
 .ticker-step.step-release .step-name { color: #e879f9; }
 

@@ -1,4 +1,4 @@
-# L5 — Release
+# 5 — Release
 
 Getting a proven change in front of users with the smallest possible blast radius and the shortest
 possible path back.
@@ -7,7 +7,7 @@ possible path back.
 
 | Input | Output | Owner |
 |---|---|---|
-| A change that passed [Proof](./layer-proof) | Value in production, observable and reversible | Squad, on platform rails |
+| A change that passed [4 — Proof](./layer-proof) | Value in production, observable and reversible | Squad, on platform rails |
 
 ## Model
 

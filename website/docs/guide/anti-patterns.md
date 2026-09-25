@@ -42,11 +42,11 @@ hand-offs. Boundaries follow outcomes.
 
 ## Process & Quality
 
-### Skipping Spec
+### Skipping Plan
 
 Feeding a vague meeting snippet straight to a build agent without structuring acceptance criteria.
 The model fills the gaps with plausible assumptions, and auto-validation cannot verify what was
-never specified. Ambiguity is cheapest to remove in [L2 Spec](./layer-spec).
+never specified. Ambiguity is cheapest to remove in [2 — Plan](./layer-plan).
 
 ### Weak deterministic controls ("Trust the model")
 
@@ -90,7 +90,7 @@ produces confident, consistent, wrong output at scale.
 ### Vibes-based rollout
 
 Trying a new model on one prompt, liking it, enabling it for everyone. Without
-[evaluation](./evaluation), a single change can make the whole organization worse overnight.
+rigorous evaluation, a single change can make the whole organization worse overnight.
 
 ### Agents with production credentials
 

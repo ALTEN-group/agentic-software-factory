@@ -1,4 +1,4 @@
-# L4 — Proof
+# 4 — Proof
 
 Quality is not a phase and not a human line-by-line reading marathon. In Agentic Software Factory, Proof is the
 layer that combines **dense deterministic controls for AI auto-validation** with **minimum human
@@ -8,7 +8,10 @@ validation** to guarantee that generated software is correct, safe, and aligned 
 
 | Input | Output | Owner |
 |---|---|---|
-| A pull request from [Build](./layer-build) | Deterministic mathematical and behavioural proof of correctness, followed by minimum human sign-off on intent | The squad + platform deterministic harness |
+| A pull request from [3 — Code](./layer-code) + **[Deterministic Controls](./guardrails)** (testbeds, contracts, mutation) + **[Persistent Context](./context-layer)** (ADRs, architectural invariants, repair instructions) | Deterministic mathematical and behavioural proof of correctness, followed by minimum human sign-off on intent | The squad + platform deterministic harness |
+
+> [!TIP] Enablers in Proof: Deterministic Controls & Persistent Context
+> While **Deterministic Controls** provide the ungameable binary gates (testbeds, contracts, linters) that flag failures, **[Persistent Context](./context-layer)** provides the architectural guardrails, ADRs, and instructions that guide the AI self-repair loop to fix failures without introducing anti-patterns or contract regressions.
 
 ## Why deterministic controls replace manual code review
 

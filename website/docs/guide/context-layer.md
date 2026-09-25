@@ -21,10 +21,10 @@ the Context Layer is the primary programming language of the organization.
 |---|---|---|
 | **Instruction** | Automatically, when matching files are in context | Stable standards: conventions, structure, security rules, deterministic requirements |
 | **Skill** | On demand, by name or description | Multi-step workflows with a contract and reusable references (e.g. running mutation tests, generating API schemas) |
-| **Agent** | Explicitly selected | A bounded specialist configuration with dedicated tools (e.g. Build Agent, Self-Healing Agent, Spec Agent) |
+| **Agent** | Explicitly selected | A bounded specialist configuration with dedicated tools (e.g. Coding Agent, Self-Healing Agent, Spec Agent) |
 | **Spec** | Referenced | Ground truth of what the system actually does, kept current with every release |
 | **ADR** | Referenced | Architectural choices, invariants, and rejected alternatives |
-| **Forge** | Assembled per work item | The bundle of client meeting transcripts, Intent records, specs, ADRs, and instructions fed to the AI build agent |
+| **Context Bundle** | Assembled per work item | The compiled context package (Plan record, referenced specs, ADRs, active skills, and instructions) fed to the AI agent |
 | **Deterministic Harness** | Executed in CI/local | The suite of linters, strict type checks, contract tests, and mutation suites that auto-validate AI output |
 
 ### Choosing between them
@@ -36,6 +36,47 @@ Is it a distinct specialty with its own scope?   → agent
 Is it a description of existing behaviour?       → spec
 Is it the reasoning behind a choice?             → ADR
 ```
+
+## Two Enterprise Pillars: Persistent Context & The Forge
+
+Both **[2 — Plan](./layer-plan)** and **[3 — Code](./layer-code)** operate continuously on top of two complementary enterprise pillars:
+
+```mermaid
+---
+caption: Persistent Context and The Forge powering both Plan and Code phases
+---
+flowchart LR
+    subgraph Enterprise["Enterprise Knowledge & Assets"]
+        CONTEXT[("🧠 Persistent Context<br/>Rules, Skills, Specs, ADRs")]
+        FORGE[("📦 The Forge<br/>Shared Services, Modules, Contracts")]
+    end
+
+    NEED["<b>1 — Need</b><br/>Dialogue Synthesis & Opportunity Ranking"]
+    PLAN["<b>2 — Plan</b><br/>Spec & Criteria Drafting"]
+    CODE["<b>3 — Code</b><br/>Autonomous Generation"]
+    PROOF["<b>4 — Proof</b><br/>Deterministic Auto-Validation & Repair"]
+
+    CONTEXT -. Domain glossaries & existing specs .-> NEED
+    CONTEXT -. Architectural boundaries & ADRs .-> PLAN
+    CONTEXT -. Repository idioms & skills .-> CODE
+    CONTEXT -. Self-repair constraints & test standards .-> PROOF
+
+    FORGE -. Catalog search & component bindings .-> PLAN
+    FORGE -. Direct imports & service calls .-> CODE
+
+    NEED ==> PLAN
+    PLAN ==> CODE
+    CODE ==> PROOF
+```
+
+| Dimension | Persistent Context | The Forge |
+|---|---|---|
+| **What it represents** | *Domain ground truth, rules & standards* (specs, ADRs, skills, instructions) | *What we reuse* (microservices, hardened code modules, SDKs, certified API contracts) |
+| **Role in 1 — Need** | Grounds client dialogue extraction against existing system specs and domain glossaries | Identifies existing platform capabilities related to client requests |
+| **Role in 2 — Plan** | Informs constraints, non-functional invariants, and domain boundaries | Identifies candidate shared services and API schemas to bind into the plan |
+| **Role in 3 — Code** | Guides AI agents with repository conventions, type rules, and execution skills | Supplies concrete packages, SDKs, and endpoints for agents to import and invoke |
+| **Role in 4 — Proof** | Constrains AI self-repair loops so automated patches comply with ADRs & contracts | Provides mocked service doubles and contract schemas for testbed verification |
+| **Storage & Scope** | Versioned inside the repository (`.github/`, `skills/`, `docs/`) and provisioned via persistent context & agent catalogs (e.g. `coding-pal`) | Versioned in enterprise package registries, service catalogs, and in-context templates (e.g. `Gatelin`, `foxnox`) |
 
 ## Where it lives
 
@@ -54,7 +95,7 @@ In the repository, next to the code it describes, reviewed like the code it desc
 ## Rules
 
 1. **Committed, reviewed, versioned.** A context artifact changes through a pull request.
-2. **Evidence-driven.** New artifacts come from [Learn](./layer-learn): something was corrected
+2. **Evidence-driven.** New artifacts come from [6 — Learn](./layer-learn): something was corrected
    twice, or re-explained twice.
 3. **Small and specific.** Instructions that try to cover everything get ignored by models and
    humans alike.
@@ -72,7 +113,7 @@ caption: How the context layer is maintained
 ---
 
 flowchart LR
-  work[Work in L3/L4] --> corr[Repeated correction observed]
+  work[Work in Stages 2 & 3 (Plan / Code)] --> corr[Repeated correction observed]
   corr --> decide{Which primitive?}
   decide -->|standing rule| inst[Instruction]
   decide -->|procedure| skill[Skill]
@@ -87,7 +128,7 @@ flowchart LR
   merge --> work
 ```
 
-No context change is adopted without passing [Evaluation](./evaluation). The layer is code, and
+No context change is adopted without passing automated evaluation. The layer is code, and
 untested code is not merged.
 
 ## Health signals

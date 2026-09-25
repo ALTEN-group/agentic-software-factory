@@ -42,7 +42,7 @@ anything. A healthy range is uncomfortable.
 |---|---|---|
 | **Acceptance rate** | Generated artifacts merged without substantial rework | Falling → context layer drift |
 | **Rework rate** | Accepted output corrected within 14 days | Rising → review is too shallow |
-| **Assisted share per layer** | Share of each layer's output produced with AI | Concentration in L3 only |
+| **Assisted share per layer** | Share of each layer's output produced with AI | Concentration in Stage 3 (Build) only |
 | **Cost per merged change** | Model spend / merged changes | Rising without lead-time gain |
 | **Context hit rate** | Sessions where committed context was sufficient | Falling → artifacts missing or stale |
 
