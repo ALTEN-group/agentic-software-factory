@@ -28,7 +28,7 @@ features:
     title: Minimum human validation
     details: Eliminates line-by-line syntax review fatigue. Human validation is strictly focused on business intent, customer outcome, and safety invariants.
   - icon: 🧠
-    title: A persistent context layer
+    title: Persistent context layer
     details: Instructions, skills, specialized agents, and specs are committed artifacts, feeding models exact repository conventions instead of fuzzy prompts.
   - icon: 📈
     title: Seven layers, one continuous flow
