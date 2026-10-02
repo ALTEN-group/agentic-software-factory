@@ -68,4 +68,4 @@ creates is redesigned or retired — cheaper models, tighter context, or no AI a
 
 A policy violation is handled as an incident, not as a disciplinary matter first: contain, assess
 exposure, notify if required, then fix the path that allowed it. A policy that can only be respected
-through vigilance is a [Guardrails](./guardrails) defect.
+through vigilance is a [Deterministic Controls](./deterministic-controls) defect.

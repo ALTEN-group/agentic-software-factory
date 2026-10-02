@@ -32,8 +32,8 @@ the date by which silence means the recommendation is adopted.
 
 ## AI-specific accountability and Minimum Human Validation
 
-AI executes the process at maximum capability: meeting transcription, intent structuring, 100% of
-code generation, and closed-loop deterministic auto-validation.
+AI executes the process at maximum capability: meeting transcription, business need extraction, 100% of
+code generation, and deterministic validation with agent auto-remediation.
 
 However, **accountability always resolves to a named person**:
 - Humans decide **what** problem to solve and approve client commitments.
@@ -48,19 +48,21 @@ named person. "The AI agent validated and merged it" is not a permissible audit 
 
 ## Line-by-line review ban
 
-In Agentic Software Factory, **line-by-line manual code syntax review is officially banned as a gate**:
-- If a check can be evaluated deterministically (types, formatting, linting, complexity, contracts, unit correctness), it **must be enforced by deterministic controls** in CI.
-- Human review is strictly **Minimum Human Validation**: checking the client intent, reviewing the preview environment, verifying invariant safety, and confirming rollback readiness.
+In Agentic Software Factory, **line-by-line manual code syntax review is officially banned as a gate**. Anything that
+can be evaluated automatically is enforced by automated checks and [Deterministic Controls](./deterministic-controls) in CI.
+Human review is strictly **Minimum Human Validation**, described in [5 — Prove](./stage-prove#minimum-human-validation).
 
-## Reversibility
+## Blast radius and required human validation
 
-The weight of a decision is set by how hard it is to undo.
+The weight of a decision is set by its blast radius and by how hard it is to undo. Blast radius is classified once, in
+[2 — Think](./stage-think), and confirmed in [3 — Plan](./stage-plan). It then sets the human validation a change needs in [5 — Prove](./stage-prove).
 
-| Type | Bar | Example |
+| Blast radius | Criteria | Required human validation |
 |---|---|---|
-| **Reversible** | Zero-touch auto-merge or 1-click validation once all deterministic controls are green | Internal refactor, copy change, non-breaking logic update |
-| **Costly to reverse** | Single specification engineer validation + ADR | New public endpoint, new external dependency, schema addition |
-| **Irreversible** | Dual human sign-off (Lead + Security) + verified rollback plan | Destructive data migration, breaking public API contract, infrastructure re-architecture |
+| **Low** | Internal refactor, non-breaking schema change, copy edit behind green deterministic tests | **Zero-touch auto-merge** or 1-click squad acknowledgement |
+| **Medium** | New public endpoint, schema addition, integration with an external vendor | **Single-person validation**: Specification engineer verifies client intent and the preview environment |
+| **High** | Auth, permissions, billing, PII processing, data migration | **Dual validation**: Specification engineer + security owner verify business intent, access boundaries, and the rollback plan |
+| **Critical** | Irreversible data migration, breaking public contract, infrastructure change | **Lead sign-off**: Engineering lead + product lead approve business continuity and a staged rollout |
 
-Treating a reversible decision as irreversible is as expensive as the opposite — it just costs time
+Treating a reversible decision as irreversible is as expensive as the opposite. It just costs time
 instead of money.

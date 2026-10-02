@@ -17,7 +17,7 @@ has drifted into governance and must be corrected.
 | Platform / DevOps | Environments, pipelines, deployment rails, observability | Deploy on behalf of squads |
 | Security / compliance | Secure defaults, scanners, policy-as-code, threat models | Manual sign-off on routine changes |
 | Data / ML enablement | Analytics pipelines, experiment framework, model access | Own squad metrics |
-| AI enablement | Context layer standards, agents, evaluation harness, cost controls | Write squad code |
+| AI enablement | Persistent Context standards, agents, evaluation harness, cost controls | Write squad code |
 
 ## Operating rules
 

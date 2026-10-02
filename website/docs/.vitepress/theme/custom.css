@@ -443,7 +443,7 @@
   display: none !important;
 }
 
-/* Business Meeting Badge & Node */
+/* Meeting Badge & Node */
 .meeting-badge,
 .mermaid .meeting-badge,
 .vp-doc .mermaid .meeting-badge {
@@ -611,4 +611,218 @@
 .vp-doc .mermaid .edgeLabel tspan {
   font-size: 11.5px !important;
   fill: var(--vp-c-text-2) !important;
+}
+
+/* ==========================================================================
+   Stack Stage Pages: Thematic Header, Badges & Colors
+   ========================================================================== */
+
+/* Stage Hero Banner */
+.stage-hero-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 24px 0;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: all 0.25s ease;
+}
+
+.stage-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.stage-hero-desc {
+  color: var(--vp-c-text-2);
+  font-weight: 500;
+}
+
+/* Stage 0 - Orange */
+.page-stage-orange .VPDoc h1:first-of-type {
+  border-left: 4px solid #f97316;
+  padding-left: 14px;
+  color: #ea580c;
+}
+.dark .page-stage-orange .VPDoc h1:first-of-type {
+  color: #fb923c;
+}
+.banner-orange {
+  background: rgba(249, 115, 22, 0.08);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+.dark .banner-orange {
+  background: rgba(249, 115, 22, 0.14);
+  border-color: rgba(249, 115, 22, 0.4);
+}
+.banner-orange .stage-hero-badge {
+  background: #ea580c;
+  color: #ffffff;
+}
+
+/* Stage 1 - Yellow */
+.page-stage-yellow .VPDoc h1:first-of-type {
+  border-left: 4px solid #eab308;
+  padding-left: 14px;
+  color: #b45309;
+}
+.dark .page-stage-yellow .VPDoc h1:first-of-type {
+  color: #facc15;
+}
+.banner-yellow {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+.dark .banner-yellow {
+  background: rgba(234, 179, 8, 0.14);
+  border-color: rgba(234, 179, 8, 0.4);
+}
+.banner-yellow .stage-hero-badge {
+  background: #ca8a04;
+  color: #ffffff;
+}
+
+/* Stage 2 - Indigo */
+.page-stage-indigo .VPDoc h1:first-of-type {
+  border-left: 4px solid #6366f1;
+  padding-left: 14px;
+  color: #4338ca;
+}
+.dark .page-stage-indigo .VPDoc h1:first-of-type {
+  color: #a5b4fc;
+}
+.banner-indigo {
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+.dark .banner-indigo {
+  background: rgba(99, 102, 241, 0.14);
+  border-color: rgba(99, 102, 241, 0.4);
+}
+.banner-indigo .stage-hero-badge {
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+/* Stage 3 - Core Purple */
+.page-stage-purple .VPDoc h1:first-of-type,
+.page-stage-core .VPDoc h1:first-of-type {
+  border-left: 4px solid #a855f7;
+  padding-left: 14px;
+  color: #7e22ce;
+}
+.dark .page-stage-purple .VPDoc h1:first-of-type,
+.dark .page-stage-core .VPDoc h1:first-of-type {
+  color: #d8b4fe;
+}
+.banner-core {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.08) 50%, rgba(59, 130, 246, 0.08) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+}
+.dark .banner-core {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.18) 0%, rgba(236, 72, 153, 0.12) 50%, rgba(59, 130, 246, 0.12) 100%);
+  border-color: rgba(168, 85, 247, 0.5);
+}
+.banner-core .stage-hero-badge {
+  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+  color: #ffffff;
+}
+
+/* Stage 4 - Cyan */
+.page-stage-cyan .VPDoc h1:first-of-type {
+  border-left: 4px solid #06b6d4;
+  padding-left: 14px;
+  color: #0e7490;
+}
+.dark .page-stage-cyan .VPDoc h1:first-of-type {
+  color: #67e8f9;
+}
+.banner-cyan {
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+.dark .banner-cyan {
+  background: rgba(6, 182, 212, 0.14);
+  border-color: rgba(6, 182, 212, 0.4);
+}
+.banner-cyan .stage-hero-badge {
+  background: #0891b2;
+  color: #ffffff;
+}
+
+/* Stage 5 - Blue */
+.page-stage-blue .VPDoc h1:first-of-type {
+  border-left: 4px solid #0ea5e9;
+  padding-left: 14px;
+  color: #0369a1;
+}
+.dark .page-stage-blue .VPDoc h1:first-of-type {
+  color: #7dd3fc;
+}
+.banner-blue {
+  background: rgba(14, 165, 233, 0.08);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+}
+.dark .banner-blue {
+  background: rgba(14, 165, 233, 0.14);
+  border-color: rgba(14, 165, 233, 0.4);
+}
+.banner-blue .stage-hero-badge {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+/* Stage 6 - Gray */
+.page-stage-gray .VPDoc h1:first-of-type {
+  border-left: 4px solid #94a3b8;
+  padding-left: 14px;
+  color: #334155;
+}
+.dark .page-stage-gray .VPDoc h1:first-of-type {
+  color: #cbd5e1;
+}
+.banner-gray {
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+.dark .banner-gray {
+  background: rgba(148, 163, 184, 0.14);
+  border-color: rgba(148, 163, 184, 0.4);
+}
+.banner-gray .stage-hero-badge {
+  background: #64748b;
+  color: #ffffff;
+}
+
+
+/* Stage 2 - Pink (Think) */
+.page-stage-pink .VPDoc h1:first-of-type {
+  border-left: 4px solid #ec4899;
+  padding-left: 14px;
+  color: #be185d;
+}
+.dark .page-stage-pink .VPDoc h1:first-of-type {
+  color: #f9a8d4;
+}
+.banner-pink {
+  background: rgba(236, 72, 153, 0.08);
+  border: 1px solid rgba(236, 72, 153, 0.3);
+}
+.dark .banner-pink {
+  background: rgba(236, 72, 153, 0.14);
+  border-color: rgba(236, 72, 153, 0.4);
+}
+.banner-pink .stage-hero-badge {
+  background: #db2777;
+  color: #ffffff;
 }

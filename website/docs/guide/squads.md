@@ -20,18 +20,18 @@ A typical high-leverage agentic squad is four to five people:
 
 | Member | Primary Focus | Role in Meeting-Driven Development |
 |---|---|---|
-| **Product lead** | Client relationships, prioritization, outcome metrics | Leads client meetings, defines business value, owns the Signal scorecard |
-| **Specification Engineers (1–2)** | Specifications, Context Layer, deterministic controls | Participates in client meetings, refines Intent records, builds deterministic testbeds, conducts minimum human validation |
+| **Product lead** | Client relationships, prioritization, outcome metrics | Leads client meetings, defines business value, owns the Triage scorecard |
+| **Specification Engineers (1–2)** | Specifications, Persistent Context, automated checks and deterministic controls | Participates in client meetings, refines Plan records, builds deterministic testbeds, conducts minimum human validation |
 | **Architect** | System boundaries, cross-service contracts, ADR governance | Validates technical design plans, signs off high-blast radius ADRs; shared across squads |
 | **Designer** | User experience, user journeys, interaction contracts | Establishes design criteria directly with clients, validates live preview environments |
-| **AI / Context Specialist** | Context Layer, agent configurations, deterministic harness | Curates repo instructions, skills, agents, and evaluation pipelines; shared across squads |
+| **AI / Context Specialist** | Persistent Context, agent configurations, deterministic controls | Curates repo instructions, skills, agents, and evaluation pipelines; shared across squads |
 
 ## Accountability
 
 Each squad is accountable for the full lifecycle:
 
 ```
-client meeting → AI intent synthesis → autonomous build → deterministic auto-validation → minimum human sign-off → progressive release → outcome
+client meeting → ranked backlog issues → options & decisions → plan → fast autonomous code loops → deterministic validation → minimum human sign-off → automated, reversible release → monitoring & learning
 ```
 
 There is no separate QA team, no manual testing department, and no release approval bureaucracy.
@@ -52,7 +52,7 @@ cripple AI agents.
 
 ## Ownership of code and context
 
-Code, deterministic test suites, and Context Layer artifacts are owned by the squad that owns the
+Code, deterministic test suites, and Persistent Context artifacts are owned by the squad that owns the
 outcome. AI agents can propose changes across repositories via pull requests, but the owning
 squad's specification engineer validates the business intent and invariants.
 
@@ -62,7 +62,7 @@ Lightweight shared teams providing automated rails, never gatekeeper meetings. S
 
 | Function | Provides |
 |---|---|
-| Platform / DevOps | Environments from source, CI/CD pipelines, progressive delivery rails, [Foundation](./layer-foundation) |
+| Platform / DevOps | Environments from source, CI/CD pipelines, progressive delivery rails, [Platform Rails](./platform-rails) |
 | Security / compliance | Policy-as-code, SAST/DAST automation, threat models, secret management |
 | Data / analytics | Telemetry pipelines, experimentation platforms, metric validation |
-| AI enablement | Context layer standards, agent toolkits, evaluation harnesses, meeting transcription & extraction rails |
+| AI enablement | Persistent Context standards, agent toolkits, evaluation harnesses, meeting transcription & extraction rails |

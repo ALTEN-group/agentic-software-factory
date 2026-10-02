@@ -46,19 +46,19 @@ export default withMermaid(defineConfig({
       {
         items: [
           { text: 'Overview', link: '/guide/overview' },
-          { text: 'Principles', link: '/guide/principles' },
         ],
       },
       {
-        text: 'The Stack',
+        text: 'Operating model',
         items: [
-          { text: '0 — Foundation', link: '/guide/layer-foundation' },
-          { text: '1 — Need', link: '/guide/layer-need' },
-          { text: '2 — Plan', link: '/guide/layer-plan' },
-          { text: '3 — Code', link: '/guide/layer-code' },
-          { text: '4 — Proof', link: '/guide/layer-proof' },
-          { text: '5 — Release', link: '/guide/layer-release' },
-          { text: '6 — Learn', link: '/guide/layer-learn' },
+          { text: '🎙️ 0 — Meet', link: '/guide/stage-meet' },
+          { text: '🎯 1 — Triage', link: '/guide/stage-triage' },
+          { text: '💡 2 — Think', link: '/guide/stage-think' },
+          { text: '📋 3 — Plan', link: '/guide/stage-plan' },
+          { text: '⚡ 4 — Code', link: '/guide/stage-code' },
+          { text: '✅ 5 — Prove', link: '/guide/stage-prove' },
+          { text: '🚀 6 — Release', link: '/guide/stage-release' },
+          { text: '📈 7 — Learn', link: '/guide/stage-learn' },
         ],
       },
       {
@@ -74,13 +74,15 @@ export default withMermaid(defineConfig({
         items: [
           { text: 'Decision Rights', link: '/guide/decision-rights' },
           { text: 'AI Usage Policy', link: '/guide/ai-policy' },
-          { text: 'Guardrails', link: '/guide/guardrails' },
         ],
       },
       {
-        text: 'AI Operating Layer',
+        text: 'Enablers',
         items: [
-          { text: 'Context Layer', link: '/guide/context-layer' },
+          { text: 'Persistent Context', link: '/guide/persistent-context' },
+          { text: '📦 Forge', link: '/guide/forge' },
+          { text: 'Deterministic Controls', link: '/guide/deterministic-controls' },
+          { text: 'Platform Rails', link: '/guide/platform-rails' },
           { text: 'Tooling', link: '/guide/tooling' },
         ],
       },

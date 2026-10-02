@@ -9,25 +9,25 @@ context curation, deterministic testing, and safety governance.
 ### Product lead
 
 - Owns customer relationship and outcome metrics.
-- Leads client meetings and collaborates with AI to synthesize the [Need](./layer-need) backlog.
-- Ranks the opportunity scorecard and defends business value decisions.
+- Leads client meetings and collaborates with AI to synthesize the [Triage](./stage-triage) backlog.
+- Ranks the [Triage](./stage-triage) scorecard and defends business value decisions.
 - Validates that finished software faithfully solves the client's business need.
 - Decides *do now / experiment / later / no* — recording the rationale for `no`.
 
-### Specification Engineer (formerly Developer)
+### Specification Engineer
 
 - **Does not write code syntax manually.**
 - Attends client meetings to capture deep technical constraints and domain models.
-- Refines AI-synthesized [Plan](./layer-plan) records, defining unambiguous, testable acceptance criteria.
-- Validates the AI agent's technical plan before autonomous code generation starts.
-- Designs and commits **dense deterministic controls** (types, linters, contract suites, mutation tests).
+- Refines AI-synthesized [Plan](./stage-plan) records, defining unambiguous, testable acceptance criteria.
+- Validates the implementation plan in the Validate step of [Plan](./stage-plan), before autonomous code generation starts.
+- Designs and commits the **automated checks** (types, linters, tests) and the **dense deterministic controls** (contract suites, mutation tests, security scans).
 - Conducts **Minimum Human Validation** focusing on client intent and safety invariants — never line-by-line syntax reviews.
 - Carries operational and production support for what the squad deploys.
 
 ### Architect
 
 - Owns cross-cutting architectural cohesion, system boundaries, and API standards.
-- Validates technical design plans for high-blast radius initiatives before [Code](./layer-code) begins.
+- Validates technical design plans for high-blast radius initiatives before [Code](./stage-code) begins.
 - Reviews and signs Architecture Decision Records (ADRs).
 - Shared across squads; ensures that autonomous agent code generation does not fragment architectural patterns.
 
@@ -39,8 +39,8 @@ context curation, deterministic testing, and safety governance.
 
 ### AI / Context Specialist
 
-- Curates and maintains the squad's [Context Layer](./context-layer) (instructions, skills, specialized agents).
-- Tunes deterministic harnesses and closed-loop self-healing agent configurations.
+- Curates and maintains the squad's [Persistent Context](./persistent-context) (instructions, prompts, skills, specialized agents).
+- Tunes agent configurations and the fix-loop settings used in Code and Prove.
 - Runs evaluations before new models, system prompts, or agent roles are adopted.
 
 ## Enablement roles
@@ -49,7 +49,7 @@ context curation, deterministic testing, and safety governance.
 
 - Owns cross-squad technical architecture and ADR governance.
 - Final technical arbiter on **Critical** blast-radius changes.
-- Ensures the platform Foundation provides world-class agentic development rails.
+- Ensures the platform rails provide world-class agentic development rails.
 
 ### Security & compliance owner
 
@@ -65,17 +65,18 @@ context curation, deterministic testing, and safety governance.
 ### AI enablement lead
 
 - Owns the [AI usage policy](./ai-policy), model routing gateways, and cost attribution.
-- Provides client meeting intelligence infrastructure (transcription, extraction, Spec generation).
+- Provides client meeting intelligence infrastructure (transcription, need extraction, Plan drafting).
 - Owns the organization-wide evaluation harness.
 
-## Role matrix per layer
+## Role matrix per stage
 
 | Stage | Accountable | Consulted | AI Agent Execution |
 |---|---|---|---|
-| [0 — Foundation](./layer-foundation) | Platform owner | Engineering lead, security owner | Self-service template generation & monitoring |
-| [1 — Need](./layer-need) | Product lead | Specification engineer, client | **Meeting transcription & need extraction** |
-| [2 — Plan](./layer-plan) | Product lead + Specification engineer | Architect, designer, security | **Plan & spec drafting, ambiguity detection** |
-| [3 — Code](./layer-code) | Specification engineer | Architect (high-risk) | **100% Autonomous code & test generation** |
-| [4 — Proof](./layer-proof) | Specification engineer (Minimum Human Validation) | Security owner (high-risk) | **Closed-loop deterministic auto-validation** |
-| [5 — Release](./layer-release) | Squad | Product lead, platform | **Progressive rollout & anomaly monitoring** |
-| [6 — Learn](./layer-learn) | Product lead + data owner | Whole squad, AI specialist | **Outcome correlation & Context Layer updates** |
+| [🎙️ 0 — Meet](./stage-meet) | Product lead + Specification engineer | Client | Client dialogue capture & discovery |
+| [🎯 1 — Triage](./stage-triage) | Product lead | Specification engineer, client | Transcript analysis, business need ranking & backlog issue logging |
+| [💡 2 — Think](./stage-think) | Product lead + Architect | Specification engineer, security | **Option exploration, Forge reuse discovery, ADR drafting** |
+| [📋 3 — Plan](./stage-plan) | Product lead + Specification engineer | Architect, designer, security | **Plan & spec drafting, ambiguity detection** |
+| [⚡ 4 — Code](./stage-code) | Specification engineer | Architect (high-risk) | **Fast autonomous generate-test-fix loops** |
+| [✅ 5 — Prove](./stage-prove) | Specification engineer (Minimum Human Validation) | Security owner (high-risk) | **Deterministic gate validation & agent auto-remediation** |
+| [🚀 6 — Release](./stage-release) | Squad | Product lead, platform | **Automated deployment, reversible at any step** |
+| [📈 7 — Learn](./stage-learn) | Product lead + data owner | Whole squad, AI specialist | **Production telemetry analysis & predictive monitoring** |

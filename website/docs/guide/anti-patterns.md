@@ -9,21 +9,19 @@ cause of a failed transformation somewhere.
 
 The fatal anti-pattern: developers treating AI as a glorified autocomplete while continuing to
 manually write application logic, boilerplate, and tests. In Agentic Software Factory, developers do not write
-code; they design specifications, build deterministic controls, and curate the Context Layer.
+code; they design specifications, build deterministic controls, and curate the Persistent Context.
 Hand-coding creates bottlenecks, uncommitted tribal habits, and low AI leverage.
 
 ### Manual line-by-line syntax reviews
 
-Engineers spending hours reading thousands of lines of generated diffs in pull requests. This causes
-reviewer fatigue, blinds reviewers to deep logic errors, and stalls delivery. If a check can be
-verified deterministically (types, formatting, linting, complexity, contracts, unit correctness),
-it **must be enforced by deterministic controls** in CI. Humans perform Minimum Human Validation on
-client intent and safety invariants only.
+Engineers spending hours reading thousands of lines of generated diffs in pull requests. Anything that
+can be checked automatically belongs in automated checks and deterministic controls, and humans perform
+Minimum Human Validation on client intent and safety invariants only. See [Prove](./stage-prove#why-deterministic-controls-replace-manual-code-review).
 
 ### Skipping client meetings & building from stale tickets
 
 Engineers isolated from client dialogue, relying on third-hand ticket summaries. In Meeting-Driven
-Development, client dialogue is the primary signal source, captured and structured by AI in real time.
+Development, client dialogue is the primary signal source, captured and structured by AI ([0 — Meet](./stage-meet)).
 
 ### The AI centre of excellence that owns delivery
 
@@ -44,21 +42,21 @@ hand-offs. Boundaries follow outcomes.
 
 ### Skipping Plan
 
-Feeding a vague meeting snippet straight to a build agent without structuring acceptance criteria.
+Feeding a vague meeting snippet straight to a coding agent without structuring acceptance criteria.
 The model fills the gaps with plausible assumptions, and auto-validation cannot verify what was
-never specified. Ambiguity is cheapest to remove in [2 — Plan](./layer-plan).
+never specified. Ambiguity is cheapest to remove in [3 — Plan](./stage-plan).
 
 ### Weak deterministic controls ("Trust the model")
 
 Relying on LLM self-critique or superficial unit tests that do not test invariants. Generated code
-must face dense deterministic controls: compilers, strict type systems, AST linters, contract tests,
-and mutation testing.
+must face automated checks (compilers, strict type systems, AST linters, tests) and dense deterministic
+controls (contract tests, mutation testing, security scans).
 
 ### Hand-fixing generated bugs
 
 An engineer spotting a bug in generated output and manually typing the fix into the code file.
-The correct response is: add a deterministic test or update the [Context Layer](./context-layer)
-instruction, then let the AI agent regenerate and heal the implementation.
+The correct response is: add a deterministic test or update the [Persistent Context](./persistent-context)
+instruction, then let the AI agent regenerate and fix the implementation.
 
 ### Uniform review effort
 
@@ -75,7 +73,7 @@ correlation between a change and its effect.
 ### Prompting instead of context
 
 Increasingly elaborate prompts re-explaining the same conventions in chat. That is a missing
-[Context Layer](./context-layer), not a prompt engineering skill gap.
+[Persistent Context](./persistent-context), not a prompt engineering skill gap.
 
 ### The everything instruction
 
@@ -99,11 +97,8 @@ requests behind deterministic controls; humans validate before merge.
 
 ### Tool sprawl and context fragmentation
 
-Spreading work across disconnected SaaS tools (Jira for tickets, Confluence for specs, Slack for
-discussions, Jenkins for CI, and Git for code). This fragments the knowledge graph that AI agents
-depend on, forcing brittle integrations, synchronization lags, and loss of original client meeting
-context. Agentic Software Factory consolidates the lifecycle into a single unified substrate (such as the GitHub
-ecosystem) where business needs, code, deterministic CI, and releases share one unbroken context graph.
+Spreading work across disconnected SaaS tools fragments the knowledge graph that AI agents depend on. See
+[Tooling](./tooling) for why the lifecycle is consolidated into a single unified substrate.
 
 ## Measurement
 

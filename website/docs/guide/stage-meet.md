@@ -1,0 +1,88 @@
+---
+pageClass: page-stage-orange
+---
+
+# 🎙️ 0 — Meet
+
+<div class="stage-hero-banner banner-orange">
+  <span class="stage-hero-badge">STAGE 0</span>
+  <span class="stage-hero-desc">Client dialogue &amp; discovery</span>
+</div>
+
+Where demand originates and ground truth is captured. Agentic Software Factory is **Meeting-Driven** : raw client conversations, stakeholder interviews, and discovery workshops are
+captured as traceable inputs that establish clear intent for the entire software factory. Stage 0 preserves their source and context, establishing what matters and why.
+
+## Purpose
+
+Eliminate requirements decay and the traditional "telephone game" by capturing authentic client intent directly at the source.
+
+| Input | Output | Owner |
+|---|---|---|
+| Client dialogue, stakeholder discovery sessions, voice and video calls, incident debriefs | Transcripts, semantic meeting synthesis, highlighted domain quotes, and customer intent anchors | Client + Product Owner |
+
+## What is lost without it
+
+In traditional delivery, a client's words pass through several people before an engineer sees them, and each hand-off keeps
+less. The same sentence, from the same call, ends up very differently:
+
+| | Traditional ticket | Meeting-Driven backlog issue |
+|---|---|---|
+| **What the client said** | "Our regional managers spend 45 minutes every morning cross-referencing CSV exports from SAP with local inventory sheets before trucks can roll." | The same sentence, quoted verbatim, with a link to the exact moment in the transcript |
+| **What the engineer receives** | "Improve inventory export" | A named problem, who is blocked, and what it costs them |
+| **What is gone** | The 45 minutes, the SAP source, the trucks waiting, the people affected | Nothing |
+| **How it can be checked later** | It cannot. The only record is someone's summary | Every later stage can be checked against the original words |
+
+AI agents cannot infer the unstated nuances of a client's business. If those nuances are lost before the work reaches them,
+no amount of testing brings them back. Capturing the dialogue at the source keeps [1 — Triage](./stage-triage), [2 — Think](./stage-think),
+and [3 — Plan](./stage-plan), and everything after them, anchored to what the client actually said.
+
+## Core capabilities
+
+### 1. Transcription & speaker attribution
+Meeting intelligence connectors ingest client meetings (discovery calls, sprint reviews, steering committees) and generate timestamped transcripts in which every statement is attributed to a speaker (speaker diarization). Every statement is attributed directly to client decision-makers.
+
+### 2. Verbatim intent anchoring
+Rather than summarizing conversations into generic bullet points, the meeting pipeline extracts verbatim quotes and anchors them to domain concepts. When a need moves through [1 — Triage](./stage-triage) to [3 — Plan](./stage-plan), the Plan record cites the exact client quote justifying the change:
+
+> *"Our regional managers spend 45 minutes every morning cross-referencing CSV exports from SAP with local inventory sheets before trucks can roll."*
+> — Operations Director, Meeting Transcript (2026-09-24, 00:14:32)
+
+## Persistent Context in Meet
+
+[Persistent Context](./persistent-context) feeds Meet from the very first call. It gives the meeting pipeline what it cannot infer:
+
+- **Instructions and skill for the meeting agent:** so every Meeting Pack has the same structure, tone, and data-handling rules, such as removing personal data from transcripts.
+- **Past decisions:** so a request that touches something already built is flagged for Triage.
+
+It also receives something back: new terms and acronyms introduced by the client are staged in the Meeting Pack for commit to Persistent Context.
+
+## The Meeting Pack artifact
+
+At the conclusion of each meeting, the intelligence pipeline produces an immutable **Meeting Pack**:
+
+1. **Full transcript**: Verbatim text indexed by timestamp and speaker.
+2. **Executive synthesis**: 1-page summary of business drivers, urgency, and core challenges discussed.
+3. **Domain concepts & terminology**: New terms or acronyms introduced by the client, staged for commit to [Persistent Context](./persistent-context).
+4. **Candidate business needs**: Needs ready for ranking and logging as backlog issues in **[1 — Triage](./stage-triage)**.
+
+## Where AI is used
+
+AI captures and structures the dialogue; the specification engineer steers the conversation and the client confirms what was said.
+
+| Task | AI role | Human role |
+|---|---|---|
+| **Transcription** | Convert the audio or video stream to a timestamped, speaker-attributed transcript | Verify speaker accuracy |
+| **Quote anchoring** | Extract verbatim quotes and link them to domain concepts | Confirm the quotes reflect the client's meaning |
+| **Meeting Pack synthesis** | Produce the executive synthesis, new terminology, and candidate business needs, using the glossary and instructions in Persistent Context | Confirm the problem statements with the client |
+
+A reusable prompt in Persistent Context, for example "summarize this meeting into candidate business needs with quotes", keeps the Meeting Pack consistent across squads.
+
+## Exit gate
+
+A meeting successfully closes when:
+
+1. The meeting transcript has been captured, verified for speaker accuracy, and committed to the repository substrate.
+2. The client has confirmed that the synthesized problem statements accurately reflect their business pain.
+3. Candidate business needs have been emitted to the backlog for ranking in **[1 — Triage](./stage-triage)**.
+
+**Next:** [1 — Triage](./stage-triage)

@@ -1,11 +1,11 @@
 <template>
   <div class="delivery-flowchart-container">
     <svg
-      viewBox="0 0 1000 670"
+      viewBox="85 0 830 786"
       class="delivery-flowchart-svg"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      aria-label="Delivery Flowchart: From Business Meeting to Production Release"
+      aria-label="Delivery Flowchart: From Meeting to Production Release"
     >
       <defs>
         <!-- Gradients -->
@@ -15,13 +15,48 @@
         </linearGradient>
 
         <linearGradient id="flowCoreCard" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#241b3a" stop-opacity="0.95" />
-          <stop offset="100%" stop-color="#161226" stop-opacity="0.98" />
+          <stop offset="0%" stop-color="#7e22ce" />
+          <stop offset="100%" stop-color="#6b21a8" />
         </linearGradient>
 
         <linearGradient id="flowGreenCard" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#064e3b" stop-opacity="0.45" />
-          <stop offset="100%" stop-color="#022c22" stop-opacity="0.65" />
+          <stop offset="0%" stop-color="#047857" />
+          <stop offset="100%" stop-color="#065f46" />
+        </linearGradient>
+
+        <linearGradient id="flowOrangeCard" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c2410c" />
+          <stop offset="100%" stop-color="#9a3412" />
+        </linearGradient>
+
+        <linearGradient id="flowYellowCard" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#a16207" />
+          <stop offset="100%" stop-color="#854d0e" />
+        </linearGradient>
+
+        <linearGradient id="flowIndigoCard" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4338ca" />
+          <stop offset="100%" stop-color="#3730a3" />
+        </linearGradient>
+
+        <linearGradient id="flowCyanCard" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e7490" />
+          <stop offset="100%" stop-color="#155e75" />
+        </linearGradient>
+
+        <linearGradient id="flowBlueCard" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0369a1" />
+          <stop offset="100%" stop-color="#075985" />
+        </linearGradient>
+
+        <linearGradient id="flowGrayCard" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#475569" />
+          <stop offset="100%" stop-color="#334155" />
+        </linearGradient>
+
+        <linearGradient id="flowPinkCard" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#be185d" />
+          <stop offset="100%" stop-color="#9d174d" />
         </linearGradient>
 
         <linearGradient id="flowPipeGrad" x1="0" y1="0" x2="0" y2="1">
@@ -78,73 +113,97 @@
       <!-- ============================================================== -->
 
 
-      <!-- Loop 2: 6 — Learn back to Persistent Context (Inner Left) -->
+      <!-- Loop 2: 7 — Learn back to Persistent Context (Inner Left) -->
       <path
-        d="M 310 612 H 152 V 273"
+        d="M 360 728 H 152 V 483"
         class="feedback-path green-feedback"
         marker-end="url(#flowArrowGreen)"
       />
-      <rect x="77" y="470" width="150" height="18" rx="4" class="label-bg" />
-      <text x="152" y="483" class="flow-label green-text">Enriches skills & ADRs</text>
+      <text x="152" y="620" class="flow-label green-text">Enriches</text>
 
-      <!-- Loop 3: 6 — Learn back to Deterministic Controls (Outer Right) -->
+      <!-- Loop 3: 7 — Learn back to Deterministic Controls (Outer Right) -->
       <path
-        d="M 690 612 H 848 V 461"
+        d="M 640 728 H 848 V 577"
         class="feedback-path green-feedback"
         marker-end="url(#flowArrowGreen)"
       />
-      <rect x="778" y="515" width="140" height="18" rx="4" class="label-bg" />
-      <text x="848" y="528" class="flow-label green-text">Hardens test suites</text>
+      <text x="848" y="640" class="flow-label green-text">Hardens</text>
 
       <!-- ============================================================== -->
       <!-- CONNECTIONS FROM GREEN BLOCKS INTO DELIVERY STAGES             -->
       <!-- ============================================================== -->
 
-      <!-- Persistent Context -> 1 — Need (Smooth Diagonal Up) -->
+      <!-- Persistent Context -> shared trunk (left) feeding 0 — Meet, 1 — Triage, 2 — Think, 3 — Plan, 4 — Code, 5 — Prove -->
       <path
-        d="M 275 212 C 295 212, 290 145, 303 145"
+        d="M 325 445 H 340"
+        class="green-connector"
+      />
+      <path
+        d="M 340 58 V 539"
+        class="green-connector"
+      />
+      <path
+        d="M 340 58 H 353"
+        class="green-connector"
+        marker-end="url(#flowArrowGreen)"
+      />
+      <path
+        d="M 340 145 H 353"
+        class="green-connector"
+        marker-end="url(#flowArrowGreen)"
+      />
+      <path
+        d="M 340 235 H 353"
+        class="green-connector"
+        marker-end="url(#flowArrowGreen)"
+      />
+      <path
+        d="M 340 327 H 353"
+        class="green-connector"
+        marker-end="url(#flowArrowGreen)"
+      />
+      <path
+        d="M 340 436 H 353"
+        class="green-connector"
+        marker-end="url(#flowArrowGreen)"
+      />
+      <path
+        d="M 340 539 H 353"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
 
-      <!-- Persistent Context -> 2 — Plan (Direct Horizontal) -->
+      <!-- The Forge -> shared trunk (right) feeding 2 — Think, 3 — Plan, 4 — Code -->
       <path
-        d="M 275 230 H 303"
+        d="M 660 235 V 445"
+        class="green-connector"
+      />
+      <path
+        d="M 660 445 H 647"
+        class="green-connector"
+        marker-end="url(#flowArrowGreen)"
+      />
+      <path
+        d="M 675 327 H 647"
+        class="green-connector"
+        marker-end="url(#flowArrowGreen)"
+      />
+      <path
+        d="M 660 235 H 647"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
 
-      <!-- Persistent Context -> 3 — Code (Smooth Diagonal Down) -->
+      <!-- Deterministic Controls -> 5 — Prove (Direct Horizontal) -->
       <path
-        d="M 275 248 C 295 248, 290 320, 303 320"
+        d="M 675 539 H 647"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
 
-      <!-- Persistent Context -> 4 — Proof (Route down left corridor) -->
+      <!-- Deterministic Controls -> 6 — Release (Route down right corridor) -->
       <path
-        d="M 255 266 V 405 Q 255 415 268 415 H 303"
-        class="green-connector"
-        marker-end="url(#flowArrowGreen)"
-      />
-
-      <!-- The Forge -> 3 — Code (Direct Horizontal) -->
-      <path
-        d="M 725 329 H 697"
-        class="green-connector"
-        marker-end="url(#flowArrowGreen)"
-      />
-
-      <!-- The Forge -> 2 — Plan (Smooth Diagonal Up) -->
-      <path
-        d="M 725 310 C 705 310, 710 245, 697 245"
-        class="green-connector"
-        marker-end="url(#flowArrowGreen)"
-      />
-
-      <!-- Deterministic Controls -> 4 — Proof (Direct Horizontal) -->
-      <path
-        d="M 725 423 H 697"
+        d="M 695 570 V 618 Q 695 628 682 628 H 647"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
@@ -153,130 +212,155 @@
       <!-- MAIN PIPELINE HIGHWAY (Straight Vertical Down the Center)      -->
       <!-- ============================================================== -->
 
-      <!-- Meeting -> 1 — Need -->
+      <!-- Meeting -> 1 — Triage -->
       <path d="M 500 86 V 109" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
-      <!-- 1 — Need -> 2 — Plan -->
+      <!-- 1 — Triage -> 3 — Plan -->
       <path d="M 500 174 V 197" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
-      <!-- 2 — Plan -> 3 — Code -->
+      <!-- 2 — Think -> 3 — Plan -->
       <path d="M 500 266 V 289" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
-      <!-- 3 — Code -> 4 — Proof -->
-      <path d="M 500 362 V 385" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <!-- 3 — Plan -> 4 — Code -->
+      <path d="M 500 358 V 405" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <text x="500" y="372.5" class="flow-label highlight-label">Validate</text>
 
-      <!-- 4 — Proof -> 5 — Release -->
-      <path d="M 500 454 V 477" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <!-- 4 — Code -> 5 — Prove -->
+      <path d="M 500 478 V 501" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
-      <!-- 5 — Release -> 6 — Learn -->
-      <path d="M 500 540 V 563" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <!-- 5 — Prove -> 6 — Release -->
+      <path d="M 500 570 V 593" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+
+      <!-- 6 — Release -> 7 — Learn -->
+      <path d="M 500 656 V 679" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- ============================================================== -->
       <!-- INTERACTIVE CARDS & NODES                                      -->
       <!-- ============================================================== -->
 
-      <!-- [ROW 0] Business Meeting (Origin) -->
-      <g class="flow-node node-meeting" transform="translate(310, 30)">
-        <rect width="380" height="56" rx="10" class="node-rect rect-meeting" />
-        <text x="20" y="26" class="node-title">🎙️ Business Meeting</text>
-        <text x="20" y="45" class="node-subtitle">Client dialogue &amp; discovery</text>
-      </g>
-
-      <!-- [ROW 1] 1 — Need -->
-      <a href="./guide/layer-need" class="flow-node-link">
-        <g class="flow-node node-standard" transform="translate(310, 116)">
-          <rect width="380" height="58" rx="10" class="node-rect rect-purple" />
-          <text x="20" y="26" class="node-title">1 — Need</text>
-          <text x="20" y="46" class="node-subtitle">Real-time transcription &amp; opportunity ranking</text>
+      <!-- [ROW 0] Meeting (Origin) -->
+      <a :href="withBase('/guide/stage-meet')" class="flow-node-link">
+        <g class="flow-node node-meeting" transform="translate(360, 30)">
+          <rect width="280" height="56" rx="10" class="node-rect rect-orange" />
+          <text x="20" y="26" class="node-title orange-title">🎙️ 0 — Meet</text>
+          <text x="20" y="45" class="node-subtitle">Client dialogue &amp; discovery</text>
         </g>
       </a>
 
-      <!-- [ROW 2 - LEFT] Persistent Context (Exact Level with 2 — Plan) -->
-      <a href="./guide/context-layer" class="flow-node-link">
-        <g class="flow-node node-green" transform="translate(30, 204)">
-          <rect width="245" height="62" rx="10" class="node-rect rect-green" />
-          <text x="18" y="27" class="node-title green-title">🧠 Persistent Context</text>
-          <text x="18" y="47" class="node-subtitle green-desc">Instructions, skills, specs &amp; ADRs</text>
+      <!-- [ROW 1] 1 — Triage -->
+      <a :href="withBase('/guide/stage-triage')" class="flow-node-link">
+        <g class="flow-node node-need" transform="translate(360, 116)">
+          <rect width="280" height="58" rx="10" class="node-rect rect-yellow" />
+          <text x="20" y="22" class="node-title yellow-title">🎯 1 — Triage</text>
+          <text x="20" y="38" class="node-subtitle">Transcript analysis, business needs</text>
+          <text x="20" y="51" class="node-subtitle">ranked &amp; logged as backlog issues</text>
         </g>
       </a>
 
-      <!-- [ROW 2 - CENTER] 2 — Plan -->
-      <a href="./guide/layer-plan" class="flow-node-link">
-        <g class="flow-node node-standard" transform="translate(310, 204)">
-          <rect width="380" height="62" rx="10" class="node-rect rect-purple" />
-          <text x="20" y="27" class="node-title">2 — Plan</text>
-          <text x="20" y="47" class="node-subtitle">Implementation breakdown, file scope &amp; boundary constraints</text>
+      <!-- [ROW 2 - LEFT] Persistent Context (Exact Level with 4 — Code) -->
+      <a :href="withBase('/guide/persistent-context')" class="flow-node-link">
+        <g class="flow-node node-green" transform="translate(95, 414)">
+          <rect width="230" height="62" rx="10" class="node-rect rect-green" />
+          <text x="18" y="24" class="node-title green-title">🧠 Persistent Context</text>
+          <text x="18" y="41" class="node-subtitle green-desc">Instructions, prompts,</text>
+          <text x="18" y="54" class="node-subtitle green-desc">skills &amp; agents primitives</text>
         </g>
       </a>
 
-      <!-- [ROW 3 - CENTER] 3 — Code (Autonomous Agent Core) -->
-      <a href="./guide/layer-code" class="flow-node-link">
-        <g class="flow-node node-core" transform="translate(310, 296)">
-          <rect width="380" height="66" rx="10" class="node-rect rect-core" />
-          <text x="20" y="28" class="node-title core-title">3 — Code</text>
-          <text x="20" y="50" class="node-subtitle">Application logic, test generation &amp; local self-healing</text>
+      <!-- [ROW 2 - CENTER] 2 — Think -->
+      <a :href="withBase('/guide/stage-think')" class="flow-node-link">
+        <g class="flow-node node-think" transform="translate(360, 204)">
+          <rect width="280" height="62" rx="10" class="node-rect rect-pink" />
+          <text x="20" y="24" class="node-title pink-title">💡 2 — Think</text>
+          <text x="20" y="41" class="node-subtitle">Options exploration, trade-offs &amp;</text>
+          <text x="20" y="54" class="node-subtitle">architectural decisions</text>
         </g>
       </a>
 
-      <!-- [ROW 3 - RIGHT] The Forge (Exact Level with 3 — Code) -->
-      <a href="./guide/layer-plan#reusable-assets-the-enterprise-forge" class="flow-node-link">
-        <g class="flow-node node-green" transform="translate(725, 296)">
-          <rect width="245" height="66" rx="10" class="node-rect rect-green" />
-          <text x="18" y="28" class="node-title green-title">📦 The Forge</text>
-          <text x="18" y="49" class="node-subtitle green-desc">Reusable code &amp; services</text>
+      <!-- [ROW 3 - CENTER] 3 — Plan -->
+      <a :href="withBase('/guide/stage-plan')" class="flow-node-link">
+        <g class="flow-node node-plan" transform="translate(360, 296)">
+          <rect width="280" height="62" rx="10" class="node-rect rect-indigo" />
+          <text x="20" y="24" class="node-title indigo-title">📋 3 — Plan</text>
+          <text x="20" y="41" class="node-subtitle">Implementation breakdown, file scope &amp;</text>
+          <text x="20" y="54" class="node-subtitle">boundary constraints</text>
         </g>
       </a>
 
-      <!-- [ROW 4 - CENTER] 4 — Proof -->
-      <a href="./guide/layer-proof" class="flow-node-link">
-        <g class="flow-node node-standard" transform="translate(310, 392)">
-          <rect width="380" height="62" rx="10" class="node-rect rect-purple" />
-          <text x="20" y="27" class="node-title">4 — Proof</text>
-          <text x="20" y="47" class="node-subtitle">Deterministic gate validation &amp; LLM self-repair in CI</text>
+      <!-- [ROW 3 - CENTER] 4 — Code (Autonomous Agent Core) -->
+      <a :href="withBase('/guide/stage-code')" class="flow-node-link">
+        <g class="flow-node node-core" transform="translate(360, 412)">
+          <rect width="280" height="66" rx="10" class="node-rect rect-core" />
+          <text x="20" y="26" class="node-title core-title">⚡ 4 — Code</text>
+          <text x="20" y="44" class="node-subtitle">Fast autonomous loops,</text>
+          <text x="20" y="57" class="node-subtitle">generate, test &amp; fix until green</text>
         </g>
       </a>
 
-      <!-- [ROW 4 - RIGHT] Deterministic Controls (Exact Level with 4 — Proof) -->
-      <a href="./guide/guardrails" class="flow-node-link">
-        <g class="flow-node node-green" transform="translate(725, 392)">
-          <rect width="245" height="62" rx="10" class="node-rect rect-green" />
+      <!-- [ROW 3 - RIGHT] The Forge (Exact Level with 3 — Plan) -->
+      <a :href="withBase('/guide/forge')" class="flow-node-link">
+        <g class="flow-node node-green" transform="translate(675, 294)">
+          <rect width="230" height="66" rx="10" class="node-rect rect-green" />
+          <text x="18" y="26" class="node-title green-title">📦 Forge</text>
+          <text x="18" y="44" class="node-subtitle green-desc">Reusable code:</text>
+          <text x="18" y="57" class="node-subtitle green-desc">functions, libraries, services</text>
+        </g>
+      </a>
+
+      <!-- [ROW 4 - CENTER] 5 — Prove -->
+      <a :href="withBase('/guide/stage-prove')" class="flow-node-link">
+        <g class="flow-node node-proof" transform="translate(360, 508)">
+          <rect width="280" height="62" rx="10" class="node-rect rect-cyan" />
+          <text x="20" y="24" class="node-title cyan-title">✅ 5 — Prove</text>
+          <text x="20" y="41" class="node-subtitle">Deterministic gate validation &amp;</text>
+          <text x="20" y="54" class="node-subtitle">agent auto-remediation</text>
+        </g>
+      </a>
+
+      <!-- [ROW 4 - RIGHT] Deterministic Controls (Exact Level with 5 — Prove) -->
+      <a :href="withBase('/guide/deterministic-controls')" class="flow-node-link">
+        <g class="flow-node node-green" transform="translate(675, 508)">
+          <rect width="230" height="62" rx="10" class="node-rect rect-green" />
           <text x="18" y="27" class="node-title green-title">🛡️ Deterministic Controls</text>
-          <text x="18" y="47" class="node-subtitle green-desc">Testbeds, linters, contracts &amp; mutation</text>
+          <text x="18" y="47" class="node-subtitle green-desc">Guards, gates, contracts &amp; probes</text>
         </g>
       </a>
 
-      <!-- [ROW 5 - CENTER] 5 — Release -->
-      <a href="./guide/layer-release" class="flow-node-link">
-        <g class="flow-node node-standard" transform="translate(310, 484)">
-          <rect width="380" height="56" rx="10" class="node-rect rect-blue" />
-          <text x="20" y="26" class="node-title blue-title">5 — Release</text>
-          <text x="20" y="44" class="node-subtitle">Progressive canary rollout &amp; feature flag activation</text>
+      <!-- [ROW 5 - CENTER] 6 — Release -->
+      <a :href="withBase('/guide/stage-release')" class="flow-node-link">
+        <g class="flow-node node-release" transform="translate(360, 600)">
+          <rect width="280" height="56" rx="10" class="node-rect rect-blue" />
+          <text x="20" y="21" class="node-title blue-title">🚀 6 — Release</text>
+          <text x="20" y="36" class="node-subtitle">Automated deployment,</text>
+          <text x="20" y="48" class="node-subtitle">reversible at any step</text>
         </g>
       </a>
 
-      <!-- [ROW 6 - CENTER] 6 — Learn -->
-      <a href="./guide/layer-learn" class="flow-node-link">
-        <g class="flow-node node-standard" transform="translate(310, 570)">
-          <rect width="380" height="58" rx="10" class="node-rect rect-purple" />
-          <text x="20" y="26" class="node-title">6 — Learn</text>
-          <text x="20" y="46" class="node-subtitle">Production telemetry analysis &amp; outcome validation</text>
+      <!-- [ROW 6 - CENTER] 7 — Learn -->
+      <a :href="withBase('/guide/stage-learn')" class="flow-node-link">
+        <g class="flow-node node-learn" transform="translate(360, 686)">
+          <rect width="280" height="58" rx="10" class="node-rect rect-gray" />
+          <text x="20" y="22" class="node-title gray-title">📈 7 — Learn</text>
+          <text x="20" y="38" class="node-subtitle">Production telemetry analysis &amp;</text>
+          <text x="20" y="51" class="node-subtitle">predictive monitoring</text>
         </g>
       </a>
     </svg>
   </div>
 </template>
 
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 <style scoped>
 .delivery-flowchart-container {
-  width: 100%;
-  max-width: 1060px;
-  margin: 28px auto;
-  padding: 20px 14px;
-  background: #0d1117;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  width: calc(100% + 48px);
+  margin: 28px -24px;
+  padding: 20px 0;
+  --flow-bg: var(--vp-c-bg);
 }
+
 
 .delivery-flowchart-svg {
   width: 100%;
@@ -312,26 +396,36 @@
 }
 
 /* Label Styling */
-.label-bg {
-  fill: #0b0f19;
-  stroke: rgba(255, 255, 255, 0.08);
-  stroke-width: 0.8px;
-}
-
 .flow-label {
   font-family: var(--vp-font-family-base, system-ui, -apple-system, sans-serif);
   font-size: 9.5px;
   font-weight: 600;
-  fill: #94a3b8;
+  fill: #475569;
   text-anchor: middle;
   dominant-baseline: middle;
+  paint-order: stroke;
+  stroke: var(--flow-bg);
+  stroke-width: 6px;
+  stroke-linejoin: round;
 }
 
 .highlight-label {
-  fill: #a5b4fc;
+  fill: #4f46e5;
 }
 
 .green-text {
+  fill: #059669;
+}
+
+.dark .flow-label {
+  fill: #94a3b8;
+}
+
+.dark .highlight-label {
+  fill: #a5b4fc;
+}
+
+.dark .green-text {
   fill: #34d399;
 }
 
@@ -341,21 +435,27 @@
   cursor: pointer;
 }
 
-.rect-meeting {
-  fill: url(#flowBgCard);
-  stroke: #f59e0b;
+.rect-orange {
+  fill: url(#flowOrangeCard);
+  stroke: #f97316;
   stroke-width: 1.8px;
 }
 
-.rect-purple {
-  fill: url(#flowBgCard);
+.rect-yellow {
+  fill: url(#flowYellowCard);
+  stroke: #eab308;
+  stroke-width: 1.8px;
+}
+
+.rect-pink {
+  fill: url(#flowPinkCard);
+  stroke: #ec4899;
+  stroke-width: 1.8px;
+}
+
+.rect-indigo {
+  fill: url(#flowIndigoCard);
   stroke: #6366f1;
-  stroke-width: 1.8px;
-}
-
-.rect-blue {
-  fill: url(#flowBgCard);
-  stroke: #0ea5e9;
   stroke-width: 1.8px;
 }
 
@@ -364,6 +464,24 @@
   stroke: url(#flowCoreBorder);
   stroke-width: 2.4px;
   filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.35));
+}
+
+.rect-cyan {
+  fill: url(#flowCyanCard);
+  stroke: #06b6d4;
+  stroke-width: 1.8px;
+}
+
+.rect-blue {
+  fill: url(#flowBlueCard);
+  stroke: #0ea5e9;
+  stroke-width: 1.8px;
+}
+
+.rect-gray {
+  fill: url(#flowGrayCard);
+  stroke: #94a3b8;
+  stroke-width: 1.8px;
 }
 
 .rect-green {
@@ -381,23 +499,47 @@
   fill: #ffffff;
 }
 
+.orange-title {
+  fill: #ffedd5;
+}
+
+.yellow-title {
+  fill: #fef08a;
+}
+
+.pink-title {
+  fill: #fce7f3;
+}
+
+.indigo-title {
+  fill: #e0e7ff;
+}
+
 .core-title {
   fill: #f3e8ff;
 }
 
-.green-title {
-  fill: #ecfdf5;
+.cyan-title {
+  fill: #cffafe;
 }
 
 .blue-title {
   fill: #f0f9ff;
 }
 
+.gray-title {
+  fill: #f1f5f9;
+}
+
+.green-title {
+  fill: #ecfdf5;
+}
+
 .node-subtitle {
   font-family: var(--vp-font-family-base, system-ui, -apple-system, sans-serif);
   font-size: 11px;
   font-weight: 500;
-  fill: #cbd5e1;
+  fill: #f1f5f9;
 }
 
 .green-desc {
@@ -417,11 +559,39 @@
   transform: translateY(-1px);
 }
 
-.node-green:hover .node-rect {
-  filter: drop-shadow(0 4px 16px rgba(16, 185, 129, 0.55));
+.node-meeting:hover .node-rect {
+  filter: drop-shadow(0 4px 16px rgba(249, 115, 22, 0.5));
+}
+
+.node-need:hover .node-rect {
+  filter: drop-shadow(0 4px 16px rgba(234, 179, 8, 0.5));
+}
+
+.node-think:hover .node-rect {
+  filter: drop-shadow(0 4px 16px rgba(236, 72, 153, 0.5));
+}
+
+.node-plan:hover .node-rect {
+  filter: drop-shadow(0 4px 16px rgba(99, 102, 241, 0.5));
 }
 
 .node-core:hover .node-rect {
   filter: drop-shadow(0 4px 20px rgba(168, 85, 247, 0.65));
+}
+
+.node-proof:hover .node-rect {
+  filter: drop-shadow(0 4px 16px rgba(6, 182, 212, 0.5));
+}
+
+.node-release:hover .node-rect {
+  filter: drop-shadow(0 4px 16px rgba(14, 165, 233, 0.5));
+}
+
+.node-learn:hover .node-rect {
+  filter: drop-shadow(0 4px 16px rgba(148, 163, 184, 0.5));
+}
+
+.node-green:hover .node-rect {
+  filter: drop-shadow(0 4px 16px rgba(16, 185, 129, 0.55));
 }
 </style>
