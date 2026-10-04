@@ -64,11 +64,11 @@ export default withMermaid(defineConfig({
       {
         text: 'Enablers',
         items: [
+          { text: '🛤️ Platform Rails', link: '/guide/platform-rails' },
+          { text: '🧰 Tooling', link: '/guide/tooling' },
           { text: '🧠 Persistent Context', link: '/guide/persistent-context' },
           { text: '🛡️ Deterministic Controls', link: '/guide/deterministic-controls' },
           { text: '📦 Forge', link: '/guide/forge' },
-          { text: '🛤️ Platform Rails', link: '/guide/platform-rails' },
-          { text: '🧰 Tooling', link: '/guide/tooling' },
         ],
       },
       {
@@ -76,14 +76,13 @@ export default withMermaid(defineConfig({
         items: [
           { text: 'Team', link: '/guide/team' },
           { text: 'Cadence', link: '/guide/cadence' },
-          { text: 'Decision Rights', link: '/guide/decision-rights' },
-          { text: 'AI Usage Policy', link: '/guide/ai-policy' },
+          { text: 'Governance', link: '/guide/governance' },
+          { text: 'Metrics', link: '/guide/metrics' },
         ],
       },
       {
         text: 'Adopting & improving',
         items: [
-          { text: 'Metrics', link: '/guide/metrics' },
           { text: 'Adoption Roadmap', link: '/guide/adoption' },
           { text: 'Anti-patterns', link: '/guide/anti-patterns' },
         ],

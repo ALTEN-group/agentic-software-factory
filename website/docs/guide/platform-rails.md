@@ -6,56 +6,16 @@ The substrate squads never have to build from scratch. Platform Rails provide ev
 
 Remove undifferentiated heavy lifting from squads and make the safe, autonomous path the default path.
 
-| Input | Output | Owner |
-|---|---|---|
-| Platform roadmap, squad friction reports, incident findings | Environments, deterministic pipelines, secure defaults, the Forge catalog, Persistent Context and the agents catalog, shared services | Platform / Enablement |
-
 ## What Platform Rails provide
 
 ### Forge, Persistent Context & agents catalog
-The rails publish and maintain [the Forge](./forge) and [Persistent Context](./persistent-context), including the agents catalog, so every squad starts from the same set.
 
-### Environments
-
-| Environment | Purpose | Provisioned by |
-|---|---|---|
-| `local` | Full stack on a laptop via Compose | Template repository |
-| `preview` | Ephemeral per-pull-request deployment | CI |
-| `staging` | Production-shaped, seeded data | Platform |
-| `production` | Customer traffic | Platform |
-
-An environment that cannot be created from source in one command is an architectural defect.
+The rails publish and maintain [the Forge](./forge) and [Persistent Context](./persistent-context), including the agents catalog and deterministic controls, so every squad starts from the same set.
 
 ### Delivery pipeline
-Every repository gets the same verification skeleton, with automated checks in Code and [Deterministic Controls](./deterministic-controls) in CI:
 
-```
-AI agent generation
-  ↓
-[automated checks]            - build, types, linters, tests
-  ↓
-[pull request]                 - immutable commit with audit log
-  ↓
-[CI deterministic controls]   - clean re-run, contracts, mutation & security scan
-  ↓
-[preview deploy]               - live artifact with automated smoke tests
-  ↓
-[minimum human validation]     - targeted review of business intent and safety invariants
-```
-
-### Secure defaults
-- Secrets from a managed store, never from a file in a repository.
-- Non-root containers with host-matched `UID`/`GID`.
-- Dependency and image scanning on every build.
-- Least-privilege database grants per schema.
-- Sandboxed agent execution environments with zero direct production access.
+Every repository gets the same verification skeleton, with automated checks and [Deterministic Controls](./deterministic-controls) in CI:
 
 ### Unified platform substrate
-Standardized on the **GitHub ecosystem** to eliminate tool sprawl and preserve an unbroken context graph for AI agents, as detailed in **[Tooling](./tooling)**.
 
-### Meeting & AI infrastructure
-Plumbing for the agentic operating model:
-- Meeting intelligence connectors: transcription, semantic extraction, and need-synthesis pipelines feeding **[0 — Meet](./stage-meet)**;
-- Model access, routing gateways, quotas, and cost attribution per squad;
-- Repository templates shipping [Persistent Context](./persistent-context) and the configuration for automated checks and deterministic controls;
-- Local agent runners with fix-loop hooks.
+Standardized on the **Git ecosystem** to eliminate tool sprawl and preserve an unbroken context graph for AI agents, as detailed in **[Tooling](./tooling)**.

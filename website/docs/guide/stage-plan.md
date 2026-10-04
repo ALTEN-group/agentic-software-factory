@@ -95,5 +95,3 @@ A work item leaves Plan and enters [4 — Code](./stage-code) only when:
 5. any change that a revert cannot undo has its own reverse step,
 6. the blast radius tier from Think still holds for the file scope. If the plan touches more than Think assumed, such as authentication, data, or a public contract, the tier is raised and the required human validation changes with it,
 7. the developer has reviewed and approved the plan.
-
-**Previous:** [2 — Think](./stage-think) · **Next:** [4 — Code](./stage-code)

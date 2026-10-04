@@ -77,5 +77,3 @@ A meeting successfully closes when:
 1. The meeting transcript has been captured, verified for speaker accuracy, and committed to the repository substrate.
 2. The client has confirmed that the synthesized problem statements accurately reflect their business pain.
 3. Candidate business needs have been emitted to the backlog for ranking in **[1 — Triage](./stage-triage)**.
-
-**Next:** [1 — Triage](./stage-triage)

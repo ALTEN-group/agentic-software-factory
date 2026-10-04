@@ -1,7 +1,7 @@
 <template>
   <div class="delivery-flowchart-container">
     <svg
-      viewBox="85 0 890 786"
+      viewBox="45 0 930 786"
       class="delivery-flowchart-svg"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
@@ -130,21 +130,21 @@
       <!-- ============================================================== -->
 
 
-      <!-- Loop 2: 7 — Learn back to Persistent Context (Inner Left) -->
+      <!-- Loop 2: 7 — Learn back to Persistent Context (Outer Left) -->
       <path
-        d="M 360 728 H 152 V 483"
+        d="M 360 722 H 70 V 258 H 87"
         class="feedback-path green-feedback"
         marker-end="url(#flowArrowGreen)"
       />
-      <text x="152" y="620" class="flow-label green-text">Enriches</text>
+      <text x="300" y="730" class="flow-label green-text">Enriches</text>
 
-      <!-- Loop 3: 7 — Learn back to Deterministic Controls (Outer Right) -->
+      <!-- Loop 3: 7 — Learn back to Deterministic Controls (Inner Left) -->
       <path
-        d="M 640 715 H 848 V 577"
+        d="M 360 708 H 82 V 342 H 87"
         class="feedback-path green-feedback"
         marker-end="url(#flowArrowGreen)"
       />
-      <text x="848" y="640" class="flow-label green-text">Hardens</text>
+      <text x="300" y="701" class="flow-label green-text">Hardens</text>
 
       <!-- ============================================================== -->
       <!-- CONNECTIONS FROM GREEN BLOCKS INTO DELIVERY STAGES             -->
@@ -167,16 +167,17 @@
 
       <!-- 7 — Learn -> 1 — Triage (Outer right corridor, opens backlog issues) -->
       <path
-        d="M 640 738 H 935 V 138 Q 935 130 927 130 H 647"
+        d="M 640 715 H 935 V 138 Q 935 130 927 130 H 647"
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
-      <text x="935" y="580" class="flow-label grey-text">Opens issues</text>
+      <text x="784" y="123" class="flow-label grey-text">Opens issues</text>
 
       <!-- Persistent Context -> shared trunk (left) feeding 0 — Meet, 1 — Triage, 2 — Think, 3 — Plan, 4 — Code, 5 — Prove -->
       <path
-        d="M 325 445 H 340"
+        d="M 325 342 H 340"
         class="green-connector"
+        marker-start="url(#flowArrowGreen)"
       />
       <path
         d="M 340 58 V 539"
@@ -226,6 +227,7 @@
       <path
         d="M 675 327 H 647"
         class="green-connector"
+        marker-start="url(#flowArrowGreen)"
         marker-end="url(#flowArrowGreen)"
       />
       <path
@@ -234,25 +236,11 @@
         marker-end="url(#flowArrowGreen)"
       />
 
-      <!-- Deterministic Controls -> 4 — Code (Smooth Diagonal Up) -->
+      <!-- Persistent Context & Deterministic Controls <-> shared trunk (left): the links go both ways -->
       <path
-        d="M 675 522 C 660 522, 664 472, 647 472"
+        d="M 325 258 H 340"
         class="green-connector"
-        marker-end="url(#flowArrowGreen)"
-      />
-
-      <!-- Deterministic Controls -> 5 — Prove (Direct Horizontal) -->
-      <path
-        d="M 675 539 H 647"
-        class="green-connector"
-        marker-end="url(#flowArrowGreen)"
-      />
-
-      <!-- Deterministic Controls -> 6 — Release (Route down right corridor) -->
-      <path
-        d="M 695 570 V 618 Q 695 628 682 628 H 647"
-        class="green-connector"
-        marker-end="url(#flowArrowGreen)"
+        marker-start="url(#flowArrowGreen)"
       />
 
       <!-- ============================================================== -->
@@ -313,9 +301,18 @@
         </g>
       </a>
 
+      <!-- [LEFT] Deterministic Controls (below Persistent Context, feeding the same stages) -->
+      <a :href="withBase('/guide/deterministic-controls')" class="flow-node-link">
+        <g class="flow-node node-green" transform="translate(95, 311)">
+          <rect width="230" height="62" rx="10" class="node-rect rect-green" />
+          <text x="18" y="27" class="node-title green-title">🛡️ Deterministic Controls</text>
+          <text x="18" y="47" class="node-subtitle green-desc">Guards, gates, contracts &amp; probes</text>
+        </g>
+      </a>
+
       <!-- [ROW 2 - LEFT] Persistent Context (Exact Level with 4 — Code) -->
       <a :href="withBase('/guide/persistent-context')" class="flow-node-link">
-        <g class="flow-node node-green" transform="translate(95, 414)">
+        <g class="flow-node node-green" transform="translate(95, 227)">
           <rect width="230" height="62" rx="10" class="node-rect rect-green" />
           <text x="18" y="24" class="node-title green-title">🧠 Persistent Context</text>
           <text x="18" y="41" class="node-subtitle green-desc">Instructions, prompts,</text>
@@ -373,15 +370,6 @@
         </g>
       </a>
 
-      <!-- [ROW 4 - RIGHT] Deterministic Controls (Exact Level with 5 — Prove) -->
-      <a :href="withBase('/guide/deterministic-controls')" class="flow-node-link">
-        <g class="flow-node node-green" transform="translate(675, 508)">
-          <rect width="230" height="62" rx="10" class="node-rect rect-green" />
-          <text x="18" y="27" class="node-title green-title">🛡️ Deterministic Controls</text>
-          <text x="18" y="47" class="node-subtitle green-desc">Guards, gates, contracts &amp; probes</text>
-        </g>
-      </a>
-
       <!-- [ROW 5 - CENTER] 6 — Release -->
       <a :href="withBase('/guide/stage-release')" class="flow-node-link">
         <g class="flow-node node-release" transform="translate(360, 600)">
@@ -397,7 +385,7 @@
         <g class="flow-node node-learn" transform="translate(360, 686)">
           <rect width="280" height="58" rx="10" class="node-rect rect-gray" />
           <text x="20" y="22" class="node-title gray-title">📈 7 — Learn</text>
-          <text x="20" y="38" class="node-subtitle">Production telemetry analysis &amp;</text>
+          <text x="20" y="38" class="node-subtitle">Telemetry analysis &amp;</text>
           <text x="20" y="51" class="node-subtitle">predictive monitoring</text>
         </g>
       </a>

@@ -77,7 +77,7 @@ flowchart TB
   anti-pattern that bypasses Persistent Context and slows down delivery.
 - **Green before PR.** An agent is never permitted to open a pull request with a failing build,
   type error, lint failure, failing test, or failing control. The agent keeps iterating until they pass, up to the
-  fix-loop limit in [Deterministic Controls](./deterministic-controls#ai-agent-execution-guardrails).
+  fix-loop limit.
 - **Tests are generated alongside code, never retrofitted.** Tests are derived strictly from the
   acceptance criteria in the Plan record, not generated as an afterthought to fit the code.
 - **Context is the steering wheel.** If an agent produces incorrect code or misunderstands a pattern,
@@ -111,5 +111,3 @@ A pull request leaves Code and enters [Prove](./stage-prove) when:
 2. all acceptance criteria from the Plan record have corresponding automated tests,
 3. the build, type check, linter, generated tests, and deterministic controls all pass with zero errors,
 4. the pull request links to the backlog issue and the Plan.
-
-**Previous:** [3 — Plan](./stage-plan) · **Next:** [5 — Prove](./stage-prove)

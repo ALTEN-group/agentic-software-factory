@@ -96,7 +96,7 @@ specific questions:
 
 How much human validation a change needs depends on its blast radius, which is classified in [2 — Think](./stage-think)
 and checked again in [3 — Plan](./stage-plan) against the file scope. The tiers (Low, Medium, High, Critical) and the validation each requires are defined once in
-[Decision Rights](./decision-rights#blast-radius-and-required-human-validation).
+[Governance](./governance#blast-radius-and-required-human-validation).
 
 ## The bug rule
 
@@ -111,5 +111,3 @@ A change leaves Prove and enters [Release](./stage-release) when:
 1. 100% of deterministic gates are green,
 2. minimum human validation is recorded at the level required by the blast radius,
 3. for High and Critical changes, the rollback mechanism named in [Think](./stage-think) is configured and validated.
-
-**Previous:** [4 — Code](./stage-code) · **Next:** [6 — Release](./stage-release)

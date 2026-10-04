@@ -1,6 +1,6 @@
 # Metrics
 
-Agentic Software Factory is steered by a deliberately small set of metrics. Everything measured is measured because
+The Agentic Software Factory is steered by a deliberately small set of metrics. Everything measured is measured because
 a decision depends on it.
 
 ## Flow metrics
@@ -33,8 +33,8 @@ The core delivery metrics, measured per squad over rolling four-week windows:
 ## Metrics per use case
 
 The flow metrics show how the whole line performs. To improve one AI task, measure that task on its own. A **use case** is
-one AI-assisted task inside a stage, such as creating automated tests. For every use case, measure the same few things per
-user story:
+one AI-assisted task inside a stage, such as creating automated tests or updating documentation. For every use case, measure the same few things per
+user story as subtasks :
 
 | Measure | Question it answers |
 |---|---|
@@ -136,8 +136,9 @@ The same targets as the flow metrics apply. The use case view shows which part o
 | **Feature deletion rate** | Invalidated features removed within one cycle |
 | **Time to evidence** | Plan record committed → first real usage signal |
 
-A validation rate near 100 % means the squad is only shipping safe bets and is not learning
-anything. A healthy range is uncomfortable.
+A validation rate close to 100% is a warning, not a success. It usually means the team only tests bets it is already
+sure of, so it learns little. A healthy rate leaves room for failures: some hypotheses should be invalidated, and the
+features behind them removed.
 
 ## Quality metrics
 
@@ -145,21 +146,17 @@ anything. A healthy range is uncomfortable.
 |---|---|
 | **Escaped defect rate** | Defects found in production / total defects found |
 | **Coverage on changed lines** | Per pull request, non-decreasing |
-| **Flaky test ratio** | Quarantined tests / total tests |
 | **Mean review depth on high-risk changes** | Time spent reviewing, weighted by blast radius |
 
 ## What is deliberately not measured
 
 | Not measured | Why |
 |---|---|
-| Lines of code | Generation makes it meaningless and perverse |
+| Lines of code | AI makes it meaningless and perverse |
 | Story points velocity | Measures estimation, not value |
-| Individual output | Destroys the collaboration the model depends on |
 | Assistant suggestion acceptance in the editor | Correlates with nothing that matters |
-| Hours worked | Not an outcome |
 
 ## Review
 
-Flow, quality, AI leverage, and cost metrics are reviewed weekly by the squad; the metric set itself
-quarterly. A metric that has not driven a decision in two quarters
-is removed.
+The squad reviews the metric values every month, in the operating-model retrospective. The same session reviews the
+list of metrics itself: a metric that has not driven a decision in two quarters is removed.
