@@ -12,11 +12,8 @@ Remove undifferentiated heavy lifting from squads and make the safe, autonomous 
 
 ## What Platform Rails provide
 
-### Reusable code & in-context templates
-The [Forge](./forge) catalog of reusable functions, libraries, services, and in-context templates is published and maintained through the rails. Security patches and dependency updates made once in the Forge reach every consuming squad.
-
-### Persistent Context & agents catalog
-The rails centrally provision [Persistent Context](./persistent-context) and an enterprise **Agents Catalog**: a curated set of production-ready agents (such as Plan, Coding, Remediation, and Security agents), each pre-packaged with audited prompts, bounded toolsets, and skills for its role. Platforms like **`coding-pal`** keep these bundles synchronized across developer workstations and CI runners.
+### Forge, Persistent Context & agents catalog
+The rails publish and maintain [the Forge](./forge) and [Persistent Context](./persistent-context), including the agents catalog, so every squad starts from the same set.
 
 ### Environments
 
@@ -35,7 +32,7 @@ Every repository gets the same verification skeleton, with automated checks in C
 ```
 AI agent generation
   ↓
-[local automated checks]      - build, types, linters, tests
+[automated checks]            - build, types, linters, tests
   ↓
 [pull request]                 - immutable commit with audit log
   ↓

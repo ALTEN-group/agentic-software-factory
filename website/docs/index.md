@@ -17,7 +17,7 @@ features:
     details: "Agentic Software Factory operates on Meeting-Driven Development: the development lifecycle begins in the client meeting and flows autonomously through AI generation to production release."
   - icon: ⚡
     title: Autonomous code generation
-    details: AI agents autonomously generate the code, tests, and documentation, while engineers operate as specification engineers, context architects, and deterministic control builders.
+    details: AI agents autonomously generate the code, tests, and documentation, while developers specify, curate context, and build deterministic controls.
   - icon: 🛡️
     title: Fast loops, independent controls
     details: Agents iterate quickly against compilers, type checks, linters, and tests. Deterministic controls (contract tests, mutation testing, security scans) then validate the result independently, with agent auto-remediation on failure.

@@ -10,7 +10,7 @@ pageClass: page-stage-orange
 </div>
 
 Where demand originates and ground truth is captured. Agentic Software Factory is **Meeting-Driven** : raw client conversations, stakeholder interviews, and discovery workshops are
-captured as traceable inputs that establish clear intent for the entire software factory. Stage 0 preserves their source and context, establishing what matters and why.
+captured as traceable inputs that establish clear intent for the entire software factory. Stage 0 preserves source and context, establishing what matters and why.
 
 ## Purpose
 
@@ -23,7 +23,7 @@ Eliminate requirements decay and the traditional "telephone game" by capturing a
 ## What is lost without it
 
 In traditional delivery, a client's words pass through several people before an engineer sees them, and each hand-off keeps
-less. The same sentence, from the same call, ends up very differently:
+less.
 
 | | Traditional ticket | Meeting-Driven backlog issue |
 |---|---|---|
@@ -33,13 +33,12 @@ less. The same sentence, from the same call, ends up very differently:
 | **How it can be checked later** | It cannot. The only record is someone's summary | Every later stage can be checked against the original words |
 
 AI agents cannot infer the unstated nuances of a client's business. If those nuances are lost before the work reaches them,
-no amount of testing brings them back. Capturing the dialogue at the source keeps [1 — Triage](./stage-triage), [2 — Think](./stage-think),
-and [3 — Plan](./stage-plan), and everything after them, anchored to what the client actually said.
+no amount of testing brings them back. Capturing the dialogue at the source keeps next stages anchored to what the client actually said.
 
 ## Core capabilities
 
 ### 1. Transcription & speaker attribution
-Meeting intelligence connectors ingest client meetings (discovery calls, sprint reviews, steering committees) and generate timestamped transcripts in which every statement is attributed to a speaker (speaker diarization). Every statement is attributed directly to client decision-makers.
+AI ingest client meetings (discovery calls, sprint reviews, steering committees) and generate timestamped transcripts in which every statement is attributed to a speaker (speaker diarization).
 
 ### 2. Verbatim intent anchoring
 Rather than summarizing conversations into generic bullet points, the meeting pipeline extracts verbatim quotes and anchors them to domain concepts. When a need moves through [1 — Triage](./stage-triage) to [3 — Plan](./stage-plan), the Plan record cites the exact client quote justifying the change:
@@ -49,12 +48,8 @@ Rather than summarizing conversations into generic bullet points, the meeting pi
 
 ## Persistent Context in Meet
 
-[Persistent Context](./persistent-context) feeds Meet from the very first call. It gives the meeting pipeline what it cannot infer:
-
-- **Instructions and skill for the meeting agent:** so every Meeting Pack has the same structure, tone, and data-handling rules, such as removing personal data from transcripts.
-- **Past decisions:** so a request that touches something already built is flagged for Triage.
-
-It also receives something back: new terms and acronyms introduced by the client are staged in the Meeting Pack for commit to Persistent Context.
+[Persistent Context](./persistent-context) gives the meeting agent its instructions and the domain glossary, so terms are
+transcribed correctly and every Meeting Pack has the same structure. New client terms flow back into it.
 
 ## The Meeting Pack artifact
 
@@ -67,15 +62,13 @@ At the conclusion of each meeting, the intelligence pipeline produces an immutab
 
 ## Where AI is used
 
-AI captures and structures the dialogue; the specification engineer steers the conversation and the client confirms what was said.
+AI captures and structures the dialogue; the product owner steers the conversation and the client confirms what was said.
 
 | Task | AI role | Human role |
 |---|---|---|
 | **Transcription** | Convert the audio or video stream to a timestamped, speaker-attributed transcript | Verify speaker accuracy |
 | **Quote anchoring** | Extract verbatim quotes and link them to domain concepts | Confirm the quotes reflect the client's meaning |
 | **Meeting Pack synthesis** | Produce the executive synthesis, new terminology, and candidate business needs, using the glossary and instructions in Persistent Context | Confirm the problem statements with the client |
-
-A reusable prompt in Persistent Context, for example "summarize this meeting into candidate business needs with quotes", keeps the Meeting Pack consistent across squads.
 
 ## Exit gate
 

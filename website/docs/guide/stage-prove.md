@@ -17,10 +17,7 @@ validation** to guarantee that generated software is correct, safe, and aligned 
 
 | Input | Output | Owner |
 |---|---|---|
-| A pull request from [4 — Code](./stage-code) + **[Deterministic Controls](./deterministic-controls)** (guards, gates, contracts & probes) + **[Persistent Context](./persistent-context)** (ADRs, architectural invariants, repair instructions) | Deterministic mathematical and behavioural proof of correctness, followed by minimum human sign-off on intent | The squad + platform deterministic harness |
-
-> [!TIP] Enablers in Prove: Deterministic Controls & Persistent Context
-> While **Deterministic Controls** provide the ungameable binary gates (guards, gates, contracts & probes) that flag failures, **[Persistent Context](./persistent-context)** provides the architectural guardrails, ADRs, and instructions that guide the agent auto-remediation loop to fix failures without introducing anti-patterns or contract regressions.
+| The pull request from [4 — Code](./stage-code), already green in the agent's loop | A pull request that has passed every control in the CI and has human validation recorded at the level its blast radius requires, ready to release | Developer |
 
 ## Why deterministic controls replace manual code review
 
@@ -28,7 +25,7 @@ When code is generated autonomously by AI, requiring humans to manually read syn
 a dangerous anti-pattern:
 - **Reviewer fatigue**: Humans skimming large diffs miss subtle logic flaws and hallucinated assumptions.
 - **Cognitive bottleneck**: Delivery velocity collapses back to the speed of manual reading.
-- **False security**: "Looks good to me" provides zero mathematical guarantee.
+- **False security**: "Looks good to me" provides zero guarantee.
 
 Agentic Software Factory solves this by shifting the verification burden to **dense, objective, deterministic
 controls** that execute in closed loops, reserving human attention strictly for high-level business
@@ -39,28 +36,9 @@ intent and safety boundaries.
 Deterministic controls are binary: they either pass or fail with absolute certainty. No probabilistic
 guesswork is permitted.
 
-```mermaid
----
-caption: Closed-loop AI auto-validation against deterministic controls
----
-flowchart TD
-  PR[AI-Generated PR] --> CLEAN[1. Clean CI Re-run of Automated Checks]
-  CLEAN -->|Pass| CRIT[2. Criteria Test Verification]
-  CRIT -->|Pass| CONTRACT[3. Interface & Schema Contract Tests]
-  CONTRACT -->|Pass| MUTATION[4. Mutation Testing Harness]
-  MUTATION -->|Pass| SEC[5. Secret Guard, Security SAST & Policy-as-Code]
-  SEC -->|Pass| PREVIEW[6. Ephemeral Preview & Smoke Tests]
-  
-  CLEAN -.->|Fail| HEAL[Agent Auto-Remediation]
-  CRIT -.->|Fail| HEAL
-  CONTRACT -.->|Fail| HEAL
-  MUTATION -.->|Fail| HEAL
-  SEC -.->|Fail| HEAL
-  HEAL -.->|Auto-repair code| PR
-
-  PREVIEW --> MHV{Minimum Human Validation}
-  MHV -->|Approved| MERGE[Merge to Main]
-```
+Most of these controls also run earlier, in the agent's own loop in [4 — Code](./stage-code), so failures are usually fixed
+before the pull request exists. Prove runs them again on the pull request, in a clean environment, as a backstop. It also runs the controls
+that only run in the CI.
 
 ### The deterministic controls
 
@@ -69,12 +47,18 @@ environment and adds the controls the agent cannot weaken. See [Automated checks
 
 | Control | Type | Enforcement | What it proves |
 |---|---|---|---|
-| **Clean CI Re-run** | Gate | CI in a clean environment | Re-runs the build, strict type check, AST linter, and unit and integration tests from [4 — Code](./stage-code) where the agent cannot influence the result |
+| **Clean CI Re-run** | Gate | CI in a clean environment | Re-runs the build, type check, linter, and unit and integration tests from [4 — Code](./stage-code) where the agent cannot influence the result |
 | **Criteria Test Verification** | Gate | Test runner | Proves that every acceptance criterion in the Plan record has a passing assertion |
 | **Contract & Schema Tests** | Contract | OpenAPI / JSON Schema / Pact | Guarantees that public interfaces and consumer contracts never break silently |
-| **Mutation Testing** | Gate | Stryker / Mutmut | **Proves the tests themselves**: introduces mutants into code; tests must catch and kill them |
+| **Mutation Testing** | Gate | **Proves the tests themselves**: introduces mutants into code; tests must catch and kill them |
+| **API Tests** | Contract | HTTP API tests (for example Supertest) | Proves each endpoint returns the agreed status codes and responses, for valid and invalid requests |
+| **Fuzz Tests** | Probe | API fuzzing from the OpenAPI spec (for example RESTler) | Proves the API handles unexpected and malformed input without errors or crashes |
+| **Database Tests** | Gate | SQL assertions against a migrated database (for example PostgreSQL with Liquibase) | Proves the schema and migrations behave as specified: reads, writes, archiving, and audit history |
+| **E2E Tests** | Probe | Browser tests of real user journeys (for example Playwright) | Proves the main journeys work from the user's side, on the running application |
 | **Security & Policy-as-Code** | Guard | Semgrep / Trivy / OPA Conftest, secret and push protection | Verifies absence of known CVEs, secrets, and policy violations. Secret and push protection also runs at commit time in Code and is enforced again here in CI |
 | **Preview Smoke Tests** | Probe | Ephemeral preview | Proves the application starts, routes traffic, and responds to health checks |
+
+The API, fuzz, database, and E2E tests are generated with the code, like unit tests, and run against a real running stack or a migrated database. Criteria Test Verification and Mutation Testing keep them honest, by proving that they cover the acceptance criteria and that they catch real defects.
 
 ## Agent auto-remediation
 
@@ -82,7 +66,7 @@ If any deterministic gate fails in CI, the AI agent is automatically triggered w
 diagnostics. The agent:
 1. reads the failing gate output, such as a clean re-run error, an unmet acceptance criterion, a surviving mutant, or a contract break,
 2. diagnoses the exact fault,
-3. autonomously rewrites the code. It can never weaken or skip a deterministic control to get a pass,
+3. autonomously fixes the code. It can never weaken or skip a deterministic control to get a pass,
 4. commits the update and re-triggers the deterministic harness.
 
 This cycle repeats automatically until **100% of deterministic controls pass**. Humans are never
@@ -90,14 +74,13 @@ called to troubleshoot trivial compilation or formatting failures.
 
 ## Where AI is used
 
-The deterministic controls decide. AI does the repair work and prepares the evidence for the human step.
+The deterministic controls decide. AI writes the test suites and does the repair work.
 
 | Task | AI role | Human role |
 |---|---|---|
 | **Failure diagnosis** | Read the failing gate output and locate the fault | None for routine failures |
 | **Remediation** | Rewrite the code to satisfy the gate, within the attempt limit, never weakening a control | Intervene only when the limit is reached |
-| **Evidence summary** | Summarize results, mutants killed, and preview behaviour for the reviewer | Read the summary and the preview |
-| **Risk flagging** | Flag changes whose blast radius looks larger than classified | Decide the validation level |
+| **Test suites** | Write and maintain the API, fuzz, database, and E2E tests that the controls run | Confirm the tests cover the acceptance criteria |
 
 ## Minimum human validation
 
@@ -112,7 +95,7 @@ specific questions:
 ### Risk-weighted human validation
 
 How much human validation a change needs depends on its blast radius, which is classified in [2 — Think](./stage-think)
-and confirmed in [3 — Plan](./stage-plan). The tiers (Low, Medium, High, Critical) and the validation each requires are defined once in
+and checked again in [3 — Plan](./stage-plan) against the file scope. The tiers (Low, Medium, High, Critical) and the validation each requires are defined once in
 [Decision Rights](./decision-rights#blast-radius-and-required-human-validation).
 
 ## The bug rule
@@ -125,10 +108,8 @@ the new deterministic control, guaranteeing the bug cannot recur.
 
 A change leaves Prove and enters [Release](./stage-release) when:
 
-1. 100% of deterministic gates are green (zero warnings, zero mutations survived, zero security alerts),
+1. 100% of deterministic gates are green,
 2. minimum human validation is recorded at the level required by the blast radius,
-3. an automated rollback mechanism is validated.
-
-A reusable prompt in Persistent Context, for example "diagnose this failing gate and propose a fix within our ADRs", gives agents a consistent remediation routine.
+3. for High and Critical changes, the rollback mechanism named in [Think](./stage-think) is configured and validated.
 
 **Previous:** [4 — Code](./stage-code) · **Next:** [6 — Release](./stage-release)

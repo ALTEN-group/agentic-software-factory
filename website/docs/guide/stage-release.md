@@ -71,8 +71,8 @@ caught earlier becomes a stricter gate or threshold.
 | Redeploy previous artifact | Minutes | Config or runtime issues |
 | Forward fix | Hours | Data-affecting issues where rollback is unsafe |
 
-Every change with a **High** or **Critical** blast radius states its rollback mechanism before it is
-deployed. A change with no rollback path is not deployed; it is redesigned.
+Every change with a **High** or **Critical** blast radius has its rollback mechanism named in the
+[Think record](./stage-think#the-think-record) and validated in [5 — Prove](./stage-prove) before it is deployed. A change with no rollback path is not deployed; it is redesigned.
 
 ## Migrations
 

@@ -15,6 +15,18 @@ introduces drift, security gaps, and maintenance debt. The Forge removes the nee
 | **In-context templates** | Project skeletons, scaffolding, and canonical design patterns (for example frameworks such as **Gatelin** or **foxnox**) injected into agent context | Agents follow the reference architecture from the first line |
 | **Interface contracts** | Versioned OpenAPI, gRPC, and AsyncAPI specifications | Cross-service compatibility is fixed before generation starts |
 
+In-context templates are loaded into the agent's context when it starts something new, such as a service, an endpoint,
+or a pipeline, so it follows the reference architecture without being told each time.
+
+## How an asset travels
+
+1. **Listed.** A team adds the asset to the catalog with an owner, a versioned interface, tests, and documentation.
+2. **Found.** In [2 — Think](./stage-think), the agent searches the catalog and proposes the asset as a reuse option.
+3. **Bound.** The choice is recorded as a Forge asset binding in the Think record.
+4. **Locked.** [3 — Plan](./stage-plan) carries the binding forward, so the implementation steps compose it.
+5. **Used.** In [4 — Code](./stage-code), the agent imports the package or calls the service.
+6. **Maintained.** A fix made once in the asset reaches every team that uses it. A retired asset is deprecated with a replacement.
+
 ## Where the Forge is used
 
 The Forge feeds three stages of the [operating model](./overview).
@@ -31,6 +43,20 @@ The Forge feeds three stages of the [operating model](./overview).
 - **One fix, every consumer.** Security patches, performance work, and dependency updates made in a Forge module reach all consuming squads automatically.
 - **Certified before listed.** An asset enters the catalog only with an owner, a versioned interface, tests, and documentation.
 - **Deprecate explicitly.** A retired asset carries a replacement and a removal date, so agents never bind to something that is going away.
+
+## The Forge and Persistent Context
+
+They are two enablers with different jobs, and they work together in Think, Plan, and Code.
+
+| | The Forge | [Persistent Context](./persistent-context) |
+|---|---|---|
+| **Holds** | The code agents reuse: functions, libraries, services | The knowledge agents follow: rules, prompts, skills, agents, specs, and decision records |
+| **Agents use it to** | Compose what exists instead of writing it again | Stay consistent with the codebase and past decisions |
+| **Fed back by Learn** | No | Yes, through the "Enriches" arrow |
+
+## Who owns it
+
+The Architect owns the Forge, with every team contributing assets through pull requests.
 
 ## Where it lives
 

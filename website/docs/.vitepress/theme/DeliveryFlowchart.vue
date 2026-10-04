@@ -1,7 +1,7 @@
 <template>
   <div class="delivery-flowchart-container">
     <svg
-      viewBox="85 0 830 786"
+      viewBox="85 0 890 786"
       class="delivery-flowchart-svg"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
@@ -59,6 +59,11 @@
           <stop offset="100%" stop-color="#9d174d" />
         </linearGradient>
 
+        <linearGradient id="flowGreyCard" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#334155" />
+          <stop offset="100%" stop-color="#1e293b" />
+        </linearGradient>
+
         <linearGradient id="flowPipeGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#6366f1" />
           <stop offset="100%" stop-color="#8b5cf6" />
@@ -95,6 +100,18 @@
           <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981" />
         </marker>
 
+        <marker
+          id="flowArrowGrey"
+          viewBox="0 0 10 10"
+          refX="7"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+        </marker>
+
 
         <!-- Drop Shadows & Glow Filters -->
         <filter id="coreGlowFilter" x="-20%" y="-20%" width="140%" height="140%">
@@ -123,7 +140,7 @@
 
       <!-- Loop 3: 7 — Learn back to Deterministic Controls (Outer Right) -->
       <path
-        d="M 640 728 H 848 V 577"
+        d="M 640 715 H 848 V 577"
         class="feedback-path green-feedback"
         marker-end="url(#flowArrowGreen)"
       />
@@ -132,6 +149,29 @@
       <!-- ============================================================== -->
       <!-- CONNECTIONS FROM GREEN BLOCKS INTO DELIVERY STAGES             -->
       <!-- ============================================================== -->
+
+      <!-- Weekly audit -> 4 — Code -->
+      <path
+        d="M 675 450 H 647"
+        class="audit-connector"
+        marker-end="url(#flowArrowGrey)"
+      />
+
+      <!-- Weekly audit -> 1 — Triage (own inner corridor) -->
+      <path
+        d="M 905 445 H 912 Q 920 445 920 437 V 168 Q 920 160 912 160 H 647"
+        class="audit-connector"
+        marker-end="url(#flowArrowGrey)"
+      />
+      <text x="784" y="153" class="flow-label grey-text">Opens issues</text>
+
+      <!-- 7 — Learn -> 1 — Triage (Outer right corridor, opens backlog issues) -->
+      <path
+        d="M 640 738 H 935 V 138 Q 935 130 927 130 H 647"
+        class="audit-connector"
+        marker-end="url(#flowArrowGrey)"
+      />
+      <text x="935" y="580" class="flow-label grey-text">Opens issues</text>
 
       <!-- Persistent Context -> shared trunk (left) feeding 0 — Meet, 1 — Triage, 2 — Think, 3 — Plan, 4 — Code, 5 — Prove -->
       <path
@@ -175,11 +215,11 @@
 
       <!-- The Forge -> shared trunk (right) feeding 2 — Think, 3 — Plan, 4 — Code -->
       <path
-        d="M 660 235 V 445"
+        d="M 660 235 V 428"
         class="green-connector"
       />
       <path
-        d="M 660 445 H 647"
+        d="M 660 428 H 647"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
@@ -190,6 +230,13 @@
       />
       <path
         d="M 660 235 H 647"
+        class="green-connector"
+        marker-end="url(#flowArrowGreen)"
+      />
+
+      <!-- Deterministic Controls -> 4 — Code (Smooth Diagonal Up) -->
+      <path
+        d="M 675 522 C 660 522, 664 472, 647 472"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
@@ -223,7 +270,7 @@
 
       <!-- 3 — Plan -> 4 — Code -->
       <path d="M 500 358 V 405" class="pipe-highway" marker-end="url(#flowArrowMain)" />
-      <text x="500" y="372.5" class="flow-label highlight-label">Validate</text>
+      <text x="500" y="372.5" class="flow-label highlight-label">👤 Validate</text>
 
       <!-- 4 — Code -> 5 — Prove -->
       <path d="M 500 478 V 501" class="pipe-highway" marker-end="url(#flowArrowMain)" />
@@ -244,6 +291,15 @@
           <rect width="280" height="56" rx="10" class="node-rect rect-orange" />
           <text x="20" y="26" class="node-title orange-title">🎙️ 0 — Meet</text>
           <text x="20" y="45" class="node-subtitle">Client dialogue &amp; discovery</text>
+        </g>
+      </a>
+
+      <!-- [ROW 4 - RIGHT] Weekly audit (Exact Level with 4 — Code) -->
+      <a :href="withBase('/guide/stage-triage#sources')" class="flow-node-link">
+        <g class="flow-node node-audit" transform="translate(675, 416)">
+          <rect width="230" height="58" rx="10" class="node-rect rect-audit" />
+          <text x="18" y="22" class="node-title audit-title">⏱️ Weekly audit</text>
+          <text x="18" y="42" class="node-subtitle">Scheduled in CI</text>
         </g>
       </a>
 
@@ -376,6 +432,13 @@ import { withBase } from 'vitepress'
   stroke-linecap: round;
 }
 
+.audit-connector {
+  stroke: #94a3b8;
+  stroke-width: 2.2px;
+  stroke-dasharray: 5, 4;
+  fill: none;
+}
+
 .green-connector {
   stroke: #10b981;
   stroke-width: 2.2px;
@@ -413,6 +476,14 @@ import { withBase } from 'vitepress'
   fill: #4f46e5;
 }
 
+.grey-text {
+  fill: #64748b;
+}
+
+.dark .grey-text {
+  fill: #94a3b8;
+}
+
 .green-text {
   fill: #059669;
 }
@@ -445,6 +516,13 @@ import { withBase } from 'vitepress'
   fill: url(#flowYellowCard);
   stroke: #eab308;
   stroke-width: 1.8px;
+}
+
+.rect-audit {
+  fill: url(#flowGreyCard);
+  stroke: #94a3b8;
+  stroke-width: 1.8px;
+  stroke-dasharray: 6, 4;
 }
 
 .rect-pink {
@@ -507,6 +585,10 @@ import { withBase } from 'vitepress'
   fill: #fef08a;
 }
 
+.audit-title {
+  fill: #f1f5f9;
+}
+
 .pink-title {
   fill: #fce7f3;
 }
@@ -565,6 +647,10 @@ import { withBase } from 'vitepress'
 
 .node-need:hover .node-rect {
   filter: drop-shadow(0 4px 16px rgba(234, 179, 8, 0.5));
+}
+
+.node-audit:hover .node-rect {
+  filter: drop-shadow(0 4px 16px rgba(148, 163, 184, 0.5));
 }
 
 .node-think:hover .node-rect {

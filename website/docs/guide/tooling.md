@@ -28,8 +28,9 @@ Agentic Software Factory implements this unified model by utilizing the GitHub p
 | Lifecycle Stage | Capability | GitHub Native Implementation | Why it preserves AI context |
 |---|---|---|---|
 | **1 — Triage, 2 — Think & 3 — Plan** | Meeting notes, backlog & issue tracking | **GitHub Issues** + **GitHub Projects** | Transcripts, problem statements, and Plan records live directly where code lives |
-| **Persistent Context** | Instructions, prompts, skills, agents, specs, ADRs | **Repository Markdown (`.github/`, `docs/`)** | Persistent Context and curated agent catalogs (e.g., via `coding-pal`) loaded directly into agent prompts |
-| **The Forge (Asset Reuse)** | Reusable code & in-context templates | **Enterprise package registries & templates** | Pre-built modules and in-context templates (e.g., `Gatelin`, `foxnox`) injected into agent prompts to avoid bespoke coding |
+| **1 — Triage: Weekly AI audit** | Scheduled audit that opens backlog issues | **GitHub Actions** (scheduled workflow) + **GitHub Issues** | The audit runs in the same CI as everything else and writes its findings straight into the backlog, so they enter [Triage](./stage-triage) with the same context as any other issue |
+| **Persistent Context** | Instructions, prompts, skills, agents, specs, decision records | **Repository Markdown (`.github/`, `docs/`)** | See [Persistent Context](./persistent-context). Loaded directly into agent prompts |
+| **The Forge (Asset Reuse)** | Reusable code & in-context templates | **Enterprise package registries & templates** | See [the Forge](./forge). Reused assets avoid bespoke coding |
 | **4 — Code** | Autonomous code & test generation | **GitHub Copilot / Coding Agents / CLI** | Agents operate natively against repository files, branches, and issue context |
 | **5 — Prove: Deterministic Controls** | Clean re-run of automated checks, contract, mutation & security tests | **GitHub Actions** | Deterministic gates run in CI; error logs stream directly back to remediating agents |
 | **5 — Prove: Preview Environments** | Ephemeral preview deployments | **GitHub Environments & Deployments** | Live preview links post directly to the PR for Minimum Human Validation |
@@ -68,10 +69,10 @@ While the workspace and delivery substrate is unified on GitHub, model routing r
 | Plan structuring & ambiguity detection | Reasoning / Frontier | Precise boundary definitions and boolean acceptance criteria |
 | Autonomous code & test generation | High-capability Coding Agent | Strict adherence to Persistent Context instructions |
 | Fast fix loops (build, type & lint errors) | Fast coding model | Rapid iterative fixing of compiler and linter diagnostics |
-| Architecture reasoning & cross-service ADRs | Frontier reasoning model | Broad context window and systemic invariant verification |
+| Architecture reasoning & cross-service decision records | Frontier reasoning model | Broad context window and systemic invariant verification |
 
 ## Eliminating tool sprawl
 
 Every external tool introduced into the software factory imposes a **context penalty**:
 - If a tool does not natively integrate into the agent's context graph, it creates an information black hole.
-- Any proposal to adopt an external SaaS tool outside the core substrate requires an ADR proving that the capability cannot be met natively and detailing how AI context will be preserved without loss.
+- Any proposal to adopt an external SaaS tool outside the core substrate requires a decision record proving that the capability cannot be met natively and detailing how AI context will be preserved without loss.

@@ -38,9 +38,9 @@ adverse trends (error rate creeping up, saturation approaching, cost drifting) b
 |---|---|---|
 | **Detect** | AI flags an anomaly or a trend that is heading toward a threshold | AI proposes |
 | **Explain** | AI correlates logs, traces, deploys, and recent diffs to the likely cause | Squad confirms |
-| **Act** | Mitigate early, or tighten the control that should have caught it | Squad decides; [deterministic controls](./deterministic-controls) still trigger automatic rollback |
+| **Act** | Mitigate early, open a backlog issue in [1 — Triage](./stage-triage), or tighten the control that should have caught it | Squad decides; [deterministic controls](./deterministic-controls) still trigger automatic rollback |
 
-What monitoring learns flows back into the schema: patterns become new rules in Persistent Context, and
+What monitoring learns flows back into the diagram: patterns become new rules in Persistent Context, and
 missed signals become stricter Deterministic Controls.
 
 ## The hypothesis ledger
@@ -70,15 +70,9 @@ are how postmortems become fiction.
 
 ## Enriching Persistent Context
 
-This is the step most organizations skip. Every cycle, the squad asks:
-
-- What did we correct in generated output more than once? → add or amend an **instruction**.
-- What task did we re-explain or retype? → save it as a reusable **prompt**.
-- What multi-step task did we re-explain? → package it as a **skill**.
-- What bounded specialty keeps recurring? → define an **agent**.
-- What decision surprised a newcomer? → write an **ADR**.
-
-[Persistent Context](./persistent-context) is maintained here, from evidence, not from opinion. This is the "Enriches" arrow in the [operating model schema](./overview).
+This is the step most organizations skip. Every cycle, the squad asks what was corrected or re-explained more than once,
+and adds it to [Persistent Context](./persistent-context) from evidence, not from opinion. That page explains which kind of
+artifact to use. This is the "Enriches" arrow in the [operating model diagram](./overview).
 
 ## Hardening Deterministic Controls
 
@@ -88,14 +82,12 @@ Every defect, rollback, or near-miss is also asked: what reached production that
 - A threshold was too loose → tighten the **promotion gate** or **rollback threshold**.
 - A signal arrived too late → add an earlier **probe**.
 
-This is the "Hardens" arrow in the schema. See [Deterministic Controls](./deterministic-controls) for the catalog.
+This is the "Hardens" arrow in the diagram. See [Deterministic Controls](./deterministic-controls) for the catalog.
 
 ## Cadence
 
-- Weekly: flow and health review per squad.
-- Bi-weekly: hypothesis ledger review.
-- Monthly: AI leverage and cost review with enablement.
-- Quarterly: operating-model retrospective — the model itself is the subject.
+- Weekly: flow and health review per squad, outcome review using the hypothesis ledger, and AI leverage and cost review.
+- Monthly: operating-model retrospective — the model itself is the subject.
 
 ## Exit gate
 

@@ -49,7 +49,7 @@ export default withMermaid(defineConfig({
         ],
       },
       {
-        text: 'Operating model',
+        text: 'Stages',
         items: [
           { text: '🎙️ 0 — Meet', link: '/guide/stage-meet' },
           { text: '🎯 1 — Triage', link: '/guide/stage-triage' },
@@ -62,34 +62,27 @@ export default withMermaid(defineConfig({
         ],
       },
       {
-        text: 'People',
+        text: 'Enablers',
         items: [
-          { text: 'Squads', link: '/guide/squads' },
-          { text: 'Roles', link: '/guide/roles' },
-          { text: 'Enablement', link: '/guide/enablement' },
+          { text: '🧠 Persistent Context', link: '/guide/persistent-context' },
+          { text: '🛡️ Deterministic Controls', link: '/guide/deterministic-controls' },
+          { text: '📦 Forge', link: '/guide/forge' },
+          { text: '🛤️ Platform Rails', link: '/guide/platform-rails' },
+          { text: '🧰 Tooling', link: '/guide/tooling' },
         ],
       },
       {
-        text: 'Governance',
+        text: 'Organization',
         items: [
+          { text: 'Team', link: '/guide/team' },
+          { text: 'Cadence', link: '/guide/cadence' },
           { text: 'Decision Rights', link: '/guide/decision-rights' },
           { text: 'AI Usage Policy', link: '/guide/ai-policy' },
         ],
       },
       {
-        text: 'Enablers',
+        text: 'Adopting & improving',
         items: [
-          { text: 'Persistent Context', link: '/guide/persistent-context' },
-          { text: '📦 Forge', link: '/guide/forge' },
-          { text: 'Deterministic Controls', link: '/guide/deterministic-controls' },
-          { text: 'Platform Rails', link: '/guide/platform-rails' },
-          { text: 'Tooling', link: '/guide/tooling' },
-        ],
-      },
-      {
-        text: 'Running the Model',
-        items: [
-          { text: 'Cadence', link: '/guide/cadence' },
           { text: 'Metrics', link: '/guide/metrics' },
           { text: 'Adoption Roadmap', link: '/guide/adoption' },
           { text: 'Anti-patterns', link: '/guide/anti-patterns' },
@@ -98,7 +91,7 @@ export default withMermaid(defineConfig({
     ],
     socialLinks: [],
     footer: {
-      message: 'Published and maintained by ALTEN',
+      message: 'Published and maintained by <strong>ALTEN</strong>',
     },
   },
 }))

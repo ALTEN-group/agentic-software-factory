@@ -3,6 +3,8 @@ import { h } from 'vue';
 import AnimatedLogo from './AnimatedLogo.vue';
 import HomeHeroInfo from './HomeHeroInfo.vue';
 import DeliveryFlowchart from './DeliveryFlowchart.vue';
+import SquadFlowchart from './SquadFlowchart.vue';
+import MetricChart from './MetricChart.vue';
 import './custom.css';
 
 export default {
@@ -15,5 +17,7 @@ export default {
   },
   enhanceApp({ app }) {
     app.component('DeliveryFlowchart', DeliveryFlowchart);
+    app.component('SquadFlowchart', SquadFlowchart);
+    app.component('MetricChart', MetricChart);
   },
 };

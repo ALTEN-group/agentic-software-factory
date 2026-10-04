@@ -11,18 +11,18 @@ wait for permission they did not need, and never take a decision that was not th
 
 | Decision | Decided by | Consulted | Recorded as |
 |---|---|---|---|
-| What to build next inside the outcome | Product lead | Squad, customers | Scorecard row |
-| Whether to run an experiment | Product lead | Data owner | Hypothesis entry |
-| Implementation approach inside the squad's code | Engineer | Squad | Pull request |
-| Public contract or cross-service boundary change | Engineering lead | Owning squads | ADR |
-| Data model change affecting other squads | Engineering lead | Data owner, affected squads | ADR + migration plan |
-| Security-sensitive change (auth, PII, billing) | Security owner | Engineering lead, squad | Review record on the pull request |
-| Adding a new runtime, database, or vendor | Engineering lead | Platform owner, security | ADR |
-| AI usage policy and model access | AI enablement lead | Security, legal | Policy version |
-| Adopting a new model, agent, or prompt standard | AI enablement lead | Squads | Evaluation report |
-| Release of a customer-facing commitment | Product lead | Support, sales | Changelog |
+| What to build next inside the outcome | Product Owner | Squad, customers | Scorecard row |
+| Whether to run an experiment | Product Owner | Support | Hypothesis entry |
+| Implementation approach inside the squad's code | Developer | Squad | Pull request |
+| Public contract or cross-service boundary change | Architect | Owning squads | Decision record |
+| Data model change affecting other squads | Architect | Support, affected squads | Decision record + migration plan |
+| Security-sensitive change (auth, PII, billing) | Architect | Developer, squad | Review record on the pull request |
+| Adding a new runtime, database, or vendor | Architect | DevOps | Decision record |
+| AI usage policy and model access | Architect | Legal | Policy version |
+| Adopting a new model, agent, or prompt standard | Architect | Squads | Evaluation report |
+| Release of a customer-facing commitment | Product Owner | Support, sales | Changelog |
 | Rollback during an incident | Whoever detects it | None — act first | Incident record |
-| Deleting an invalidated feature | Product lead | Squad | Ledger verdict |
+| Deleting an invalidated feature | Product Owner | Squad | Ledger verdict |
 
 ## Escalation
 
@@ -55,14 +55,14 @@ Human review is strictly **Minimum Human Validation**, described in [5 — Prove
 ## Blast radius and required human validation
 
 The weight of a decision is set by its blast radius and by how hard it is to undo. Blast radius is classified once, in
-[2 — Think](./stage-think), and confirmed in [3 — Plan](./stage-plan). It then sets the human validation a change needs in [5 — Prove](./stage-prove).
+[2 — Think](./stage-think), and checked again in [3 — Plan](./stage-plan) against the file scope. It then sets the human validation a change needs in [5 — Prove](./stage-prove).
 
 | Blast radius | Criteria | Required human validation |
 |---|---|---|
 | **Low** | Internal refactor, non-breaking schema change, copy edit behind green deterministic tests | **Zero-touch auto-merge** or 1-click squad acknowledgement |
-| **Medium** | New public endpoint, schema addition, integration with an external vendor | **Single-person validation**: Specification engineer verifies client intent and the preview environment |
-| **High** | Auth, permissions, billing, PII processing, data migration | **Dual validation**: Specification engineer + security owner verify business intent, access boundaries, and the rollback plan |
-| **Critical** | Irreversible data migration, breaking public contract, infrastructure change | **Lead sign-off**: Engineering lead + product lead approve business continuity and a staged rollout |
+| **Medium** | New public endpoint, schema addition, integration with an external vendor | **Single-person validation**: Developer verifies client intent and the preview environment |
+| **High** | Auth, permissions, billing, PII processing, data migration | **Dual validation**: Developer + Architect verify business intent, access boundaries, and the rollback mechanism |
+| **Critical** | Irreversible data migration, breaking public contract, infrastructure change | **Lead sign-off**: Architect + Product Owner approve business continuity and a staged rollout |
 
 Treating a reversible decision as irreversible is as expensive as the opposite. It just costs time
 instead of money.

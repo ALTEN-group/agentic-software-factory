@@ -30,7 +30,7 @@ stages of the [operating model](./overview).
 - Turn on the [Deterministic Controls](./deterministic-controls): branch protection, secret push protection, and policy-as-code.
 - Publish the [AI Usage Policy](./ai-policy) and configure model gateways with quotas and cost attribution.
 
-**Exit:** an AI agent can generate code, run the automated checks locally, deploy an ephemeral
+**Exit:** an AI agent can generate code, run the automated checks, deploy an ephemeral
 preview, and open a PR without manual intervention.
 
 ## Phase 2 — One squad, full Meeting-Driven flow (1 quarter)

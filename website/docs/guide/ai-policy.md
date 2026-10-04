@@ -1,7 +1,7 @@
 # AI Usage Policy
 
 AI is treated as a production capability: owned, versioned, budgeted, audited. This page is the
-policy squads work under. It is owned by the AI enablement lead and reviewed with security and legal
+policy squads work under. It is owned by the Architect and reviewed with security and legal
 each quarter.
 
 ## Sanctioned usage
@@ -61,7 +61,7 @@ The following always resolve to a named person:
 
 ## Cost
 
-Model spend is attributed per squad and reviewed monthly. A workflow whose cost exceeds the value it
+Model spend is attributed per squad and reviewed weekly. A workflow whose cost exceeds the value it
 creates is redesigned or retired — cheaper models, tighter context, or no AI at all.
 
 ## Violations

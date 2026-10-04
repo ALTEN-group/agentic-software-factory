@@ -20,7 +20,7 @@ Persistent Context is the primary programming language of the organization.
 | Primitive | Loaded | Use for |
 |---|---|---|
 | **Instruction** | Automatically, when matching files are in context | Stable standards: conventions, structure, security rules, deterministic requirements |
-| **Prompt** | Explicitly, invoked by the user | Reusable, parameterised task templates committed to the repository (e.g. draft a Plan record, review a change against ADRs) |
+| **Prompt** | Explicitly, invoked by the user | Reusable, parameterised task templates committed to the repository (e.g. draft a Plan record, review a change against decision records) |
 | **Skill** | On demand, by name or description | Multi-step workflows with a contract and reusable references (e.g. running mutation tests, generating API schemas) |
 | **Agent** | Explicitly selected | A bounded specialist configuration with dedicated tools (e.g. Coding Agent, Remediation Agent, Plan Agent) |
 
@@ -31,10 +31,10 @@ Instructions, prompts, skills, and agents are the primitives that steer the mode
 | Artifact | Loaded | Use for |
 |---|---|---|
 | **Spec** | Referenced | Ground truth of what the system actually does, kept current with every release |
-| **ADR** | Referenced | Architectural choices, invariants, and rejected alternatives |
-| **Context Bundle** | Assembled per work item | The compiled package (Plan record, referenced specs, ADRs, active skills, prompts, and instructions) fed to the AI agent |
+| **Decision record** | Referenced | Architectural choices, invariants, and rejected alternatives |
+| **Context Bundle** | Assembled per work item | The compiled package (Plan record, referenced specs, decision records, active skills, prompts, and instructions) fed to the AI agent |
 
-[Deterministic Controls](./deterministic-controls) are not part of Persistent Context. They are a separate enabler that validates the agent's output independently of it.
+[Deterministic Controls](./deterministic-controls) are not part of Persistent Context. They are a separate enabler. Agents can run them as skills, such as the guard, gate, contract, and probe skills in [coding-pal](https://alten-group.github.io/coding-pal/), wherever they are cheapest: in their own loop, in a hook, or in the CI.
 
 ### Choosing between them
 
@@ -44,7 +44,7 @@ Is it a reusable task a human triggers on demand? → prompt
 Is it a repeatable multi-step procedure?         → skill
 Is it a distinct specialty with its own scope?   → agent
 Is it a description of existing behaviour?       → spec
-Is it the reasoning behind a choice?             → ADR
+Is it the reasoning behind a choice?             → decision record
 ```
 
 ## Persistent Context and The Forge across the stages
@@ -70,7 +70,7 @@ flowchart LR
 
     CONTEXT -. Domain glossary & meeting agent instructions .-> MEET
     CONTEXT -. Domain glossaries & existing specs .-> NEED
-    CONTEXT -. Architectural boundaries & ADRs .-> THINK
+    CONTEXT -. Architectural boundaries & decision records .-> THINK
     CONTEXT -. Constraints & existing specs .-> PLAN
     CONTEXT -. Repository idioms & skills .-> CODE
     CONTEXT -. Remediation constraints & test standards .-> PROOF
@@ -91,15 +91,26 @@ flowchart LR
 
 | Dimension | Persistent Context | The Forge |
 |---|---|---|
-| **What it represents** | *Domain ground truth, rules & standards* (instructions, prompts, skills, agents, specs, ADRs) | *What we reuse* (functions, libraries, services) |
+| **What it represents** | *Domain ground truth, rules & standards* (instructions, prompts, skills, agents, specs, decision records) | *What we reuse* (functions, libraries, services) |
 | **Role in 0 — Meet** | Supplies the domain glossary, specs, and meeting agent instructions and prompts, and receives new client terminology back | Not used at this stage |
 | **Role in 1 — Triage** | Grounds client dialogue extraction against existing system specs and domain glossaries | Not used at this stage |
-| **Role in 2 — Think** | Supplies architectural invariants, ADRs, and domain boundaries that bound the options | Identifies candidate shared services and reusable modules to compose instead of building |
+| **Role in 2 — Think** | Supplies architectural invariants, decision records, and domain boundaries that bound the options | Identifies candidate shared services and reusable modules to compose instead of building |
 | **Role in 3 — Plan** | Informs constraints and non-functional invariants carried into the plan | Supplies the API schemas and bindings to lock into the Plan record |
 | **Role in 4 — Code** | Guides AI agents with repository conventions, type rules, and execution skills | Supplies concrete packages, SDKs, and endpoints for agents to import and invoke |
-| **Role in 5 — Prove** | Constrains agent auto-remediation loops so automated patches comply with ADRs & contracts | Not used at this stage |
-| **Role in 7 — Learn** | Receives new instructions, prompts, skills, agents, and ADRs from production evidence | Not used at this stage |
-| **Storage & Scope** | Versioned inside the repository (`.github/`, `skills/`, `docs/`) and provisioned via persistent context & agent catalogs (e.g. `coding-pal`) | Versioned in enterprise package registries, service catalogs, and in-context templates (e.g. `Gatelin`, `foxnox`) |
+| **Role in 5 — Prove** | Constrains agent auto-remediation loops so automated patches comply with decision records & contracts | Not used at this stage |
+| **Role in 7 — Learn** | Receives new instructions, prompts, skills, agents, and decision records from production evidence | Not used at this stage |
+| **Storage & Scope** | Versioned inside the repository (`.github/`, `skills/`, `docs/`) and provisioned via persistent context & agent catalogs (e.g. [`coding-pal`](https://alten-group.github.io/coding-pal/)) | Versioned in enterprise package registries, service catalogs, and in-context templates (e.g. `Gatelin`, `foxnox`) |
+
+## Agents catalog
+
+Agents are provisioned through an agents catalog: a curated set of production-ready agents, such as Plan, Coding,
+Remediation, and Security agents. Each one is packaged with audited prompts, bounded tools, and the skills for its
+role. Platforms like [coding-pal](https://alten-group.github.io/coding-pal/) keep these bundles synchronized across
+developer workstations and CI runners, so every team starts from the same set.
+
+## Who owns it
+
+The Architect owns Persistent Context, with every team contributing changes through pull requests.
 
 ## Where it lives
 
@@ -142,7 +153,7 @@ flowchart LR
   decide -->|reusable task| prompt[Prompt]
   decide -->|procedure| skill[Skill]
   decide -->|specialty| agent[Agent]
-  decide -->|invariant / boundary| adr[ADR]
+  decide -->|invariant / boundary| adr[Decision record]
   inst --> eval[Evaluation]
   prompt --> eval
   skill --> eval
