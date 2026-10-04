@@ -81,9 +81,9 @@ export default withMermaid(defineConfig({
         ],
       },
       {
-        text: 'Adopting & improving',
+        text: 'Adoption',
         items: [
-          { text: 'Adoption Roadmap', link: '/guide/adoption' },
+          { text: 'Roadmap', link: '/guide/adoption' },
           { text: 'Anti-patterns', link: '/guide/anti-patterns' },
         ],
       },
