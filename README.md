@@ -2,13 +2,8 @@
 
 The modern operating model for software development using AI at maximum capability.
 
-The Agentic Software Factory is an **operating model**, not a product: it describes how an organization builds and runs
-software where **AI is leveraged across the entire process** — from the client meeting to production release:
-
-- **Meeting-Driven Development**: Software requirements, architecture, and tasks originate directly from client and stakeholder meetings, transcribed and structured into formal Spec records by AI in real time.
-- **Autonomous Code Generation**: AI autonomously generates 100% of the code, tests, and documentation. Engineers operate as specification engineers, context architects, and deterministic control builders.
-- **Dense Deterministic Controls**: Compilers, strict type checkers, AST linters, contract tests, mutation testing, and security scanners form automated, executable testbeds.
-- **AI Auto-Validation & Minimum Human Validation**: AI agents execute in closed self-healing loops against deterministic controls until all gates pass. Human review is minimized and strictly focused on business needs, customer value, and safety invariants rather than line-by-line syntax checking.
+The Agentic Software Factory is an **operating model**. It describes how ALTEN builds and runs
+software with **AI leveraged across the entire process** — from the client meeting to production release:
 
 This repository holds the documentation site for that model.
 
@@ -61,12 +56,3 @@ cd website
 npm install
 npm run dev
 ```
-
-## Publication
-
-`main` pushes that touch `website/**` build the site and publish `website/docs/.vitepress/dist`
-to GitHub Pages via [deploy-docs.yml](.github/workflows/deploy-docs.yml).
-
-## License
-
-[MIT](LICENSE) — ALTEN.
