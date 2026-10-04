@@ -43,7 +43,7 @@ AI ingests client meetings (discovery calls, sprint reviews, steering committees
 Rather than summarizing conversations into generic bullet points, the meeting pipeline extracts verbatim quotes and anchors them to domain concepts. When a need is logged in [1 — Triage](./stage-triage), the backlog issue cites the exact client quote in its evidence field:
 
 > *"Our regional managers spend 45 minutes every morning cross-referencing CSV exports from SAP with local inventory sheets before trucks can roll."*
-> — Operations Director, Meeting Transcript (2026-09-24, 00:14:32)
+> — Operations Director, Meeting Transcript (2026-09-24, 15:14:32)
 
 ## Persistent Context in Meet
 
