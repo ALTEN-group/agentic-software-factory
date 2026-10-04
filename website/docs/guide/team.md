@@ -4,26 +4,27 @@ The Agentic Software Factory aligns product, development, and customer outcomes 
 A squad is the smallest unit that can own an outcome end-to-end — from client meeting to production
 release.
 
-## The shift in engineering roles
+## The shift in roles
 
-In Agentic Software Factory, **developers do not write code syntax anymore**. The squad structure reflects this:
+In The Agentic Software Factory, **developers do not write code syntax anymore**, and the Product Owner no longer writes specifications. The squad structure reflects this:
 
 - **No manual coders**: AI agents generate 100% of code, tests, and documentation.
-- **Developers**: developers specify, curate context, and validate intent instead of writing syntax.
+- **Developers**: Developers specify, curate context, and validate intent instead of writing syntax.
+- **Product Owner**: AI writes the specifications, so the Product Owner no longer writes them. Instead, the Product Owner works with the client to turn their problems into clear, well-defined business needs.
 - **Client Empathy**: Because developers are freed from syntax authoring, they can actively participate
-  in client meetings alongside the product owner to understand the true business context.
+  in client meetings alongside the Product Owner to understand the true business context.
 
 ## Shape
 
-A typical high-leverage agentic squad is five people:
+**A typical high-leverage agentic squad is two people**, a Product Owner and a Developer, plus an Architect, a DevOps, a QA and maintainer shared across squads:
 
 | Member | Primary Focus | Role in Meeting-Driven Development |
 |---|---|---|
 | **Product Owner** | Client relationships, prioritization, outcome metrics | Leads client meetings, ranks backlog issues, defines business value, owns the Triage scorecard |
-| **Developer** | Think, plans, code iterations, and proof | Takes part in client meetings, weighs options in Think, validates Plan records, orchestrate the code loop, and conducts minimum human validation |
-| **DevOps** | Automated deployment and pipeline | Runs Release: automated deployment |
-| **Support** | QA and maintainer | Runs Learn: watches production, handles incidents, and reports what monitoring finds |
-| **Architect** | The enablers: Platform rails, Persistent Context, Deterministic Controls and Forge | Owns system boundaries and decision records, signs off high-blast radius decisions; shared across squads |
+| **Developer** | Think, Plan, Code, and Prove | Takes part in client meetings, weighs options in Think, validates Plan records, orchestrates the code loop, and conducts minimum human validation |
+| **QA and maintainer** | Quality and production support | Runs Learn: watches QA and production, handles incidents, and reports what monitoring finds; shared across squads |
+| **DevOps** | Automated deployment and pipeline | Runs Release: automated deployment; shared across squads |
+| **Architect** | The enablers: Platform Rails, Persistent Context, Deterministic Controls, and the Forge | Owns system boundaries and decision records, signs off high blast radius decisions; shared across squads |
 
 ## Who does what
 

@@ -13,31 +13,31 @@ Where the chosen approach becomes an ordered implementation checklist for the co
 
 A good plan answers three questions before any code is written:
 
-1. **Where** may the agents work, and where must they not ?
-2. **In what order**, in steps small enough to check one by one ?
-3. **How do we prove** each step, and the whole change, is right ?
+1. **Where** may the agents work, and where must they not?
+2. **In what order** should the steps run? Is each step small enough to check on its own?
+3. **How do we prove** each step, and the whole change, is right?
 
 ## Purpose
 
 | Input | Output | Owner |
 |---|---|---|
-| The validated Think record from [2 — Think](./stage-think) | A plan with the scope, acceptance criteria, an ordered implementation checklist, and a test plan | Architect + developer |
+| The validated Think record from [2 — Think](./stage-think) | A plan with the file scope, acceptance criteria, an ordered implementation checklist, code to implement, and a test plan | Architect + Developer |
 
 ## The Plan record
 
 The Plan record is committed with the work item alongside the backlog issue and the Think record.
 
 | Section | Description |
-|---|---|---|
+|---|---|
 | **File scope & boundaries** | The files and areas the agents may change, and the ones they must not touch |
 | **Prerequisites** | Dependencies, environment variables, or services needed before Step 1 |
 | **Acceptance criteria** | 3 to 8 observable statements that are either true or false, written so a test can check them |
-| **Implementation checklist** | Ordered, atomic steps, each with its files, action, new code, a verification command, a bootable check, and the criterion it serves
+| **Implementation checklist** | Ordered, atomic steps, each with its files, action, new code, a verification command, a bootable check, and the criterion it serves |
 | **Test plan** | For each acceptance criterion, which test proves it and in which step it is created |
 | **Open questions & assumptions** | Anything unanswered or assumed at the implementation level. Open questions are answered before Code starts |
 
-Changes to Persistent Context identified in Think, such as a new instruction or skill, appear as steps in the checklist like any other work. 
-A plan has usually no rollback section as a revert normally undoes a change. A change that a revert cannot undo, such as a data migration, gets its own reverse step in the checklist. For High and Critical changes, the rollback mechanism is named in the [Think record](./stage-think#the-think-record).
+Changes to Persistent Context identified in Think, such as a new instruction or skill, appear as steps in the checklist like any other work.
+A plan usually has no rollback section, because a revert normally undoes a change. A change that a revert cannot undo, such as a data migration, gets its own reverse step in the checklist. For High and Critical changes, the rollback mechanism is named in the [Think record](./stage-think#the-think-record).
 
 ### Acceptance criteria
 
@@ -73,7 +73,7 @@ A step is well formed when:
 
 ## Where AI is used
 
-AI turns the validated Think record into the plan; the developer validates. Helped by the architect if necessary.
+AI turns the validated Think record into the plan, and the developer validates it. The architect helps when needed.
 
 | Task | AI role | Human role |
 |---|---|---|
@@ -94,4 +94,4 @@ A work item leaves Plan and enters [4 — Code](./stage-code) only when:
 4. open questions are answered, and assumptions are recorded,
 5. any change that a revert cannot undo has its own reverse step,
 6. the blast radius tier from Think still holds for the file scope. If the plan touches more than Think assumed, such as authentication, data, or a public contract, the tier is raised and the required human validation changes with it,
-7. the developer has reviewed and approved the plan.
+7. the Developer has reviewed and approved the plan.

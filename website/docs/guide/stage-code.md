@@ -9,7 +9,7 @@ pageClass: page-stage-core
   <span class="stage-hero-desc">Fast autonomous loops, generate, test &amp; fix until green</span>
 </div>
 
-Where specifications and plans become executable software. In Agentic Software Factory, **developers do not code manually**: AI agents autonomously
+Where specifications and plans become executable software. In The Agentic Software Factory, **developers do not code manually**: AI agents autonomously
 generate the code, tests, and documentation, iterating in fast, closed loops until all checks, tests and controls are green.
 
 ## Purpose
@@ -76,13 +76,11 @@ flowchart TB
 - **Developers do not write manual code.** Any attempt to manually hand-craft code in an IDE is an
   anti-pattern that bypasses Persistent Context and slows down delivery.
 - **Green before PR.** An agent is never permitted to open a pull request with a failing build,
-  type error, lint failure, failing test, or failing control. The agent keeps iterating until they pass, up to the
-  fix-loop limit.
+  type error, lint failure, failing test, or failing control. The agent keeps iterating until they pass, up to the fix-loop limit of 5 attempts per work item. Needing more than 3 is a warning sign that the plan was too big or too vague (see [Metrics](./metrics)).
 - **Tests are generated alongside code, never retrofitted.** Tests are derived strictly from the
   acceptance criteria in the Plan record, not generated as an afterthought to fit the code.
 - **Context is the steering wheel.** If an agent produces incorrect code or misunderstands a pattern,
-  the engineer updates [Persistent Context](./persistent-context) (instructions, prompts, or skills) rather than
-  manually fixing the code.
+  the Developer updates [Persistent Context](./persistent-context) rather than manually fixing the code.
 - **Dependencies are bounded.** Any new dependency introduced by an agent must be explicitly declared
   in the plan and evaluated against security and licensing controls.
 
@@ -98,7 +96,7 @@ Long-running branches are forbidden: they create merge conflicts that break agen
 | Domain logic and application services | Generate from the Plan record | Validate fidelity to the Plan acceptance criteria |
 | Scaffolding, boilerplate, wiring | Generate from Forge templates | None |
 | Unit, integration, and contract tests | Generate alongside the code, from the acceptance criteria | Verify tests derive from the acceptance criteria |
-| API clients, DTOs, mappers, migrations | Generate against Forge contracts | Ensure backwards compatibility constraints are met |
+| API clients, data models, mappers, migrations | Generate against Forge contracts | Ensure backwards compatibility constraints are met |
 | Architectural refactoring within patterns | Refactor inside the recorded boundaries | Confirm system boundaries |
 | Documentation, OpenAPI specs, runbooks | Generate | Review for clarity |
 | Fix loops on failing builds, type errors, lint failures, and tests | Parse the failure and repair | Intervene only if the agent reaches its limit |

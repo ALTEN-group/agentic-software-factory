@@ -11,9 +11,9 @@ introduces drift, security gaps, and maintenance debt. The Forge removes the nee
 | Tier | Examples | Why it exists |
 |---|---|---|
 | **Shared services** | Authentication, identity, billing, audit logging, notification dispatch, document storage | Production-hardened services are called, never rebuilt |
-| **Reusable code** | Libraries, shared client SDKs, validated domain logic, cryptographic utilities, telemetry wrappers | Agent import pre-tested packages that already meet enterprise standards |
+| **Reusable code** | Libraries, shared client SDKs, validated domain logic, cryptographic utilities, telemetry wrappers | Agents import pre-tested packages that already meet enterprise standards |
 | **In-context templates** | Project skeletons, scaffolding, and canonical design patterns (for example frameworks such as **Gatelin** or **foxnox**) injected into agent context | Agents follow the reference architecture from the first line |
-| **Interface contracts** | Versioned OpenAPI, gRPC, and AsyncAPI specifications | Cross-service compatibility is fixed before generation starts |
+| **Interface contracts** | Versioned API specifications (OpenAPI, gRPC, AsyncAPI) | Cross-service compatibility is fixed before generation starts |
 
 In-context templates are loaded into the agent's context when it starts something new, such as a service, an endpoint,
 or a pipeline, so it follows the reference architecture without being told each time.
@@ -25,8 +25,8 @@ The Forge feeds three stages of the [operating model](./overview).
 | Stage | What happens with the Forge |
 |---|---|
 | [2 — Think](./stage-think) | The agent searches the catalog semantically and proposes reuse options. The chosen assets are recorded as **Forge asset bindings** in the Think record |
-| [3 — Plan](./stage-plan) | The bindings are carried into the Plan record and locked, with their interface contracts, so the implementation breakdown composes them |
-| [4 — Code](./stage-code) | The agent imports the bound packages and calls the bound services or copy paste the reusable code |
+| [3 — Plan](./stage-plan) | The Plan reads the bindings from the Think record, so the implementation steps compose them |
+| [4 — Code](./stage-code) | The agent imports the bound packages and calls the bound services, or copies the reusable code |
 
 ## Rules
 

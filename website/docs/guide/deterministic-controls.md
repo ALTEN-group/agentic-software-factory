@@ -1,7 +1,7 @@
 # Deterministic Controls
 
 Guards, gates, contracts, and probes: the automated, deterministic controls that make the safe path the only path.
-Agentic Software Factory relies on them fundamentally because **developers do not code manually** and AI agents
+The Agentic Software Factory relies on them fundamentally because **developers do not code manually** and AI agents
 generate massive volumes of change at high velocity.
 
 ## Principle
@@ -9,7 +9,7 @@ generate massive volumes of change at high velocity.
 > A squad or agent should have to work hard to do something unsafe, and should never have to work
 > hard to do something safe.
 
-Any rule that only exists in a policy document is not a control. It is a hope. In Agentic Software Factory,
+Any rule that only exists in a policy document is not a control. It is a hope. In The Agentic Software Factory,
 **all deterministic controls are executable and deterministic**.
 
 ## Deterministic Controls and Persistent Context
@@ -33,11 +33,9 @@ Both are deterministic: a script returns pass or fail, never an opinion. They di
 | **What** | Compiler and build, type checks, linters, and automated tests generated with the code | Guards, gates, contracts, and probes |
 | **Purpose** | Prove the code works | Prove the change is safe to merge and release |
 | **Where they run** | In the agent's own loop in [4 — Code](./stage-code), then again in the CI on the pull request in [5 — Prove](./stage-prove) | The same two places |
-| **Can the agent change them?** | Automated checks are written by the agent, so it can edit them | Controls are fixed scripts and rules that the agent cannot change |
+| **Can the agent change them?** | The agent writes the tests, so it can edit them | The rules and scripts are fixed, and the agent runs them but does not change them. Generated test suites are held to account by Criteria Test Verification and Mutation Testing |
 
-Running them early keeps the loop fast: a failure is fixed in seconds inside the agent's loop, not in a later CI
-cycle. Controls are packaged as skills that any agent can call, as pre-commit hooks, or as CI steps. The repeat run in
-the CI is a backstop, in a clean environment, for anything that slipped through. The CI also runs controls that only run there, such as the preview smoke tests.
+Running them early keeps the loop fast: a failure is fixed in seconds inside the agent's loop, not in a later CI cycle. The repeat run in the CI is a backstop, in a clean environment, for anything that slipped through. The CI also runs controls that only run there, such as the preview smoke tests.
 
 ## The controls
 

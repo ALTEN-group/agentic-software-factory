@@ -9,19 +9,19 @@ pageClass: page-stage-gray
   <span class="stage-hero-desc">Telemetry analysis &amp; predictive monitoring</span>
 </div>
 
-The stage that closes the loop of the operating model.
+The stage that closes the loop of the operating model. It watches what a release does in production, opens backlog issues for what it finds, and can feed what it learns back into Persistent Context and Deterministic Controls.
 
 ## Purpose
 
 | Input | Output | Owner |
 |---|---|---|
-| Production telemetry, customer behaviour, incidents, cost | Early warnings, validated or invalidated hypotheses, new backlog issues, improved Persistent Context and Deterministic Controls | QA, maintainer |
+| Production telemetry, customer behavior, incidents, cost | Early warnings, validated or invalidated hypotheses, new backlog issues, improved Persistent Context and Deterministic Controls | QA and maintainer |
 
 ## What is observed
 
 | Dimension | Examples | Feeds |
 |---|---|---|
-| **Outcome** | The metric named in the [3 — Plan](./stage-plan) record | Was it worth building? |
+| **Outcome** | The outcome metric committed in the [1 — Triage](./stage-triage) backlog issue | Was it worth building? |
 | **System health** | Latency, error rate, saturation, availability | Incident response |
 | **Flow** | Lead time, deployment frequency, change failure rate, time to restore | [Metrics](./metrics) |
 | **AI leverage** | Acceptance rate, rework rate, cost per change | Model and prompt evaluations |
@@ -36,11 +36,10 @@ adverse trends (error rate creeping up, saturation approaching, cost drifting) b
 | Step | What happens | Who decides |
 |---|---|---|
 | **Detect** | AI flags an anomaly or a trend that is heading toward a threshold | AI proposes |
-| **Explain** | AI correlates logs, traces, deploys, and recent diffs to the likely cause | Maintainer confirms |
-| **Act** | Mitigate early, open a backlog issue in [1 — Triage](./stage-triage), or tighten the control that should have caught it | Maintainer decides; the rollback thresholds in [6 — Release](./stage-release) still trigger automatic rollback |
+| **Explain** | AI correlates logs, traces, deploys, and recent diffs to the likely cause | QA and maintainer confirms |
+| **Act** | Mitigate early, open a backlog issue in [1 — Triage](./stage-triage), to tighten the control that should have caught it | QA and maintainer decides; the rollback thresholds in [6 — Release](./stage-release) still trigger automatic rollback |
 
-What monitoring learns flows back into Persistent Context, and
-missed signals become stricter Deterministic Controls.
+What monitoring learns can flow back into Persistent Context, and missed signals should become stricter Deterministic Controls.
 
 ## The hypothesis ledger
 
@@ -60,7 +59,7 @@ around them.
 
 1. Detect — alert or customer report.
 2. Mitigate — flag, rollback, or forward fix. Mitigation precedes diagnosis.
-3. Diagnose — correlates logs, traces, deploys, and recent diffs; humans conclude.
+3. Diagnose — AI correlates logs, traces, deploys, and recent diffs; humans conclude.
 4. Repair — add a test that reproduces the defect, confirm it fails, then fix the defect and confirm the test passes ([Prove](./stage-prove)).
 5. Learn — review the incident within five working days.
 
@@ -73,5 +72,4 @@ Every defect, rollback, or near-miss is also asked: what reached production that
 
 ## Exit gate
 
-The loop closes when a Learn output has become a new backlog issue in [1 — Triage](./stage-triage), a Persistent Context or Deterministic Controls
-is improved. A learning that produces none of these was not a learning.
+The loop closes when a Learn output has become a new backlog issue in [1 — Triage](./stage-triage).

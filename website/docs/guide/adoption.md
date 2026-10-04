@@ -9,9 +9,7 @@ Start with advanced training, before anything changes. People learn to work with
 
 ## Step 2: AI use cases across the whole cycle
 
-Then introduce AI use cases across the entire development cycle, from the client meeting to production, without changing
-the workflow or the tooling. People keep working the way they do today, and AI helps inside each stage. This builds
-experience and shows where AI helps most. Squads start to use AI in specific tasks like automated tests generation, doumentation updates, assisted specifications, Audits...
+Then introduce AI use cases across the entire development cycle, from the client meeting to production, without changing the workflow or the tooling. People keep working the way they do today, and AI helps inside each stage. This builds experience and shows where AI helps most. Squads start to use AI in specific tasks like automated test generation, documentation updates, assisted specifications, code and audits.
 
 ## Step 3: Transform stage by stage
 

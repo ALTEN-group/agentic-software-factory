@@ -9,9 +9,9 @@ pageClass: page-stage-cyan
   <span class="stage-hero-desc">Deterministic gate validation &amp; agent auto-remediation</span>
 </div>
 
-Quality is not a phase and not a human line-by-line reading marathon. In Agentic Software Factory, Prove is the
+Quality is not a phase and not a human line-by-line reading marathon. In The Agentic Software Factory, Prove is the
 stage that combines **dense deterministic controls for AI auto-validation** with **minimum human
-validation** to guarantee that generated software is correct, safe, and aligned with client intent.
+validation** to build confidence that generated software is correct, safe, and aligned with client intent.
 
 ## Purpose
 
@@ -27,7 +27,7 @@ a dangerous anti-pattern:
 - **Cognitive bottleneck**: Delivery velocity collapses back to the speed of manual reading.
 - **False security**: "Looks good to me" provides zero guarantee.
 
-Agentic Software Factory solves this by shifting the verification burden to **dense, objective, deterministic
+The Agentic Software Factory solves this by shifting the verification burden to **dense, objective, deterministic
 controls** that execute in closed loops, reserving human attention strictly for high-level business
 intent and safety boundaries.
 
@@ -36,21 +36,16 @@ intent and safety boundaries.
 Deterministic controls are binary: they either pass or fail with absolute certainty. No probabilistic
 guesswork is permitted.
 
-Most of these controls also run earlier, in the agent's own loop in [4 — Code](./stage-code), so failures are usually fixed
-before the pull request exists. Prove runs them again on the pull request, in a clean environment, as a backstop. It also runs the controls
-that only run in the CI.
+Most controls also run earlier, in the agent's own loop in [4 — Code](./stage-code), so failures are usually fixed before the pull request exists. Prove runs them again on the pull request, in a clean environment, as a backstop. It also runs the controls that only run in the CI. Each control is described in [Deterministic Controls](./deterministic-controls).
 
 ### The deterministic controls
-
-The automated checks that agents run in Code are not repeated here as separate gates. Prove re-runs them in a clean
-environment and adds the controls the agent cannot weaken. See [Automated checks and deterministic controls](./deterministic-controls#automated-checks-and-deterministic-controls).
 
 | Control | Type | Enforcement | What it proves |
 |---|---|---|---|
 | **Clean CI Re-run** | Gate | CI in a clean environment | Re-runs the build, type check, linter, and unit and integration tests from [4 — Code](./stage-code) where the agent cannot influence the result |
 | **Criteria Test Verification** | Gate | Test runner | Proves that every acceptance criterion in the Plan record has a passing assertion |
-| **Contract & Schema Tests** | Contract | OpenAPI / JSON Schema / Pact | Guarantees that public interfaces and consumer contracts never break silently |
-| **Mutation Testing** | Gate | **Proves the tests themselves**: introduces mutants into code; tests must catch and kill them |
+| **Contract & Schema Compatibility** | Contract | OpenAPI / JSON Schema / Pact | Guarantees that public interfaces and consumer contracts never break silently |
+| **Mutation Testing Bar** | Gate | Mutation test runner | **Proves the tests themselves**: introduces mutants into code; tests must catch and kill them |
 | **API Tests** | Contract | HTTP API tests (for example Supertest) | Proves each endpoint returns the agreed status codes and responses, for valid and invalid requests |
 | **Fuzz Tests** | Probe | API fuzzing from the OpenAPI spec (for example RESTler) | Proves the API handles unexpected and malformed input without errors or crashes |
 | **Database Tests** | Gate | SQL assertions against a migrated database (for example PostgreSQL with Liquibase) | Proves the schema and migrations behave as specified: reads, writes, archiving, and audit history |
@@ -69,8 +64,8 @@ diagnostics. The agent:
 3. autonomously fixes the code. It can never weaken or skip a deterministic control to get a pass,
 4. commits the update and re-triggers the deterministic harness.
 
-This cycle repeats automatically until **100% of deterministic controls pass**. Humans are never
-called to troubleshoot trivial compilation or formatting failures.
+This cycle repeats automatically until every deterministic control passes, or the fix-loop limit set in
+[4 — Code](./stage-code) is reached and the Developer steps in. Humans are never called to troubleshoot trivial compilation or formatting failures.
 
 ## Where AI is used
 
@@ -79,7 +74,7 @@ The deterministic controls decide. AI writes the test suites and does the repair
 | Task | AI role | Human role |
 |---|---|---|
 | **Failure diagnosis** | Read the failing gate output and locate the fault | None for routine failures |
-| **Remediation** | Rewrite the code to satisfy the gate, within the attempt limit, never weakening a control | Intervene only when the limit is reached |
+| **Remediation** | Rewrite the code to satisfy the gate, within the fix-loop limit, never weakening a control | Intervene only when the limit is reached |
 | **Test suites** | Write and maintain the API, fuzz, database, and E2E tests that the controls run | Confirm the tests cover the acceptance criteria |
 
 ## Minimum human validation
@@ -100,14 +95,13 @@ and checked again in [3 — Plan](./stage-plan) against the file scope. The tier
 
 ## The bug rule
 
-Every production defect must result in a new **deterministic control** (a failing test case, a strict
-linter rule, or a schema validator) committed before the fix. The AI agent fixes the code to satisfy
-the new deterministic control, guaranteeing the bug cannot recur.
+Every production defect must result in a new automated check or control (a failing test case, a stricter
+linter rule, a schema validator, or a new guard) committed before the fix. The AI agent fixes the code to satisfy the new check or control, so the bug cannot quietly return.
 
 ## Exit gate
 
 A change leaves Prove and enters [Release](./stage-release) when:
 
-1. 100% of deterministic gates are green,
+1. every deterministic control is green,
 2. minimum human validation is recorded at the level required by the blast radius,
 3. for High and Critical changes, the rollback mechanism named in [Think](./stage-think) is configured and validated.

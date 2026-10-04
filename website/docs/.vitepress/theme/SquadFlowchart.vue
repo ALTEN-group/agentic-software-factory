@@ -91,7 +91,7 @@ const roles = {
   product: { label: 'Product Owner', color: '#ea580c' },
   dev: { label: 'Developer', color: '#4f46e5' },
   devops: { label: 'DevOps', color: '#0284c7' },
-  support: { label: 'Support', color: '#0f766e' },
+  support: { label: 'QA and maintainer', color: '#0f766e' },
   architect: { label: 'Architect', color: '#9333ea' },
 }
 

@@ -159,19 +159,27 @@
 
       <!-- Weekly audit -> 1 — Triage (own inner corridor) -->
       <path
-        d="M 905 445 H 912 Q 920 445 920 437 V 168 Q 920 160 912 160 H 647"
+        d="M 905 445 H 912 Q 920 445 920 437 V 172 Q 920 164 912 164 H 647"
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
-      <text x="784" y="153" class="flow-label grey-text">Opens issues</text>
+      <text x="784" y="157" class="flow-label grey-text">Opens issues</text>
 
       <!-- 7 — Learn -> 1 — Triage (Outer right corridor, opens backlog issues) -->
       <path
-        d="M 640 715 H 935 V 138 Q 935 130 927 130 H 647"
+        d="M 640 715 H 935 V 153 Q 935 145 927 145 H 647"
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
-      <text x="784" y="123" class="flow-label grey-text">Opens issues</text>
+      <text x="784" y="138" class="flow-label grey-text">Opens issues</text>
+
+      <!-- Support ticketing tool -> 1 — Triage (above the Learn corridor) -->
+      <path
+        d="M 790 86 V 126 H 647"
+        class="audit-connector"
+        marker-end="url(#flowArrowGrey)"
+      />
+      <text x="718" y="119" class="flow-label grey-text">Opens issues</text>
 
       <!-- Persistent Context -> shared trunk (left) feeding 0 — Meet, 1 — Triage, 2 — Think, 3 — Plan, 4 — Code, 5 — Prove -->
       <path
@@ -283,11 +291,20 @@
       </a>
 
       <!-- [ROW 4 - RIGHT] Weekly audit (Exact Level with 4 — Code) -->
-      <a :href="withBase('/guide/stage-triage#sources')" class="flow-node-link">
+      <a :href="withBase('/guide/stage-triage#where-backlog-issues-come-from')" class="flow-node-link">
         <g class="flow-node node-audit" transform="translate(675, 416)">
           <rect width="230" height="58" rx="10" class="node-rect rect-audit" />
           <text x="18" y="22" class="node-title audit-title">⏱️ Weekly audit</text>
           <text x="18" y="42" class="node-subtitle">Scheduled in CI</text>
+        </g>
+      </a>
+
+      <!-- [ROW 0 - RIGHT] Support ticketing tool (feeds Triage) -->
+      <a :href="withBase('/guide/stage-triage#where-backlog-issues-come-from')" class="flow-node-link">
+        <g class="flow-node node-audit" transform="translate(675, 30)">
+          <rect width="230" height="56" rx="10" class="node-rect rect-audit" />
+          <text x="18" y="24" class="node-title audit-title">🎧 Support tickets</text>
+          <text x="18" y="44" class="node-subtitle">Support ticketing tool</text>
         </g>
       </a>
 

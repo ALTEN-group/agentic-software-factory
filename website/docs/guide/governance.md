@@ -1,8 +1,6 @@
 # Governance
 
-Who decides, and what AI may do. Speed comes from knowing who decides, so The Agentic Software Factory makes decision rights
-explicit: squads never wait for permission they did not need, and never take a decision that was not theirs. AI is
-treated as a production capability: owned, versioned, budgeted, and audited.
+Who decides, and what AI may do. Speed comes from knowing who decides, so the The Agentic Software Factory makes decision rights explicit: squads never wait for permission they did not need, and never take a decision that was not theirs. AI is treated as a production capability: owned, versioned, budgeted, and audited.
 
 ## Who decides
 
@@ -18,13 +16,13 @@ treated as a production capability: owned, versioned, budgeted, and audited.
 | Whether to run an experiment | Product Owner | Architect | Hypothesis entry |
 | Implementation approach inside the squad's code | Developer | Architect | Pull request |
 | Public contract or cross-service boundary change | Architect | Owning squads | Decision record |
-| Data model change affecting other squads | Architect | Support, affected squads | Decision record + migration plan |
+| Data model change affecting other squads | Architect | affected squads | Decision record + migration plan |
 | Security-sensitive change (auth, PII, billing) | Architect | Developer, squad | Review record on the pull request |
 | Adding a new runtime, database, or vendor | Architect | DevOps | Decision record |
 | AI usage policy and model access | Architect | Legal | Policy version |
 | Adopting a new model, agent, or prompt standard | Architect | Squads | Evaluation report |
 | Release of a customer-facing commitment | Product Owner | Architect | Changelog |
-| Rollback during an incident | Maintainer | None — act first | Incident record |
+| Rollback during an incident | DevOps or QA and maintainer | None — act first | Incident record |
 | Deleting an invalidated feature | Product Owner | Squad | Ledger verdict |
 
 ### Escalation
@@ -40,10 +38,10 @@ The weight of a decision is set by its blast radius and by how hard it is to und
 
 | Blast radius | Criteria | Required human validation |
 |---|---|---|
-| **Low** | Internal refactor, non-breaking schema change, copy edit behind green deterministic tests | **Zero-touch auto-merge** or 1-click squad acknowledgement |
+| **Low** | Internal refactor, non-breaking schema change, copy edit behind green deterministic tests | **Auto-merge** once every control is green, or one-click developer acknowledgement |
 | **Medium** | New public endpoint, schema addition, integration with an external vendor | **Single-person validation**: Developer verifies client intent and the preview environment |
 | **High** | Auth, permissions, billing, PII processing, data migration | **Dual validation**: Developer + Architect verify business intent, access boundaries, and the rollback mechanism |
-| **Critical** | Irreversible data migration, breaking public contract, infrastructure change | **Lead sign-off**: Architect + Product Owner approve business continuity and a staged rollout |
+| **Critical** | Irreversible data migration, breaking public contract, infrastructure change | **Joint sign-off**: Architect + Product Owner approve business continuity and a staged rollout |
 
 ### Line-by-line review ban
 
@@ -60,14 +58,13 @@ person.** These always do:
 - final acceptance of any merged change,
 - any customer-facing commitment, and the decision of what problem to solve,
 - the validation of business intent and safety invariants (**Minimum Human Validation**),
-- any security-sensitive change, including sign-off on high-blast radius security, compliance, and architectural boundaries,
+- any security-sensitive change, including sign-off on high blast radius security, compliance, and architectural boundaries,
 - any change to models, prompts, or agents affecting trust or compliance,
 - the resolution of any incident, and its postmortem actions.
 
-
 ## Tooling
 
-Only tools on the sanctioned list may be used with Internal or Confidential data. Sanctioning
+Only tools on the sanctioned list may be used with company or client data. Sanctioning
 requires: enterprise tenancy, no training on submitted data, audit logging, SSO, and a signed data
 processing agreement.
 
@@ -82,10 +79,10 @@ processing agreement.
 
 ## Cost
 
-Model spend is attributed per user and reviewed weekly. A workflow whose cost exceeds the value it
+Model spend is attributed per squad and reviewed weekly. A workflow whose cost exceeds the value it
 creates is redesigned or retired — cheaper models, tighter context, or no AI at all.
 
-### Violations
+## Violations
 
 A policy violation is handled as an incident. A policy that can only be respected
 through vigilance is a [Deterministic Controls](./deterministic-controls) defect.

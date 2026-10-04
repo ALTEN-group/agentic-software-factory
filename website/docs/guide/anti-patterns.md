@@ -1,29 +1,27 @@
 # Anti-patterns
 
-Behaviours that look like Agentic Software Factory adoption and quietly reverse its intent. Each one has been the
-cause of a failed transformation somewhere.
+Behaviors that look like The Agentic Software Factory adoption and quietly reverse its intent. Each one has been the cause of a failed transformation somewhere.
 
 ## Operational & Engineering
 
 ### Developers still writing code syntax
 
 The fatal anti-pattern: developers treating AI as a glorified autocomplete while continuing to
-manually write application logic, boilerplate, and tests. In Agentic Software Factory, developers do not write
-code; they design specifications, build deterministic controls, and curate the Persistent Context.
+manually write application logic, boilerplate, and tests. In The Agentic Software Factory, developers do not write code; they design specifications, build deterministic controls, and curate the Persistent Context.
 Hand-coding creates bottlenecks, uncommitted tribal habits, and low AI leverage.
 
 ### Manual line-by-line syntax reviews
 
-Engineers spending hours reading thousands of lines of generated diffs in pull requests. Anything that
+Developers spending hours reading thousands of lines of generated diffs in pull requests. Anything that
 can be checked automatically belongs in automated checks and deterministic controls, and humans perform
 Minimum Human Validation on client intent and safety invariants only. See [Prove](./stage-prove#why-deterministic-controls-replace-manual-code-review).
 
 ### Skipping client meetings & building from stale tickets
 
-Engineers isolated from client dialogue, relying on third-hand ticket summaries. In Meeting-Driven
+Developers isolated from client dialogue, relying on third-hand ticket summaries. In Meeting-Driven
 Development, client dialogue is the primary signal source, captured and structured by AI ([0 — Meet](./stage-meet)).
 
-### The AI centre of excellence that owns delivery
+### The AI center of excellence that owns delivery
 
 A central team that writes the AI-assisted code for everyone. It becomes a queue, squads lose
 ownership, and the practice never spreads. Enablement ships capabilities, not features.
@@ -54,7 +52,7 @@ controls (contract tests, mutation testing, security scans).
 
 ### Hand-fixing generated bugs
 
-An engineer spotting a bug in generated output and manually typing the fix into the code file.
+A developer spotting a bug in generated output and manually typing the fix into the code file.
 The correct response is: add a deterministic test or update the [Persistent Context](./persistent-context)
 instruction, then let the AI agent regenerate and fix the implementation.
 
@@ -98,7 +96,7 @@ requests behind deterministic controls; humans validate before merge.
 ### Tool sprawl and context fragmentation
 
 Spreading work across disconnected SaaS tools fragments the knowledge graph that AI agents depend on. See
-[Tooling](./tooling) for why the lifecycle is consolidated into a single unified substrate.
+[Tooling](./tooling) for why the lifecycle is consolidated into a single unified Git stack.
 
 ## Measurement
 

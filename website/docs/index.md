@@ -14,7 +14,7 @@ hero:
 features:
   - icon: 🎙️
     title: Meeting-Driven Development
-    details: "Agentic Software Factory operates on Meeting-Driven Development: the development lifecycle begins in the client meeting and flows autonomously through AI generation to production release."
+    details: "The Agentic Software Factory operates on Meeting-Driven Development: the development lifecycle begins in the client meeting and flows autonomously through AI generation to production release."
   - icon: ⚡
     title: Autonomous code generation
     details: AI agents autonomously generate the code, tests, and documentation, while developers specify, curate context, and build deterministic controls.
@@ -25,7 +25,7 @@ features:
     title: Minimum human validation
     details: Eliminates line-by-line syntax review fatigue. Human validation is strictly focused on business intent, customer outcome, and safety invariants.
   - icon: 🧠
-    title: Persistent context
+    title: Persistent Context
     details: Instructions, prompts, skills, and agents are committed artifacts, feeding models exact repository conventions instead of fuzzy prompts.
   - icon: ↩️
     title: Safe by design, reversible at any step

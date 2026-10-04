@@ -1,12 +1,12 @@
 # Persistent Context
 
 Persistent Context is the organization's knowledge in a form an AI can consume. It is the
-highest-leverage investment in Agentic Software Factory.
+highest-leverage investment in The Agentic Software Factory.
 
 ## Why it exists
 
-A LLM has no memory of your codebase, your conventions, or your decisions. Every session starts
-from zero. Without Persistent Context, each engineer re-explains the same things, differently, forever.
+An AI model has no memory of your codebase, your conventions, or your decisions. Every session starts
+from zero. Without Persistent Context, each Developer re-explains the same things forever.
 
 In an operating model where **developers do not code** and **AI writes 100% of the implementation**,
 Persistent Context is the primary "code" of the organization.
@@ -16,7 +16,7 @@ Persistent Context is the primary "code" of the organization.
 Persistent Context is built from four kinds of file: **instructions** (standing rules), **prompts** (reusable tasks),
 **skills** (multi-step workflows), and **agents** (specialists). How each one is loaded, which to use when, and how to
 write them is explained in coding-pal's [Persistent Context architecture](https://alten-group.github.io/coding-pal/guide/persistent-context).
-coding-pal also publishes a catalogs of
+coding-pal also publishes catalogs of
 [instructions](https://alten-group.github.io/coding-pal/guide/catalog-instructions),
 [prompts](https://alten-group.github.io/coding-pal/guide/catalog-prompts),
 [skills](https://alten-group.github.io/coding-pal/guide/catalog-skills), and
@@ -27,23 +27,15 @@ coding-pal also publishes a catalogs of
 Persistent Context supports **[0 — Meet](./stage-meet)** through **[5 — Prove](./stage-prove)**.
 [7 — Learn](./stage-learn) enriches Persistent Context in return:
 
-
 | Stage | What Persistent Context does there |
 |---|---|
-| **0 — Meet** | Supplies the domain glossary, specs, and meeting agent instructions and prompts, and receives new client terminology back |
-| **1 — Triage** | Grounds client dialogue extraction against existing system specs and domain glossaries |
+| **0 — Meet** | Supplies the domain glossary, specifications, and meeting agent instructions and prompts, and receives new client terminology back |
+| **1 — Triage** | Grounds the mapping of needs to existing capabilities and domain glossaries |
 | **2 — Think** | Supplies architectural invariants, decision records, and domain boundaries that bound the options |
 | **3 — Plan** | Informs constraints and non-functional invariants carried into the plan |
 | **4 — Code** | Guides AI agents with repository conventions, type rules, and execution skills |
 | **5 — Prove** | Constrains agent auto-remediation loops so automated patches comply with decision records and contracts |
 | **7 — Learn** | Receives new instructions, prompts, skills, agents, and decision records from production evidence |
-
-## Agents catalog
-
-Agents are provisioned through an agents catalog: a curated set of production-ready agents, such as Plan, Coding,
-Remediation, and Security agents. Each one is packaged with audited prompts, bounded tools, and the skills for its
-role. Platforms like [coding-pal](https://alten-group.github.io/coding-pal/) keep these bundles synchronized across
-developer workstations and CI runners, so every team starts from the same set.
 
 ## Who owns it
 
@@ -55,7 +47,7 @@ Persistent Context lives in two places, depending on how widely it applies.
 
 | | Project-specific | Shared (global and generic) |
 |---|---|---|
-| **What** | What only this application needs: its own instructions, specs, and decision records | What every project needs: coding standards, test conventions, and generic agents, skills, and prompts |
+| **What** | What only this application needs: its own instructions, specifications, and decision records | What every project needs: coding standards, test conventions, and generic agents, skills, and prompts |
 | **Where** | In the application repository, next to the code it describes | In a dedicated repository, such as [coding-pal](https://alten-group.github.io/coding-pal/) |
 | **How it reaches a project** | It is already there, and is reviewed like the code it describes | It is installed into each project with a package manager (coding-pal uses [APM](https://alten-group.github.io/coding-pal/guide/apm-distribution)), so one change reaches every project |
 
@@ -64,7 +56,7 @@ Both are committed, reviewed through pull requests, and versioned.
 ## Rules
 
 1. **Committed, reviewed, versioned.** A context artifact changes through a pull request.
-2. **Evidence-driven.** New artifacts come from a stage: something was corrected
+2. **Evidence-driven.** New artifacts come from [7 — Learn](./stage-learn): something was corrected
    twice, or re-explained twice.
 3. **Small and specific.** Instructions that try to cover everything get ignored by models and
    humans alike.

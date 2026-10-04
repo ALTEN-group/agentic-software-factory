@@ -26,7 +26,7 @@ The core delivery metrics, measured per squad over rolling four-week windows:
 | **Rework rate** | Accepted output corrected within 14 days | Rising indicates validation is too shallow |
 | **Human rework rate** | Pull requests where a human had to alter code syntax | Must trend to **0%**; fixes belong in context, not code |
 | **Minimum human validation turnaround** | Time between the all-green deterministic pass and human sign-off | Rising indicates reviewers are slipping into manual reading |
-| **Assisted share per stage** | Share of each stage's output produced with AI | Concentration in Stage 4 (Code) only |
+| **Assisted share per stage** | Share of each stage's output produced with AI | Output concentrated in 4 — Code only |
 | **Context hit rate** | Sessions where committed Persistent Context was sufficient | Falling indicates artifacts missing or stale |
 | **Cost per merged change** | Model spend / merged changes | Cost spikes without a matching lead time reduction |
 
@@ -34,27 +34,25 @@ The core delivery metrics, measured per squad over rolling four-week windows:
 
 The flow metrics show how the whole line performs. To improve one AI task, measure that task on its own. A **use case** is
 one AI-assisted task inside a stage, such as creating automated tests or updating documentation. For every use case, measure the same few things per
-user story as subtasks :
+work item:
 
 | Measure | Question it answers |
 |---|---|
-| **Time spent** | How long does this subtask take for one user story? |
+| **Time spent** | How long does this subtask take for one work item? |
 | **Iterations** | How many attempts does it take to get it right? |
-| **Cost** | How much does the model spend for one user story? |
+| **Cost** | How much does the model spend for one work item? |
 | **Human intervention** | How often does a person have to step in? |
 | **First-pass success** | How often is it right the first time? |
 
-Durations come from the timestamps the pipeline already records (issue, branch, pull request, CI run), so nobody times
-anything by hand. The examples below show what a healthy use case looks like over time.
+Durations come from the timestamps the pipeline already records (issue, branch, pull request, CI run), so nobody times anything by hand. The examples below show what a healthy use case looks like over time. Their values are illustrative.
 
 ### Automated test creation (Code)
 
-Tests are generated together with the code. The first question is where the time goes in a user story. The second is
-whether the test-creation subtask gets faster as the team improves its context and skills.
+Tests are generated together with the code. The first question is where the time goes in a work item. The second is whether the test-creation subtask gets faster as the team improves its context and skills.
 
 <MetricChart
   type="bar"
-  title="Where the time goes in one user story"
+  title="Where the time goes in one work item"
   unit="minutes"
   :labels="['Generate code', 'Create tests', 'Fix loop', 'Documentation']"
   :values="[18, 22, 9, 4]"
@@ -63,7 +61,7 @@ whether the test-creation subtask gets faster as the team improves its context a
 Test creation is the biggest slice here, so it is worth measuring on its own.
 
 <MetricChart
-  title="Time spent on test creation, per user story (median per week)"
+  title="Time spent on test creation, per work item (median per week)"
   unit="minutes"
   :labels="['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8']"
   :values="[42, 38, 35, 33, 29, 27, 24, 22]"
@@ -83,7 +81,7 @@ or instruction. A rising line usually means the acceptance criteria in the Plan 
   :labels="['W1', 'W2', 'W3', 'W4', 'W5', 'W6']"
   :values="[4.2, 3.8, 3.5, 3.1, 2.9, 2.6]"
   :target="3"
-  target-label="limit 3"
+  target-label="warning 3"
 />
 
 Above 3 loops, the work item was probably too big or too vague when it left Plan.
@@ -134,7 +132,7 @@ The same targets as the flow metrics apply. The use case view shows which part o
 |---|---|
 | **Hypothesis validation rate** | Validated / total hypotheses closed |
 | **Feature deletion rate** | Invalidated features removed within one cycle |
-| **Time to evidence** | Plan record committed → first real usage signal |
+| **Time to evidence** | Backlog issue created → first real usage signal |
 
 A validation rate close to 100% is a warning, not a success. It usually means the team only tests bets it is already
 sure of, so it learns little. A healthy rate leaves room for failures: some hypotheses should be invalidated, and the
