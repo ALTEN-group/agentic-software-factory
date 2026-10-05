@@ -3,6 +3,17 @@
 The Agentic Software Factory is steered by a deliberately small set of metrics. Everything measured is measured because
 a decision depends on it.
 
+<MetricChart
+  title="Meeting-to-Production Lead Time (median per week)"
+  unit="hours"
+  :labels="['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8']"
+  :values="[120, 96, 78, 64, 55, 46, 40, 34]"
+  :target="48"
+  target-label="target 48"
+/>
+
+This is the number the whole model is judged on: how long a client need takes to reach production.
+
 ## Flow metrics
 
 The core delivery metrics, measured per squad over rolling four-week windows:
@@ -13,22 +24,6 @@ The core delivery metrics, measured per squad over rolling four-week windows:
 | **Deployment frequency** | Production deployments per week | Up | Multiple daily deployments |
 | **Change failure rate** | Deployments causing rollback, flag shutoff, or incident | Down | < 1% |
 | **Time to restore** | Detection of production fault → mitigation | Down | < 15 minutes |
-
-## AI autonomy & leverage metrics
-
-| Metric | Definition | Watch for |
-|---|---|---|
-| **AI code generation share** | Percentage of code, tests, and docs written by AI | Target **100%** (zero human syntax typing) |
-| **First-pass green rate in Code** | Work items where the agent's automated checks and tests were green on the first run | < 80% indicates Persistent Context drift or missing instructions |
-| **Deterministic control pass rate** | Pull requests passing all deterministic controls on the first CI run in Prove | < 80% indicates weak automated checks or missing context |
-| **Fix-loop count** | Auto-fix loops required before a green pass | > 3 loops indicates poor task decomposition in Plan |
-| **Acceptance rate** | Generated artifacts merged without substantial rework | Falling indicates Persistent Context drift |
-| **Rework rate** | Accepted output corrected within 14 days | Rising indicates validation is too shallow |
-| **Human rework rate** | Pull requests where a human had to alter code syntax | Must trend to **0%**; fixes belong in context, not code |
-| **Minimum human validation turnaround** | Time between the all-green deterministic pass and human sign-off | Rising indicates reviewers are slipping into manual reading |
-| **Assisted share per stage** | Share of each stage's output produced with AI | Output concentrated in 4 — Code only |
-| **Context hit rate** | Sessions where committed Persistent Context was sufficient | Falling indicates artifacts missing or stale |
-| **Cost per merged change** | Model spend / merged changes | Cost spikes without a matching lead time reduction |
 
 ## Metrics per use case
 
@@ -44,7 +39,7 @@ work item:
 | **Human intervention** | How often does a person have to step in? |
 | **First-pass success** | How often is it right the first time? |
 
-Durations come from the timestamps the pipeline already records (issue, branch, pull request, CI run), so nobody times anything by hand. The examples below show what a healthy use case looks like over time. Their values are illustrative.
+Durations come from the timestamps the pipeline already records (issue, branch, pull request, CI run), so nobody times anything by hand. The examples below show what a healthy use case looks like over time.
 
 ### Automated test creation (Code)
 
@@ -125,6 +120,22 @@ A low rate points to weak automated checks in Code or missing context.
 />
 
 The same targets as the flow metrics apply. The use case view shows which part of the work is improving.
+
+## AI autonomy & leverage metrics
+
+| Metric | Definition | Watch for |
+|---|---|---|
+| **AI code generation share** | Percentage of code, tests, and docs written by AI | Target **100%** (zero human syntax typing) |
+| **First-pass green rate in Code** | Work items where the agent's automated checks and tests were green on the first run | < 80% indicates Persistent Context drift or missing instructions |
+| **Deterministic control pass rate** | Pull requests passing all deterministic controls on the first CI run in Prove | < 80% indicates weak automated checks or missing context |
+| **Fix-loop count** | Auto-fix loops required before a green pass | > 3 loops indicates poor task decomposition in Plan |
+| **Acceptance rate** | Generated artifacts merged without substantial rework | Falling indicates Persistent Context drift |
+| **Rework rate** | Accepted output corrected within 14 days | Rising indicates validation is too shallow |
+| **Human rework rate** | Pull requests where a human had to alter code syntax | Must trend to **0%**; fixes belong in context, not code |
+| **Minimum human validation turnaround** | Time between the all-green deterministic pass and human sign-off | Rising indicates reviewers are slipping into manual reading |
+| **Assisted share per stage** | Share of each stage's output produced with AI | Output concentrated in 4 — Code only |
+| **Context hit rate** | Sessions where committed Persistent Context was sufficient | Falling indicates artifacts missing or stale |
+| **Cost per merged change** | Model spend / merged changes | Cost spikes without a matching lead time reduction |
 
 ## Outcome metrics
 
