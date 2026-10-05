@@ -1,4 +1,4 @@
-# Team
+# 👥 Team
 
 The Agentic Software Factory aligns product, development, and customer outcomes into autonomous squads.
 A squad is the smallest unit that can own an outcome end-to-end — from client meeting to production

@@ -1,4 +1,4 @@
-# Adoption Roadmap
+# 🗺️ Adoption Roadmap
 
 Adopting this operating model is a long transformation. It cannot be switched on all at once, and trying to do so is the
 most reliable way to fail. It is done in three steps, and each step prepares the next.

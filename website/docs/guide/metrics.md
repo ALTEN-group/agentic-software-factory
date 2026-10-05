@@ -1,4 +1,4 @@
-# Metrics
+# 📊 Metrics
 
 The Agentic Software Factory is steered by a deliberately small set of metrics. Everything measured is measured because
 a decision depends on it.

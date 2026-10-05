@@ -1,4 +1,4 @@
-# Forge
+# 📦 Forge
 
 Reusable code: functions, libraries, and services. The Forge is the organization's catalog of certified building blocks,
 so that AI agents compose what already exists instead of generating the same logic again for every work item.

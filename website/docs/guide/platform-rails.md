@@ -1,6 +1,6 @@
-# Platform Rails
+# 🛤️ Platform Rails
 
-The substrate squads never have to build from scratch. Platform Rails provide everything a squad receives on day one, so that it can focus on the business outcome it owns.
+The foundation squads never have to build from scratch. Platform Rails provide everything a squad receives on day one, so that it can focus on the business outcome it owns.
 
 ## Purpose
 
@@ -16,6 +16,6 @@ The rails distribute [the Forge](./forge), [Persistent Context](./persistent-con
 
 Every repository gets the same verification skeleton: automated checks and controls in the agent's loop, then the same checks and controls again in the CI.
 
-### Unified platform substrate
+### One Git platform
 
 Standardized on the **Git ecosystem** to eliminate tool sprawl and preserve an unbroken context graph for AI agents, as detailed in **[Tooling](./tooling)**.

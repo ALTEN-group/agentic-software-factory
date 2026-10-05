@@ -74,17 +74,17 @@ export default withMermaid(defineConfig({
       {
         text: 'Organization',
         items: [
-          { text: 'Team', link: '/guide/team' },
-          { text: 'Cadence', link: '/guide/cadence' },
-          { text: 'Governance', link: '/guide/governance' },
-          { text: 'Metrics', link: '/guide/metrics' },
+          { text: '👥 Team', link: '/guide/team' },
+          { text: '🗓️ Cadence', link: '/guide/cadence' },
+          { text: '⚖️ Governance', link: '/guide/governance' },
+          { text: '📊 Metrics', link: '/guide/metrics' },
         ],
       },
       {
         text: 'Adoption',
         items: [
-          { text: 'Roadmap', link: '/guide/adoption' },
-          { text: 'Anti-patterns', link: '/guide/anti-patterns' },
+          { text: '🗺️ Roadmap', link: '/guide/adoption' },
+          { text: '🚧 Anti-patterns', link: '/guide/anti-patterns' },
         ],
       },
     ],

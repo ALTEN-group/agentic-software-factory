@@ -1,4 +1,4 @@
-# Deterministic Controls
+# 🛡️ Deterministic Controls
 
 Guards, gates, contracts, and probes: the automated, deterministic controls that make the safe path the only path.
 The Agentic Software Factory relies on them fundamentally because **developers do not code manually** and AI agents

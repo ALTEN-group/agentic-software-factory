@@ -1,4 +1,4 @@
-# Governance
+# ⚖️ Governance
 
 Who decides, and what AI may do. Speed comes from knowing who decides, so the The Agentic Software Factory makes decision rights explicit: squads never wait for permission they did not need, and never take a decision that was not theirs. AI is treated as a production capability: owned, versioned, budgeted, and audited.
 

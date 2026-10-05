@@ -1,4 +1,4 @@
-# Cadence
+# 🗓️ Cadence
 
 The Agentic Software Factory replaces manual status meetings with **Meeting-Driven Development**: live sessions with clients and stakeholders directly seed the autonomous development engine. Everything else is
 asynchronous, written, and linked from the work item.

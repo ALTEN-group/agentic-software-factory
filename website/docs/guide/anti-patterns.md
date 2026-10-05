@@ -1,4 +1,4 @@
-# Anti-patterns
+# 🚧 Anti-patterns
 
 Behaviors that look like The Agentic Software Factory adoption and quietly reverse its intent. Each one has been the cause of a failed transformation somewhere.
 
