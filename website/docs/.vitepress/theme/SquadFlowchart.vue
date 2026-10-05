@@ -1,7 +1,7 @@
 <template>
   <div class="squad-flowchart-container">
     <svg
-      viewBox="80 0 740 760"
+      viewBox="60 0 800 760"
       class="squad-flowchart-svg"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
@@ -43,9 +43,10 @@
           :stroke="roles[g.role].color"
         />
         <path :d="`M ${blockX - 40} ${mid(g)} H ${blockX - 18}`" class="sq-bracket" :stroke="roles[g.role].color" />
-        <g :transform="`translate(${blockX - 40 - 120}, ${mid(g) - 15})`">
-          <rect width="120" height="30" rx="15" :fill="roles[g.role].color" />
-          <text x="60" y="20" class="sq-chip">{{ roles[g.role].label }}</text>
+        <g :transform="`translate(${blockX - 40 - chipW}, ${mid(g) - chipH / 2})`">
+          <rect :width="chipW" :height="chipH" rx="12" :fill="roles[g.role].color" />
+          <text :x="chipW / 2" y="19" class="sq-chip">{{ roles[g.role].label }}</text>
+          <text :x="chipW / 2" y="34" class="sq-chip-sub">{{ roles[g.role].shared ? 'Shared across squads' : 'Dedicated to the squad' }}</text>
         </g>
       </g>
 
@@ -66,9 +67,10 @@
       </a>
       <path :d="`M ${enX + enW + 10} ${enablerY(0)} H ${enX + enW + 20} V ${enablerEnd} H ${enX + enW + 10}`" class="sq-bracket" :stroke="roles.architect.color" />
       <path :d="`M ${enX + enW + 20} ${enablerMid} H ${enX + enW + 30}`" class="sq-bracket" :stroke="roles.architect.color" />
-      <g :transform="`translate(${enX + enW + 30}, ${enablerMid - 15})`">
-        <rect width="100" height="30" rx="15" :fill="roles.architect.color" />
-        <text x="50" y="20" class="sq-chip">{{ roles.architect.label }}</text>
+      <g :transform="`translate(${enX + enW + 30}, ${enablerMid - chipH / 2})`">
+        <rect :width="chipW" :height="chipH" rx="12" :fill="roles.architect.color" />
+        <text :x="chipW / 2" y="19" class="sq-chip">{{ roles.architect.label }}</text>
+        <text :x="chipW / 2" y="34" class="sq-chip-sub">Shared across squads</text>
       </g>
 
       <g v-for="(s, i) in stages" :key="s.title">
@@ -90,9 +92,9 @@ import { withBase } from 'vitepress'
 const roles = {
   product: { label: 'Product Owner', color: '#ea580c' },
   dev: { label: 'Developer', color: '#4f46e5' },
-  devops: { label: 'DevOps', color: '#0284c7' },
-  support: { label: 'QA and maintainer', color: '#0f766e' },
-  architect: { label: 'Architect', color: '#9333ea' },
+  devops: { label: 'DevOps', color: '#0284c7', shared: true },
+  support: { label: 'QA and maintainer', color: '#0f766e', shared: true },
+  architect: { label: 'Architect', color: '#9333ea', shared: true },
 }
 
 // Who does the job, per group of consecutive stages (indexes into `stages`).
@@ -144,6 +146,8 @@ const enablers = [
 ]
 const enablerGap = 12
 
+const chipW = 130
+const chipH = 44
 const blockX = 250
 const blockW = 250
 const cx = blockX + blockW / 2
@@ -237,6 +241,14 @@ const mid = (g) => (rowY(g.from) + rowY(g.to) + 54) / 2
   font-size: 12px;
   font-weight: 700;
   fill: #ffffff;
+  text-anchor: middle;
+}
+
+.sq-chip-sub {
+  font-family: var(--vp-font-family-base, system-ui, -apple-system, sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  fill: #f1f5f9;
   text-anchor: middle;
 }
 

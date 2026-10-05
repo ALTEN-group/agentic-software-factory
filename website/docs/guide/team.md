@@ -4,6 +4,13 @@ The Agentic Software Factory aligns product, development, and customer outcomes 
 A squad is the smallest unit that can own an outcome end-to-end — from client meeting to production
 release.
 
+## Who does what
+
+Each squad is accountable for the full lifecycle, from client meeting to learning in production. This is the
+[operating model](./overview) reduced to its eight stages, showing who does the job at each group of stages.
+
+<SquadFlowchart />
+
 ## The shift in roles
 
 In The Agentic Software Factory, **developers do not write code syntax anymore**, and the Product Owner no longer writes specifications. The squad structure reflects this:
@@ -25,13 +32,6 @@ In The Agentic Software Factory, **developers do not write code syntax anymore**
 | **QA and maintainer** | Quality and production support | Runs Learn: watches QA and production, handles incidents, and reports what monitoring finds; shared across squads |
 | **DevOps** | Automated deployment and pipeline | Runs Release: automated deployment; shared across squads |
 | **Architect** | The enablers: Platform Rails, Persistent Context, Deterministic Controls, and the Forge | Owns system boundaries and decision records, signs off high blast radius decisions; shared across squads |
-
-## Who does what
-
-Each squad is accountable for the full lifecycle, from client meeting to learning in production. This is the
-[operating model](./overview) reduced to its eight stages, showing who does the job at each group of stages.
-
-<SquadFlowchart />
 
 ## Boundaries
 
