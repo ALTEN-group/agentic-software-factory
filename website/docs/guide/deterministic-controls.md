@@ -1,10 +1,12 @@
 # 🛡️ Deterministic Controls
 
 Guards, gates, contracts, and probes: the automated, deterministic controls that make the safe path the only path.
-The Agentic Software Factory relies on them fundamentally because **developers do not code manually** and AI agents
-generate massive volumes of change at high velocity.
 
-## Principle
+## Why
+
+AI agents generate a large volume of change at high speed, and **developers do not code manually** or read it line by
+line. Rules that depend on people remembering them cannot keep up. The rules have to run on their own and return pass
+or fail.
 
 > A squad or agent should have to work hard to do something unsafe, and should never have to work
 > hard to do something safe.

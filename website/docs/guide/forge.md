@@ -8,7 +8,7 @@ introduces drift, security gaps, and maintenance debt. The Forge removes the nee
 
 ## What the Forge contains
 
-| Tier | Examples | Why it exists |
+| Tier | Examples | Why |
 |---|---|---|
 | **Shared services** | Authentication, identity, billing, audit logging, notification dispatch, document storage | Production-hardened services are called, never rebuilt |
 | **Reusable code** | Libraries, shared client SDKs, validated domain logic, cryptographic utilities, telemetry wrappers | Agents import pre-tested packages that already meet enterprise standards |

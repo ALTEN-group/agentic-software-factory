@@ -3,7 +3,7 @@
 Persistent Context is the organization's knowledge in a form an AI can consume. It is the
 highest-leverage investment in The Agentic Software Factory.
 
-## Why it exists
+## Why
 
 An AI model has no memory of your codebase, your conventions, or your decisions. Every session starts
 from zero. Without Persistent Context, each Developer re-explains the same things forever.
