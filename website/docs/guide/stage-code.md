@@ -9,7 +9,7 @@ pageClass: page-stage-core
   <span class="stage-hero-desc">Fast autonomous loops, generate, test &amp; fix until green</span>
 </div>
 
-Where specifications and plans become executable software. In The Agentic Software Factory, **developers do not code manually**: AI agents autonomously
+Where specifications and plans become executable software. In the Agentic Software Factory, **developers do not code manually**: AI agents autonomously
 generate the code, tests, and documentation, iterating in fast, closed loops until all checks, tests and controls are green.
 
 ## Purpose

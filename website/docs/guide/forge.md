@@ -12,7 +12,7 @@ introduces drift, security gaps, and maintenance debt. The Forge removes the nee
 |---|---|---|
 | **Shared services** | Authentication, identity, billing, audit logging, notification dispatch, document storage | Production-hardened services are called, never rebuilt |
 | **Reusable code** | Libraries, shared client SDKs, validated domain logic, cryptographic utilities, telemetry wrappers | Agents import pre-tested packages that already meet enterprise standards |
-| **In-context templates** | Project skeletons, scaffolding, and canonical design patterns (for example frameworks such as **Gatelin** or **foxnox**) injected into agent context | Agents follow the reference architecture from the first line |
+| **In-context templates** | Project skeletons, scaffolding, and canonical design patterns (for example frameworks such as [Gatelin](https://github.com/ALTEN-group/Gatelin) or [Foxnox](https://github.com/ALTEN-group/Foxnox)) injected into agent context | Agents follow the reference architecture from the first line |
 | **Interface contracts** | Versioned API specifications (OpenAPI, gRPC, AsyncAPI) | Cross-service compatibility is fixed before generation starts |
 
 In-context templates are loaded into the agent's context when it starts something new, such as a service, an endpoint,

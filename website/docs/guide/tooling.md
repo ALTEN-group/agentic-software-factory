@@ -1,6 +1,6 @@
 # 🧰 Tooling
 
-In The Agentic Software Factory, tooling cannot be a collection of disconnected SaaS products. Tool sprawl is
+In the Agentic Software Factory, tooling cannot be a collection of disconnected SaaS products. Tool sprawl is
 the primary cause of **AI context fragmentation**: when business requirements live in Jira, meeting
 notes in Confluence, discussions in Slack, code in Git, pipelines in Jenkins, and releases in an external
 portal, the AI agent's context is broken across authentication silos, sync lags, and incompatible APIs.
