@@ -6,10 +6,9 @@ release.
 
 ## Who does what
 
-Each squad is accountable for the full lifecycle, from client meeting to learning in production. This is the
-[operating model](./overview) reduced to its eight stages, showing who does the job at each group of stages.
-
 <SquadFlowchart />
+
+Each squad is accountable for the full lifecycle, from client meeting to learning in production.
 
 ## The shift in roles
 
