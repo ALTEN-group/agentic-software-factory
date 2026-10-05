@@ -1,13 +1,13 @@
 # 🚧 Anti-patterns
 
-Behaviors that look like The Agentic Software Factory adoption and quietly reverse its intent. Each one has been the cause of a failed transformation somewhere.
+Behaviors that look like the Agentic Software Factory adoption and quietly reverse its intent. Each one has been the cause of a failed transformation somewhere.
 
 ## Operational & Engineering
 
 ### Developers still writing code syntax
 
 The fatal anti-pattern: developers treating AI as a glorified autocomplete while continuing to
-manually write application logic, boilerplate, and tests. In The Agentic Software Factory, developers do not write code; they design specifications, build deterministic controls, and curate the Persistent Context.
+manually write application logic, boilerplate, and tests. In the Agentic Software Factory, developers do not write code; they design specifications, build deterministic controls, and curate the Persistent Context.
 Hand-coding creates bottlenecks, uncommitted tribal habits, and low AI leverage.
 
 ### Manual line-by-line syntax reviews

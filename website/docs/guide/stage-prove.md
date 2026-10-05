@@ -9,7 +9,7 @@ pageClass: page-stage-cyan
   <span class="stage-hero-desc">Deterministic gate validation &amp; agent auto-remediation</span>
 </div>
 
-Quality is not a phase and not a human line-by-line reading marathon. In The Agentic Software Factory, Prove is the
+Quality is not a phase and not a human line-by-line reading marathon. In the Agentic Software Factory, Prove is the
 stage that combines **dense deterministic controls for AI auto-validation** with **minimum human
 validation** to build confidence that generated software is correct, safe, and aligned with client intent.
 

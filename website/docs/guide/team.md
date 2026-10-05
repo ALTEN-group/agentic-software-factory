@@ -13,7 +13,7 @@ Each squad is accountable for the full lifecycle, from client meeting to learnin
 
 ## The shift in roles
 
-In The Agentic Software Factory, **developers do not write code syntax anymore**, and the Product Owner no longer writes specifications. The squad structure reflects this:
+In the Agentic Software Factory, **developers do not write code syntax anymore**, and the Product Owner no longer writes specifications. The squad structure reflects this:
 
 - **No manual coders**: AI agents generate 100% of code, tests, and documentation.
 - **Developers**: Developers specify, curate context, and validate intent instead of writing syntax.

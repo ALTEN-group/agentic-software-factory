@@ -16,7 +16,7 @@ asynchronous, written, and linked from the work item.
 There is **no daily standup meeting**. Status is a link to the active pull request, its checks, and
 the preview deployment.
 
-## The rules of client meetings in The Agentic Software Factory
+## The rules of client meetings in the Agentic Software Factory
 
 1. **AI is an active participant**: The meeting is recorded and transcribed by the
    sanctioned meeting intelligence tool.

@@ -9,7 +9,7 @@ generate massive volumes of change at high velocity.
 > A squad or agent should have to work hard to do something unsafe, and should never have to work
 > hard to do something safe.
 
-Any rule that only exists in a policy document is not a control. It is a hope. In The Agentic Software Factory,
+Any rule that only exists in a policy document is not a control. It is a hope. In the Agentic Software Factory,
 **all deterministic controls are executable and deterministic**.
 
 ## Deterministic Controls and Persistent Context
