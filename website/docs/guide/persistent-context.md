@@ -15,8 +15,8 @@ Persistent Context is the primary "code" of the organization.
 
 Persistent Context is built from four kinds of file: **instructions** (standing rules), **prompts** (reusable tasks),
 **skills** (multi-step workflows), and **agents** (specialists). How each one is loaded, which to use when, and how to
-write them is explained in coding-pal's [Persistent Context architecture](https://alten-group.github.io/coding-pal/guide/persistent-context).
-coding-pal also publishes catalogs of
+write them is explained in [coding-pal's Persistent Context architecture](https://alten-group.github.io/coding-pal/guide/persistent-context).
+[coding-pal](https://alten-group.github.io/coding-pal/) also publishes catalogs of
 [instructions](https://alten-group.github.io/coding-pal/guide/catalog-instructions),
 [prompts](https://alten-group.github.io/coding-pal/guide/catalog-prompts),
 [skills](https://alten-group.github.io/coding-pal/guide/catalog-skills), and
@@ -49,7 +49,7 @@ Persistent Context lives in two places, depending on how widely it applies.
 |---|---|---|
 | **What** | What only this application needs: its own instructions, specifications, and decision records | What every project needs: coding standards, test conventions, and generic agents, skills, and prompts |
 | **Where** | In the application repository, next to the code it describes | In a dedicated repository, such as [coding-pal](https://alten-group.github.io/coding-pal/) |
-| **How it reaches a project** | It is already there, and is reviewed like the code it describes | It is installed into each project with a package manager (coding-pal uses [APM](https://alten-group.github.io/coding-pal/guide/apm-distribution)), so one change reaches every project |
+| **How it reaches a project** | It is already there, and is reviewed like the code it describes | It is installed into each project with a package manager ([coding-pal](https://alten-group.github.io/coding-pal/) uses [APM](https://alten-group.github.io/coding-pal/guide/apm-distribution)), so one change reaches every project |
 
 Both are committed, reviewed through pull requests, and versioned.
 
