@@ -31,3 +31,5 @@ features:
     title: Safe by design, reversible at any step
     details: Deployment is automated and every step can be undone, so shipping faster never means taking on more risk.
 ---
+
+See the full [operating model](/guide/overview) — all 8 stages, enablers, and organization guides.
