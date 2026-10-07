@@ -18,7 +18,7 @@ Eliminate requirements decay and the traditional "telephone game" by capturing a
 
 | Input | Output | Owner |
 |---|---|---|
-| Client dialogue, stakeholder discovery sessions, voice and video calls, incident debriefs | Transcripts, semantic meeting synthesis, highlighted domain quotes, and customer intent anchors | Client + Product Owner |
+| Client dialogue, stakeholder discovery sessions, voice and video calls, incident debriefs | Transcripts, meeting summaries, highlighted domain quotes, and customer intent anchors | Client + Product Owner |
 
 ## What is lost without it
 
@@ -54,7 +54,7 @@ Rather than summarizing conversations into generic bullet points, the meeting pi
 At the conclusion of each meeting, the intelligence pipeline produces an immutable **Meeting Pack**:
 
 1. **Full transcript**: Verbatim text indexed by timestamp and speaker.
-2. **Executive synthesis**: 1-page summary of business drivers, urgency, and core challenges discussed.
+2. **Executive summary**: 1-page summary of business drivers, urgency, and core challenges discussed.
 3. **Domain concepts & terminology**: New terms or acronyms introduced by the client, staged for commit to [Persistent Context](./persistent-context).
 4. **Candidate business needs**: Needs ready for ranking and logging as backlog issues in **[1 — Triage](./stage-triage)**.
 
@@ -66,12 +66,12 @@ AI captures and structures the dialogue; the Product Owner steers the conversati
 |---|---|---|
 | **Transcription** | Convert the audio or video stream to a timestamped, speaker-attributed transcript | Verify speaker accuracy |
 | **Quote anchoring** | Extract verbatim quotes and link them to domain concepts | Confirm the quotes reflect the client's meaning |
-| **Meeting Pack synthesis** | Produce the executive synthesis, new terminology, and candidate business needs, using the glossary and instructions in Persistent Context | Confirm the problem statements with the client |
+| **Meeting summary** | Produce an executive summary, new terminology, and candidate business needs, using the glossary and instructions in Persistent Context | Confirm the problem statements with the client |
 
 ## Exit gate
 
 A meeting successfully closes when:
 
 1. The meeting transcript has been captured, verified for speaker accuracy, and committed to the repository.
-2. The client has confirmed that the synthesized problem statements accurately reflect their business pain.
+2. The client has confirmed that the problem statements in the meeting summary accurately reflect their business pain.
 3. Candidate business needs have been emitted to the backlog for ranking in **[1 — Triage](./stage-triage)**.

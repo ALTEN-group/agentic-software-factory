@@ -7,7 +7,7 @@ asynchronous, written, and linked from the work item.
 
 | Ritual | Duration | Participants | Nature | Output |
 |---|---|---|---|---|
-| **Client / Stakeholder Meeting** | 30–45 min | Client, Product Owner, Developer | **Meeting-Driven trigger** | Meeting Pack: transcript, synthesis, new terminology & candidate business needs |
+| **Client / Stakeholder Meeting** | 30–45 min | Client, Product Owner, Developer | **Meeting-Driven trigger** | Meeting Pack: transcript, summary, new terminology & candidate business needs |
 | **Weekly Triage review** | 45 min | Product Owner, Developer | Human decision | Business needs ranked and logged as backlog issues, each with client evidence |
 | **Weekly Outcome review** | 45 min | Product Owner, QA and maintainer, Developer | Human decision | Validated or invalidated hypotheses and new backlog issues |
 | **Weekly Persistent Context & Controls review** | 45 min | Architect, Developer | Governance | Improved Persistent Context and Deterministic Controls |
