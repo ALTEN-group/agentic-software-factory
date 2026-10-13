@@ -45,10 +45,6 @@ Rather than summarizing conversations into generic bullet points, the meeting pi
 > *"Our regional managers spend 45 minutes every morning cross-referencing CSV exports from SAP with local inventory sheets before trucks can roll."*
 > — Operations Director, Meeting Transcript (2026-09-24, 15:14:32)
 
-## Persistent Context in Meet
-
-[Persistent Context](./persistent-context) gives the meeting agent its instructions and the domain glossary, so terms are transcribed correctly and every meeting pack has the same structure. New client terms flow back into it.
-
 ## The Meeting Pack artifact
 
 At the conclusion of each meeting, the intelligence pipeline produces an immutable **Meeting Pack**:
@@ -67,6 +63,19 @@ AI captures and structures the dialogue; the Product Owner steers the conversati
 | **Transcription** | Convert the audio or video stream to a timestamped, speaker-attributed transcript | Verify speaker accuracy |
 | **Quote anchoring** | Extract verbatim quotes and link them to domain concepts | Confirm the quotes reflect the client's meaning |
 | **Meeting summary** | Produce an executive summary, new terminology, and candidate business needs, using the glossary and instructions in Persistent Context | Confirm the problem statements with the client |
+
+## Primitives in Persistent Context
+
+Persistent Context gives the meeting pipeline its domain glossary and instructions so terms are transcribed accurately, meeting packs follow a consistent structure, and newly identified client terms flow back into the repository.
+
+Meet runs on the primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
+
+- A **Meeting Analyst** agent turns the sanctioned tool's plain-text transcript into the Meeting Pack, and prepares the Product Owner's read-back list.
+- A **meeting-pack** instruction keeps the transcript immutable and every quote verbatim and client-attributed.
+- A **meeting-pack** skill normalizes the transcript, validates the pack against the transcript and domain glossary (digest, verbatim quotes, glossary terms, and named human confirmations), and emits one backlog issue per confirmed need for [1 — Triage](./stage-triage).
+- The **domain glossary** (`docs/glossary.md`) is what the agent reads, and the new client terms it finds are staged for a pull request.
+
+See the [coding-pal Meet guide](https://alten-group.github.io/coding-pal/guide/domain-meet).
 
 ## Exit gate
 

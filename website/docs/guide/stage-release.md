@@ -93,6 +93,24 @@ Every change with a **High** or **Critical** blast radius has its rollback mecha
 
 AI has no role in Release itself. The release notes and the changelog are drafted from merged pull requests during Code stage, and a developer approves them. The rollout runs on standard deployment tooling, with no AI involved.
 
+## Primitives in Persistent Context
+
+Release separates declaration from execution, running on primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
+
+### Declaration & Planning Primitives
+- A **Release Planner** agent synthesizes the blast radius and rollback from `think.md`, the file scope from `plan.md`, and the outcome metric from `triage.md` into the `release.md` declaration.
+- A **release** instruction enforces release standards: deploy is not release, the feature flag is the release decision, releases are tightly scoped to primary issues (avoiding large unneeded batches), immutable versioned artifacts, and DevOps sign-off before tagging.
+
+### Deterministic Gate & Rollout Skills
+- A **release-plan (validator)** skill (`validate-release.mjs`) deterministically gates the declaration: proves tier parity with Think and Plan, asserts strict canary percentage ladders, validates health thresholds (error rate, latency, saturation), and verifies the rollback mechanism.
+- A **release-plan (evaluator)** skill (`evaluate-rollout.mjs`) reads live observability metrics during the rollout to compute **promote**, **hold**, or **rollback** deterministically, with zero AI involvement.
+
+### Pipeline Infrastructure & Records
+- The **Release record** (`specs/issue-<n>/release.md`) defines the rollout stages, watch windows, thresholds, and Learn outcome metric.
+- A **release workflow template** (`release.yml`) provides the GitHub Actions progressive rollout pipeline (artifact tagging, staging smoke check, canary steps, and automated rollback execution).
+
+See the [coding-pal Release guide](https://alten-group.github.io/coding-pal/guide/domain-release).
+
 ## Exit gate
 
 A release is complete when the rollout has reached 100%, the watch window has passed without

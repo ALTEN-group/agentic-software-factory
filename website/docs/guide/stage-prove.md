@@ -98,6 +98,30 @@ and checked again in [3 — Plan](./stage-plan) against the file scope. The tier
 Every production defect must result in a new automated check or control (a failing test case, a stricter
 linter rule, a schema validator, or a new guard) committed before the fix. The AI agent fixes the code to satisfy the new check or control, so the bug cannot quietly return.
 
+## Primitives in Persistent Context
+
+Prove runs on deterministic verification primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
+
+### Auto-Remediation & Governance
+- A **Gate Fixer** agent reads failing gate diagnostics and surgically repairs the implementation within the fix-loop limit.
+- A **prove-controls** instruction enforces control integrity: agents may run controls but never weaken, edit, or bypass them; waivers require a documented reason, approver, and expiry; bug fixes require a failing test first.
+
+### Verification & Quality Gate Skills
+- A **criteria-verify** skill parses test reports and verifies 100% assertion coverage for every acceptance criterion in `plan.md`.
+- A **mutation-bar** skill executes mutation testing against changed code, asserting that tests catch and kill injected mutants to prevent false-positive suites.
+- A **contract-compat** skill verifies that public API contracts, schemas, and message formats remain backward-compatible with consumers.
+
+### Integrity, Security & Behavioral Probes
+- A **control-guard** skill protects the harness itself: detects and rejects any PR that weakens test thresholds, disables workflows, or touches protected control files, while enforcing the bug rule.
+- A **secret-guard** and **dependency-guard** skill verify zero hardcoded tokens/keys and ensure newly introduced packages comply with license and vulnerability policies.
+- A **preview-smoke** skill probes the running ephemeral deployment to verify startup, HTTP routing, and health checks before human validation.
+
+### Pipeline & Human Sign-Off
+- A **pr-record** skill validates that recorded human approvals match the blast radius tier determined in Think and Plan.
+- A **verification-pipeline** workflow template provides the clean-room CI skeleton that executes the gates in order.
+
+See the [coding-pal Prove guide](https://alten-group.github.io/coding-pal/guide/domain-prove).
+
 ## Exit gate
 
 A change leaves Prove and enters [Release](./stage-release) when:

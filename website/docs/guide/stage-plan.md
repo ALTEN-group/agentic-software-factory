@@ -84,6 +84,17 @@ AI turns the validated Think record into the plan, and the developer validates i
 | **Open questions & assumptions** | List open questions and assumptions at the implementation level | Answer the questions and confirm the assumptions |
 | **Plan output validation** | Check that every section is present, every step has the required fields, and no file is outside scope | Review and approve the plan |
 
+## Primitives in Persistent Context
+
+Plan runs on Persistent Context primitives from [coding-pal](https://alten-group.github.io/coding-pal/):
+
+- A **Planner** agent converts the Think record into atomic steps, establishes explicit file boundaries, and drafts `plan.md`.
+- A **plan** instruction enforces implementation discipline: atomic single-responsibility steps, test plan mapping, fenced code snippets, and strict prohibition on expanding scope beyond Think.
+- The **think-plan** skill deterministically validates the Plan record against the Think record: every in-scope file covered by a step, no step touches out-of-scope files, all acceptance criteria proven in the test plan, and the blast radius tier remains consistent.
+- The **Think record** (`think.md`) is the immediate Persistent Context input that bounds the plan.
+
+See the [coding-pal Think & Plan guide](https://alten-group.github.io/coding-pal/guide/domain-think-plan).
+
 ## Exit gate
 
 A work item leaves Plan and enters [4 — Code](./stage-code) only when:

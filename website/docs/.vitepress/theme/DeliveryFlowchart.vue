@@ -181,14 +181,14 @@
       />
       <text x="718" y="119" class="flow-label grey-text">Opens issues</text>
 
-      <!-- Persistent Context -> shared trunk (left) feeding 0 — Meet, 1 — Triage, 2 — Think, 3 — Plan, 4 — Code, 5 — Prove -->
+      <!-- Persistent Context -> shared trunk (left) feeding 0 — Meet, 1 — Triage, 2 — Think, 3 — Plan, 4 — Code, 5 — Prove, 6 — Release, 7 — Learn -->
       <path
         d="M 325 342 H 340"
         class="green-connector"
         marker-start="url(#flowArrowGreen)"
       />
       <path
-        d="M 340 58 V 539"
+        d="M 340 58 V 694"
         class="green-connector"
       />
       <path
@@ -218,6 +218,16 @@
       />
       <path
         d="M 340 539 H 353"
+        class="green-connector"
+        marker-end="url(#flowArrowGreen)"
+      />
+      <path
+        d="M 340 628 H 353"
+        class="green-connector"
+        marker-end="url(#flowArrowGreen)"
+      />
+      <path
+        d="M 340 694 H 353"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />

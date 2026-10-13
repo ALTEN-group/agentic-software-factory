@@ -10,7 +10,7 @@ pageClass: page-stage-pink
 </div>
 
 Where a prioritized issue is turned into a decided approach before anything is planned or built.
-Think draws on [the Forge](./forge), for code to reuse, and on [Persistent Context](./persistent-context), for the
+Think draws on [the Forge](./forge), for code to reuse, and on Persistent Context, for the
 rules and past decisions to respect. It explores the options, weighs the trade-offs, and records the decisions that
 [3 — Plan](./stage-plan) then breaks down into tasks.
 
@@ -18,7 +18,7 @@ rules and past decisions to respect. It explores the options, weighs the trade-o
 
 | Input | Output | Owner |
 |---|---|---|
-| A ranked backlog issue from [1 — Triage](./stage-triage) + **[the Forge](./forge)** + **[Persistent Context](./persistent-context)** | A Think record: the options considered, the chosen approach, **Forge asset bindings**, Persistent Context constraints, blast radius, and any new decision record | Developer + Architect |
+| A ranked backlog issue from [1 — Triage](./stage-triage) with a `todo` decision + **[the Forge](./forge)** + **Persistent Context** | A Think record: the options considered, the chosen approach, **Forge asset bindings**, Persistent Context constraints, blast radius, and any new decision record | Developer + Architect |
 
 ## The Think record
 
@@ -49,7 +49,18 @@ Developer make the call.
 ## Decision records
 
 If the chosen approach requires altering a public API, changing a database schema, or shifting service
-boundaries, AI drafts a decision record based on repository conventions. The Architect reviews and signs the record, which is committed into the repository to immediately enrich the [Persistent Context](./persistent-context).
+boundaries, AI drafts a decision record based on repository conventions. The Architect reviews and signs the record, which is committed into the repository to immediately enrich the Persistent Context.
+
+## Primitives in Persistent Context
+
+Think runs on Persistent Context primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
+
+- A **Thinker** agent explores 2 to 4 options, discovers Forge candidates, sets the blast radius, and writes the `think.md` record.
+- A **think** instruction keeps option exploration grounded in repository constraints and ensures decision records are only drafted, never decided, by AI.
+- The **think-plan** skill deterministically validates the Think record: 2 to 4 credible options, valid Forge bindings, blast radius tier justification, and a named rollback mechanism for High and Critical tiers.
+- The **decision records** (`docs/decisions/`) and **Forge catalog** (`docs/forge/`) are the Persistent Context resources the agent inspects to constrain solutions and bind reusable assets.
+
+See the [coding-pal Think & Plan guide](https://alten-group.github.io/coding-pal/guide/domain-think-plan).
 
 ## Exit gate
 

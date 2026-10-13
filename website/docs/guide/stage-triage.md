@@ -15,11 +15,11 @@ Where captured demand becomes actionable backlog work. Triage enriches candidate
 
 | Input | Output | Owner |
 |---|---|---|
-| Candidate needs and evidence from [0 — Meet](./stage-meet) and other demand sources + **[Persistent Context](./persistent-context)** (domain glossary, existing specifications, product scope) | Evidence-linked backlog issues with system mappings, an early risk estimate, and a completed scorecard | Product Owner |
+| Candidate needs and evidence from [0 — Meet](./stage-meet) and other demand sources + **Persistent Context** (domain glossary, existing specifications, product scope) | Evidence-linked backlog issues with system mappings, an early risk estimate, and a completed scorecard | Product Owner |
 
 ## From evidence to backlog issue
 
-Triage evaluates each candidate need against current product scope and architecture. AI uses [Persistent Context](./persistent-context) and repository information to:
+Triage evaluates each candidate need against current product scope and architecture. AI uses Persistent Context and repository information to:
 
 1. **Map the need** to existing capabilities, specifications, domain concepts, and architecture boundaries.
 2. **Estimate impact** by identifying affected systems, early risk, and unknowns. The blast radius tier is set later, in [2 — Think](./stage-think).
@@ -69,6 +69,18 @@ priority.
 
 AI never decides which client problem matters most.
 
+## Primitives in Persistent Context
+
+Triage runs on the primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
+
+- A **Triage Analyst** agent enriches one candidate need per session and writes a `triage.md` record: the backlog issue, its evidence, the system mapping, the scorecard, and a *proposed* decision.
+- A **triage** instruction keeps the evidence verbatim and the scores coarse.
+- A **triage** skill validates the record deterministically: real evidence, verbatim quotes, the explore rule, and a final decision that only the Product Owner can set.
+- A **triage ledger** keeps decided needs, including every `no` with its rationale, so the same need is not re-litigated by accident.
+- A **ranking script** orders the scorecards with the strategic weights the Product Owner owns, for the weekly review.
+
+See the [coding-pal Triage guide](https://alten-group.github.io/coding-pal/guide/domain-triage).
+
 ## The scorecard
 
 A lightweight, deliberately coarse instrument. Precision here is false precision.
@@ -94,3 +106,4 @@ A business need leaves Triage when its backlog issue has:
 
 `no` is recorded with its rationale. Rejected needs build institutional memory and guide future
 client discussions. The weekly review that works through the ranked backlog is described in [Cadence](./cadence).
+Only a `todo` decision, set by the Product Owner, starts [2 — Think](./stage-think).

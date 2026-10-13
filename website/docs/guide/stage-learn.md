@@ -70,6 +70,27 @@ Every defect, rollback, or near-miss is also asked: what reached production that
 - A check was missing → add a **guard**, **gate**, **contract**, or **probe**.
 - A signal arrived too late → add an earlier **probe**.
 
+## Primitives in Persistent Context
+
+Learn closes the development feedback loop, running on primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
+
+### Analysis & Governance Primitives
+- A **Learn Analyst** agent processes telemetry exports, correlates deployment histories, evaluates hypothesis outcome metrics, and drafts incident reviews.
+- A **learn** instruction enforces evidence discipline: mitigation precedes diagnosis, fixes require a failing test first, invalidated features are deleted, and only humans record verdicts.
+
+### Production Incident & Telemetry Skills
+- A **telemetry-scan** skill analyzes time-series metrics to identify early anomalies, degradation trends, and threshold breaches alongside preceding deploys.
+- An **incident-record** skill formats and validates `docs/incidents/` records: guarantees mitigation timestamps precede diagnosis, links failing reproduction tests, and schedules retrospective reviews.
+
+### Hypothesis & Context Stewardship Skills
+- A **hypothesis-ledger** skill maintains `specs/learn/hypotheses.md`, comparing observed production metrics against declared targets and proposing verdicts (Validated, Inconclusive, Invalidated) for the Product Owner to decide.
+- A **context-health** skill audits instruction sets and analyzes corrections logs to suggest new or pruned Persistent Context artifacts.
+
+### Loop Closure
+- A **learn-signals** skill translates production findings, control hardening items, and invalidated hypotheses into new backlog issues for **[1 — Triage](./stage-triage)**, ensuring the factory continuously learns.
+
+See the [coding-pal Learn guide](https://alten-group.github.io/coding-pal/guide/domain-learn).
+
 ## Exit gate
 
 The loop closes when a Learn output has become a new backlog issue in [1 — Triage](./stage-triage).
