@@ -12,22 +12,19 @@ Each squad is accountable for the full lifecycle, from client meeting to learnin
 
 ## The shift in roles
 
-In the Agentic Software Factory, **developers do not write code syntax anymore**, and the Product Owner no longer writes specifications. The squad structure reflects this:
+In the Agentic Software Factory, **developers do not write code syntax anymore**, and **Product Owners no longer write specifications**. Because AI handles both specification drafting and code generation, the traditional split between Product Owner and Developer disappears in favor of a single **Product Engineer** role:
 
 - **No manual coders**: AI agents generate 100% of code, tests, and documentation.
-- **Developers**: Developers specify, curate context, and validate intent instead of writing syntax.
-- **Product Owner**: AI writes the specifications, so the Product Owner no longer writes them. Instead, the Product Owner works with the client to turn their problems into clear, well-defined business needs.
-- **Client Empathy**: Because developers are freed from syntax authoring, they can actively participate
-  in client meetings alongside the Product Owner to understand the true business context.
+- **Product Engineer**: Owns the outcome from **Meet** to **Prove** — working directly with the client to turn their problems into clear, well-defined business needs, specifying and curating context, and validating intent instead of writing syntax.
+- **Client Empathy**: Freed from syntax authoring and handoffs, Product Engineers lead client meetings directly and carry the true business context all the way to validation.
 
 ## Shape
 
-**A typical high-leverage agentic squad is two people**, a Product Owner and a Developer, plus an Architect, a DevOps, a QA and maintainer shared across squads:
+**A typical high-leverage agentic squad is built around a Product Engineer** (or a pair of Product Engineers), plus an Architect, a DevOps, and a QA and maintainer shared across squads:
 
 | Member | Primary Focus | Role in Meeting-Driven Development |
 |---|---|---|
-| **Product Owner** | Client relationships, prioritization, outcome metrics | Leads client meetings, ranks backlog issues, defines business value, owns the Triage scorecard |
-| **Developer** | Think, Plan, Code, and Prove | Takes part in client meetings, weighs options in Think, validates Plan records, orchestrates the code loop, and conducts minimum human validation |
+| **Product Engineer** | Meet, Triage, Think, Plan, Code, and Prove | Leads client meetings, defines business value, ranks backlog issues in Triage, weighs options in Think, validates Plan records, orchestrates the code loop, and conducts minimum human validation |
 | **QA and maintainer** | Quality and production support | Runs Learn: watches QA and production, handles incidents, and reports what monitoring finds; shared across squads |
 | **DevOps** | Automated deployment and pipeline | Runs Release: automated deployment; shared across squads |
 | **Architect** | The enablers: Platform Rails, Persistent Context, Deterministic Controls, and the Forge | Owns system boundaries and decision records, signs off high blast radius decisions; shared across squads |

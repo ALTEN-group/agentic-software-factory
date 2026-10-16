@@ -90,8 +90,7 @@
 import { withBase } from 'vitepress'
 
 const roles = {
-  product: { label: 'Product Owner', color: '#ea580c' },
-  dev: { label: 'Developer', color: '#4f46e5' },
+  productEngineer: { label: 'Product Engineer', color: '#4f46e5' },
   devops: { label: 'DevOps', color: '#0284c7', shared: true },
   support: { label: 'QA and maintainer', color: '#0f766e', shared: true },
   architect: { label: 'Architect', color: '#9333ea', shared: true },
@@ -99,8 +98,7 @@ const roles = {
 
 // Who does the job, per group of consecutive stages (indexes into `stages`).
 const groups = [
-  { role: 'product', from: 0, to: 1 },
-  { role: 'dev', from: 2, to: 5 },
+  { role: 'productEngineer', from: 0, to: 5 },
   { role: 'devops', from: 6, to: 6 },
   { role: 'support', from: 7, to: 7 },
 ]
