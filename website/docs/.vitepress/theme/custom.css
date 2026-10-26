@@ -843,3 +843,38 @@
     padding-left: calc((100vw - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width) + 32px) !important;
   }
 }
+
+/* ==========================================================================
+   Direct 1-Click Language Toggle (FR / EN) instead of VitePress Dropdown
+   ========================================================================== */
+
+.vp-lang-switch {
+  display: flex !important;
+  align-items: center;
+}
+
+.vp-lang-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  min-width: 34px;
+  padding: 0 9px;
+  border-radius: 6px;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  font-family: 'Inter', var(--vp-font-family-base), sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.vp-lang-switch-btn:hover {
+  color: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+}
+

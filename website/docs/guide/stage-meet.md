@@ -52,7 +52,7 @@ At the conclusion of each meeting, the intelligence pipeline produces an immutab
 1. **Full transcript**: Verbatim text indexed by timestamp and speaker.
 2. **Executive summary**: 1-page summary of business drivers, urgency, and core challenges discussed.
 3. **Domain concepts & terminology**: New terms or acronyms introduced by the client, staged for commit to [Persistent Context](./persistent-context).
-4. **Candidate business needs**: Needs ready for ranking and logging as backlog issues in **[1 — Triage](./stage-triage)**.
+4. **Candidate business needs**: Needs ready to be qualified into requirements and ranked as backlog issues in **[1 — Triage](./stage-triage)**.
 
 ## Where AI is used
 

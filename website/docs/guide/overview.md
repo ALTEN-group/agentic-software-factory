@@ -26,7 +26,7 @@ the stages they support. A weekly audit and the Learn stage can open new issues 
 An illustrative example of how a single client need travels through the stages:
 
 1. **Meet.** In a client call, an operations director says managers lose 45 minutes every morning reconciling exports. AI transcribes the call, and the Product Owner clarifies edge cases with the client in the room.
-2. **Triage.** AI extracts the business need, cites the quote, scores it, and logs it as a backlog issue. The Product Owner ranks it *todo*.
+2. **Triage.** AI qualifies the business requirement, cites the quote, scores it, and logs it in the requirements backlog as a backlog issue. The Product Owner ranks it *todo*.
 3. **Think.** Guided by constraints and guidelines in Persistent Context, AI proposes two options and selects the one that best fits them while reusing a Forge reconciliation service. It records its rationale, the affected systems, and the impacts.
 4. **Plan.** AI turns the selected approach into a Plan with acceptance criteria, a file-level breakdown and code to implement. The Developer confirms that it reflects the agreed intent and validates.
 5. **Code and Prove.** The coding agent generates code and tests, runs the build, type check, linter, tests, and deterministic controls, then fixes any failures and repeats the loop until all pass.

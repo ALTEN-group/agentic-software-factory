@@ -30,7 +30,7 @@ Persistent Context supports **[0 — Meet](./stage-meet)** through **[5 — Prov
 | Stage | What Persistent Context does there |
 |---|---|
 | **0 — Meet** | Supplies the domain glossary, specifications, and meeting agent instructions and prompts, and receives new client terminology back |
-| **1 — Triage** | Grounds the mapping of needs to existing capabilities and domain glossaries |
+| **1 — Triage** | Grounds the qualification and mapping of requirements to existing capabilities and domain glossaries |
 | **2 — Think** | Supplies architectural invariants, decision records, and domain boundaries that bound the options |
 | **3 — Plan** | Informs constraints and non-functional invariants carried into the plan |
 | **4 — Code** | Guides AI agents with repository conventions, type rules, and execution skills |

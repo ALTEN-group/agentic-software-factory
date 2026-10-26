@@ -5,7 +5,7 @@
       class="squad-flowchart-svg"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      aria-label="The operating model with who does the job at each group of stages"
+      :aria-label="isFr ? 'Le modèle opérationnel et la répartition des rôles par groupe d’étapes' : 'The operating model with who does the job at each group of stages'"
     >
       <defs>
         <linearGradient v-for="c in colors" :id="'sq' + c.id" :key="c.id" x1="0" y1="0" x2="0" y2="1">
@@ -33,7 +33,7 @@
         class="sq-pipe"
         marker-end="url(#sqArrow)"
       />
-      <text :x="cx" :y="rowY(4) - 16" class="sq-validate">👤 Validate</text>
+      <text :x="cx" :y="rowY(4) - 16" class="sq-validate">{{ isFr ? '👤 Valider' : '👤 Validate' }}</text>
 
       <!-- Who does the job, per group of stages -->
       <g v-for="g in groups" :key="g.from">
@@ -46,13 +46,13 @@
         <g :transform="`translate(${blockX - 40 - chipW}, ${mid(g) - chipH / 2})`">
           <rect :width="chipW" :height="chipH" rx="12" :fill="roles[g.role].color" />
           <text :x="chipW / 2" y="19" class="sq-chip">{{ roles[g.role].label }}</text>
-          <text :x="chipW / 2" y="34" class="sq-chip-sub">{{ roles[g.role].shared ? 'Shared across squads' : 'Dedicated to the squad' }}</text>
+          <text :x="chipW / 2" y="34" class="sq-chip-sub">{{ roles[g.role].shared ? (isFr ? 'Partagé entre squads' : 'Shared across squads') : (isFr ? 'Dédiés à la squad' : 'Dedicated to the squad') }}</text>
         </g>
       </g>
 
       <!-- Enablers: the green blocks of the operating model, owned by the architect -->
-      <text :x="enX + enW / 2" :y="enablerY(0) - 14" class="sq-section">Enablers</text>
-      <a v-for="(e, i) in enablers" :key="e.page" :href="withBase('/guide/' + e.page)" class="sq-link">
+      <text :x="enX + enW / 2" :y="enablerY(0) - 14" class="sq-section">{{ isFr ? 'Fondations' : 'Enablers' }}</text>
+      <a v-for="(e, i) in enablers" :key="e.page" :href="withBase(prefix + '/guide/' + e.page)" class="sq-link">
         <g :transform="`translate(${enX}, ${enablerY(i)})`" class="sq-node">
           <rect :width="enW" :height="e.h" rx="10" fill="url(#sqgreen)" stroke="#10b981" stroke-width="1.8" />
           <text x="12" :y="e.h / 2 + 5" class="sq-title sq-title-small">{{ e.icon }}</text>
@@ -70,11 +70,11 @@
       <g :transform="`translate(${enX + enW + 30}, ${enablerMid - chipH / 2})`">
         <rect :width="chipW" :height="chipH" rx="12" :fill="roles.architect.color" />
         <text :x="chipW / 2" y="19" class="sq-chip">{{ roles.architect.label }}</text>
-        <text :x="chipW / 2" y="34" class="sq-chip-sub">Shared across squads</text>
+        <text :x="chipW / 2" y="34" class="sq-chip-sub">{{ isFr ? 'Partagé entre squads' : 'Shared across squads' }}</text>
       </g>
 
       <g v-for="(s, i) in stages" :key="s.title">
-        <a :href="withBase('/guide/' + s.page)" class="sq-link">
+        <a :href="withBase(prefix + '/guide/' + s.page)" class="sq-link">
           <g :transform="`translate(${blockX}, ${rowY(i)})`" class="sq-node">
             <rect :width="blockW" height="54" rx="10" :fill="'url(#sq' + s.color + ')'" :stroke="strokes[s.color]" stroke-width="1.8" />
             <text x="18" y="24" class="sq-title">{{ s.title }}</text>
@@ -87,14 +87,19 @@
 </template>
 
 <script setup>
-import { withBase } from 'vitepress'
+import { computed } from 'vue'
+import { useData, withBase } from 'vitepress'
 
-const roles = {
-  productEngineer: { label: 'Product Engineer', color: '#4f46e5' },
+const { lang } = useData()
+const isFr = computed(() => lang.value === 'fr')
+const prefix = computed(() => (isFr.value ? '/fr' : ''))
+
+const roles = computed(() => ({
+  productEngineer: { label: 'Product Engineers', color: '#4f46e5' },
   devops: { label: 'DevOps', color: '#0284c7', shared: true },
-  support: { label: 'QA and maintainer', color: '#0f766e', shared: true },
-  architect: { label: 'Architect', color: '#9333ea', shared: true },
-}
+  support: { label: isFr.value ? 'QA et mainteneur' : 'QA and maintainer', color: '#0f766e', shared: true },
+  architect: { label: isFr.value ? 'Architecte' : 'Architect', color: '#9333ea', shared: true },
+}))
 
 // Who does the job, per group of consecutive stages (indexes into `stages`).
 const groups = [
@@ -126,22 +131,22 @@ const strokes = {
   gray: '#94a3b8',
 }
 
-const stages = [
-  { title: '🎙️ 0 — Meet', sub: 'Client dialogue & discovery', page: 'stage-meet', color: 'orange' },
-  { title: '🎯 1 — Triage', sub: 'Business needs ranked as backlog issues', page: 'stage-triage', color: 'yellow' },
-  { title: '💡 2 — Think', sub: 'Options, trade-offs & decisions', page: 'stage-think', color: 'pink' },
-  { title: '📋 3 — Plan', sub: 'Breakdown, scope & criteria', page: 'stage-plan', color: 'indigo' },
-  { title: '⚡ 4 — Code', sub: 'Fast iterative loops', page: 'stage-code', color: 'core' },
-  { title: '✅ 5 — Prove', sub: 'Guards, gates, contracts & probes', page: 'stage-prove', color: 'cyan' },
-  { title: '🚀 6 — Release', sub: 'Automated deployment', page: 'stage-release', color: 'blue' },
-  { title: '📈 7 — Learn', sub: 'QA or monitoring', page: 'stage-learn', color: 'gray' },
-]
+const stages = computed(() => [
+  { title: '🎙️ 0 — Meet', sub: isFr.value ? 'Dialogue client & découverte' : 'Client dialogue & discovery', page: 'stage-meet', color: 'orange' },
+  { title: '🎯 1 — Triage', sub: isFr.value ? 'Besoins métier classés en tickets backlog' : 'Business needs ranked as backlog issues', page: 'stage-triage', color: 'yellow' },
+  { title: '💡 2 — Think', sub: isFr.value ? 'Options, compromis & décisions' : 'Options, trade-offs & decisions', page: 'stage-think', color: 'pink' },
+  { title: '📋 3 — Plan', sub: isFr.value ? 'Découpage, périmètre & critères' : 'Breakdown, scope & criteria', page: 'stage-plan', color: 'indigo' },
+  { title: '⚡ 4 — Code', sub: isFr.value ? 'Boucles itératives rapides' : 'Fast iterative loops', page: 'stage-code', color: 'core' },
+  { title: '✅ 5 — Prove', sub: isFr.value ? 'Gardes, jalons, contrats & sondes' : 'Guards, gates, contracts & probes', page: 'stage-prove', color: 'cyan' },
+  { title: '🚀 6 — Release', sub: isFr.value ? 'Déploiement automatisé' : 'Automated deployment', page: 'stage-release', color: 'blue' },
+  { title: '📈 7 — Learn', sub: isFr.value ? 'QA ou supervision' : 'QA or monitoring', page: 'stage-learn', color: 'gray' },
+])
 
-const enablers = [
-  { icon: '🧠', lines: ['Persistent Context'], page: 'persistent-context', h: 40 },
+const enablers = computed(() => [
+  { icon: '🧠', lines: [isFr.value ? 'Contexte persistant' : 'Persistent Context'], page: 'persistent-context', h: 40 },
   { icon: '📦', lines: ['Forge'], page: 'forge', h: 40 },
-  { icon: '🛡️', lines: ['Deterministic', 'Controls'], page: 'deterministic-controls', h: 58 },
-]
+  { icon: '🛡️', lines: isFr.value ? ['Contrôles', 'déterministes'] : ['Deterministic', 'Controls'], page: 'deterministic-controls', h: 58 },
+])
 const enablerGap = 12
 
 const chipW = 130
@@ -154,9 +159,9 @@ const enW = 170
 
 const rowY = (i) => 40 + i * 92
 const enablerTop = 270
-const enablerY = (i) => enablerTop + enablers.slice(0, i).reduce((sum, e) => sum + e.h + enablerGap, 0)
-const enablerEnd = enablerY(enablers.length - 1) + enablers[enablers.length - 1].h
-const enablerMid = (enablerY(0) + enablerEnd) / 2
+const enablerY = (i) => enablerTop + enablers.value.slice(0, i).reduce((sum, e) => sum + e.h + enablerGap, 0)
+const enablerEnd = computed(() => enablerY(enablers.value.length - 1) + enablers.value[enablers.value.length - 1].h)
+const enablerMid = computed(() => (enablerY(0) + enablerEnd.value) / 2)
 const mid = (g) => (rowY(g.from) + rowY(g.to) + 54) / 2
 </script>
 

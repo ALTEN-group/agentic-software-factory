@@ -78,7 +78,7 @@ AI turns the validated Think record into the plan, and the developer validates i
 | Task | AI role | Human role |
 |---|---|---|
 | **File scope & prerequisites** | Draft the file scope and the dependencies needed before Step 1, from the Think record and the codebase | Confirm the file boundaries and the dependencies |
-| **Acceptance criteria** | Convert the need into observable, true-or-false statements, and flag any that are vague | Confirm they match what the client asked for |
+| **Acceptance criteria** | Convert the requirement into observable, true-or-false statements, and flag any that are vague | Confirm they match what the client asked for |
 | **Implementation checklist** | Break the scope into ordered, atomic steps with exact files, actions, and new code | Validate scope, file boundaries, and order |
 | **Step verification & test plan** | Provide a narrow verification command and bootable check for each step, and map criteria to tests | Confirm the checks cover every acceptance criterion |
 | **Open questions & assumptions** | List open questions and assumptions at the implementation level | Answer the questions and confirm the assumptions |

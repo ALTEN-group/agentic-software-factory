@@ -2,7 +2,7 @@
   <figure class="metric-chart">
     <figcaption class="metric-title">
       {{ title }}
-      <span class="metric-direction">{{ lowerIsBetter ? 'lower is better' : 'higher is better' }}</span>
+      <span class="metric-direction">{{ lowerIsBetter ? (isFr ? 'plus bas est meilleur' : 'lower is better') : (isFr ? 'plus haut est meilleur' : 'higher is better') }}</span>
     </figcaption>
     <svg :viewBox="`0 0 ${W} ${H}`" class="metric-svg" xmlns="http://www.w3.org/2000/svg" role="img" :aria-label="title">
       <!-- Grid and y axis -->
@@ -15,7 +15,7 @@
       <!-- Target -->
       <g v-if="target !== undefined">
         <line :x1="L" :x2="W - R" :y1="y(target)" :y2="y(target)" class="metric-target" />
-        <text :x="W - R" :y="y(target) - 6" class="metric-target-label">{{ targetLabel || 'target ' + target }}</text>
+        <text :x="W - R" :y="y(target) - 6" class="metric-target-label">{{ targetLabel || (isFr ? 'cible ' : 'target ') + target }}</text>
       </g>
 
       <!-- Bars -->
@@ -44,12 +44,16 @@
         class="metric-axis metric-axis-x"
       >{{ l }}</text>
     </svg>
-    <p class="metric-note">Illustrative example data.</p>
+    <p class="metric-note">{{ isFr ? 'Données d’exemple à titre illustratif.' : 'Illustrative example data.' }}</p>
   </figure>
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import { useData } from 'vitepress'
+
+const { lang } = useData()
+const isFr = computed(() => lang.value === 'fr')
 
 const props = defineProps({
   title: { type: String, required: true },

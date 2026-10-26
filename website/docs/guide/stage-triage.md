@@ -6,41 +6,41 @@ pageClass: page-stage-yellow
 
 <div class="stage-hero-banner banner-yellow">
   <span class="stage-hero-badge">STAGE 1</span>
-  <span class="stage-hero-desc">Candidate needs enriched, scored &amp; prioritized as backlog issues</span>
+  <span class="stage-hero-desc">Candidate needs qualified into requirements, scored &amp; prioritized in the backlog</span>
 </div>
 
-Where captured demand becomes actionable backlog work. Triage enriches candidate needs from Meet stage and other sources with system context and evidence. AI scores them, and the Product Owner validates and prioritizes the resulting backlog issues.
+Where captured demand becomes the **requirements backlog**. Triage turns candidate needs from [0 — Meet](./stage-meet) and other sources into qualified business requirements enriched with system context and evidence. AI scores them, and the Product Owner validates and prioritizes the resulting backlog issues.
 
 ## Purpose
 
 | Input | Output | Owner |
 |---|---|---|
-| Candidate needs and evidence from [0 — Meet](./stage-meet) and other demand sources + **Persistent Context** (domain glossary, existing specifications, product scope) | Evidence-linked backlog issues with system mappings, an early risk estimate, and a completed scorecard | Product Owner |
+| Candidate needs and evidence from [0 — Meet](./stage-meet) and other demand sources + **Persistent Context** (domain glossary, existing specifications, product scope) | A prioritized requirements backlog: evidence-linked backlog issues with qualified business requirements, system mappings, an early risk estimate, and a completed scorecard | Product Owner |
 
 ## From evidence to backlog issue
 
-Triage evaluates each candidate need against current product scope and architecture. AI uses Persistent Context and repository information to:
+Triage bridges raw client dialogue from [0 — Meet](./stage-meet) and executable acceptance criteria in [3 — Plan](./stage-plan). It evaluates each candidate need against current product scope and architecture so only grounded, well-scoped requirements enter the backlog. AI uses Persistent Context and repository information to:
 
-1. **Map the need** to existing capabilities, specifications, domain concepts, and architecture boundaries.
+1. **Qualify and map the requirement** against existing capabilities, specifications, domain concepts, and architecture boundaries.
 2. **Estimate impact** by identifying affected systems, early risk, and unknowns. The blast radius tier is set later, in [2 — Think](./stage-think).
-3. **Draft the backlog issue** in a standard format, link it to its source evidence, and prefill the scorecard fields. The Product Owner can review the scores and determines priority.
+3. **Draft the backlog issue** in a standard format, state the business requirement clearly, link it to its source evidence, and prefill the scorecard fields. The Product Owner can review the scores and determines priority.
 
 ## The backlog issue
 
-Every business need that survives analysis is logged as one **backlog issue** in the squad's issue tracker.
-The issue is the unit of work that moves on to [2 — Think](./stage-think).
+Every business need that survives analysis becomes a qualified **business requirement**, logged as one **backlog issue** in the squad's issue tracker. Together, these issues form the squad's **requirements backlog**.
+The issue captures *what* is required and *why*, grounded in verbatim evidence; [2 — Think](./stage-think) decides *how* to satisfy the requirement architecturally, and [3 — Plan](./stage-plan) translates it into testable acceptance criteria.
 
 | Field | Content |
 |---|---|
-| **Title** | The business need in one sentence, in the client's words where possible |
-| **Problem statement** | Who is blocked, and what it costs them |
+| **Title** | The business requirement in one sentence, in the client's words where possible |
+| **Problem statement** | Who is blocked, what it costs them, and the requirement to satisfy |
 | **Evidence** | A link to the timestamped transcript quote or other source that justifies it |
 | **Hypothesis / outcome metric** | When useful, a measurable expected outcome and the metric the Product Owner commits to track |
 | **Scorecard** | The five scores below |
 | **Decision label** | `todo`, `explore`, `later`, or `no` |
 | **Source** | The meeting, ticket, or signal it came from |
 
-Issues are ranked by the scorecard, and the ranked backlog is what the weekly review works through.
+Issues are ranked by the scorecard, and the ranked requirements backlog is what the weekly review works through.
 
 ### Where backlog issues come from
 
@@ -55,14 +55,14 @@ Whatever the source, an issue uses the same format and the same scorecard.
 
 ## Where AI is used
 
-AI enriches and scores candidate needs; humans validate customer alignment and establish strategic
+AI qualifies, enriches, and scores candidate requirements; humans validate customer alignment and establish strategic
 priority.
 
 | Task | AI role | Human role |
 |---|---|---|
-| Need enrichment | Map candidate needs to existing systems, specifications, and domain concepts; estimate early risk | Validate scope, customer alignment, and squad ownership |
+| Requirement enrichment | Qualify candidate needs into business requirements mapped to existing systems, specifications, and domain concepts; estimate early risk | Validate requirement scope, customer alignment, and squad ownership |
 | Feedback clustering | Group tickets and field notes into thematic clusters with occurrence counts | Name the strategic theme, discard irrelevant noise |
-| Backlog issue drafting | Draft concise, evidence-linked issues from candidate needs and other demand signals | Confirm the issue is actionable and within squad ownership |
+| Backlog issue drafting | Draft concise, evidence-linked requirement issues from candidate needs and other demand signals | Confirm the requirement is actionable and within squad ownership |
 | Hypothesis drafting | Propose measurable hypotheses and business outcome metrics | Commit to the business metric |
 | Complexity and risk estimate | Scan codebase and Persistent Context, flag early risk and unknowns | Validate architectural risk boundaries |
 | Scorecard population | Auto-populate customer value, estimated effort, risk, and confidence | Set strategic weights and break prioritization ties |
@@ -97,13 +97,13 @@ Low-confidence, high-value items receive the **explore** decision: gather eviden
 
 ## Exit gate
 
-A business need leaves Triage when its backlog issue has:
+A requirement leaves Triage when its backlog issue has:
 
-1. a named problem linked to specific client dialogue or empirical data,
+1. a named problem and clear business requirement linked to specific client dialogue or empirical data,
 2. at least one non-anecdotal piece of evidence (e.g. a client meeting quote, a cluster of support tickets),
 3. a completed scorecard row,
 4. an explicit decision: *todo*, *explore*, *later*, or *no*.
 
-`no` is recorded with its rationale. Rejected needs build institutional memory and guide future
-client discussions. The weekly review that works through the ranked backlog is described in [Cadence](./cadence).
+`no` is recorded with its rationale. Rejected requirements build institutional memory and guide future
+client discussions. The weekly review that works through the ranked requirements backlog is described in [Cadence](./cadence).
 Only a `todo` decision, set by the Product Owner, starts [2 — Think](./stage-think).

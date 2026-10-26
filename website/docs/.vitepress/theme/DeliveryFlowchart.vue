@@ -5,7 +5,7 @@
       class="delivery-flowchart-svg"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      aria-label="Delivery Flowchart: From Meeting to Production Release"
+      :aria-label="isFr ? 'Diagramme de livraison : de la réunion client à la mise en production' : 'Delivery Flowchart: From Meeting to Production Release'"
     >
       <defs>
         <!-- Gradients -->
@@ -136,7 +136,7 @@
         class="feedback-path green-feedback"
         marker-end="url(#flowArrowGreen)"
       />
-      <text x="300" y="730" class="flow-label green-text">Enriches</text>
+      <text x="300" y="730" class="flow-label green-text">{{ isFr ? 'Enrichit' : 'Enriches' }}</text>
 
       <!-- Loop 3: 7 — Learn back to Deterministic Controls (Inner Left) -->
       <path
@@ -144,7 +144,7 @@
         class="feedback-path green-feedback"
         marker-end="url(#flowArrowGreen)"
       />
-      <text x="300" y="701" class="flow-label green-text">Hardens</text>
+      <text x="300" y="701" class="flow-label green-text">{{ isFr ? 'Renforce' : 'Hardens' }}</text>
 
       <!-- ============================================================== -->
       <!-- CONNECTIONS FROM GREEN BLOCKS INTO DELIVERY STAGES             -->
@@ -163,7 +163,7 @@
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
-      <text x="784" y="157" class="flow-label grey-text">Opens issues</text>
+      <text x="784" y="157" class="flow-label grey-text">{{ isFr ? 'Ouvre des tickets' : 'Opens issues' }}</text>
 
       <!-- 7 — Learn -> 1 — Triage (Outer right corridor, opens backlog issues) -->
       <path
@@ -171,7 +171,7 @@
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
-      <text x="784" y="138" class="flow-label grey-text">Opens issues</text>
+      <text x="784" y="138" class="flow-label grey-text">{{ isFr ? 'Ouvre des tickets' : 'Opens issues' }}</text>
 
       <!-- Support ticketing tool -> 1 — Triage (above the Learn corridor) -->
       <path
@@ -179,7 +179,7 @@
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
-      <text x="718" y="119" class="flow-label grey-text">Opens issues</text>
+      <text x="718" y="119" class="flow-label grey-text">{{ isFr ? 'Ouvre des tickets' : 'Opens issues' }}</text>
 
       <!-- Persistent Context -> shared trunk (left) feeding 0 — Meet, 1 — Triage, 2 — Think, 3 — Plan, 4 — Code, 5 — Prove, 6 — Release, 7 — Learn -->
       <path
@@ -276,7 +276,7 @@
 
       <!-- 3 — Plan -> 4 — Code -->
       <path d="M 500 358 V 405" class="pipe-highway" marker-end="url(#flowArrowMain)" />
-      <text x="500" y="372.5" class="flow-label highlight-label">👤 Validate</text>
+      <text x="500" y="372.5" class="flow-label highlight-label">{{ isFr ? '👤 Valider' : '👤 Validate' }}</text>
 
       <!-- 4 — Code -> 5 — Prove -->
       <path d="M 500 478 V 501" class="pipe-highway" marker-end="url(#flowArrowMain)" />
@@ -292,128 +292,128 @@
       <!-- ============================================================== -->
 
       <!-- [ROW 0] Meeting (Origin) -->
-      <a :href="withBase('/guide/stage-meet')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/stage-meet')" class="flow-node-link">
         <g class="flow-node node-meeting" transform="translate(360, 30)">
           <rect width="280" height="56" rx="10" class="node-rect rect-orange" />
           <text x="20" y="26" class="node-title orange-title">🎙️ 0 — Meet</text>
-          <text x="20" y="45" class="node-subtitle">Client dialogue &amp; discovery</text>
+          <text x="20" y="45" class="node-subtitle">{{ isFr ? 'Dialogue client & découverte' : 'Client dialogue & discovery' }}</text>
         </g>
       </a>
 
       <!-- [ROW 4 - RIGHT] Weekly audit (Exact Level with 4 — Code) -->
-      <a :href="withBase('/guide/stage-triage#where-backlog-issues-come-from')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/stage-triage#where-backlog-issues-come-from')" class="flow-node-link">
         <g class="flow-node node-audit" transform="translate(675, 416)">
           <rect width="230" height="58" rx="10" class="node-rect rect-audit" />
-          <text x="18" y="22" class="node-title audit-title">⏱️ Weekly audit</text>
-          <text x="18" y="42" class="node-subtitle">Scheduled in CI</text>
+          <text x="18" y="22" class="node-title audit-title">{{ isFr ? '⏱️ Audit hebdomadaire' : '⏱️ Weekly audit' }}</text>
+          <text x="18" y="42" class="node-subtitle">{{ isFr ? 'Planifié dans la CI' : 'Scheduled in CI' }}</text>
         </g>
       </a>
 
       <!-- [ROW 0 - RIGHT] Support ticketing tool (feeds Triage) -->
-      <a :href="withBase('/guide/stage-triage#where-backlog-issues-come-from')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/stage-triage#where-backlog-issues-come-from')" class="flow-node-link">
         <g class="flow-node node-audit" transform="translate(675, 30)">
           <rect width="230" height="56" rx="10" class="node-rect rect-audit" />
-          <text x="18" y="24" class="node-title audit-title">🎧 Support tickets</text>
-          <text x="18" y="44" class="node-subtitle">Support ticketing tool</text>
+          <text x="18" y="24" class="node-title audit-title">{{ isFr ? '🎧 Tickets de support' : '🎧 Support tickets' }}</text>
+          <text x="18" y="44" class="node-subtitle">{{ isFr ? 'Outil de ticketing support' : 'Support ticketing tool' }}</text>
         </g>
       </a>
 
       <!-- [ROW 1] 1 — Triage -->
-      <a :href="withBase('/guide/stage-triage')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/stage-triage')" class="flow-node-link">
         <g class="flow-node node-need" transform="translate(360, 116)">
           <rect width="280" height="58" rx="10" class="node-rect rect-yellow" />
           <text x="20" y="22" class="node-title yellow-title">🎯 1 — Triage</text>
-          <text x="20" y="38" class="node-subtitle">Transcript analysis, business needs</text>
-          <text x="20" y="51" class="node-subtitle">ranked &amp; logged as backlog issues</text>
+          <text x="20" y="38" class="node-subtitle">{{ isFr ? 'Besoins qualifiés en exigences,' : 'Needs qualified into requirements,' }}</text>
+          <text x="20" y="51" class="node-subtitle">{{ isFr ? 'classés en tickets de backlog' : 'ranked & logged as backlog issues' }}</text>
         </g>
       </a>
 
       <!-- [LEFT] Deterministic Controls (below Persistent Context, feeding the same stages) -->
-      <a :href="withBase('/guide/deterministic-controls')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/deterministic-controls')" class="flow-node-link">
         <g class="flow-node node-green" transform="translate(95, 311)">
           <rect width="230" height="62" rx="10" class="node-rect rect-green" />
-          <text x="18" y="27" class="node-title green-title">🛡️ Deterministic Controls</text>
-          <text x="18" y="47" class="node-subtitle green-desc">Guards, gates, contracts &amp; probes</text>
+          <text x="18" y="27" class="node-title green-title">{{ isFr ? '🛡️ Contrôles déterministes' : '🛡️ Deterministic Controls' }}</text>
+          <text x="18" y="47" class="node-subtitle green-desc">{{ isFr ? 'Gardes, jalons, contrats & sondes' : 'Guards, gates, contracts & probes' }}</text>
         </g>
       </a>
 
       <!-- [ROW 2 - LEFT] Persistent Context (Exact Level with 4 — Code) -->
-      <a :href="withBase('/guide/persistent-context')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/persistent-context')" class="flow-node-link">
         <g class="flow-node node-green" transform="translate(95, 227)">
           <rect width="230" height="62" rx="10" class="node-rect rect-green" />
-          <text x="18" y="24" class="node-title green-title">🧠 Persistent Context</text>
-          <text x="18" y="41" class="node-subtitle green-desc">Instructions, prompts,</text>
-          <text x="18" y="54" class="node-subtitle green-desc">skills &amp; agents primitives</text>
+          <text x="18" y="24" class="node-title green-title">{{ isFr ? '🧠 Contexte persistant' : '🧠 Persistent Context' }}</text>
+          <text x="18" y="41" class="node-subtitle green-desc">{{ isFr ? 'Instructions, prompts,' : 'Instructions, prompts,' }}</text>
+          <text x="18" y="54" class="node-subtitle green-desc">{{ isFr ? 'primitives de skills & agents' : 'skills & agents primitives' }}</text>
         </g>
       </a>
 
       <!-- [ROW 2 - CENTER] 2 — Think -->
-      <a :href="withBase('/guide/stage-think')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/stage-think')" class="flow-node-link">
         <g class="flow-node node-think" transform="translate(360, 204)">
           <rect width="280" height="62" rx="10" class="node-rect rect-pink" />
           <text x="20" y="24" class="node-title pink-title">💡 2 — Think</text>
-          <text x="20" y="41" class="node-subtitle">Options exploration, trade-offs &amp;</text>
-          <text x="20" y="54" class="node-subtitle">architectural decisions</text>
+          <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Exploration des options, compromis' : 'Options exploration, trade-offs &' }}</text>
+          <text x="20" y="54" class="node-subtitle">{{ isFr ? '& décisions d’architecture' : 'architectural decisions' }}</text>
         </g>
       </a>
 
       <!-- [ROW 3 - CENTER] 3 — Plan -->
-      <a :href="withBase('/guide/stage-plan')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/stage-plan')" class="flow-node-link">
         <g class="flow-node node-plan" transform="translate(360, 296)">
           <rect width="280" height="62" rx="10" class="node-rect rect-indigo" />
           <text x="20" y="24" class="node-title indigo-title">📋 3 — Plan</text>
-          <text x="20" y="41" class="node-subtitle">Implementation breakdown, file scope &amp;</text>
-          <text x="20" y="54" class="node-subtitle">boundary constraints</text>
+          <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Découpage d’implémentation, périmètre' : 'Implementation breakdown, file scope &' }}</text>
+          <text x="20" y="54" class="node-subtitle">{{ isFr ? 'de fichiers & limites' : 'boundary constraints' }}</text>
         </g>
       </a>
 
       <!-- [ROW 3 - CENTER] 4 — Code (Autonomous Agent Core) -->
-      <a :href="withBase('/guide/stage-code')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/stage-code')" class="flow-node-link">
         <g class="flow-node node-core" transform="translate(360, 412)">
           <rect width="280" height="66" rx="10" class="node-rect rect-core" />
           <text x="20" y="26" class="node-title core-title">⚡ 4 — Code</text>
-          <text x="20" y="44" class="node-subtitle">Fast autonomous loops,</text>
-          <text x="20" y="57" class="node-subtitle">generate, test &amp; fix until green</text>
+          <text x="20" y="44" class="node-subtitle">{{ isFr ? 'Boucles autonomes rapides,' : 'Fast autonomous loops,' }}</text>
+          <text x="20" y="57" class="node-subtitle">{{ isFr ? 'générer, tester & corriger' : 'generate, test & fix until green' }}</text>
         </g>
       </a>
 
       <!-- [ROW 3 - RIGHT] The Forge (Exact Level with 3 — Plan) -->
-      <a :href="withBase('/guide/forge')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/forge')" class="flow-node-link">
         <g class="flow-node node-green" transform="translate(675, 294)">
           <rect width="230" height="66" rx="10" class="node-rect rect-green" />
           <text x="18" y="26" class="node-title green-title">📦 Forge</text>
-          <text x="18" y="44" class="node-subtitle green-desc">Reusable code:</text>
-          <text x="18" y="57" class="node-subtitle green-desc">functions, libraries, services</text>
+          <text x="18" y="44" class="node-subtitle green-desc">{{ isFr ? 'Code réutilisable :' : 'Reusable code:' }}</text>
+          <text x="18" y="57" class="node-subtitle green-desc">{{ isFr ? 'fonctions, librairies, services' : 'functions, libraries, services' }}</text>
         </g>
       </a>
 
       <!-- [ROW 4 - CENTER] 5 — Prove -->
-      <a :href="withBase('/guide/stage-prove')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/stage-prove')" class="flow-node-link">
         <g class="flow-node node-proof" transform="translate(360, 508)">
           <rect width="280" height="62" rx="10" class="node-rect rect-cyan" />
           <text x="20" y="24" class="node-title cyan-title">✅ 5 — Prove</text>
-          <text x="20" y="41" class="node-subtitle">Deterministic gate validation &amp;</text>
-          <text x="20" y="54" class="node-subtitle">agent auto-remediation</text>
+          <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Validation déterministe des jalons' : 'Deterministic gate validation &' }}</text>
+          <text x="20" y="54" class="node-subtitle">{{ isFr ? '& auto-remédiation par l’agent' : 'agent auto-remediation' }}</text>
         </g>
       </a>
 
       <!-- [ROW 5 - CENTER] 6 — Release -->
-      <a :href="withBase('/guide/stage-release')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/stage-release')" class="flow-node-link">
         <g class="flow-node node-release" transform="translate(360, 600)">
           <rect width="280" height="56" rx="10" class="node-rect rect-blue" />
           <text x="20" y="21" class="node-title blue-title">🚀 6 — Release</text>
-          <text x="20" y="36" class="node-subtitle">Automated deployment,</text>
-          <text x="20" y="48" class="node-subtitle">reversible at any step</text>
+          <text x="20" y="36" class="node-subtitle">{{ isFr ? 'Déploiement automatisé,' : 'Automated deployment,' }}</text>
+          <text x="20" y="48" class="node-subtitle">{{ isFr ? 'réversible à chaque étape' : 'reversible at any step' }}</text>
         </g>
       </a>
 
       <!-- [ROW 6 - CENTER] 7 — Learn -->
-      <a :href="withBase('/guide/stage-learn')" class="flow-node-link">
+      <a :href="withBase(prefix + '/guide/stage-learn')" class="flow-node-link">
         <g class="flow-node node-learn" transform="translate(360, 686)">
           <rect width="280" height="58" rx="10" class="node-rect rect-gray" />
           <text x="20" y="22" class="node-title gray-title">📈 7 — Learn</text>
-          <text x="20" y="38" class="node-subtitle">Telemetry analysis &amp;</text>
-          <text x="20" y="51" class="node-subtitle">predictive monitoring</text>
+          <text x="20" y="38" class="node-subtitle">{{ isFr ? 'Analyse de télémétrie &' : 'Telemetry analysis &' }}</text>
+          <text x="20" y="51" class="node-subtitle">{{ isFr ? 'supervision prédictive' : 'predictive monitoring' }}</text>
         </g>
       </a>
     </svg>
@@ -421,7 +421,12 @@
 </template>
 
 <script setup>
-import { withBase } from 'vitepress'
+import { computed } from 'vue'
+import { useData, withBase } from 'vitepress'
+
+const { lang } = useData()
+const isFr = computed(() => lang.value === 'fr')
+const prefix = computed(() => (isFr.value ? '/fr' : ''))
 </script>
 
 <style scoped>
