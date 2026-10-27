@@ -1,5 +1,7 @@
 # 🛡️ Contrôles déterministes
 
+<EnablerBlock type="deterministic-controls" />
+
 Gardes (*guards*), jalons (*gates*), contrats (*contracts*) et sondes (*probes*) : les contrôles automatisés et déterministes qui font du chemin sûr l’unique chemin possible.
 
 ## Pourquoi

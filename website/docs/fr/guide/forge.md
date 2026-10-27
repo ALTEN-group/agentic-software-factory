@@ -1,5 +1,7 @@
 # 📦 Forge
 
+<EnablerBlock type="forge" />
+
 Du code réutilisable : fonctions, bibliothèques et services. La Forge est le catalogue de briques certifiées de l’organisation, conçu pour que les agents IA assemblent ce qui existe déjà au lieu de régénérer la même logique à chaque élément de travail.
 
 Laissés sans guide, les agents régénèrent de zéro du code répétitif (*boilerplate*), des fonctions utilitaires et du code d’infrastructure non vérifié. Cela introduit de la dérive, des failles de sécurité et de la dette de maintenance. La Forge élimine ce besoin.

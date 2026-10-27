@@ -5,6 +5,7 @@ import HomeHeroInfo from './HomeHeroInfo.vue';
 import DeliveryFlowchart from './DeliveryFlowchart.vue';
 import SquadFlowchart from './SquadFlowchart.vue';
 import MetricChart from './MetricChart.vue';
+import EnablerBlock from './EnablerBlock.vue';
 import './custom.css';
 
 export default {
@@ -19,5 +20,6 @@ export default {
     app.component('DeliveryFlowchart', DeliveryFlowchart);
     app.component('SquadFlowchart', SquadFlowchart);
     app.component('MetricChart', MetricChart);
+    app.component('EnablerBlock', EnablerBlock);
   },
 };

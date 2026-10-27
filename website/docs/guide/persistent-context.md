@@ -1,5 +1,7 @@
 # 🧠 Persistent Context
 
+<EnablerBlock type="persistent-context" />
+
 Persistent Context is the organization's knowledge in a form an AI can consume. It is the
 highest-leverage investment in the Agentic Software Factory.
 

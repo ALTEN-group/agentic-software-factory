@@ -1,5 +1,7 @@
 # 🛡️ Deterministic Controls
 
+<EnablerBlock type="deterministic-controls" />
+
 Guards, gates, contracts, and probes: the automated, deterministic controls that make the safe path the only path.
 
 ## Why

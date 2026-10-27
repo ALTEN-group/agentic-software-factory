@@ -1,5 +1,7 @@
 # 🧠 Contexte persistant
 
+<EnablerBlock type="persistent-context" />
+
 Le Contexte persistant est la connaissance de l’organisation structurée sous une forme directement exploitable par une IA. C’est l’investissement à plus fort effet de levier de l’Agentic Software Factory.
 
 ## Pourquoi
