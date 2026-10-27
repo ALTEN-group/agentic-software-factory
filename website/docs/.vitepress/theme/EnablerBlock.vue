@@ -1,7 +1,7 @@
 <template>
   <div class="enabler-block-container">
     <svg
-      :viewBox="`-8 -8 246 ${block.height + 16}`"
+      viewBox="-8 -8 246 78"
       class="enabler-block-svg"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
@@ -17,7 +17,7 @@
       <g class="flow-node node-green">
         <rect
           width="230"
-          :height="block.height"
+          height="62"
           rx="10"
           class="node-rect rect-green"
           :fill="`url(#enablerGreenCard-${type})`"
@@ -53,7 +53,6 @@ const isFr = computed(() => lang.value === 'fr')
 const block = computed(() => {
   if (props.type === 'persistent-context') {
     return {
-      height: 62,
       titleY: 24,
       title: isFr.value ? '🧠 Contexte persistant' : '🧠 Persistent Context',
       lines: [
@@ -64,7 +63,6 @@ const block = computed(() => {
   }
   if (props.type === 'deterministic-controls') {
     return {
-      height: 62,
       titleY: 27,
       title: isFr.value ? '🛡️ Contrôles déterministes' : '🛡️ Deterministic Controls',
       lines: [
@@ -73,12 +71,11 @@ const block = computed(() => {
     }
   }
   return {
-    height: 66,
-    titleY: 26,
+    titleY: 24,
     title: '📦 Forge',
     lines: [
-      { y: 44, text: isFr.value ? 'Code réutilisable :' : 'Reusable code:' },
-      { y: 57, text: isFr.value ? 'fonctions, librairies, services' : 'functions, libraries, services' },
+      { y: 41, text: isFr.value ? 'Code réutilisable :' : 'Reusable code:' },
+      { y: 54, text: isFr.value ? 'fonctions, librairies, services' : 'functions, libraries, services' },
     ],
   }
 })
