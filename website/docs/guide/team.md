@@ -15,7 +15,9 @@ Each squad is accountable for the full lifecycle, from client meeting to learnin
 In the Agentic Software Factory, **developers do not write code syntax anymore**, and **Product Owners no longer write specifications**. Because AI handles both specification drafting and code generation, the traditional split between Product Owner and Developer disappears in favor of a single **Product Engineer** role:
 
 - **No manual coders**: AI agents generate 100% of code, tests, and documentation.
-- **Product Engineer**: Owns the outcome from **Meet** to **Prove** — working directly with the client to turn their problems into clear, well-defined business needs, specifying and curating context, and validating intent instead of writing syntax.
+- **Product Engineer**: Owns the outcome from **Meet** to **Prove** — working directly with the client to turn their problems into clear, well-defined business needs, specifying and curating context, and validating intent instead of writing syntax. Their two most important qualities come into play during the **Meet** and **Think** phases:
+  - **Meet**: Their ability to guide the client toward the best possible product.
+  - **Think**: Their ability to make the right technical decisions to guide their AI.
 - **Client Empathy**: Freed from syntax authoring and handoffs, Product Engineers lead client meetings directly and carry the true business context all the way to validation.
 
 ## Shape

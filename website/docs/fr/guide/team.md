@@ -14,7 +14,9 @@ Chaque squad est responsable de l’intégralité du cycle de vie, de la réunio
 Dans l’Agentic Software Factory, **les développeurs n’écrivent plus la syntaxe du code**, et **les Product Owners ne rédigent plus les spécifications à la main**. Parce que l’IA prend en charge aussi bien la rédaction des spécifications que la génération du code, la séparation traditionnelle entre Product Owner et Développeur s’efface au profit d’un rôle unifié de **Product Engineer** :
 
 - **Plus de codeurs manuels** : les agents IA génèrent 100 % du code, des tests et de la documentation.
-- **Product Engineer** : porte le résultat de **Meet** à **Prove** — en travaillant directement avec le client pour transformer ses problèmes en besoins métier clairs et bien définis, en spécifiant et en entretenant le contexte, et en validant l’intention plutôt qu’en tapant de la syntaxe.
+- **Product Engineer** : porte le résultat de **Meet** à **Prove** — en travaillant directement avec le client pour transformer ses problèmes en besoins métier clairs et bien définis, en spécifiant et en entretenant le contexte, et en validant l’intention plutôt qu’en tapant de la syntaxe. Ses deux qualités les plus importantes se jouent lors des phases **Meet** et **Think** :
+  - **Meet** : sa capacité à emmener le client vers le meilleur produit possible.
+  - **Think** : sa capacité à prendre les bonnes décisions techniques pour guider son IA.
 - **Empathie client** : libérés de la frappe de syntaxe et des passages de relais (*handoffs*), les Product Engineers animent directement les réunions clients et portent le véritable contexte métier jusqu’à la validation finale.
 
 ## Structure type

@@ -33,7 +33,6 @@
         class="sq-pipe"
         marker-end="url(#sqArrow)"
       />
-      <text :x="cx" :y="rowY(4) - 16" class="sq-validate">{{ isFr ? '👤 Valider' : '👤 Validate' }}</text>
 
       <!-- Who does the job, per group of stages -->
       <g v-for="g in groups" :key="g.from">
@@ -75,8 +74,28 @@
 
       <g v-for="(s, i) in stages" :key="s.title">
         <a :href="withBase(prefix + '/guide/' + s.page)" class="sq-link">
-          <g :transform="`translate(${blockX}, ${rowY(i)})`" class="sq-node">
-            <rect :width="blockW" height="54" rx="10" :fill="'url(#sq' + s.color + ')'" :stroke="strokes[s.color]" stroke-width="1.8" />
+          <g :transform="`translate(${blockX}, ${rowY(i)})`" :class="['sq-node', { 'sq-node-highlight': s.highlight }]">
+            <rect
+              v-if="s.highlight"
+              :width="blockW + 8"
+              height="62"
+              x="-4"
+              y="-4"
+              rx="13"
+              fill="none"
+              :stroke="roles.productEngineer.color"
+              stroke-width="2.4"
+              stroke-dasharray="5, 3"
+              class="sq-highlight-ring"
+            />
+            <rect
+              :width="blockW"
+              height="54"
+              rx="10"
+              :fill="'url(#sq' + s.color + ')'"
+              :stroke="strokes[s.color]"
+              :stroke-width="s.highlight ? 2.6 : 1.8"
+            />
             <text x="18" y="24" class="sq-title">{{ s.title }}</text>
             <text x="18" y="42" class="sq-sub">{{ s.sub }}</text>
           </g>
@@ -132,9 +151,9 @@ const strokes = {
 }
 
 const stages = computed(() => [
-  { title: '🎙️ 0 — Meet', sub: isFr.value ? 'Dialogue client & découverte' : 'Client dialogue & discovery', page: 'stage-meet', color: 'orange' },
+  { title: '🎙️ 0 — Meet', sub: isFr.value ? 'Dialogue client & découverte' : 'Client dialogue & discovery', page: 'stage-meet', color: 'orange', highlight: true },
   { title: '🎯 1 — Triage', sub: isFr.value ? 'Besoins métier classés en tickets backlog' : 'Business needs ranked as backlog issues', page: 'stage-triage', color: 'yellow' },
-  { title: '💡 2 — Think', sub: isFr.value ? 'Options, compromis & décisions' : 'Options, trade-offs & decisions', page: 'stage-think', color: 'pink' },
+  { title: '💡 2 — Think', sub: isFr.value ? 'Options, compromis & décisions' : 'Options, trade-offs & decisions', page: 'stage-think', color: 'pink', highlight: true },
   { title: '📋 3 — Plan', sub: isFr.value ? 'Découpage, périmètre & critères' : 'Breakdown, scope & criteria', page: 'stage-plan', color: 'indigo' },
   { title: '⚡ 4 — Code', sub: isFr.value ? 'Boucles itératives rapides' : 'Fast iterative loops', page: 'stage-code', color: 'core' },
   { title: '✅ 5 — Prove', sub: isFr.value ? 'Gardes, jalons, contrats & sondes' : 'Guards, gates, contracts & probes', page: 'stage-prove', color: 'cyan' },
@@ -185,22 +204,6 @@ const mid = (g) => (rowY(g.from) + rowY(g.to) + 54) / 2
   stroke-width: 3px;
   stroke-linecap: round;
   fill: none;
-}
-
-.sq-validate {
-  font-family: var(--vp-font-family-base, system-ui, -apple-system, sans-serif);
-  font-size: 9.5px;
-  font-weight: 600;
-  fill: #4f46e5;
-  text-anchor: middle;
-  paint-order: stroke;
-  stroke: var(--vp-c-bg);
-  stroke-width: 6px;
-  stroke-linejoin: round;
-}
-
-.dark .sq-validate {
-  fill: #a5b4fc;
 }
 
 .sq-link {
@@ -262,7 +265,7 @@ const mid = (g) => (rowY(g.from) + rowY(g.to) + 54) / 2
   stroke-linejoin: round;
 }
 
-.sq-node:hover rect {
+.sq-node:hover rect:not(.sq-highlight-ring) {
   filter: drop-shadow(0 4px 14px rgba(99, 102, 241, 0.45));
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="delivery-flowchart-container">
     <svg
-      viewBox="45 0 930 786"
+      viewBox="45 0 930 762"
       class="delivery-flowchart-svg"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
@@ -132,19 +132,19 @@
 
       <!-- Loop 2: 7 — Learn back to Persistent Context (Outer Left) -->
       <path
-        d="M 360 722 H 70 V 258 H 87"
+        d="M 360 698 H 70 V 258 H 87"
         class="feedback-path green-feedback"
         marker-end="url(#flowArrowGreen)"
       />
-      <text x="300" y="730" class="flow-label green-text">{{ isFr ? 'Enrichit' : 'Enriches' }}</text>
+      <text x="300" y="706" class="flow-label green-text">{{ isFr ? 'Enrichit' : 'Enriches' }}</text>
 
       <!-- Loop 3: 7 — Learn back to Deterministic Controls (Inner Left) -->
       <path
-        d="M 360 708 H 82 V 342 H 87"
+        d="M 360 684 H 82 V 342 H 87"
         class="feedback-path green-feedback"
         marker-end="url(#flowArrowGreen)"
       />
-      <text x="300" y="701" class="flow-label green-text">{{ isFr ? 'Renforce' : 'Hardens' }}</text>
+      <text x="300" y="677" class="flow-label green-text">{{ isFr ? 'Renforce' : 'Hardens' }}</text>
 
       <!-- ============================================================== -->
       <!-- CONNECTIONS FROM GREEN BLOCKS INTO DELIVERY STAGES             -->
@@ -152,14 +152,14 @@
 
       <!-- Weekly audit -> 4 — Code -->
       <path
-        d="M 675 450 H 647"
+        d="M 675 426 H 647"
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
 
       <!-- Weekly audit -> 1 — Triage (own inner corridor) -->
       <path
-        d="M 905 445 H 912 Q 920 445 920 437 V 172 Q 920 164 912 164 H 647"
+        d="M 905 421 H 912 Q 920 421 920 413 V 172 Q 920 164 912 164 H 647"
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
@@ -167,7 +167,7 @@
 
       <!-- 7 — Learn -> 1 — Triage (Outer right corridor, opens backlog issues) -->
       <path
-        d="M 640 715 H 935 V 153 Q 935 145 927 145 H 647"
+        d="M 640 691 H 935 V 153 Q 935 145 927 145 H 647"
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
@@ -188,7 +188,7 @@
         marker-start="url(#flowArrowGreen)"
       />
       <path
-        d="M 340 58 V 694"
+        d="M 340 58 V 670"
         class="green-connector"
       />
       <path
@@ -212,33 +212,33 @@
         marker-end="url(#flowArrowGreen)"
       />
       <path
-        d="M 340 436 H 353"
+        d="M 340 412 H 353"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
       <path
-        d="M 340 539 H 353"
+        d="M 340 515 H 353"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
       <path
-        d="M 340 628 H 353"
+        d="M 340 604 H 353"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
       <path
-        d="M 340 694 H 353"
+        d="M 340 670 H 353"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
 
       <!-- The Forge -> shared trunk (right) feeding 2 — Think, 3 — Plan, 4 — Code -->
       <path
-        d="M 660 235 V 428"
+        d="M 660 235 V 404"
         class="green-connector"
       />
       <path
-        d="M 660 428 H 647"
+        d="M 660 404 H 647"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
@@ -275,17 +275,16 @@
       <path d="M 500 266 V 289" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- 3 — Plan -> 4 — Code -->
-      <path d="M 500 358 V 405" class="pipe-highway" marker-end="url(#flowArrowMain)" />
-      <text x="500" y="372.5" class="flow-label highlight-label">{{ isFr ? '👤 Valider' : '👤 Validate' }}</text>
+      <path d="M 500 358 V 381" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- 4 — Code -> 5 — Prove -->
-      <path d="M 500 478 V 501" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <path d="M 500 454 V 477" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- 5 — Prove -> 6 — Release -->
-      <path d="M 500 570 V 593" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <path d="M 500 546 V 569" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- 6 — Release -> 7 — Learn -->
-      <path d="M 500 656 V 679" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <path d="M 500 632 V 655" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- ============================================================== -->
       <!-- INTERACTIVE CARDS & NODES                                      -->
@@ -302,7 +301,7 @@
 
       <!-- [ROW 4 - RIGHT] Weekly audit (Exact Level with 4 — Code) -->
       <a :href="withBase(prefix + '/guide/stage-triage#where-backlog-issues-come-from')" class="flow-node-link">
-        <g class="flow-node node-audit" transform="translate(675, 416)">
+        <g class="flow-node node-audit" transform="translate(675, 392)">
           <rect width="230" height="58" rx="10" class="node-rect rect-audit" />
           <text x="18" y="22" class="node-title audit-title">{{ isFr ? '⏱️ Audit hebdomadaire' : '⏱️ Weekly audit' }}</text>
           <text x="18" y="42" class="node-subtitle">{{ isFr ? 'Planifié dans la CI' : 'Scheduled in CI' }}</text>
@@ -369,7 +368,7 @@
 
       <!-- [ROW 3 - CENTER] 4 — Code (Autonomous Agent Core) -->
       <a :href="withBase(prefix + '/guide/stage-code')" class="flow-node-link">
-        <g class="flow-node node-core" transform="translate(360, 412)">
+        <g class="flow-node node-core" transform="translate(360, 388)">
           <rect width="280" height="66" rx="10" class="node-rect rect-core" />
           <text x="20" y="26" class="node-title core-title">⚡ 4 — Code</text>
           <text x="20" y="44" class="node-subtitle">{{ isFr ? 'Boucles autonomes rapides,' : 'Fast autonomous loops,' }}</text>
@@ -389,7 +388,7 @@
 
       <!-- [ROW 4 - CENTER] 5 — Prove -->
       <a :href="withBase(prefix + '/guide/stage-prove')" class="flow-node-link">
-        <g class="flow-node node-proof" transform="translate(360, 508)">
+        <g class="flow-node node-proof" transform="translate(360, 484)">
           <rect width="280" height="62" rx="10" class="node-rect rect-cyan" />
           <text x="20" y="24" class="node-title cyan-title">✅ 5 — Prove</text>
           <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Validation déterministe des jalons' : 'Deterministic gate validation &' }}</text>
@@ -399,7 +398,7 @@
 
       <!-- [ROW 5 - CENTER] 6 — Release -->
       <a :href="withBase(prefix + '/guide/stage-release')" class="flow-node-link">
-        <g class="flow-node node-release" transform="translate(360, 600)">
+        <g class="flow-node node-release" transform="translate(360, 576)">
           <rect width="280" height="56" rx="10" class="node-rect rect-blue" />
           <text x="20" y="21" class="node-title blue-title">🚀 6 — Release</text>
           <text x="20" y="36" class="node-subtitle">{{ isFr ? 'Déploiement automatisé,' : 'Automated deployment,' }}</text>
@@ -409,7 +408,7 @@
 
       <!-- [ROW 6 - CENTER] 7 — Learn -->
       <a :href="withBase(prefix + '/guide/stage-learn')" class="flow-node-link">
-        <g class="flow-node node-learn" transform="translate(360, 686)">
+        <g class="flow-node node-learn" transform="translate(360, 662)">
           <rect width="280" height="58" rx="10" class="node-rect rect-gray" />
           <text x="20" y="22" class="node-title gray-title">📈 7 — Learn</text>
           <text x="20" y="38" class="node-subtitle">{{ isFr ? 'Analyse de télémétrie &' : 'Telemetry analysis &' }}</text>
@@ -492,10 +491,6 @@ const prefix = computed(() => (isFr.value ? '/fr' : ''))
   stroke-linejoin: round;
 }
 
-.highlight-label {
-  fill: #4f46e5;
-}
-
 .grey-text {
   fill: #64748b;
 }
@@ -510,10 +505,6 @@ const prefix = computed(() => (isFr.value ? '/fr' : ''))
 
 .dark .flow-label {
   fill: #94a3b8;
-}
-
-.dark .highlight-label {
-  fill: #a5b4fc;
 }
 
 .dark .green-text {
