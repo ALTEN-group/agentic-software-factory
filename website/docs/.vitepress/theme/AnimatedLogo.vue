@@ -191,7 +191,7 @@
             <!-- Hexagonal Verification Seal -->
             <polygon class="proof-hex" points="21,18 32,24 32,38 21,44 10,38 10,24" fill="#065F46" fill-opacity="0.4" stroke="#10B981" stroke-width="1.8" />
             <path d="M16 31 L20 35 L27 27" stroke="#34D399" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-            <text x="21" y="56" fill="#34D399" font-size="6.5" font-family="monospace" text-anchor="middle">PROVE</text>
+            <text x="21" y="56" fill="#34D399" font-size="6.5" font-family="monospace" text-anchor="middle">DONE</text>
             <text x="21" y="65" fill="#94A3B8" font-size="5" font-family="monospace" text-anchor="middle">VERIFIED</text>
           </g>
 
@@ -222,14 +222,14 @@
           <span class="step-name">CODE</span>
         </div>
         <div class="ticker-arrow">→</div>
-        <div class="ticker-step step-release">
+        <div class="ticker-step step-prove">
           <span class="step-num">5</span>
-          <span class="step-name">RELEASE</span>
+          <span class="step-name">PROVE</span>
         </div>
         <div class="ticker-arrow">→</div>
-        <div class="ticker-step step-done verified">
+        <div class="ticker-step step-release">
           <span class="step-num">6</span>
-          <span class="step-name">DONE</span>
+          <span class="step-name">RELEASE</span>
         </div>
       </div>
     </div>
@@ -463,13 +463,13 @@
 .ticker-step.step-code .step-num { color: #8957e5; }
 .ticker-step.step-code .step-name { color: #a78bfa; text-shadow: 0 0 6px rgba(137, 87, 229, 0.6); }
 
-/* 5 RELEASE: Orange / Prove & Publish */
+/* 5 PROVE: Red / Verification & Audit */
+.ticker-step.step-prove .step-num { color: #da3633; }
+.ticker-step.step-prove .step-name { color: #f87171; }
+
+/* 6 RELEASE: Orange / Publish */
 .ticker-step.step-release .step-num { color: #db6d28; }
 .ticker-step.step-release .step-name { color: #fb923c; }
-
-/* 6 DONE: Emerald / Completed */
-.ticker-step.step-done .step-num { color: #3fb950; }
-.ticker-step.step-done .step-name { color: #34d399; }
 
 .ticker-arrow {
   font-size: 9px;
