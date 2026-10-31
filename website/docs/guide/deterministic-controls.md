@@ -2,31 +2,23 @@
 
 <EnablerBlock type="deterministic-controls" />
 
-Guards, gates, contracts, and probes: the automated, deterministic controls that make the safe path the only path.
+Guards, gates, contracts, and probes are executable rules that return pass or fail.
 
 ## Why
 
-AI agents generate a large volume of change at high speed, and **developers do not code manually** or read it line by
-line. Rules that depend on people remembering them cannot keep up. The rules have to run on their own and return pass
-or fail.
+Agents generate changes faster than people can review them. Safety rules must run automatically.
 
 > A squad or agent should have to work hard to do something unsafe, and should never have to work
 > hard to do something safe.
 
-Any rule that only exists in a policy document is not a control. It is a hope. In the Agentic Software Factory,
-**all deterministic controls are executable and deterministic**.
+A written policy is not a control until it is executable.
 
 ## Deterministic Controls and Persistent Context
 
 Deterministic controls are not the same thing as [Persistent Context](./persistent-context), but they are part of it.
 
-- **Different jobs.** Persistent Context holds the knowledge that guides agents: instructions, prompts, skills, and
-  agents. The model reads it and interprets it. A control is a script that returns pass or fail, so the agent cannot
-  reinterpret the result.
-- **Delivered the same way.** Controls are packaged as skills, so they live and travel like the rest of Persistent
-  Context. They are kept in the shared repository or in the project, installed into each project, versioned, and
-  reviewed through pull requests. In [coding-pal](https://alten-group.github.io/coding-pal/guide/deterministic-controls),
-  the guards, gates, contracts, and probes are skills that agents run in their own loop.
+- **Different jobs.** Context guides the model; controls enforce rules with pass/fail results.
+- **Same distribution.** Controls are versioned skills in a shared or project repository. Projects install and run them like other context. See [coding-pal](https://alten-group.github.io/coding-pal/guide/deterministic-controls).
 
 ## Automated checks and deterministic controls
 
@@ -39,7 +31,7 @@ Both are deterministic: a script returns pass or fail, never an opinion. They di
 | **Where they run** | In the agent's own loop in [4 — Code](./stage-code), then again in the CI on the pull request in [5 — Prove](./stage-prove) | The same two places |
 | **Can the agent change them?** | The agent writes the tests, so it can edit them | The rules and scripts are fixed, and the agent runs them but does not change them. Generated test suites are held to account by Criteria Test Verification and Mutation Testing |
 
-Running them early keeps the loop fast: a failure is fixed in seconds inside the agent's loop, not in a later CI cycle. The repeat run in the CI is a backstop, in a clean environment, for anything that slipped through. The CI also runs controls that only run there, such as the preview smoke tests.
+Run checks in the agent loop for fast fixes. Repeat them in clean CI, with CI-only controls such as preview smoke tests.
 
 ## The controls
 

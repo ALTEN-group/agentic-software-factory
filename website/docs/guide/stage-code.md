@@ -9,8 +9,7 @@ pageClass: page-stage-core
   <span class="stage-hero-desc">Fast autonomous loops, generate, test &amp; fix until green</span>
 </div>
 
-Where specifications and plans become executable software. In the Agentic Software Factory, **developers do not code manually**: AI agents autonomously
-generate the code, tests, and documentation, iterating in fast, closed loops until all checks, tests and controls are green.
+AI implements the plan, writes tests and docs, and fixes failed checks within the retry limit. **Developers do not code manually.**
 
 ## Purpose
 
@@ -39,7 +38,7 @@ flowchart TB
   MORE{"More steps<br/>in checklist?"}
   PR(["&nbsp;&nbsp;Open the pull request&nbsp;&nbsp;"])
   PROVE["5. Prove<br/>the CI runs the checks & controls again,<br/>plus the controls that only run there"]
-  READY(["&nbsp;&nbsp;Ready for human validation&nbsp;&nbsp;"])
+  READY(["&nbsp;&nbsp;Validated for automatic delivery&nbsp;&nbsp;"])
   DEV(["&nbsp;&nbsp;Developer steps in&nbsp;&nbsp;"])
 
   PLAN --> STEP --> GEN --> CHECK
@@ -66,23 +65,16 @@ flowchart TB
   class MORE loop
 ```
 
-1. **Step-by-step atomic execution.** The agent walks the validated Plan record **one step at a time**, rather than attempting to generate code, tests, and documentation all at once:
-   - **Test steps first (or alongside logic):** Tests are generated directly from the acceptance criteria in the Plan record to prove the requirement before or alongside the implementation.
-   - **Implementation steps:** The agent applies the step's `New Code`, binds Forge assets, and ensures the application stays bootable after every step.
-   - **Documentation & contract steps:** OpenAPI schemas, README/VitePress guides, and migration cutovers are discrete checklist steps, executed and verified once the code behaves as expected.
-2. **Fast autonomous verification loop.** After applying each step, the agent immediately runs the step's `Verification` command and `Bootable Check`, alongside relevant [deterministic controls](./deterministic-controls) (guards, gates, contracts). Running them locally takes seconds, not a CI round-trip. If a check fails, the agent parses the failure and repairs the step in a tightly bounded fix loop.
-3. **Context & Forge.** The agent follows Persistent Context and imports the assets bound in
-   Think from [the Forge](./forge).
-4. **Committed work.** Once all steps in the plan are verified and green, the agent commits the branch and opens the pull request.
-   The CI then runs the checks and controls again, plus the controls that only run there. If they fail, the agent fixes the code and the loop runs again. The developer steps in only when the fix-loop limit is reached.
+1. **Implement one step at a time.** Write tests from the acceptance criteria before or alongside the code. Apply `New Code`, use bound Forge assets, and keep the app bootable. Treat docs and contract updates as separate steps.
+2. **Check and repair.** Run each step's `Verification`, `Bootable Check`, and relevant [controls](./deterministic-controls). Fix failures within the retry limit.
+3. **Follow context.** Respect repository rules and use the assets selected from [the Forge](./forge).
+4. **Open the change request.** Commit only when all steps pass. CI reruns checks in Prove; agents fix failures until the retry limit, then a developer intervenes.
 
 ## Non-negotiable rules
 
-- **One step per turn.** Agents execute exactly one atomic step from the Plan checklist per turn. Generating entire applications, tests, and documentation in a single prompt is forbidden: it exhausts LLM context, introduces regressions, and prevents granular verification.
-- **Developers do not write manual code.** Any attempt to manually hand-craft code in an IDE is an
-  anti-pattern that bypasses Persistent Context and slows down delivery.
-- **Green before PR.** An agent is never permitted to open a pull request with a failing build,
-  type error, lint failure, failing test, or failing control. The agent keeps iterating until they pass, up to the fix-loop limit of 5 attempts per work item. Needing more than 3 is a warning sign that the plan was too big or too vague (see [Metrics](./metrics)).
+- **One step per turn.** Never generate an entire application in one prompt.
+- **No manual coding.** Steer agents through specs, context, and controls.
+- **Green before PR.** Builds, types, lint, tests, and controls must pass. Stop after **5 fix attempts per work item**. More than 3 suggests a plan that is too big or vague (see [Metrics](./metrics)).
 - **Tests are generated alongside code, never retrofitted.** Tests are derived strictly from the
   acceptance criteria in the Plan record, not generated as an afterthought to fit the code.
 - **Context is the steering wheel.** If an agent produces incorrect code or misunderstands a pattern,
@@ -97,17 +89,17 @@ Long-running branches are forbidden: they create merge conflicts that break agen
 
 ## Where AI is used
 
-| Task | AI role | Human role |
+| Task | AI role | Human exception handling |
 |---|---|---|
-| Domain logic and application services | Generate from the Plan record | Validate fidelity to the Plan acceptance criteria |
+| Domain logic and application services | Implement the Plan | Resolve unclear acceptance criteria |
 | Scaffolding, boilerplate, wiring | Generate from Forge templates | None |
-| Unit, integration, and contract tests | Generate alongside the code, from the acceptance criteria | Verify tests derive from the acceptance criteria |
-| API clients, data models, mappers, migrations | Generate against Forge contracts | Ensure backwards compatibility constraints are met |
-| Architectural refactoring within patterns | Refactor inside the recorded boundaries | Confirm system boundaries |
-| Documentation, OpenAPI specs, runbooks | Generate | Review for clarity |
+| Unit, integration, and contract tests | Generate from the acceptance criteria | Resolve gaps that checks cannot settle |
+| API clients, data models, mappers, migrations | Generate against Forge contracts | Resolve blocked compatibility checks |
+| Architectural refactoring within patterns | Stay within recorded boundaries | Resolve conflicting boundaries |
+| Documentation, OpenAPI specs, runbooks | Generate and validate | Clarify missing intent |
 | Fix loops on failing builds, type errors, lint failures, and tests | Parse the failure and repair | Intervene only if the agent reaches its limit |
 
-## Primitives in Persistent Context
+## Agents and skills {#primitives-in-persistent-context}
 
 Code runs on Persistent Context primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
 
@@ -118,7 +110,7 @@ Code runs on Persistent Context primitives published by [coding-pal](https://alt
 - A **pr-record** skill formats and validates the pull request record: links to the backlog issue and Plan, criteria traceability, declared dependencies, and blast radius.
 
 ### Tech Stack, Testing & Documentation Instructions
-When the agent touches specific application layers, scoped instructions in Persistent Context automatically steer patterns and conventions:
+Scoped instructions guide each application layer:
 - **Backend & APIs**: `node-express.instructions.md` (layered architecture, error envelopes, security middleware) and `node-api-tests.instructions.md` (Supertest endpoint contracts).
 - **Frontend**: `angular-admin.instructions.md` (feature slices, signals, PrimeNG components) and `angular-unit-tests.instructions.md` / `angular-e2e-tests.instructions.md` (Vitest unit and Playwright end-to-end tests).
 - **Database & Persistence**: `postgres-liquibase.instructions.md` (audited changeSets, history triggers, rollbacks) and `postgres-liquibase-tests.instructions.md` (deterministic SQL migration assertions).
@@ -130,6 +122,21 @@ When the agent touches specific application layers, scoped instructions in Persi
 - The **Plan record** (`plan.md`) and bound **Forge assets** (`forge/<id>@<version>`) are the immediate inputs that steer the agent's code generation.
 
 See the [coding-pal Code guide](https://alten-group.github.io/coding-pal/guide/domain-code) and [Tech Stacks guide](https://alten-group.github.io/coding-pal/guide/domain-stacks).
+
+## Delivery pipeline
+
+The Code pipeline implements the plan and opens a change request (pull request or merge request), using the shared [triggers and checkpoints](./platform-rails#triggers-checkpoints-and-status):
+
+1. Restores the Think and Plan specifications and determines the base branch.
+2. Sets the work item's phase status to **Code** before implementation starts.
+3. Creates the branch, implements the plan, and prepares the change-request record.
+4. Runs tests, build, scope checks, and applicable release-readiness checks.
+5. Pushes the branch and creates or updates the change request.
+6. If a human review checkpoint was requested, keeps the status at **Code** and records the review pause. Otherwise, passes the specifications and change-request reference to [Prove](./stage-prove#delivery-pipeline).
+
+**Stops at:** requested review or handoff to Prove. **Code does not merge.** Status stays **Code** during review.
+
+After review, resume the existing change request at Prove. Status changes when Prove starts. Report unresolved failures to a developer; unrelated queued work can continue.
 
 ## Exit gate
 

@@ -9,26 +9,25 @@ pageClass: page-stage-yellow
   <span class="stage-hero-desc">Besoins candidats qualifiés en exigences, évalués &amp; priorisés dans le backlog</span>
 </div>
 
-Là où la demande capturée devient le **backlog d’exigences**. Triage transforme les besoins candidats issus de [0 — Meet](./stage-meet) et d’autres sources en exigences métier qualifiées, enrichies du contexte système et de preuves tangibles. L’IA les évalue, et le Product Owner valide et priorise les tickets de backlog qui en résultent.
+Triage transforme les besoins de [Meet](./stage-meet) et d’autres sources en tickets liés à leurs preuves. L’IA les vérifie et les évalue ; le Product Owner fixe les priorités.
 
 ## Objectif
 
 | Entrée | Sortie | Responsable |
 |---|---|---|
-| Besoins candidats et preuves issus de [0 — Meet](./stage-meet) et d’autres sources de demande + **Contexte persistant** (glossaire du domaine, spécifications existantes, périmètre produit) | Un backlog d’exigences priorisé : tickets de backlog liés aux preuves avec exigences métier qualifiées, cartographie système, estimation précoce du risque et grille d’évaluation (*scorecard*) complétée | Product Owner |
+| Besoins et preuves de [Meet](./stage-meet) ou d’autres sources, plus le Contexte persistant | Tickets classés avec preuves, systèmes touchés, risques initiaux et scores | Product Owner |
 
 ## De la preuve au ticket de backlog
 
-Triage fait le pont entre le dialogue client brut issu de [0 — Meet](./stage-meet) et les critères d’acceptation exécutables de [3 — Plan](./stage-plan). Cette étape évalue chaque besoin candidat au regard du périmètre produit et de l’architecture actuels afin que seules des exigences fondées et bien cadrées entrent dans le backlog. L’IA utilise le Contexte persistant et les informations du dépôt pour :
+L’IA vérifie chaque besoin selon le périmètre produit, le dépôt et le Contexte persistant :
 
-1. **Qualifier et cartographier l’exigence** par rapport aux capacités existantes, aux spécifications, aux concepts du domaine et aux frontières d’architecture.
-2. **Estimer l’impact** en identifiant les systèmes touchés, le risque précoce et les inconnues. Le niveau de rayon d’impact (*blast radius*) est fixé plus tard, lors de l’étape [2 — Think](./stage-think).
-3. **Rédiger le ticket de backlog** dans un format standardisé, formuler clairement l’exigence métier, la relier à sa preuve source et pré-remplir les champs de la grille d’évaluation (*scorecard*). Le Product Owner peut réviser les scores et détermine la priorité.
+1. **Relier le besoin** aux capacités, spécifications et frontières existantes.
+2. **Estimer l’impact** et signaler les inconnues. [Think](./stage-think) fixe le niveau de risque formel plus tard.
+3. **Rédiger le ticket** avec l’exigence, les preuves et les scores. Le Product Owner fixe la priorité.
 
 ## Le ticket de backlog
 
-Chaque besoin métier retenu à l’issue de l’analyse devient une **exigence métier** qualifiée, enregistrée sous la forme d’un **ticket de backlog** dans l’outil de suivi de la squad. L’ensemble de ces tickets forme le **backlog d’exigences** de la squad.
-Le ticket exprime *ce qui* est requis et *pourquoi*, en s’appuyant sur des preuves verbatim ; l’étape [2 — Think](./stage-think) décide ensuite *comment* satisfaire l’exigence sur le plan architectural, et [3 — Plan](./stage-plan) la traduit en critères d’acceptation testables.
+Créez un ticket par besoin qualifié. Il indique **quoi** et **pourquoi**, avec ses preuves. [Think](./stage-think) choisit **comment** ; [Plan](./stage-plan) définit les étapes et tests d’acceptation.
 
 | Champ | Contenu |
 |---|---|
@@ -67,7 +66,7 @@ L’IA qualifie, enrichit et évalue les exigences candidates ; les humains vali
 
 L’IA ne décide jamais quel problème client compte le plus.
 
-## Primitives dans le Contexte persistant
+## Agents et skills {#primitives-dans-le-contexte-persistant}
 
 Triage s’appuie sur les primitives publiées par [coding-pal](https://alten-group.github.io/coding-pal/) :
 
@@ -102,5 +101,5 @@ Une exigence quitte Triage lorsque son ticket de backlog possède :
 3. une ligne de grille d’évaluation complétée,
 4. une décision explicite : *todo*, *explore*, *later* ou *no*.
 
-Un `no` est consigné avec sa justification. Les exigences rejetées construisent la mémoire institutionnelle et guident les discussions futures avec les clients. La revue hebdomadaire qui parcourt le backlog d’exigences classé est décrite dans [Cadence](./cadence).
+Consignez pourquoi un ticket est marqué `no` pour ne pas le rediscuter sans preuve nouvelle. Examinez les tickets selon la [cadence hebdomadaire](./cadence).
 Seule une décision `todo`, fixée par le Product Owner, déclenche l’étape [2 — Think](./stage-think).

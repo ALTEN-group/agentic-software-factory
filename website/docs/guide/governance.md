@@ -1,16 +1,18 @@
 # ⚖️ Governance
 
-Who decides, and what AI may do. Speed comes from knowing who decides, so the Agentic Software Factory makes decision rights explicit: squads never wait for permission they did not need, and never take a decision that was not theirs. AI is treated as a production capability: owned, versioned, budgeted, and audited.
+Agents decide and execute within recorded rules. Named people own those rules, budgets, and outcomes.
 
 ## Who decides
 
 ### Default
 
-**The squad decides**, unless the decision appears in the table below.
+**All changes can run autonomously**, including public API, schema, security-sensitive, High, and Critical changes. People intervene on unresolved failures or exhausted retries. Review pauses are optional and must be requested.
+
+The owners below are **accountable, not mandatory approvers**. Automated decisions record the agent identity, date, options, evidence, and consequences. They never claim human sign-off.
 
 ### Decision table
 
-| Decision | Decided by | Consulted | Recorded as |
+| Decision | Accountable owner | Consulted on exceptions | Recorded as |
 |---|---|---|---|
 | What to build next inside the agreed outcome | Product Owner | Squad, customers | Scorecard row |
 | Whether to run an experiment | Product Owner | Architect | Hypothesis entry |
@@ -31,34 +33,29 @@ Escalate only for: cross-squad conflict, security exposure, compliance obligatio
 commitment, or budget impact. An escalation names the decision, the options, the recommendation, and
 the date by which silence means the recommendation is adopted.
 
-### Blast radius and required human validation
+### Blast radius and required automated validation {#blast-radius-and-required-human-validation}
 
-The weight of a decision is set by its blast radius and by how hard it is to undo. Blast radius is classified once, in
-[2 — Think](./stage-think), and checked again in [3 — Plan](./stage-plan) against the file scope. It then sets the human validation a change needs in [5 — Prove](./stage-prove).
+Blast radius means the scope and reversibility of a change. [Think](./stage-think) sets the tier; [Plan](./stage-plan) checks it. The tier determines the evidence required in [Prove](./stage-prove), not who must sign.
 
-| Blast radius | Criteria | Required human validation |
+| Blast radius | Criteria | Required automated validation |
 |---|---|---|
-| **Low** | Internal refactor, non-breaking schema change, copy edit behind green deterministic tests | **Auto-merge** once every control is green, or one-click developer acknowledgement |
-| **Medium** | New public endpoint, schema addition, integration with an external vendor | **Single-person validation**: Developer verifies client intent and the preview environment |
-| **High** | Auth, permissions, billing, PII processing, data migration | **Dual validation**: Developer + Architect verify business intent, access boundaries, and the rollback mechanism |
-| **Critical** | Irreversible data migration, breaking public contract, infrastructure change | **Joint sign-off**: Architect + Product Owner approve business continuity and a staged rollout |
+| **Low** | Internal refactor, non-breaking schema change, copy edit | Green controls and independent assessment of intent, behaviour, and safety |
+| **Medium** | New public endpoint, schema addition, external integration | Low-tier evidence plus contract and integration checks appropriate to the change |
+| **High** | Auth, permissions, billing, PII, data migration | Access-boundary and safety checks, with verified rollback evidence |
+| **Critical** | Irreversible migration, breaking public contract, infrastructure change | High-tier evidence plus a decision record, continuity checks, and a validated staged rollout |
 
 ### Line-by-line review ban
 
-**Line-by-line manual code syntax review is banned as a gate.** Anything that can be evaluated automatically is
-enforced by automated checks and [Deterministic Controls](./deterministic-controls). Human review is strictly
-**Minimum Human Validation**, described in [5 — Prove](./stage-prove#minimum-human-validation).
+**Manual line-by-line code review is not an allowed gate.** Use automated checks and [controls](./deterministic-controls). [Prove](./stage-prove#minimum-human-validation) independently assesses intent, behaviour, and safety. Human review is optional or handles exceptions.
 
 ## Accountability
 
-AI executes the process at maximum capability: meeting transcription, business need extraction, 100% of code
-generation, and deterministic validation with agent auto-remediation. **Accountability always resolves to a named
-person.** These always do:
+AI transcribes meetings, extracts needs, writes code, and fixes failed checks. **A named person remains accountable**, without approving each run, for:
 
-- final acceptance of any merged change,
+- the objectives and policies under which changes are accepted automatically,
 - any customer-facing commitment, and the decision of what problem to solve,
-- the validation of business intent and safety invariants (**Minimum Human Validation**),
-- any security-sensitive change, including sign-off on high blast radius security, compliance, and architectural boundaries,
+- the controls and evidence used to validate business intent and safety invariants,
+- security, compliance, and architectural boundaries, including automated High/Critical decisions,
 - any change to models, prompts, or agents affecting trust or compliance,
 - the resolution of any incident, and its postmortem actions.
 

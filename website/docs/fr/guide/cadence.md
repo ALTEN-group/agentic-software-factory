@@ -1,6 +1,6 @@
 # 🗓️ Cadence
 
-L’Agentic Software Factory remplace les réunions manuelles de suivi d’avancement par le **développement piloté par les réunions (*Meeting-Driven Development*)** : des sessions en direct avec les clients et les parties prenantes alimentent directement le moteur de développement autonome. Tout le reste est asynchrone, écrit et lié à l’élément de travail.
+Les réunions clients alimentent la livraison. Le suivi d’avancement est asynchrone, écrit et lié au ticket.
 
 ## Rituels pilotés par les réunions
 
@@ -16,10 +16,10 @@ Il n’y a **pas de réunion quotidienne de *daily standup***. L’état d’ava
 
 ## Les règles des réunions clients dans l’Agentic Software Factory
 
-1. **L’IA est un participant actif** : la réunion est enregistrée et transcrite par l’outil d’intelligence de réunion homologué.
-2. **Structuration des besoins** : pendant ou immédiatement après la réunion, l’IA structure le dialogue en besoins métier candidats accompagnés de citations probantes et d’ébauches de critères d’acceptation, que [1 — Triage](./stage-triage) enregistre en tickets de backlog et que [3 — Plan](./stage-plan) transforme ensuite en dossier Plan.
-3. **Présence du développeur** : plutôt que d’isoler les développeurs derrière des files de tickets, ceux-ci participent directement afin de garantir que le contexte métier et les invariants du système sont capturés avec précision.
-4. **Confirmation du client** : avant la fin de la réunion, le Product Owner relit les besoins capturés et le client les confirme ou les corrige. La synthèse écrite par l’IA est ensuite envoyée au client pour validation finale.
+1. **Enregistrer et transcrire** avec un outil homologué.
+2. **Extraire les besoins** avec leurs citations sources. [Triage](./stage-triage) crée les tickets ; [Plan](./stage-plan) définit les critères d’acceptation.
+3. **Inclure un Développeur** pour capter le contexte métier et les contraintes.
+4. **Confirmer avec le client** : relire les besoins avant la fin de la réunion, puis envoyer la synthèse pour vérification finale.
 
 ## Règles des réunions internes
 

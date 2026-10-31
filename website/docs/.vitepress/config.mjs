@@ -10,7 +10,7 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`
 
 export default withMermaid(defineConfig({
   title: 'Agentic Software Factory',
-  description: 'The operating layer that connects strategy, execution, AI, and delivery into one continuous system.',
+  description: 'AI-driven software delivery, from client meeting to production.',
   base,
   vite: {
     server: {
@@ -57,7 +57,7 @@ export default withMermaid(defineConfig({
     root: {
       label: 'English',
       lang: 'en',
-      description: 'The operating layer that connects strategy, execution, AI, and delivery into one continuous system.',
+      description: 'AI-driven software delivery, from client meeting to production.',
       themeConfig: {
         sidebar: [
           {
@@ -113,7 +113,7 @@ export default withMermaid(defineConfig({
     fr: {
       label: 'Français',
       lang: 'fr',
-      description: 'Le modèle opérationnel qui connecte stratégie, exécution, IA et livraison en un système continu.',
+      description: 'La livraison logicielle pilotée par l’IA, de la réunion client à la production.',
       themeConfig: {
         sidebar: [
           {

@@ -9,7 +9,7 @@ pageClass: page-stage-indigo
   <span class="stage-hero-desc">Découpage d’implémentation, périmètre de fichiers &amp; limites</span>
 </div>
 
-Là où l’approche retenue devient une liste de contrôle d’implémentation ordonnée pour les agents de codage. Chaque étape nomme les fichiers à modifier, l’action à réaliser, le nouveau code à implémenter, une vérification ciblée et une vérification de démarrage (*bootable check*).
+Plan transforme l’approche choisie en petites étapes ordonnées. Chacune liste les fichiers, l’action, le code, la commande de vérification et le contrôle de démarrage.
 
 Un bon plan répond à trois questions avant qu’une seule ligne de code ne soit écrite :
 
@@ -36,8 +36,7 @@ Le dossier Plan (`plan.md`) est commité avec l’élément de travail aux côt�
 | **Plan de test** | Pour chaque critère d’acceptation, quel test le prouve et à quelle étape il est créé |
 | **Questions ouvertes & hypothèses** | Tout point resté en suspens ou supposé au niveau de l’implémentation. Les questions ouvertes sont tranchées avant le démarrage de Code |
 
-Les modifications du Contexte persistant identifiées dans Think, telles qu’une nouvelle instruction ou un nouveau skill, figurent comme des étapes de la checklist au même titre que le reste du travail.
-Un plan ne comporte généralement pas de section de rollback dédiée, car un simple `git revert` suffit le plus souvent à annuler un changement. Un changement qu’un revert ne peut pas annuler, comme une migration de données, dispose de sa propre étape inverse dans la checklist. Pour les changements à rayon d’impact Élevé et Critique, le mécanisme de rollback est nommé dans le [dossier Think](./stage-think#the-think-record).
+Incluez les mises à jour du contexte identifiées dans Think comme étapes. Ajoutez une étape inverse pour ce qu’un revert ne peut pas annuler, comme une migration de données. Le rollback Élevé/Critique est nommé dans [Think](./stage-think#the-think-record).
 
 ### Critères d’acceptation
 
@@ -73,36 +72,49 @@ Une étape est bien formée lorsque :
 
 ## Où l’IA intervient
 
-L’IA transforme le dossier Think validé en plan, et le développeur le valide. L’architecte intervient en appui si nécessaire.
+L’IA produit, recoupe et approuve automatiquement le plan. Le Développeur et l’Architecte interviennent uniquement si un contrôle en échec ou une ambiguïté non résolue empêche de continuer.
 
-| Tâche | Rôle de l’IA | Rôle humain |
+| Tâche | Responsabilité autonome de l’IA | Gestion humaine des exceptions |
 |---|---|---|
-| **Périmètre de fichiers & prérequis** | Rédiger le périmètre de fichiers et les dépendances requises avant l’Étape 1, à partir du dossier Think et de la base de code | Confirmer les frontières de fichiers et les dépendances |
-| **Critères d’acceptation** | Convertir l’exigence en énoncés observables (vrai ou faux) et signaler toute ambiguïté | Confirmer qu’ils correspondent bien à la demande du client |
-| **Checklist d’implémentation** | Découper le périmètre en étapes atomiques ordonnées avec fichiers exacts, actions et nouveau code | Valider le périmètre, les frontières de fichiers et l’ordre des étapes |
-| **Vérification par étape & plan de test** | Fournir une commande de vérification ciblée et une vérification de démarrage pour chaque étape, et relier les critères aux tests | Confirmer que les vérifications couvrent chaque critère d’acceptation |
-| **Questions ouvertes & hypothèses** | Lister les questions ouvertes et les hypothèses au niveau de l’implémentation | Répondre aux questions et confirmer les hypothèses |
-| **Validation de la structure du plan** | Vérifier que chaque section est présente, que chaque étape possède les champs requis et qu’aucun fichier ne déborde du périmètre | Relire et approuver le plan |
+| **Périmètre de fichiers & prérequis** | Définir et valider les frontières et dépendances depuis Think | Résoudre un conflit de périmètre |
+| **Critères d’acceptation** | Déduire des critères observables et vérifier leur traçabilité | Résoudre une ambiguïté bloquante |
+| **Checklist d’implémentation** | Générer et valider des étapes atomiques ordonnées | Traiter un échec de validation non résolu |
+| **Vérification par étape & plan de test** | Relier chaque critère à des contrôles et tests exécutables | Corriger une lacune de politique de contrôle |
+| **Questions ouvertes & hypothèses** | Résoudre depuis les preuves disponibles et expliciter les hypothèses | Fournir l’intention manquante si la validation est bloquée |
+| **Validation de la structure du plan** | Exécuter les contrôles et consigner l’approbation automatisée | Intervenir après un échec non résolu |
 
-## Primitives dans le Contexte persistant
+## Agents et skills {#primitives-dans-le-contexte-persistant}
 
 Plan s’appuie sur les primitives du Contexte persistant issues de [coding-pal](https://alten-group.github.io/coding-pal/) :
 
 - Un agent **Planner** convertit le dossier Think en étapes atomiques, établit des frontières de fichiers explicites et rédige `plan.md`.
-- Une instruction **plan** impose la discipline d’implémentation : étapes atomiques à responsabilité unique, correspondance avec le plan de test, extraits de code balisés et interdiction stricte d’élargir le périmètre au-delà de Think.
-- Le skill **think-plan** valide de manière déterministe le dossier Plan par rapport au dossier Think : chaque fichier du périmètre est couvert par une étape, aucune étape ne touche de fichier hors périmètre, tous les critères d’acceptation sont prouvés dans le plan de test et le niveau de rayon d’impact reste cohérent.
+- Une instruction **plan** impose des étapes atomiques, des tests associés, des extraits de code et le respect du périmètre de Think.
+- Le skill **think-plan** vérifie le périmètre, la couverture des étapes, les tests d’acceptation et la cohérence du risque avec Think.
 - Le **dossier Think** (`think.md`) constitue l’entrée immédiate du Contexte persistant qui encadre le plan.
 
 Voir le [guide Think & Plan de coding-pal](https://alten-group.github.io/coding-pal/guide/domain-think-plan).
+
+## Pipeline de livraison
+
+Le pipeline Plan transforme la spécification en plan d’implémentation, selon les [déclencheurs et points de revue communs](./platform-rails#declencheurs-points-de-revue-et-statuts) :
+
+1. Restaure la spécification Think validée.
+2. Positionne le statut **Plan** avant de lancer l’agent.
+3. Définit les étapes, fichiers, tests et documents.
+4. Valide le plan par rapport à Think.
+5. Lie le plan versionné au ticket.
+6. Consigne l’approbation automatisée et passe à [Code](./stage-code#pipeline-de-livraison), sauf si une revue est demandée.
+
+**Point d’arrêt :** revue demandée, validation en échec ou passage à Code. Le statut reste **Plan** jusqu’au démarrage de Code. Signalez les échecs non résolus à un développeur ; le travail indépendant peut continuer.
 
 ## Jalon de sortie
 
 Un élément de travail quitte Plan et entre dans [4 — Code](./stage-code) uniquement lorsque :
 
-1. le périmètre de fichiers est défini, et chaque fichier du périmètre est couvert par une étape d’implémentation, sans aucun fichier hors périmètre ajouté,
-2. chaque critère d’acceptation est observable, et chacun est couvert par une étape et un test,
+1. chaque fichier du périmètre a une étape ; aucune étape ne touche un fichier hors périmètre,
+2. chaque critère est observable et couvert par une étape et un test,
 3. chaque étape ordonnée liste ses fichiers, son action, son nouveau code, sa commande de vérification et sa vérification de démarrage,
 4. les questions ouvertes ont trouvé réponse et les hypothèses sont consignées,
 5. tout changement qu’un revert ne peut pas annuler possède sa propre étape inverse,
-6. le niveau de rayon d’impact issu de Think reste valide pour le périmètre de fichiers. Si le plan touche davantage que ce que Think avait prévu (authentification, données ou contrat public), le niveau est relevé et la validation humaine requise évolue en conséquence,
-7. le Développeur a relu et approuvé le plan.
+6. le niveau de risque et les contrôles requis correspondent au périmètre final,
+7. le plan passe la validation déterministe et son approbation automatisée est consignée.

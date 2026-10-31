@@ -266,25 +266,25 @@
       <!-- ============================================================== -->
 
       <!-- Meeting -> 1 — Triage -->
-      <path d="M 500 86 V 109" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <path d="M 500 96 V 109" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- 1 — Triage -> 3 — Plan -->
-      <path d="M 500 174 V 197" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <path d="M 500 182 V 197" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- 2 — Think -> 3 — Plan -->
-      <path d="M 500 266 V 289" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <path d="M 500 270 V 289" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- 3 — Plan -> 4 — Code -->
-      <path d="M 500 358 V 381" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <path d="M 500 362 V 381" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- 4 — Code -> 5 — Prove -->
       <path d="M 500 454 V 477" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- 5 — Prove -> 6 — Release -->
-      <path d="M 500 546 V 569" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <path d="M 500 550 V 569" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- 6 — Release -> 7 — Learn -->
-      <path d="M 500 632 V 655" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <path d="M 500 642 V 655" class="pipe-highway" marker-end="url(#flowArrowMain)" />
 
       <!-- ============================================================== -->
       <!-- INTERACTIVE CARDS & NODES                                      -->
@@ -293,7 +293,7 @@
       <!-- [ROW 0] Meeting (Origin) -->
       <a :href="withBase(prefix + '/guide/stage-meet')" class="flow-node-link">
         <g class="flow-node node-meeting" transform="translate(360, 30)">
-          <rect width="280" height="56" rx="10" class="node-rect rect-orange" />
+          <rect width="280" height="66" rx="10" class="node-rect rect-orange" />
           <text x="20" y="26" class="node-title orange-title">🎙️ 0 — Meet</text>
           <text x="20" y="45" class="node-subtitle">{{ isFr ? 'Dialogue client & découverte' : 'Client dialogue & discovery' }}</text>
         </g>
@@ -320,10 +320,10 @@
       <!-- [ROW 1] 1 — Triage -->
       <a :href="withBase(prefix + '/guide/stage-triage')" class="flow-node-link">
         <g class="flow-node node-need" transform="translate(360, 116)">
-          <rect width="280" height="58" rx="10" class="node-rect rect-yellow" />
+          <rect width="280" height="66" rx="10" class="node-rect rect-yellow" />
           <text x="20" y="22" class="node-title yellow-title">🎯 1 — Triage</text>
-          <text x="20" y="38" class="node-subtitle">{{ isFr ? 'Besoins qualifiés en exigences,' : 'Needs qualified into requirements,' }}</text>
-          <text x="20" y="51" class="node-subtitle">{{ isFr ? 'classés en tickets de backlog' : 'ranked & logged as backlog issues' }}</text>
+          <text x="20" y="38" class="node-subtitle">{{ isFr ? 'Vérifier et classer les besoins,' : 'Check and rank needs,' }}</text>
+          <text x="20" y="51" class="node-subtitle">{{ isFr ? 'créer les tickets' : 'create backlog issues' }}</text>
         </g>
       </a>
 
@@ -342,27 +342,27 @@
           <rect width="230" height="62" rx="10" class="node-rect rect-green" />
           <text x="18" y="24" class="node-title green-title">{{ isFr ? '🧠 Contexte persistant' : '🧠 Persistent Context' }}</text>
           <text x="18" y="41" class="node-subtitle green-desc">{{ isFr ? 'Instructions, prompts,' : 'Instructions, prompts,' }}</text>
-          <text x="18" y="54" class="node-subtitle green-desc">{{ isFr ? 'primitives de skills & agents' : 'skills & agents primitives' }}</text>
+          <text x="18" y="54" class="node-subtitle green-desc">{{ isFr ? 'skills et agents' : 'skills and agents' }}</text>
         </g>
       </a>
 
       <!-- [ROW 2 - CENTER] 2 — Think -->
       <a :href="withBase(prefix + '/guide/stage-think')" class="flow-node-link">
         <g class="flow-node node-think" transform="translate(360, 204)">
-          <rect width="280" height="62" rx="10" class="node-rect rect-pink" />
+          <rect width="280" height="66" rx="10" class="node-rect rect-pink" />
           <text x="20" y="24" class="node-title pink-title">💡 2 — Think</text>
-          <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Exploration des options, compromis' : 'Options exploration, trade-offs &' }}</text>
-          <text x="20" y="54" class="node-subtitle">{{ isFr ? '& décisions d’architecture' : 'architectural decisions' }}</text>
+          <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Comparer les options,' : 'Compare options,' }}</text>
+          <text x="20" y="54" class="node-subtitle">{{ isFr ? 'choisir l’approche' : 'choose the approach' }}</text>
         </g>
       </a>
 
       <!-- [ROW 3 - CENTER] 3 — Plan -->
       <a :href="withBase(prefix + '/guide/stage-plan')" class="flow-node-link">
         <g class="flow-node node-plan" transform="translate(360, 296)">
-          <rect width="280" height="62" rx="10" class="node-rect rect-indigo" />
+          <rect width="280" height="66" rx="10" class="node-rect rect-indigo" />
           <text x="20" y="24" class="node-title indigo-title">📋 3 — Plan</text>
-          <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Découpage d’implémentation, périmètre' : 'Implementation breakdown, file scope &' }}</text>
-          <text x="20" y="54" class="node-subtitle">{{ isFr ? 'de fichiers & limites' : 'boundary constraints' }}</text>
+          <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Définir les étapes,' : 'Define steps,' }}</text>
+          <text x="20" y="54" class="node-subtitle">{{ isFr ? 'les fichiers et les tests' : 'files and tests' }}</text>
         </g>
       </a>
 
@@ -389,17 +389,17 @@
       <!-- [ROW 4 - CENTER] 5 — Prove -->
       <a :href="withBase(prefix + '/guide/stage-prove')" class="flow-node-link">
         <g class="flow-node node-proof" transform="translate(360, 484)">
-          <rect width="280" height="62" rx="10" class="node-rect rect-cyan" />
+          <rect width="280" height="66" rx="10" class="node-rect rect-cyan" />
           <text x="20" y="24" class="node-title cyan-title">✅ 5 — Prove</text>
-          <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Validation déterministe des jalons' : 'Deterministic gate validation &' }}</text>
-          <text x="20" y="54" class="node-subtitle">{{ isFr ? '& auto-remédiation par l’agent' : 'agent auto-remediation' }}</text>
+          <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Relancer les contrôles,' : 'Rerun controls,' }}</text>
+          <text x="20" y="54" class="node-subtitle">{{ isFr ? 'évaluer indépendamment' : 'assess independently' }}</text>
         </g>
       </a>
 
       <!-- [ROW 5 - CENTER] 6 — Release -->
       <a :href="withBase(prefix + '/guide/stage-release')" class="flow-node-link">
         <g class="flow-node node-release" transform="translate(360, 576)">
-          <rect width="280" height="56" rx="10" class="node-rect rect-blue" />
+          <rect width="280" height="66" rx="10" class="node-rect rect-blue" />
           <text x="20" y="21" class="node-title blue-title">🚀 6 — Release</text>
           <text x="20" y="36" class="node-subtitle">{{ isFr ? 'Déploiement automatisé,' : 'Automated deployment,' }}</text>
           <text x="20" y="48" class="node-subtitle">{{ isFr ? 'réversible à chaque étape' : 'reversible at any step' }}</text>
@@ -409,7 +409,7 @@
       <!-- [ROW 6 - CENTER] 7 — Learn -->
       <a :href="withBase(prefix + '/guide/stage-learn')" class="flow-node-link">
         <g class="flow-node node-learn" transform="translate(360, 662)">
-          <rect width="280" height="58" rx="10" class="node-rect rect-gray" />
+          <rect width="280" height="66" rx="10" class="node-rect rect-gray" />
           <text x="20" y="22" class="node-title gray-title">📈 7 — Learn</text>
           <text x="20" y="38" class="node-subtitle">{{ isFr ? 'Analyse de télémétrie &' : 'Telemetry analysis &' }}</text>
           <text x="20" y="51" class="node-subtitle">{{ isFr ? 'supervision prédictive' : 'predictive monitoring' }}</text>

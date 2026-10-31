@@ -9,88 +9,70 @@ pageClass: page-stage-cyan
   <span class="stage-hero-desc">Deterministic gate validation &amp; agent auto-remediation</span>
 </div>
 
-Quality is not a phase and not a human line-by-line reading marathon. In the Agentic Software Factory, Prove is the
-stage that combines **dense deterministic controls for AI auto-validation** with **minimum human
-validation** to build confidence that generated software is correct, safe, and aligned with client intent.
+Prove reruns controls in clean CI. An independent agent checks intent, behaviour, and safety. Passing changes can merge automatically, without human sign-off.
 
 ## Purpose
 
 | Input | Output | Owner |
 |---|---|---|
-| The pull request from [4 — Code](./stage-code), already green in the agent's loop | A pull request that has passed every control in the CI and has human validation recorded at the level its blast radius requires, ready to release | Developer |
+| A change request that passed [Code](./stage-code) checks | CI results, independent assessment, and risk-tier evidence allowing automatic merge | Developer (accountable for automation) |
 
 ## Why deterministic controls replace manual code review
 
-When code is generated autonomously by AI, requiring humans to manually read syntax line-by-line is
-a dangerous anti-pattern:
-- **Reviewer fatigue**: Humans skimming large diffs miss subtle logic flaws and hallucinated assumptions.
-- **Cognitive bottleneck**: Delivery velocity collapses back to the speed of manual reading.
-- **False security**: "Looks good to me" provides zero guarantee.
-
-The Agentic Software Factory solves this by shifting the verification burden to **dense, objective, deterministic
-controls** that execute in closed loops, reserving human attention strictly for high-level business
-intent and safety boundaries.
+Manual review cannot keep up with generated changes and can miss defects. Use executable checks and independent agent assessment. People intervene on unresolved failures or exhausted retries.
 
 ## The deterministic control harness
 
-Deterministic controls are binary: they either pass or fail with absolute certainty. No probabilistic
-guesswork is permitted.
-
-Most controls also run earlier, in the agent's own loop in [4 — Code](./stage-code), so failures are usually fixed before the pull request exists. Prove runs them again on the pull request, in a clean environment, as a backstop. It also runs the controls that only run in the CI. Each control is described in [Deterministic Controls](./deterministic-controls).
+Controls return pass or fail. Most already ran in [Code](./stage-code); Prove reruns them in clean CI and adds CI-only checks. See [Deterministic Controls](./deterministic-controls).
 
 ### The deterministic controls
 
-| Control | Type | Enforcement | What it proves |
+| Control | Type | Enforcement | What it checks |
 |---|---|---|---|
-| **Clean CI Re-run** | Gate | CI in a clean environment | Re-runs the build, type check, linter, and unit and integration tests from [4 — Code](./stage-code) where the agent cannot influence the result |
-| **Criteria Test Verification** | Gate | Test runner | Proves that every acceptance criterion in the Plan record has a passing assertion |
-| **Contract & Schema Compatibility** | Contract | OpenAPI / JSON Schema / Pact | Guarantees that public interfaces and consumer contracts never break silently |
-| **Mutation Testing Bar** | Gate | Mutation test runner | **Proves the tests themselves**: introduces mutants into code; tests must catch and kill them |
-| **API Tests** | Contract | HTTP API tests (for example Supertest) | Proves each endpoint returns the agreed status codes and responses, for valid and invalid requests |
-| **Fuzz Tests** | Probe | API fuzzing from the OpenAPI spec (for example RESTler) | Proves the API handles unexpected and malformed input without errors or crashes |
-| **Database Tests** | Gate | SQL assertions against a migrated database (for example PostgreSQL with Liquibase) | Proves the schema and migrations behave as specified: reads, writes, archiving, and audit history |
-| **E2E Tests** | Probe | Browser tests of real user journeys (for example Playwright) | Proves the main journeys work from the user's side, on the running application |
-| **Security & Policy-as-Code** | Guard | Semgrep / Trivy / OPA Conftest, secret and push protection | Verifies absence of known CVEs, secrets, and policy violations. Secret and push protection also runs at commit time in Code and is enforced again here in CI |
-| **Preview Smoke Tests** | Probe | Ephemeral preview | Proves the application starts, routes traffic, and responds to health checks |
+| **Clean CI Re-run** | Gate | Clean CI environment | Reruns the build, types, lint, and tests from [Code](./stage-code), outside the agent's control |
+| **Criteria Test Verification** | Gate | Test runner | Each Plan criterion has a passing assertion |
+| **Contract & Schema Compatibility** | Contract | OpenAPI / JSON Schema / Pact | Public interfaces do not break consumers silently |
+| **Mutation Testing Bar** | Gate | Mutation test runner | Tests detect injected defects |
+| **API Tests** | Contract | HTTP tests, e.g. Supertest | Status codes and responses match the contract for valid and invalid requests |
+| **Fuzz Tests** | Probe | OpenAPI fuzzing, e.g. RESTler | Malformed input does not cause server errors or crashes |
+| **Database Tests** | Gate | SQL assertions on a migrated database | Reads, writes, migrations, archiving, and audit history match the spec |
+| **E2E Tests** | Probe | Browser tests, e.g. Playwright | Main user journeys work on the running app |
+| **Security & Policy-as-Code** | Guard | Semgrep / Trivy / OPA Conftest, secret protection | Scans for known vulnerabilities, secrets, and policy violations. Secret checks also run at commit time |
+| **Preview Smoke Tests** | Probe | Ephemeral preview | Startup, routing, and health endpoints work |
 
-The API, fuzz, database, and E2E tests are generated with the code, like unit tests, and run against a real running stack or a migrated database. Criteria Test Verification and Mutation Testing keep them honest, by proving that they cover the acceptance criteria and that they catch real defects.
+Generate API, fuzz, database, and E2E tests with the code. Run them on a real stack or migrated database. Check criterion coverage and use mutation testing to assess whether tests catch injected defects.
 
 ## Agent auto-remediation
 
-If any deterministic gate fails in CI, the AI agent is automatically triggered with the error
-diagnostics. The agent:
-1. reads the failing gate output, such as a clean re-run error, an unmet acceptance criterion, a surviving mutant, or a contract break,
-2. diagnoses the exact fault,
-3. autonomously fixes the code. It can never weaken or skip a deterministic control to get a pass,
-4. commits the update and re-triggers the deterministic harness.
+When a CI gate fails, the agent:
+1. reads the diagnostics,
+2. finds and fixes the fault without changing or skipping controls,
+3. commits the fix and reruns the checks.
 
-This cycle repeats automatically until every deterministic control passes, or the fix-loop limit set in
-[4 — Code](./stage-code) is reached and the Developer steps in. Humans are never called to troubleshoot trivial compilation or formatting failures.
+Repeat until all checks pass or the [retry limit](./stage-code) is reached. Then escalate to a developer.
 
 ## Where AI is used
 
-The deterministic controls decide. AI writes the test suites and does the repair work.
+Controls decide pass/fail. AI writes tests, repairs code, and performs the independent assessment.
 
 | Task | AI role | Human role |
 |---|---|---|
 | **Failure diagnosis** | Read the failing gate output and locate the fault | None for routine failures |
 | **Remediation** | Rewrite the code to satisfy the gate, within the fix-loop limit, never weakening a control | Intervene only when the limit is reached |
-| **Test suites** | Write and maintain the API, fuzz, database, and E2E tests that the controls run | Confirm the tests cover the acceptance criteria |
+| **Test suites** | Write and maintain suites; controls verify acceptance-criteria coverage | Intervene if coverage cannot be established |
 
-## Minimum human validation
+## Independent automated assessment {#minimum-human-validation}
 
-Once all deterministic controls are green, the pull request enters **Minimum Human Validation**.
-Reviewers **do not read syntax line-by-line**. Instead, human validation is restricted to three
-specific questions:
+An independent Prove agent records evidence for three questions:
 
 1. **Client Intent**: Does this feature faithfully deliver what the client requested in the meeting?
 2. **Behavioral Experience**: Does the live preview environment look, behave, and feel right?
 3. **Safety & Blast Radius**: Does the change respect operational constraints and carry a clean rollback path?
 
-### Risk-weighted human validation
+### Risk-weighted automated validation
 
-How much human validation a change needs depends on its blast radius, which is classified in [2 — Think](./stage-think)
-and checked again in [3 — Plan](./stage-plan) against the file scope. The tiers (Low, Medium, High, Critical) and the validation each requires are defined once in
+The evidence required depends on the blast radius, classified in [2 — Think](./stage-think)
+and checked in [3 — Plan](./stage-plan). All tiers can proceed automatically; High and Critical retain rollback verification and Critical retains staged rollout requirements, as defined in
 [Governance](./governance#blast-radius-and-required-human-validation).
 
 ## The bug rule
@@ -98,7 +80,7 @@ and checked again in [3 — Plan](./stage-plan) against the file scope. The tier
 Every production defect must result in a new automated check or control (a failing test case, a stricter
 linter rule, a schema validator, or a new guard) committed before the fix. The AI agent fixes the code to satisfy the new check or control, so the bug cannot quietly return.
 
-## Primitives in Persistent Context
+## Agents and skills {#primitives-in-persistent-context}
 
 Prove runs on deterministic verification primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
 
@@ -114,18 +96,36 @@ Prove runs on deterministic verification primitives published by [coding-pal](ht
 ### Integrity, Security & Behavioral Probes
 - A **control-guard** skill protects the harness itself: detects and rejects any PR that weakens test thresholds, disables workflows, or touches protected control files, while enforcing the bug rule.
 - A **secret-guard** and **dependency-guard** skill verify zero hardcoded tokens/keys and ensure newly introduced packages comply with license and vulnerability policies.
-- A **preview-smoke** skill probes the running ephemeral deployment to verify startup, HTTP routing, and health checks before human validation.
+- A **preview-smoke** skill probes the running ephemeral deployment to verify startup, HTTP routing, and health checks before merge.
 
-### Pipeline & Human Sign-Off
-- A **pr-record** skill validates that recorded human approvals match the blast radius tier determined in Think and Plan.
+### Pipeline & Automated Approval
+- A **pr-record** skill validates automated assessment results, rollback evidence, and staged rollout references according to the tier determined in Think and Plan. It never presents automation as human sign-off.
 - A **verification-pipeline** workflow template provides the clean-room CI skeleton that executes the gates in order.
 
 See the [coding-pal Prove guide](https://alten-group.github.io/coding-pal/guide/domain-prove).
+
+## Delivery pipeline
+
+The Prove pipeline validates an existing change request before it can be merged, using the shared [triggers and checkpoints](./platform-rails#triggers-checkpoints-and-status):
+
+1. Sets the work item's phase status to **Prove** (or **Release** on a combined board) before validation starts; this does not mean the change has passed.
+2. Runs checks covering specs, scope, secrets, dependencies, tests, builds, acceptance criteria, and change-request metadata.
+3. Runs the Prove agent to assess the implementation and write a validation record.
+4. If checks fail, runs automatic fixes and retries up to the configured limit, **5 attempts in the factory baseline**, then requests developer intervention.
+5. Records the evidence-backed automated verdict and authorizes merge when all required controls and assessments pass, at every blast radius.
+
+After validation, the platform merges and removes the branch according to delivery policy. It passes the revision and evidence to [Release](./stage-release#publication-and-deployment-pipelines).
+
+Set **Done** only at the agreed completion point: merge, publication, or rollout.
+
+**Stops at:** requested review, handoff to Release, or unresolved failure. Reaching the retry limit blocks merge. A later delivery failure does not undo a merge; follow the release recovery policy.
+
+**A successful Prove run does not by itself prove publication or production rollout.** Track those outcomes in their own pipelines.
 
 ## Exit gate
 
 A change leaves Prove and enters [Release](./stage-release) when:
 
 1. every deterministic control is green,
-2. minimum human validation is recorded at the level required by the blast radius,
+2. independent automated assessment and required risk-tier evidence are recorded,
 3. for High and Critical changes, the rollback mechanism named in [Think](./stage-think) is configured and validated.

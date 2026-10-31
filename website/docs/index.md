@@ -5,7 +5,7 @@ pageClass: is-home
 hero:
   name: Agentic Software Factory
   text: Operating Model for AI-Driven Delivery
-  tagline: Leveraging AI across the full software lifecycle — from client meeting to production release.
+  tagline: From client meeting to production, with autonomous AI and automated checks.
   actions:
     - theme: brand
       text: Get Started
@@ -14,20 +14,20 @@ hero:
 features:
   - icon: 🎙️
     title: Meeting-Driven Development
-    details: "The Agentic Software Factory operates on Meeting-Driven Development: the development lifecycle begins in the client meeting and flows autonomously through AI generation to production release."
+    details: Client conversations become evidence-linked needs, then flow through delivery to production.
   - icon: ⚡
     title: Autonomous code generation
-    details: AI agents autonomously generate the code, tests, and documentation, while developers specify, curate context, and build deterministic controls.
+    details: AI writes code, tests, and docs. People define outcomes, maintain context, and own the controls.
   - icon: 🛡️
     title: Fast loops, independent controls
-    details: Agents iterate quickly against compilers, type checks, linters, and tests. Deterministic controls (contract tests, mutation testing, security scans) then validate the result independently, with agent auto-remediation on failure.
+    details: Agents run builds, tests, and safety checks, then fix failures within a retry limit.
   - icon: 🎯
-    title: Minimum human validation
-    details: Eliminates line-by-line syntax review fatigue. Human validation is strictly focused on business intent, customer outcome, and safety invariants.
+    title: Autonomous validation
+    details: Deterministic controls and an independent agent assess intent, behaviour, and safety. People intervene on unresolved failures, not for routine sign-off.
   - icon: 🧠
     title: Persistent Context
-    details: Instructions, prompts, skills, and agents are committed artifacts, feeding models exact repository conventions instead of fuzzy prompts.
+    details: Versioned instructions, prompts, skills, and agents keep repository rules available in every session.
   - icon: ↩️
     title: Safe by design, reversible at any step
-    details: Deployment is automated and every step can be undone, so shipping faster never means taking on more risk.
+    details: Automated deployment uses health checks, staged rollout, and planned recovery.
 ---

@@ -1,20 +1,16 @@
 # 🚧 Anti-patterns
 
-Behaviors that look like the Agentic Software Factory adoption and quietly reverse its intent. Each one has been the cause of a failed transformation somewhere.
+Habits that undermine autonomous delivery—and what to do instead.
 
 ## Operational & Engineering
 
 ### Developers still writing code syntax
 
-The fatal anti-pattern: developers treating AI as a glorified autocomplete while continuing to
-manually write application logic, boilerplate, and tests. In the Agentic Software Factory, developers do not write code; they design specifications, build deterministic controls, and curate the Persistent Context.
-Hand-coding creates bottlenecks, uncommitted tribal habits, and low AI leverage.
+Using AI as autocomplete while still writing logic and tests by hand. Let agents write the code; focus on specifications, controls, and Persistent Context.
 
 ### Manual line-by-line syntax reviews
 
-Developers spending hours reading thousands of lines of generated diffs in pull requests. Anything that
-can be checked automatically belongs in automated checks and deterministic controls, and humans perform
-Minimum Human Validation on client intent and safety invariants only. See [Prove](./stage-prove#why-deterministic-controls-replace-manual-code-review).
+Reading generated diffs by hand as a merge gate. Use automated checks and independent [Prove assessment](./stage-prove#why-deterministic-controls-replace-manual-code-review). People resolve failures, not routine sign-off.
 
 ### Skipping client meetings & building from stale tickets
 
@@ -40,9 +36,7 @@ hand-offs. Boundaries follow outcomes.
 
 ### Skipping Plan
 
-Feeding a vague meeting snippet straight to a coding agent without structuring acceptance criteria.
-The model fills the gaps with plausible assumptions, and auto-validation cannot verify what was
-never specified. Ambiguity is cheapest to remove in [3 — Plan](./stage-plan).
+Sending a vague request straight to a coding agent. Define testable acceptance criteria in [Plan](./stage-plan) first.
 
 ### Weak deterministic controls ("Trust the model")
 
@@ -52,14 +46,11 @@ controls (contract tests, mutation testing, security scans).
 
 ### Hand-fixing generated bugs
 
-A developer spotting a bug in generated output and manually typing the fix into the code file.
-The correct response is: add a deterministic test or update the [Persistent Context](./persistent-context)
-instruction, then let the AI agent regenerate and fix the implementation.
+Fixing generated code by hand. Add a failing test or correct the [context](./persistent-context), then let the agent fix the implementation.
 
 ### Uniform review effort
 
-Spending the same attention on an internal refactor and an auth/PII permissions change. Review is
-risk-weighted or it is theatre.
+Applying the same checks to a copy edit and a permissions change. Match validation evidence to risk.
 
 ### Batching releases
 
@@ -91,12 +82,11 @@ rigorous evaluation, a single change can make the whole organization worse overn
 ### Agents with production credentials
 
 An agent able to act directly on production because it was convenient. Agents act through pull
-requests behind deterministic controls; humans validate before merge.
+requests behind deterministic controls and independent automated validation before merge. Autonomous decisions do not grant unrestricted production access.
 
 ### Tool sprawl and context fragmentation
 
-Spreading work across disconnected SaaS tools fragments the knowledge graph that AI agents depend on. See
-[Tooling](./tooling) for why the lifecycle is consolidated into a single unified Git stack.
+Scattering requirements, code, and evidence across disconnected tools. Keep them linked on [one Git platform](./tooling).
 
 ## Measurement
 

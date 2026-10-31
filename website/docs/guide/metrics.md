@@ -1,7 +1,6 @@
 # 📊 Metrics
 
-The Agentic Software Factory is steered by a deliberately small set of metrics. Everything measured is measured because
-a decision depends on it.
+Measure only what helps the team make decisions.
 
 <MetricChart
   title="Meeting-to-Production Lead Time (median per week)"
@@ -27,9 +26,7 @@ The core delivery metrics, measured per squad over rolling four-week windows:
 
 ## Metrics per use case
 
-The flow metrics show how the whole line performs. To improve one AI task, measure that task on its own. A **use case** is
-one AI-assisted task inside a stage, such as creating automated tests or updating documentation. For every use case, measure the same few things per
-work item:
+Flow metrics measure delivery end to end. Also measure individual AI tasks, such as test creation or documentation updates. Track these values per work item:
 
 | Measure | Question it answers |
 |---|---|
@@ -39,11 +36,11 @@ work item:
 | **Human intervention** | How often does a person have to step in? |
 | **First-pass success** | How often is it right the first time? |
 
-Durations come from the timestamps the pipeline already records (issue, branch, pull request, CI run), so nobody times anything by hand. The examples below show what a healthy use case looks like over time.
+Use existing issue, branch, change-request, and CI timestamps—not manual timers. The charts below are illustrative.
 
 ### Automated test creation (Code)
 
-Tests are generated together with the code. The first question is where the time goes in a work item. The second is whether the test-creation subtask gets faster as the team improves its context and skills.
+Generate tests with the code. Track the time spent and whether better context and skills reduce it.
 
 <MetricChart
   type="bar"
@@ -64,8 +61,7 @@ Test creation is the biggest slice here, so it is worth measuring on its own.
   target-label="target 30"
 />
 
-A falling line means the context and skills for writing tests are improving. A flat line usually means a missing test skill
-or instruction. A rising line usually means the acceptance criteria in the Plan record are too vague.
+A falling line suggests better context and skills. If it stays flat, check for missing test instructions. If it rises, check for vague acceptance criteria.
 
 ### Fix loops (Code)
 
@@ -132,7 +128,7 @@ The same targets as the flow metrics apply. The use case view shows which part o
 | **Acceptance rate** | Generated artifacts merged without substantial rework | Falling indicates Persistent Context drift |
 | **Rework rate** | Accepted output corrected within 14 days | Rising indicates validation is too shallow |
 | **Human rework rate** | Pull requests where a human had to alter code syntax | Must trend to **0%**; fixes belong in context, not code |
-| **Minimum human validation turnaround** | Time between the all-green deterministic pass and human sign-off | Rising indicates reviewers are slipping into manual reading |
+| **Automated validation turnaround** | Time from the deterministic pass to the recorded Prove verdict | Rising indicates a slow assessment or missing evidence; track requested human checkpoints separately |
 | **Assisted share per stage** | Share of each stage's output produced with AI | Output concentrated in 4 — Code only |
 | **Context hit rate** | Sessions where committed Persistent Context was sufficient | Falling indicates artifacts missing or stale |
 | **Cost per merged change** | Model spend / merged changes | Cost spikes without a matching lead time reduction |
@@ -145,9 +141,7 @@ The same targets as the flow metrics apply. The use case view shows which part o
 | **Feature deletion rate** | Invalidated features removed within one cycle |
 | **Time to evidence** | Backlog issue created → first real usage signal |
 
-A validation rate close to 100% is a warning, not a success. It usually means the team only tests bets it is already
-sure of, so it learns little. A healthy rate leaves room for failures: some hypotheses should be invalidated, and the
-features behind them removed.
+A rate near 100% may mean the team only tests safe bets. Expect some hypotheses to fail, and remove invalidated features.
 
 ## Quality metrics
 
@@ -167,5 +161,4 @@ features behind them removed.
 
 ## Review
 
-The squad reviews the metric values every month, in the operating-model retrospective. The same session reviews the
-list of metrics itself: a metric that has not driven a decision in two quarters is removed.
+Review metrics monthly. Remove any metric that has not informed a decision in two quarters.

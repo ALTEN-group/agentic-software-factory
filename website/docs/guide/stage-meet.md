@@ -9,12 +9,11 @@ pageClass: page-stage-orange
   <span class="stage-hero-desc">Client dialogue &amp; discovery</span>
 </div>
 
-Where demand originates and ground truth is captured. The Agentic Software Factory is **Meeting-Driven**: raw client conversations, stakeholder interviews, and discovery workshops are
-captured as traceable inputs that establish clear intent for the entire software factory. Stage 0 preserves source and context, establishing what matters and why.
+Meet captures client needs from conversations, interviews, and workshops. Keep the original words and their source so every later stage can check the client's intent.
 
 ## Purpose
 
-Eliminate requirements decay and the traditional "telephone game" by capturing authentic client intent directly at the source.
+Capture client intent without losing it through hand-offs.
 
 | Input | Output | Owner |
 |---|---|---|
@@ -31,16 +30,15 @@ In traditional delivery, a client's words pass through several people before a D
 | **What is gone** | The 45 minutes, the SAP source, the trucks waiting, the people affected | Nothing |
 | **How it can be checked later** | It cannot. The only record is someone's summary | Every later stage can be checked against the original words |
 
-AI agents cannot infer the unstated nuances of a client's business. If those nuances are lost before the work reaches them,
-no amount of testing brings them back. Capturing the dialogue at the source keeps every later stage anchored to what the client actually said.
+Tests cannot recover missing business context. Preserve the client's words before summarizing them.
 
 ## Core capabilities
 
 ### 1. Transcription & speaker attribution
-AI ingests client meetings (discovery calls, sprint reviews, steering committees) and generates timestamped transcripts in which every statement is attributed to a speaker (speaker diarization).
+AI transcribes meetings with timestamps and speaker names.
 
 ### 2. Verbatim intent anchoring
-Rather than summarizing conversations into generic bullet points, the meeting pipeline extracts verbatim quotes and anchors them to domain concepts. When a need is logged in [1 — Triage](./stage-triage), the backlog issue cites the exact client quote in its evidence field:
+Extract exact quotes and link them to domain concepts. [Triage](./stage-triage) cites those quotes as evidence:
 
 > *"Our regional managers spend 45 minutes every morning cross-referencing CSV exports from SAP with local inventory sheets before trucks can roll."*
 > — Operations Director, Meeting Transcript (2026-09-24, 15:14:32)
@@ -64,9 +62,9 @@ AI captures and structures the dialogue; the Product Owner steers the conversati
 | **Quote anchoring** | Extract verbatim quotes and link them to domain concepts | Confirm the quotes reflect the client's meaning |
 | **Meeting summary** | Produce an executive summary, new terminology, and candidate business needs, using the glossary and instructions in Persistent Context | Confirm the problem statements with the client |
 
-## Primitives in Persistent Context
+## Agents and skills {#primitives-in-persistent-context}
 
-Persistent Context gives the meeting pipeline its domain glossary and instructions so terms are transcribed accurately, meeting packs follow a consistent structure, and newly identified client terms flow back into the repository.
+Persistent Context supplies the glossary and Meeting Pack format. New client terms go back into the repository.
 
 Meet runs on the primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
 

@@ -1,7 +1,6 @@
 # 🗓️ Cadence
 
-The Agentic Software Factory replaces manual status meetings with **Meeting-Driven Development**: live sessions with clients and stakeholders directly seed the autonomous development engine. Everything else is
-asynchronous, written, and linked from the work item.
+Client meetings feed delivery. Status updates are asynchronous, written, and linked from the work item.
 
 ## Meeting-Driven rituals
 
@@ -18,14 +17,10 @@ the preview deployment.
 
 ## The rules of client meetings in the Agentic Software Factory
 
-1. **AI is an active participant**: The meeting is recorded and transcribed by the
-   sanctioned meeting intelligence tool.
-2. **Need structuring**: During or immediately following the meeting, AI structures
-   the dialogue into candidate business needs with evidence quotes and draft acceptance criteria, which
-   [1 — Triage](./stage-triage) logs as backlog issues and [3 — Plan](./stage-plan) later turns into the Plan record.
-3. **Developer in attendance**: Rather than isolating developers behind ticket queues,
-   Developers participate directly to ensure domain context and system invariants are captured accurately.
-4. **Client confirmation**: Before the meeting ends, the Product Owner reads back the needs that were captured, and the client confirms or corrects them. AI's written summary is then sent to the client for a final check.
+1. **Record and transcribe** with a sanctioned tool.
+2. **Extract needs** with source quotes. [Triage](./stage-triage) creates backlog issues; [Plan](./stage-plan) defines the acceptance criteria.
+3. **Include a Developer** to capture domain context and system constraints.
+4. **Confirm with the client**: read back the needs before the meeting ends, then send the summary for a final check.
 
 ## Internal meeting rules
 

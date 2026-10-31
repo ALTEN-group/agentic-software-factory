@@ -1,6 +1,6 @@
 # 📊 Métriques
 
-L’Agentic Software Factory est pilotée par un ensemble volontairement restreint de métriques. Tout ce qui est mesuré l’est parce qu’une décision en dépend.
+Ne mesurez que ce qui aide l’équipe à décider.
 
 <MetricChart
   title="Délai de mise en œuvre de la réunion à la production (médiane par semaine)"
@@ -26,7 +26,7 @@ Les métriques fondamentales de livraison, mesurées par squad sur des fenêtres
 
 ## Métriques par cas d’usage
 
-Les métriques de flux montrent la performance globale de la chaîne. Pour améliorer une tâche IA précise, il faut mesurer cette tâche isolément. Un **cas d’usage** est une tâche assistée par l’IA au sein d’une étape, comme la création de tests automatisés ou la mise à jour de la documentation. Pour chaque cas d’usage, mesurez les mêmes indicateurs clés par élément de travail :
+Les métriques de flux mesurent la livraison de bout en bout. Mesurez aussi chaque tâche IA, comme la création de tests ou la documentation. Suivez ces valeurs par ticket :
 
 | Mesure | Question à laquelle elle répond |
 |---|---|
@@ -36,11 +36,11 @@ Les métriques de flux montrent la performance globale de la chaîne. Pour amél
 | **Intervention humaine** | À quelle fréquence une personne doit-elle intervenir ? |
 | **Succès au premier passage** | À quelle fréquence le résultat est-il bon dès la première tentative ? |
 
-Les durées proviennent directement des horodatages que le pipeline enregistre déjà (ticket, branche, pull request, exécution CI), de sorte que personne ne chronomètre quoi que ce soit à la main. Les exemples ci-dessous illustrent l’évolution d’un cas d’usage sain dans le temps.
+Utilisez les horodatages existants des tickets, branches, demandes de fusion et exécutions CI, pas de chronomètre manuel. Les graphiques ci-dessous sont illustratifs.
 
 ### Création de tests automatisés (Code)
 
-Les tests sont générés en même temps que le code. La première question est de savoir où passe le temps dans un élément de travail. La seconde est de vérifier si la sous-tâche de création de tests s’accélère à mesure que l’équipe améliore son contexte et ses compétences.
+Générez les tests avec le code. Mesurez le temps passé et si de meilleurs contexte et skills le réduisent.
 
 <MetricChart
   type="bar"
@@ -61,7 +61,7 @@ La création de tests représente ici la part la plus importante ; il est donc p
   target-label="cible 30"
 />
 
-Une courbe descendante indique que le contexte et les compétences d’écriture de tests s’améliorent. Une courbe plate signale généralement une compétence ou une instruction de test manquante. Une courbe ascendante traduit le plus souvent des critères d’acceptation trop vagues dans le dossier Plan.
+Une baisse suggère de meilleurs contexte et skills. Si la courbe reste plate, cherchez des instructions de test manquantes. Si elle monte, vérifiez la précision des critères d’acceptation.
 
 ### Boucles de correction (Code)
 
@@ -128,7 +128,7 @@ Les mêmes cibles que celles des métriques de flux s’appliquent. La vue par c
 | **Taux d’acceptation** | Artefacts générés fusionnés sans reprise substantielle | Une baisse indique une dérive du Contexte persistant |
 | **Taux de reprise (*Rework rate*)** | Production acceptée mais corrigée dans les 14 jours | Une hausse indique une validation trop superficielle |
 | **Taux de retouche humaine** | Pull requests où un humain a modifié manuellement la syntaxe du code | Doit tendre vers **0 %** ; les correctifs appartiennent au contexte, pas au code |
-| **Délai de validation humaine minimale** | Temps écoulé entre le passage au vert de tous les contrôles et l’approbation humaine | Une hausse indique que les relecteurs retombent dans la relecture manuelle ligne par ligne |
+| **Délai de validation automatisée** | Temps entre les contrôles au vert et le verdict Prove consigné | Une hausse révèle une évaluation lente ou des preuves manquantes ; suivez les pauses humaines demandées séparément |
 | **Part assistée par étape** | Part des livrables de chaque étape produite avec l’IA | Usage concentré uniquement dans l’étape 4 — Code |
 | **Taux de pertinence du contexte (*Context hit rate*)** | Sessions pour lesquelles le Contexte persistant commité a suffi | Une baisse signale des artefacts manquants ou obsolètes |
 | **Coût par changement fusionné** | Dépense en modèles / changements fusionnés | Pics de coût sans réduction correspondante du *lead time* |
@@ -141,7 +141,7 @@ Les mêmes cibles que celles des métriques de flux s’appliquent. La vue par c
 | **Taux de suppression des fonctionnalités** | Fonctionnalités invalidées supprimées en moins d’un cycle |
 | **Délai avant première preuve (*Time to evidence*)** | Création du ticket de backlog → premier signal réel d’utilisation |
 
-Un taux de validation proche de 100 % est un signal d’alerte, et non un succès. Il signifie généralement que l’équipe ne teste que des paris dont elle est déjà certaine, et qu’elle apprend donc peu. Un taux sain laisse de la place à l’échec : certaines hypothèses doivent être invalidées, et les fonctionnalités correspondantes supprimées.
+Un taux proche de 100 % peut indiquer que l’équipe ne teste que des paris sûrs. Acceptez que certaines hypothèses échouent et supprimez les fonctionnalités invalidées.
 
 ## Métriques de qualité
 
@@ -161,4 +161,4 @@ Un taux de validation proche de 100 % est un signal d’alerte, et non un succè
 
 ## Revue
 
-La squad examine la valeur des métriques chaque mois, lors de la rétrospective du modèle opérationnel. Cette même session passe en revue la liste des métriques elle-même : toute métrique qui n’a éclairé aucune décision depuis deux trimestres est supprimée.
+Examinez les métriques chaque mois. Supprimez celles qui n’ont éclairé aucune décision depuis deux trimestres.

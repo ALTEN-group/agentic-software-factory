@@ -2,22 +2,22 @@
 
 <EnablerBlock type="deterministic-controls" />
 
-Gardes (*guards*), jalons (*gates*), contrats (*contracts*) et sondes (*probes*) : les contrôles automatisés et déterministes qui font du chemin sûr l’unique chemin possible.
+Gardes, jalons, contrats et sondes sont des règles exécutables qui renvoient succès ou échec.
 
 ## Pourquoi
 
-Les agents IA génèrent un grand volume de changements à grande vitesse, et **les développeurs ne codent pas manuellement** ni ne relisent le code ligne par ligne. Les règles qui reposent sur la mémoire humaine ne peuvent pas suivre la cadence. Les règles doivent s’exécuter d’elles-mêmes et renvoyer un verdict binaire : succès ou échec.
+Les agents génèrent des changements plus vite que les personnes ne peuvent les relire. Les règles de sécurité doivent s’exécuter automatiquement.
 
 > Une squad ou un agent devrait avoir du mal à faire quelque chose de risqué, et ne devrait jamais avoir de mal à faire quelque chose de sûr.
 
-Toute règle qui n’existe que dans un document de politique générale n’est pas un contrôle : c’est un vœu pieux. Dans l’Agentic Software Factory, **tous les contrôles déterministes sont exécutables et déterministes**.
+Une politique écrite n’est pas un contrôle tant qu’elle n’est pas exécutable.
 
 ## Contrôles déterministes et Contexte persistant
 
 Les contrôles déterministes ne sont pas la même chose que le [Contexte persistant](./persistent-context), mais ils en font partie intégrante.
 
-- **Des rôles complémentaires.** Le Contexte persistant détient le savoir qui guide les agents : instructions, prompts, compétences et agents. Le modèle le lit et l’interprète. Un contrôle, en revanche, est un script qui renvoie « succès » ou « échec », de sorte que l’agent ne puisse pas réinterpréter le résultat.
-- **Distribués de la même manière.** Les contrôles sont empaquetés sous forme de compétences (*skills*), si bien qu’ils vivent et circulent comme le reste du Contexte persistant. Ils sont conservés dans le dépôt partagé ou dans le projet, installés dans chaque projet, versionnés et relus via des pull requests. Dans [coding-pal](https://alten-group.github.io/coding-pal/guide/deterministic-controls), les gardes, jalons, contrats et sondes sont des compétences que les agents exécutent au sein de leur propre boucle.
+- **Des rôles distincts.** Le contexte guide le modèle ; les contrôles imposent des règles avec un résultat succès/échec.
+- **Une même distribution.** Les contrôles sont des skills versionnés dans un dépôt partagé ou propre au projet. Les projets les installent comme les autres éléments de contexte. Voir [coding-pal](https://alten-group.github.io/coding-pal/guide/deterministic-controls).
 
 ## Vérifications automatisées et contrôles déterministes
 
@@ -30,7 +30,7 @@ Les deux sont déterministes : un script renvoie un succès ou un échec, jamais
 | **Où ils s’exécutent** | Dans la boucle propre de l’agent lors de [4 — Code](./stage-code), puis à nouveau dans la CI sur la pull request lors de [5 — Prove](./stage-prove) | Aux deux mêmes endroits |
 | **L’agent peut-il les modifier ?** | L’agent écrit les tests, il peut donc les éditer | Les règles et scripts sont fixes ; l’agent les exécute mais ne les modifie pas. Les suites de tests générées sont tenues en respect par la vérification des tests de critères et les tests de mutation |
 
-Leur exécution précoce maintient une boucle rapide : un échec est corrigé en quelques secondes à l’intérieur de la boucle de l’agent, et non lors d’un cycle CI ultérieur. La réexécution en CI sert de filet de sécurité, dans un environnement propre, pour tout ce qui aurait pu passer entre les mailles. La CI exécute également les contrôles qui ne peuvent tourner que là-bas, comme les smoke tests sur environnement de prévisualisation.
+Exécutez les contrôles dans la boucle de l’agent pour corriger vite. Répétez-les en CI propre, avec les contrôles propres à la CI, comme les smoke tests.
 
 ## Les contrôles
 

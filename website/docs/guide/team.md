@@ -1,35 +1,31 @@
 # 👥 Team
 
-The Agentic Software Factory aligns product, development, and customer outcomes into autonomous squads.
-A squad is the smallest unit that can own an outcome end-to-end — from client meeting to production
-release.
+A squad owns a customer outcome from client meeting to production.
 
 ## Who does what
 
 <SquadFlowchart />
 
-Each squad is accountable for the full lifecycle, from client meeting to learning in production.
-
 ## The shift in roles
 
-In the Agentic Software Factory, **developers do not write code syntax anymore**, and **Product Owners no longer write specifications**. Because AI handles both specification drafting and code generation, the traditional split between Product Owner and Developer disappears in favor of a single **Product Engineer** role:
+AI writes specifications, code, tests, and documentation. A **Product Engineer** combines product and development responsibilities:
 
 - **No manual coders**: AI agents generate 100% of code, tests, and documentation.
-- **Product Engineer**: Owns the outcome from **Meet** to **Prove** — working directly with the client to turn their problems into clear, well-defined business needs, specifying and curating context, and validating intent instead of writing syntax. Their two most important qualities come into play during the **Meet** and **Think** phases:
-  - **Meet**: Their ability to guide the client toward the best possible product.
-  - **Think**: Their ability to make the right technical decisions to guide their AI.
-- **Client Empathy**: Freed from syntax authoring and handoffs, Product Engineers lead client meetings directly and carry the true business context all the way to validation.
+- **Product Engineer**: Owns **Meet** through **Prove**, leads client conversations, sets priorities, and maintains context and delivery automation.
+  - **Meet**: Understand the client's problem and desired outcome.
+  - **Think**: Set the constraints that guide AI decisions.
+- **Client empathy**: Keep the client's intent clear throughout delivery.
 
 ## Shape
 
-**A typical high-leverage agentic squad is built around a Product Engineer** (or a pair of Product Engineers), plus an Architect, a DevOps, and a QA and maintainer shared across squads:
+A typical squad has one or two Product Engineers. Architecture, DevOps, and QA and maintenance are shared across squads:
 
 | Member | Primary Focus | Role in Meeting-Driven Development |
 |---|---|---|
-| **Product Engineer** | Meet, Triage, Think, Plan, Code, and Prove | Leads client meetings, defines business value, ranks backlog issues in Triage, weighs options in Think, validates Plan records, orchestrates the code loop, and conducts minimum human validation |
+| **Product Engineer** | Meet, Triage, Think, Plan, Code, and Prove | Leads client dialogue, defines value and priorities, owns the delivery automation, and resolves escalated failures |
 | **QA and maintainer** | Quality and production support | Runs Learn: watches QA and production, handles incidents, and reports what monitoring finds; shared across squads |
 | **DevOps** | Automated deployment and pipeline | Runs Release: automated deployment; shared across squads |
-| **Architect** | The enablers: Platform Rails, Persistent Context, Deterministic Controls, and the Forge | Owns system boundaries and decision records, signs off high blast radius decisions; shared across squads |
+| **Architect** | The enablers: Platform Rails, Persistent Context, Deterministic Controls, and the Forge | Owns system constraints, decision policy, and risk controls; agents execute architectural decisions autonomously and escalate unresolved failures |
 
 ## Boundaries
 
@@ -41,11 +37,8 @@ A squad is defined by a **user outcome**, never by a technology layer.
 | "Payments, Billing & Invoicing" | "Backend API team" |
 | "Catalog & Search Relevance" | "Database & SQL team" |
 
-Technology-layer squads create cross-team tickets, waiting states, and fragmented context that
-cripple AI agents.
+Technology-layer squads create hand-offs and fragment the context agents need.
 
 ## Ownership of code and context
 
-Code, deterministic test suites, and Persistent Context artifacts are owned by the squad that owns the
-outcome. AI agents can propose changes across repositories via pull requests, but the owning
-squad validates the business intent and invariants.
+The outcome-owning squad owns the code, tests, and context. Agents can propose cross-repository changes through change requests; each repository's controls enforce its business rules and boundaries.

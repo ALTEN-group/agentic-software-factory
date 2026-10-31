@@ -9,11 +9,11 @@ pageClass: page-stage-orange
   <span class="stage-hero-desc">Dialogue client &amp; découverte</span>
 </div>
 
-Là où naît la demande et où la vérité terrain est captée. L’Agentic Software Factory est **pilotée par les réunions (Meeting-Driven)** : les conversations brutes avec les clients, les entretiens avec les parties prenantes et les ateliers de découverte sont capturés sous forme d’entrées traçables qui établissent une intention claire pour l’ensemble de l’usine logicielle. L’étape 0 préserve la source et le contexte, en établissant ce qui compte et pourquoi.
+Meet capture les besoins clients dans les échanges, entretiens et ateliers. Conservez les mots d’origine et leur source pour que chaque étape puisse vérifier l’intention du client.
 
 ## Objectif
 
-Éliminer la dégradation des exigences et l’effet « téléphone arabe » traditionnel en capturant l’intention authentique du client directement à la source.
+Capturer l’intention du client sans la perdre dans les passages de relais.
 
 | Entrée | Sortie | Responsable |
 |---|---|---|
@@ -30,15 +30,15 @@ Dans une livraison traditionnelle, les paroles d’un client passent par plusieu
 | **Ce qui a disparu** | Les 45 minutes, la source SAP, les camions qui attendent, les personnes impactées | Rien |
 | **Comment vérifier plus tard** | Impossible. La seule trace est le résumé écrit par quelqu’un | Chaque étape ultérieure peut être confrontée aux mots d’origine |
 
-Les agents IA ne peuvent pas deviner les nuances implicites du métier d’un client. Si ces nuances sont perdues avant que le travail ne leur parvienne, aucune quantité de tests ne les ramènera. Capturer le dialogue à la source permet de garder chaque étape suivante ancrée dans ce que le client a réellement exprimé.
+Les tests ne peuvent pas retrouver un contexte métier perdu. Conservez les mots du client avant de les résumer.
 
 ## Capacités clés
 
 ### 1. Transcription et attribution des locuteurs
-L’IA ingère les réunions clients (appels de découverte, revues de sprint, comités de pilotage) et génère des transcriptions horodatées dans lesquelles chaque intervention est attribuée à son locuteur (*speaker diarization*).
+L’IA transcrit les réunions avec horodatage et noms des intervenants.
 
 ### 2. Ancrage verbatim de l’intention
-Plutôt que de résumer les conversations en listes à puces génériques, le pipeline de réunion extrait des citations exactes (*verbatims*) et les ancre aux concepts du domaine. Lorsqu’un besoin est enregistré dans [1 — Triage](./stage-triage), le ticket de backlog cite la phrase exacte du client dans son champ de preuve :
+Extrayez les citations exactes et reliez-les aux concepts métier. [Triage](./stage-triage) les cite comme preuves :
 
 > *« Nos responsables régionaux passent 45 minutes chaque matin à recouper les exports CSV de SAP avec les feuilles d’inventaire locales avant que les camions ne puissent partir. »*
 > — Directeur des opérations, Transcription de réunion (2026-09-24, 15:14:32)
@@ -62,9 +62,9 @@ L’IA capture et structure le dialogue ; le Product Owner oriente la conversati
 | **Ancrage des citations** | Extraire les citations verbatim et les relier aux concepts du domaine | Confirmer que les citations reflètent fidèlement la pensée du client |
 | **Synthèse de réunion** | Produire une synthèse exécutive, la nouvelle terminologie et les besoins métier candidats, à l’aide du glossaire et des instructions du Contexte persistant | Confirmer les énoncés de problèmes avec le client |
 
-## Primitives dans le Contexte persistant
+## Agents et skills {#primitives-dans-le-contexte-persistant}
 
-Le Contexte persistant fournit au pipeline de réunion son glossaire métier et ses instructions afin que les termes soient transcrits avec précision, que les Meeting Packs suivent une structure cohérente et que les nouveaux termes clients identifiés enrichissent le dépôt en retour.
+Le Contexte persistant fournit le glossaire et le format du Meeting Pack. Les nouveaux termes clients enrichissent ensuite le dépôt.
 
 Meet s’appuie sur les primitives publiées par [coding-pal](https://alten-group.github.io/coding-pal/) :
 

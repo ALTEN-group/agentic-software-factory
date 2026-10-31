@@ -9,7 +9,7 @@ pageClass: page-stage-gray
   <span class="stage-hero-desc">Telemetry analysis &amp; predictive monitoring</span>
 </div>
 
-The stage that closes the loop of the operating model. It watches what a release does in production, opens backlog issues for what it finds, and can feed what it learns back into Persistent Context and Deterministic Controls.
+Learn watches production outcomes, opens backlog issues, and improves context and controls.
 
 ## Purpose
 
@@ -29,9 +29,7 @@ The stage that closes the loop of the operating model. It watches what a release
 
 ## Predictive monitoring
 
-AI monitors production telemetry continuously, not only after an incident. It compares live signals with
-learned baselines and with the outcome metric committed in the [1 — Triage](./stage-triage) backlog issue, and it flags anomalies and
-adverse trends (error rate creeping up, saturation approaching, cost drifting) before customers notice.
+AI compares telemetry with baselines and the [Triage](./stage-triage) outcome metric. It flags anomalies and worsening trends, such as rising errors, saturation, or cost.
 
 | Step | What happens | Who decides |
 |---|---|---|
@@ -51,9 +49,7 @@ Every work item that named an outcome metric is reviewed after its watch window.
 | **Inconclusive** | No detectable movement | Decide: iterate once, or remove |
 | **Invalidated** | Metric did not move, or moved against us | Remove the feature, record the lesson |
 
-Features that are invalidated are **deleted**. Carrying dead features is the most expensive form of
-technical debt in an AI-accelerated codebase, because every future generation pass has to reason
-around them.
+**Delete invalidated features.** Dead code adds complexity to every future change.
 
 ## Incidents
 
@@ -65,12 +61,12 @@ around them.
 
 ## Hardening Deterministic Controls
 
-Every defect, rollback, or near-miss is also asked: what reached production that a control should have caught?
+For every defect, rollback, or near-miss, ask: **which control should have caught it?**
 
 - A check was missing → add a **guard**, **gate**, **contract**, or **probe**.
 - A signal arrived too late → add an earlier **probe**.
 
-## Primitives in Persistent Context
+## Agents and skills {#primitives-in-persistent-context}
 
 Learn closes the development feedback loop, running on primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
 

@@ -2,9 +2,7 @@
 
 <EnablerBlock type="forge" />
 
-Du code réutilisable : fonctions, bibliothèques et services. La Forge est le catalogue de briques certifiées de l’organisation, conçu pour que les agents IA assemblent ce qui existe déjà au lieu de régénérer la même logique à chaque élément de travail.
-
-Laissés sans guide, les agents régénèrent de zéro du code répétitif (*boilerplate*), des fonctions utilitaires et du code d’infrastructure non vérifié. Cela introduit de la dérive, des failles de sécurité et de la dette de maintenance. La Forge élimine ce besoin.
+La Forge est un catalogue de fonctions, bibliothèques, services et modèles certifiés. Les agents réutilisent ces briques au lieu de régénérer la même logique à chaque changement.
 
 ## Ce que contient la Forge
 
@@ -15,7 +13,7 @@ Laissés sans guide, les agents régénèrent de zéro du code répétitif (*boi
 | **Modèles en contexte (*In-context templates*)** | Squelettes de projets, *scaffolding* et patrons de conception canoniques (par exemple des frameworks tels que [Gatelin](https://github.com/ALTEN-group/Gatelin) ou [Foxnox](https://github.com/ALTEN-group/Foxnox)) injectés dans le contexte de l’agent | Les agents suivent l’architecture de référence dès la première ligne |
 | **Contrats d’interface** | Spécifications d’API versionnées (OpenAPI, gRPC, AsyncAPI) | La compatibilité inter-services est fixée avant le début de la génération |
 
-Les modèles en contexte sont chargés dans le contexte de l’agent lorsqu’il démarre un nouvel élément — comme un service, un point de terminaison ou un pipeline — afin qu’il suive l’architecture de référence sans qu’il soit nécessaire de la lui rappeler à chaque fois.
+Les modèles donnent aux agents l’architecture de référence pour démarrer un service, une API ou un pipeline.
 
 ## Où la Forge est utilisée
 

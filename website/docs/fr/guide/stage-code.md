@@ -9,7 +9,7 @@ pageClass: page-stage-core
   <span class="stage-hero-desc">Boucles autonomes rapides : générer, tester et corriger jusqu’au vert</span>
 </div>
 
-Là où les spécifications et les plans deviennent du logiciel exécutable. Dans l’Agentic Software Factory, **les développeurs ne codent pas manuellement** : les agents IA génèrent de manière autonome le code, les tests et la documentation, en itérant dans des boucles fermées et rapides jusqu’à ce que toutes les vérifications, tous les tests et tous les contrôles soient au vert.
+L’IA implémente le plan, écrit les tests et la documentation, puis corrige les contrôles en échec dans la limite de tentatives. **Les développeurs ne codent pas manuellement.**
 
 ## Objectif
 
@@ -38,7 +38,7 @@ flowchart TB
   MORE{"D'autres étapes<br/>dans la checklist ?"}
   PR(["&nbsp;&nbsp;Ouvrir la pull request&nbsp;&nbsp;"])
   PROVE["5. Prove<br/>la CI réexécute les vérifications et contrôles,<br/>ainsi que les contrôles propres à la CI"]
-  READY(["&nbsp;&nbsp;Prêt pour validation humaine&nbsp;&nbsp;"])
+  READY(["&nbsp;&nbsp;Validé pour livraison automatique&nbsp;&nbsp;"])
   DEV(["&nbsp;&nbsp;Le développeur intervient&nbsp;&nbsp;"])
 
   PLAN --> STEP --> GEN --> CHECK
@@ -65,20 +65,16 @@ flowchart TB
   class MORE loop
 ```
 
-1. **Exécution atomique étape par étape.** L’agent parcourt le dossier Plan validé **une étape à la fois**, plutôt que de tenter de générer le code, les tests et la documentation d’un seul bloc :
-   - **Les étapes de test d’abord (ou conjointement à la logique) :** les tests sont générés directement à partir des critères d’acceptation du dossier Plan afin de prouver l’exigence avant ou pendant l’implémentation.
-   - **Les étapes d’implémentation :** l’agent applique le bloc `New Code` de l’étape, associe les briques de la Forge et s’assure que l’application reste démarrable après chaque étape.
-   - **Les étapes de documentation et de contrat :** les schémas OpenAPI, les guides README/VitePress et les bascules de migration sont des étapes distinctes de la checklist, exécutées et vérifiées une fois que le code se comporte comme prévu.
-2. **Boucle de vérification autonome rapide.** Après avoir appliqué chaque étape, l’agent exécute immédiatement la commande `Verification` et le `Bootable Check` de l’étape, ainsi que les [contrôles déterministes](./deterministic-controls) pertinents (gardes, jalons, contrats). Leur exécution locale prend quelques secondes, et non un aller-retour CI complet. Si une vérification échoue, l’agent analyse l’erreur et répare l’étape dans une boucle de correction strictement bornée.
-3. **Contexte et Forge.** L’agent respecte le Contexte persistant et importe depuis [la Forge](./forge) les briques associées lors de l’étape Think.
-4. **Travail commité.** Une fois toutes les étapes du plan vérifiées et au vert, l’agent commite la branche et ouvre la pull request.
-   La CI réexécute alors les vérifications et les contrôles, ainsi que les contrôles qui ne s’exécutent qu’en CI. S’ils échouent, l’agent corrige le code et la boucle repart. Le développeur n’intervient que lorsque la limite de la boucle de correction est atteinte.
+1. **Implémenter une étape à la fois.** Écrire les tests depuis les critères, avant ou avec le code. Appliquer `New Code`, utiliser les briques Forge et garder l’application démarrable. Traiter les documents et contrats dans des étapes séparées.
+2. **Vérifier et corriger.** Exécuter `Verification`, `Bootable Check` et les [contrôles](./deterministic-controls) pertinents. Corriger dans la limite de tentatives.
+3. **Suivre le contexte.** Respecter les règles du dépôt et utiliser les briques choisies dans [la Forge](./forge).
+4. **Ouvrir la demande de fusion.** Commiter seulement quand toutes les étapes passent. Prove relance les contrôles en CI ; les agents corrigent jusqu’à la limite, puis un développeur intervient.
 
 ## Règles non négociables
 
-- **Une étape par tour.** Les agents exécutent exactement une étape atomique de la checklist du Plan par tour. Générer des applications entières, des tests et de la documentation en un seul prompt est interdit : cela épuise la fenêtre de contexte du LLM, introduit des régressions et empêche toute vérification granulaire.
-- **Les développeurs n’écrivent pas de code manuellement.** Toute tentative d’écriture manuelle de code dans un IDE est un anti-patron qui contourne le Contexte persistant et ralentit la livraison.
-- **Au vert avant la PR.** Un agent n’est jamais autorisé à ouvrir une pull request avec un build en échec, une erreur de typage, une erreur de lint, un test en échec ou un contrôle en échec. L’agent continue d’itérer jusqu’à ce que tout passe, dans la limite de 5 tentatives de boucle de correction par élément de travail. Avoir besoin de plus de 3 tentatives est un signal d’alerte indiquant que le plan était trop vaste ou trop vague (voir [Métriques](./metrics)).
+- **Une étape par tour.** Ne jamais générer une application entière en un prompt.
+- **Pas de code manuel.** Guider les agents par les spécifications, le contexte et les contrôles.
+- **Au vert avant la PR.** Builds, typage, lint, tests et contrôles doivent passer. Arrêt après **5 tentatives de correction par ticket**. Au-delà de 3, le plan est probablement trop gros ou vague (voir [Métriques](./metrics)).
 - **Les tests sont générés en même temps que le code, jamais après coup.** Les tests découlent strictement des critères d’acceptation du dossier Plan ; ils ne sont jamais générés a posteriori pour coller au code écrit.
 - **Le contexte est le volant de direction.** Si un agent produit du code incorrect ou interprète mal un modèle de conception, le développeur met à jour le Contexte persistant plutôt que de corriger manuellement le code.
 - **Les dépendances sont encadrées.** Toute nouvelle dépendance introduite par un agent doit être explicitement déclarée dans le plan et évaluée par les contrôles de sécurité et de licence.
@@ -90,17 +86,17 @@ Les branches à longue durée de vie sont interdites : elles engendrent des conf
 
 ## Où l’IA est utilisée
 
-| Tâche | Rôle de l’IA | Rôle humain |
+| Tâche | Rôle de l’IA | Gestion humaine des exceptions |
 |---|---|---|
-| Logique métier et services applicatifs | Générer à partir du dossier Plan | Valider la fidélité aux critères d’acceptation du Plan |
+| Logique métier et services applicatifs | Implémenter le Plan | Clarifier les critères ambigus |
 | Squelette applicatif, code répétitif (*boilerplate*), câblage | Générer à partir des modèles de la Forge | Aucun |
-| Tests unitaires, d’intégration et de contrat | Générer en parallèle du code, à partir des critères d’acceptation | Vérifier que les tests découlent bien des critères d’acceptation |
-| Clients d’API, modèles de données, mappers, migrations | Générer selon les contrats de la Forge | Garantir le respect des contraintes de rétrocompatibilité |
-| Refactoring architectural dans le respect des patrons | Refactorer à l’intérieur des frontières enregistrées | Confirmer les frontières du système |
-| Documentation, spécifications OpenAPI, runbooks | Générer | Relire pour vérifier la clarté |
+| Tests unitaires, d’intégration et de contrat | Générer depuis les critères | Résoudre les lacunes que les contrôles ne tranchent pas |
+| Clients d’API, modèles de données, mappers, migrations | Générer selon les contrats Forge | Résoudre les blocages de compatibilité |
+| Refactoring architectural | Respecter les frontières consignées | Résoudre les frontières contradictoires |
+| Documentation, spécifications OpenAPI, runbooks | Générer et valider | Clarifier l’intention manquante |
 | Boucles de correction sur échecs de build, erreurs de type, lint et tests | Analyser l’échec et réparer | Intervenir uniquement si l’agent atteint sa limite |
 
-## Primitives dans le Contexte persistant
+## Agents et skills {#primitives-dans-le-contexte-persistant}
 
 L’étape Code s’appuie sur des primitives du Contexte persistant publiées par [coding-pal](https://alten-group.github.io/coding-pal/) :
 
@@ -111,7 +107,7 @@ L’étape Code s’appuie sur des primitives du Contexte persistant publiées p
 - Une compétence **pr-record** formate et valide le dossier de pull request : liens vers le ticket de backlog et le Plan, traçabilité des critères, dépendances déclarées et rayon d’impact.
 
 ### Instructions de pile technique, de test et de documentation
-Lorsque l’agent modifie des couches spécifiques de l’application, des instructions ciblées dans le Contexte persistant orientent automatiquement les patrons et conventions :
+Des instructions ciblées guident chaque couche applicative :
 - **Backend et API** : `node-express.instructions.md` (architecture en couches, enveloppes d’erreur, middlewares de sécurité) et `node-api-tests.instructions.md` (contrats de points de terminaison Supertest).
 - **Frontend** : `angular-admin.instructions.md` (découpage par fonctionnalité, *signals*, composants PrimeNG) et `angular-unit-tests.instructions.md` / `angular-e2e-tests.instructions.md` (tests unitaires Vitest et tests de bout en bout Playwright).
 - **Base de données et persistance** : `postgres-liquibase.instructions.md` (*changeSets* audités, déclencheurs d’historique, rollbacks) et `postgres-liquibase-tests.instructions.md` (assertions déterministes de migration SQL).
@@ -123,6 +119,21 @@ Lorsque l’agent modifie des couches spécifiques de l’application, des instr
 - Le **dossier Plan** (`plan.md`) et les **briques de la Forge** associées (`forge/<id>@<version>`) constituent les entrées directes qui guident la génération de code par l’agent.
 
 Consultez le [guide Code de coding-pal](https://alten-group.github.io/coding-pal/guide/domain-code) et le [guide des piles techniques (Tech Stacks)](https://alten-group.github.io/coding-pal/guide/domain-stacks).
+
+## Pipeline de livraison
+
+Le pipeline Code implémente le plan et ouvre une demande de fusion (pull request ou merge request), selon les [déclencheurs et points de revue communs](./platform-rails#declencheurs-points-de-revue-et-statuts) :
+
+1. Restaure les spécifications Think et Plan et détermine la branche de base.
+2. Positionne le statut de phase du ticket sur **Code** avant le début de l’implémentation.
+3. Crée la branche, implémente le plan et prépare le dossier de demande de fusion.
+4. Exécute tests, build, contrôles de périmètre et vérifications de préparation de livraison applicables.
+5. Pousse la branche et crée ou met à jour la demande de fusion.
+6. Si un point de revue humaine a été demandé, conserve le statut **Code** et signale la pause. Sinon, transmet les spécifications et la référence de demande de fusion à [Prove](./stage-prove#pipeline-de-livraison).
+
+**Point d’arrêt :** revue demandée ou passage à Prove. **Code ne fusionne pas.** Le statut reste **Code** pendant la revue.
+
+Après revue, reprenez la demande existante à Prove. Le statut change au démarrage de Prove. Signalez les échecs non résolus à un développeur ; le travail indépendant peut continuer.
 
 ## Jalon de sortie
 

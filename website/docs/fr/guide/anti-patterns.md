@@ -1,16 +1,16 @@
 # 🚧 Anti-patrons
 
-Des comportements qui ressemblent en apparence à l’adoption de l’Agentic Software Factory mais qui en inversent silencieusement l’intention. Chacun d’entre eux a été la cause d’une transformation ratée quelque part.
+Les habitudes qui freinent la livraison autonome, et quoi faire à la place.
 
 ## Opérations et ingénierie
 
 ### Des développeurs qui écrivent encore la syntaxe du code
 
-L’anti-patron fatal : des développeurs qui utilisent l’IA comme une simple autocomplétion améliorée tout en continuant à écrire manuellement la logique applicative, le code répétitif (*boilerplate*) et les tests. Dans l’Agentic Software Factory, les développeurs n’écrivent pas de code : ils conçoivent les spécifications, construisent les contrôles déterministes et entretiennent le Contexte persistant. Le codage manuel crée des goulots d’étranglement, des habitudes tribales non commitées et un faible effet de levier IA.
+Utiliser l’IA comme autocomplétion tout en écrivant logique et tests à la main. Confiez le code aux agents ; concentrez-vous sur les spécifications, les contrôles et le Contexte persistant.
 
 ### Revues manuelles de syntaxe ligne par ligne
 
-Des développeurs qui passent des heures à lire des milliers de lignes de diffs générés dans des pull requests. Tout ce qui peut être vérifié automatiquement doit l’être par des vérifications automatisées et des contrôles déterministes ; les humains effectuent uniquement la Validation humaine minimale sur l’intention client et les invariants de sécurité. Voir [Prove](./stage-prove#why-deterministic-controls-replace-manual-code-review).
+Relire les diffs générés comme condition de fusion. Utilisez les contrôles et l’[évaluation indépendante de Prove](./stage-prove#why-deterministic-controls-replace-manual-code-review). Les personnes résolvent les échecs, sans signature systématique.
 
 ### Ignorer les réunions clients et développer à partir de tickets périmés
 
@@ -32,7 +32,7 @@ L’équipe plateforme ou sécurité qui se transforme en guichet auquel les squ
 
 ### Sauter l’étape Plan
 
-Envoyer un extrait de réunion vague directement à un agent de codage sans structurer les critères d’acceptation. Le modèle comble les blancs par des suppositions plausibles, et l’auto-validation ne peut pas vérifier ce qui n’a jamais été spécifié. C’est lors de [3 — Plan](./stage-plan) qu’il est le moins coûteux de lever les ambiguïtés.
+Envoyer une demande vague directement à un agent. Définissez d’abord des critères testables dans [Plan](./stage-plan).
 
 ### Contrôles déterministes faibles (« Faire confiance au modèle »)
 
@@ -40,11 +40,11 @@ Se reposer sur l’auto-critique du LLM ou sur des tests unitaires superficiels 
 
 ### Corriger à la main les bugs générés
 
-Un développeur qui repère un bug dans le code généré et tape manuellement le correctif dans le fichier source. La bonne réponse consiste à ajouter un test déterministe ou à mettre à jour l’instruction du [Contexte persistant](./persistent-context), puis à laisser l’agent IA régénérer et corriger l’implémentation.
+Corriger le code généré à la main. Ajoutez un test en échec ou corrigez le [contexte](./persistent-context), puis laissez l’agent réparer l’implémentation.
 
 ### Effort de revue uniforme
 
-Accorder la même attention à un refactoring interne qu’à une modification des permissions d’authentification ou des données personnelles (PII). La revue est pondérée par le risque, ou ce n’est que du théâtre.
+Appliquer les mêmes contrôles à une correction de texte et à un changement de permissions. Adaptez les preuves au risque.
 
 ### Regrouper les mises en production par lots (*Batching*)
 
@@ -70,11 +70,11 @@ Essayer un nouveau modèle sur un seul prompt, l’apprécier et l’activer pou
 
 ### Des agents dotés d’accès directs à la production
 
-Un agent capable d’agir directement sur la production par simple commodité. Les agents agissent exclusivement via des pull requests soumises à des contrôles déterministes ; les humains valident avant la fusion.
+Un agent capable d’agir directement sur la production par commodité. Les agents passent par des demandes de fusion soumises aux contrôles et à la validation automatisée indépendante. Des décisions autonomes ne donnent pas un accès illimité à la production.
 
 ### Éparpillement des outils et fragmentation du contexte
 
-Disperser le travail entre des outils SaaS déconnectés fragmente le graphe de connaissances dont dépendent les agents IA. Voir [Outillage](./tooling) pour comprendre pourquoi le cycle de vie est consolidé sur une pile Git unique et unifiée.
+Disperser exigences, code et preuves entre des outils déconnectés. Gardez-les liés sur [une plateforme Git](./tooling).
 
 ## Mesure
 

@@ -2,11 +2,7 @@
 
 <EnablerBlock type="forge" />
 
-Reusable code: functions, libraries, and services. The Forge is the organization's catalog of certified building blocks,
-so that AI agents compose what already exists instead of generating the same logic again for every work item.
-
-Left unguided, agents regenerate boilerplate, utility functions, and unverified infrastructure code from scratch. That
-introduces drift, security gaps, and maintenance debt. The Forge removes the need to do so.
+The Forge is a catalog of certified functions, libraries, services, and templates. Agents reuse these building blocks instead of generating the same logic for every change.
 
 ## What the Forge contains
 
@@ -17,8 +13,7 @@ introduces drift, security gaps, and maintenance debt. The Forge removes the nee
 | **In-context templates** | Project skeletons, scaffolding, and canonical design patterns (for example frameworks such as [Gatelin](https://github.com/ALTEN-group/Gatelin) or [Foxnox](https://github.com/ALTEN-group/Foxnox)) injected into agent context | Agents follow the reference architecture from the first line |
 | **Interface contracts** | Versioned API specifications (OpenAPI, gRPC, AsyncAPI) | Cross-service compatibility is fixed before generation starts |
 
-In-context templates are loaded into the agent's context when it starts something new, such as a service, an endpoint,
-or a pipeline, so it follows the reference architecture without being told each time.
+Templates give agents the reference architecture when starting a service, endpoint, or pipeline.
 
 ## Where the Forge is used
 

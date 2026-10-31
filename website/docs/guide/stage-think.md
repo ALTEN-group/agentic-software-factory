@@ -9,20 +9,17 @@ pageClass: page-stage-pink
   <span class="stage-hero-desc">Options exploration, trade-offs &amp; architectural decisions</span>
 </div>
 
-Where a prioritized issue is turned into a decided approach before anything is planned or built.
-Think draws on [the Forge](./forge), for code to reuse, and on Persistent Context, for the
-rules and past decisions to respect. It explores the options, weighs the trade-offs, and records the decisions that
-[3 — Plan](./stage-plan) then breaks down into tasks.
+Think chooses how to solve a prioritized issue. AI compares options, reuses [Forge](./forge) assets, and follows Persistent Context rules. [Plan](./stage-plan) then turns the chosen approach into tasks.
 
 ## Purpose
 
 | Input | Output | Owner |
 |---|---|---|
-| A ranked backlog issue from [1 — Triage](./stage-triage) with a `todo` decision + **[the Forge](./forge)** + **Persistent Context** | A Think record: the options considered, the chosen approach, **Forge asset bindings**, Persistent Context constraints, blast radius, and any new decision record | Developer + Architect |
+| A `todo` issue from [Triage](./stage-triage), [Forge](./forge), and Persistent Context | Chosen approach, options, reusable assets, constraints, risk tier, and required decision records | Developer + Architect |
 
 ## The Think record
 
-Every work item carries a short, reviewable record of the decision made before planning starts.
+Each work item records its approach before planning starts.
 
 | Field | Content | Length |
 |---|---|---|
@@ -30,44 +27,69 @@ Every work item carries a short, reviewable record of the decision made before p
 | **Chosen approach** | The selected option and the reasoning behind it | 1 paragraph |
 | **Forge asset bindings** | Pre-approved reusable services, libraries, and API contracts composed into the approach | List of Forge references |
 | **Constraints & invariants** | Decision records, security, compliance, latency, and schema compatibility rules that bound the solution | Bullets |
-| **Blast radius** | The affected APIs, schemas, queues, and consumers, and the tier they add up to: Low, Medium, High, or Critical, as defined in [Governance](./governance#blast-radius-and-required-human-validation). The tier sets the human validation the change needs in [5 — Prove](./stage-prove). For High and Critical, it also names the rollback mechanism | Tier + bullets |
+| **Blast radius** | Affected systems and [risk tier](./governance#blast-radius-and-required-human-validation): Low, Medium, High, or Critical. This sets [Prove](./stage-prove) evidence requirements. High/Critical also name the rollback | Tier + bullets |
 
-The [Plan](./stage-plan) reads the Forge bindings, constraints, and blast radius from the Think record. They are decided here. Plan only checks that the blast radius tier still holds for its file scope.
+[Plan](./stage-plan) reuses these decisions and checks whether its file scope raises the risk tier.
 
 ## Where AI is used
 
-AI explores the option space and checks it against the organization's reality; the Architect and
-Developer make the call.
+AI compares options, chooses the approach, and records why. The Architect and Developer own the constraints and handle unresolved failures—not routine approval.
 
-| Task | AI role | Human role |
+| Task | Autonomous AI responsibility | Human exception handling |
 |---|---|---|
-| **Option exploration** | Draft credible approaches with trade-offs, cost, and risk for each | Select the approach and challenge the assumptions |
-| **Forge discovery & composition** | Semantically query the Forge catalog, match reusable code modules and shared services to the need | Confirm asset suitability, avoid duplicate development, approve integration bindings |
-| **Codebase & context scan** | Scan the codebase, Forge assets, and Persistent Context for relevant constraints | Validate the architectural approach and component boundaries |
-| **Impact & contract analysis** | Detect affected APIs, database schemas, message queues, and consumer dependencies, and propose a blast radius tier | Confirm the tier, and trigger a decision record if boundaries shift |
+| **Option exploration** | Evaluate trade-offs, cost, and risk; choose and justify an approach | Resolve an ambiguity that prevents validation |
+| **Forge discovery & composition** | Select suitable assets and validate integration bindings | Resolve failed compatibility checks |
+| **Codebase & context scan** | Ground the approach in actual components and constraints | Correct a missing or conflicting constraint |
+| **Impact & contract analysis** | Set the blast radius and record API, schema, and boundary decisions | Handle unresolved control failures |
 
 ## Decision records
 
-If the chosen approach requires altering a public API, changing a database schema, or shifting service
-boundaries, AI drafts a decision record based on repository conventions. The Architect reviews and signs the record, which is committed into the repository to immediately enrich the Persistent Context.
+AI chooses the approach for every change using repository evidence, constraints, and conventions.
+Public API, database schema, service-boundary changes, and all Critical changes also require a formal decision record.
+The record names the automation and date, passes validation, and is committed to Persistent Context.
+All risk tiers proceed automatically when their controls pass. No human signature is required or fabricated.
 
-## Primitives in Persistent Context
+## Agents and skills {#primitives-in-persistent-context}
 
 Think runs on Persistent Context primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
 
 - A **Thinker** agent explores 2 to 4 options, discovers Forge candidates, sets the blast radius, and writes the `think.md` record.
-- A **think** instruction keeps option exploration grounded in repository constraints and ensures decision records are only drafted, never decided, by AI.
+- A **think** instruction enforces repository constraints and explicit attribution of AI decisions.
 - The **think-plan** skill deterministically validates the Think record: 2 to 4 credible options, valid Forge bindings, blast radius tier justification, and a named rollback mechanism for High and Critical tiers.
 - The **decision records** (`docs/decisions/`) and **Forge catalog** (`docs/forge/`) are the Persistent Context resources the agent inspects to constrain solutions and bind reusable assets.
 
 See the [coding-pal Think & Plan guide](https://alten-group.github.io/coding-pal/guide/domain-think-plan).
 
+## Delivery pipeline
+
+The Think pipeline turns a work item into a validated specification, using the shared [triggers and checkpoints](./platform-rails#triggers-checkpoints-and-status):
+
+1. Checks the queue and existing work: wait, start Think, or resume a later phase.
+2. Sets status to **Think** before running the agent.
+3. Defines the problem, approach, scope, and constraints.
+4. Validates the spec and links it to the work item.
+5. Creates linked upstream work if needed and blocks this item until it is delivered.
+6. Records automated approval and hands off to [Plan](./stage-plan#delivery-pipeline), unless review was requested.
+
+**Stops at:** requested review, an upstream dependency, or handoff to Plan. Status stays **Think** until Plan starts. Report unresolved failures to a developer; unrelated queued work can continue.
+
+### Resume after an upstream delivery
+
+A dependency-resume pipeline restarts consumer work after an upstream delivery notification:
+
+1. Identifies the delivered component/version and verifies that the required artifact is available to consumers.
+2. Finds blocked work items linked to that dependency.
+3. Adds upgrade instructions and clears the dependency block once the prerequisite is satisfied.
+4. Queues the items for resumption, reusing still-valid records and starting the next eligible phase when capacity is available.
+
+**Stops at:** unblocked work queued for resumption, or no matching work. Keep the block if the artifact is unavailable. This pipeline does not implement, merge, or publish the consumer.
+
 ## Exit gate
 
 A work item leaves Think and enters [3 — Plan](./stage-plan) only when:
 
-1. the credible options, including Forge reuse, have been evaluated and one approach is chosen,
-2. reusable code modules and shared services from **the Forge** are bound to the approach where applicable,
-3. architectural constraints, domain specifications, and invariants from the **Persistent Context** are validated,
-4. the blast radius tier is set (Low, Medium, High, or Critical), with the affected systems and users that justify it, and the rollback mechanism is named for High and Critical ([Governance](./governance#blast-radius-and-required-human-validation)),
-5. any required updates to the **Persistent Context** are identified for inclusion in the Plan, and the related architectural decisions are captured in a decision record.
+1. options are compared and an approach is chosen,
+2. applicable Forge assets are bound,
+3. Persistent Context constraints are checked,
+4. the [risk tier](./governance#blast-radius-and-required-human-validation) is justified, with rollback named for High/Critical,
+5. required decision records are validated, and context updates are listed for Plan.

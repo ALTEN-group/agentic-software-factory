@@ -1,30 +1,20 @@
 # 🧰 Tooling
 
-In the Agentic Software Factory, tooling cannot be a collection of disconnected SaaS products. Tool sprawl is
-the primary cause of **AI context fragmentation**: when business requirements live in Jira, meeting
-notes in Confluence, discussions in Slack, code in Git, pipelines in Jenkins, and releases in an external
-portal, the AI agent's context is broken across authentication silos, sync lags, and incompatible APIs.
+Disconnected tools scatter the context agents need. Requirements, meeting notes, code, CI logs, and releases should stay linked.
 
-> **To maximize AI capability, minimize tooling sprawl.** Consolidate the entire lifecycle into a
-> **single platform**, such as the **GitHub or GitLab ecosystem**, where business needs, backlog issues, code, deterministic verification, pipelines, and releases share one unbroken context graph.
+> Use **one Git platform**, such as GitHub or GitLab, for the delivery lifecycle.
 
 ## Why a single platform matters for AI
 
-1. **Zero context loss from meeting to release**: An AI agent can read the original client meeting
-   notes in an issue, trace the Plan acceptance criteria, inspect the repository Persistent Context, generate the code in a pull request, read CI failure logs, and publish the release without leaving the platform.
-2. **Native bidirectional links**: Every PR is natively linked to its Issue, branch, commit, check run,
-   preview environment, and release tag. No third-party integrations or fragile webhook syncs required.
-3. **Unified permission and security boundary**: The model, agent runner, and CI pipeline operate under
-   one consistent role-based access control (RBAC) and audit log.
-4. **Token and latency optimization**: AI agents fetch rich, structured context via native platform APIs
-   in milliseconds instead of navigating several external tool APIs.
+1. **Traceability**: follow the client quote through the issue, plan, code, checks, and release.
+2. **Native links**: connect issues, branches, change requests, previews, and tags without custom synchronization.
+3. **Consistent access**: use shared permissions and audit logs.
+4. **Simpler context retrieval**: use platform APIs rather than many disconnected integrations.
 
 ## The unified Git stack
 
-The Agentic Software Factory runs on one Git platform from end to end, such as GitHub or GitLab. Issues, branches, pull requests, pipelines, environments, and releases live together, so the AI agent follows one unbroken chain from the client meeting to the release without leaving the platform.
+Keep issues, branches, change requests, pipelines, environments, and releases together.
 
 ## Eliminating tool sprawl
 
-Every external tool introduced into the software factory imposes a **context penalty**:
-- If a tool does not natively integrate into the agent's context graph, it creates an information black hole.
-- Any proposal to adopt an external SaaS tool outside the core platform requires a decision record proving that the capability cannot be met natively and detailing how AI context will be preserved without loss.
+Before adding an external tool, record why the platform cannot meet the need and how agents will retain access to its context.

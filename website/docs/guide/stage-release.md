@@ -9,11 +9,9 @@ pageClass: page-stage-blue
   <span class="stage-hero-desc">Automated deployment, reversible at any step</span>
 </div>
 
-Release delivers a change that has passed the Prove stage safely. The change is deployed automatically to a test environment then in to production. In production it reaches users gradually, and every
-step can be undone quickly if something goes wrong.
+Release delivers a change after Prove passes. Deploy automatically to staging, then gradually to production.
 
-Deploying and releasing are two different things. Deploying puts the new code in production, switched off. Releasing is
-switching it on for users, for a few at first, then for everyone.
+**Deploy** puts code in production, switched off. **Release** enables it for users, gradually. Plan recovery before rollout.
 
 ## Purpose
 
@@ -66,8 +64,7 @@ The `enable` feature flag is the actual release decision. Everything before it i
 
 ## Rollout rules
 
-The deployment pipeline applies a few fixed rules at each step. They are standard features of progressive delivery
-tooling, and no AI is involved in these decisions.
+Deployment tooling applies fixed rules at each step. AI does not decide when to promote or roll back.
 
 | Rule | What it checks | Effect |
 |---|---|---|
@@ -91,25 +88,54 @@ Every change with a **High** or **Critical** blast radius has its rollback mecha
 
 ## Where AI is used
 
-AI has no role in Release itself. The release notes and the changelog are drafted from merged pull requests during Code stage, and a developer approves them. The rollout runs on standard deployment tooling, with no AI involved.
+AI prepares versions, release records, notes, and changelogs. Controls authorize publication; deployment tooling decides promote, hold, or rollback. People handle unresolved failures, not routine sign-off.
 
-## Primitives in Persistent Context
+## Agents and skills {#primitives-in-persistent-context}
 
 Release separates declaration from execution, running on primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
 
 ### Declaration & Planning Primitives
 - A **Release Planner** agent synthesizes the blast radius and rollback from `think.md`, the file scope from `plan.md`, and the outcome metric from `triage.md` into the `release.md` declaration.
-- A **release** instruction enforces release standards: deploy is not release, the feature flag is the release decision, releases are tightly scoped to primary issues (avoiding large unneeded batches), immutable versioned artifacts, and DevOps sign-off before tagging.
+- A **release** instruction enforces release standards: deploy is not release, feature flags control exposure, releases stay tightly scoped, artifacts are immutable, and automated authorization is recorded before tagging.
 
 ### Deterministic Gate & Rollout Skills
-- A **release-plan (validator)** skill (`validate-release.mjs`) deterministically gates the declaration: proves tier parity with Think and Plan, asserts strict canary percentage ladders, validates health thresholds (error rate, latency, saturation), and verifies the rollback mechanism.
-- A **release-plan (evaluator)** skill (`evaluate-rollout.mjs`) reads live observability metrics during the rollout to compute **promote**, **hold**, or **rollback** deterministically, with zero AI involvement.
+- A **release-plan validator** (`validate-release.mjs`) checks the risk tier, rollout percentages, health thresholds, and rollback mechanism.
+- A **release-plan evaluator** (`evaluate-rollout.mjs`) uses live metrics to return **promote**, **hold**, or **rollback**.
 
 ### Pipeline Infrastructure & Records
 - The **Release record** (`specs/issue-<n>/release.md`) defines the rollout stages, watch windows, thresholds, and Learn outcome metric.
-- A **release workflow template** (`release.yml`) provides the GitHub Actions progressive rollout pipeline (artifact tagging, staging smoke check, canary steps, and automated rollback execution).
+- A **release workflow template** provides the CI/CD progressive rollout skeleton (artifact tagging, staging smoke check, canary steps, and automated rollback execution), adapted to the team's platform.
 
 See the [coding-pal Release guide](https://alten-group.github.io/coding-pal/guide/domain-release).
+
+## Publication and deployment pipelines
+
+Publication and deployment use the revision and evidence from [Prove](./stage-prove#delivery-pipeline), on any CI/CD platform. Apply the [shared status rules](./platform-rails#triggers-checkpoints-and-status). Publishing a package or docs does not mean the production rollout is complete.
+
+### Publish a package or artifact
+
+A publication pipeline distributes a prepared, versioned package, container image, or other release artifact:
+
+1. Checks the revision, version, tag, and validation evidence.
+2. Builds and tests the artifact, or verifies an existing immutable build.
+3. Checks docs, metadata, contents, and provenance.
+4. Selects the registry and channel; runs a dry run where supported.
+5. Publishes unless in verification-only mode, confirms availability, and notifies consumers.
+
+**Stops at:** dry run, confirmed publication, requested pause, or failure. This pipeline does not implement or merge changes.
+
+**Passing validation does not mean published.** Record the version and registry result before setting Done if publication is required. Then [resume dependent work](./stage-think#resume-after-an-upstream-delivery).
+
+### Deploy documentation
+
+A documentation pipeline builds and deploys the site associated with the delivered revision:
+
+1. Restores the delivered revision and builds any code needed by the documentation.
+2. Installs site dependencies and builds and validates the documentation.
+3. Stores the generated site as a versioned deployment artifact.
+4. Deploys automatically to the configured hosting target after environment controls pass, then verifies availability.
+
+**Stopping point:** a verified documentation deployment, an explicitly requested pause, or a failed build/deployment. This is separate from change validation and package publication; the delivery policy determines its trigger and whether its result is required for completion.
 
 ## Exit gate
 

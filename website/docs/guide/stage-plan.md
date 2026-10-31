@@ -9,7 +9,7 @@ pageClass: page-stage-indigo
   <span class="stage-hero-desc">Implementation breakdown, file scope &amp; boundary constraints</span>
 </div>
 
-Where the chosen approach becomes an ordered implementation checklist for the coding agents. Each step names the files to change, the action, the new code to implement, a narrow verification, and a bootable check.
+Plan turns the chosen approach into small, ordered steps. Each step lists the files, action, code, verification command, and application startup check.
 
 A good plan answers three questions before any code is written:
 
@@ -36,8 +36,7 @@ The Plan record is committed with the work item alongside the backlog issue and 
 | **Test plan** | For each acceptance criterion, which test proves it and in which step it is created |
 | **Open questions & assumptions** | Anything unanswered or assumed at the implementation level. Open questions are answered before Code starts |
 
-Changes to Persistent Context identified in Think, such as a new instruction or skill, appear as steps in the checklist like any other work.
-A plan usually has no rollback section, because a revert normally undoes a change. A change that a revert cannot undo, such as a data migration, gets its own reverse step in the checklist. For High and Critical changes, the rollback mechanism is named in the [Think record](./stage-think#the-think-record).
+Include Think's context updates as steps. Add a reverse step for changes a code revert cannot undo, such as data migrations. High/Critical rollback mechanisms are named in [Think](./stage-think#the-think-record).
 
 ### Acceptance criteria
 
@@ -73,36 +72,49 @@ A step is well formed when:
 
 ## Where AI is used
 
-AI turns the validated Think record into the plan, and the developer validates it. The architect helps when needed.
+AI produces, cross-checks, and approves the plan automatically. The Developer and Architect intervene only when a failed control or unresolved ambiguity prevents continuation.
 
-| Task | AI role | Human role |
+| Task | Autonomous AI responsibility | Human exception handling |
 |---|---|---|
-| **File scope & prerequisites** | Draft the file scope and the dependencies needed before Step 1, from the Think record and the codebase | Confirm the file boundaries and the dependencies |
-| **Acceptance criteria** | Convert the requirement into observable, true-or-false statements, and flag any that are vague | Confirm they match what the client asked for |
-| **Implementation checklist** | Break the scope into ordered, atomic steps with exact files, actions, and new code | Validate scope, file boundaries, and order |
-| **Step verification & test plan** | Provide a narrow verification command and bootable check for each step, and map criteria to tests | Confirm the checks cover every acceptance criterion |
-| **Open questions & assumptions** | List open questions and assumptions at the implementation level | Answer the questions and confirm the assumptions |
-| **Plan output validation** | Check that every section is present, every step has the required fields, and no file is outside scope | Review and approve the plan |
+| **File scope & prerequisites** | Define and validate file boundaries and dependencies from Think | Resolve a boundary conflict |
+| **Acceptance criteria** | Derive observable criteria and check traceability to the request | Resolve ambiguity that prevents validation |
+| **Implementation checklist** | Generate and validate ordered, atomic steps | Handle an unresolvable validation failure |
+| **Step verification & test plan** | Map every criterion to runnable checks and tests | Repair gaps in the control policy |
+| **Open questions & assumptions** | Resolve from available evidence; make assumptions explicit | Supply missing intent when validation cannot proceed |
+| **Plan output validation** | Run deterministic checks and record automated approval | Intervene after unresolved failure |
 
-## Primitives in Persistent Context
+## Agents and skills {#primitives-in-persistent-context}
 
 Plan runs on Persistent Context primitives from [coding-pal](https://alten-group.github.io/coding-pal/):
 
 - A **Planner** agent converts the Think record into atomic steps, establishes explicit file boundaries, and drafts `plan.md`.
-- A **plan** instruction enforces implementation discipline: atomic single-responsibility steps, test plan mapping, fenced code snippets, and strict prohibition on expanding scope beyond Think.
-- The **think-plan** skill deterministically validates the Plan record against the Think record: every in-scope file covered by a step, no step touches out-of-scope files, all acceptance criteria proven in the test plan, and the blast radius tier remains consistent.
+- A **plan** instruction requires atomic steps, mapped tests, code snippets, and no scope expansion beyond Think.
+- The **think-plan** skill checks file scope, step coverage, acceptance tests, and risk-tier consistency against Think.
 - The **Think record** (`think.md`) is the immediate Persistent Context input that bounds the plan.
 
 See the [coding-pal Think & Plan guide](https://alten-group.github.io/coding-pal/guide/domain-think-plan).
+
+## Delivery pipeline
+
+The Plan pipeline converts the specification into an implementation plan, using the shared [triggers and checkpoints](./platform-rails#triggers-checkpoints-and-status):
+
+1. Restores the validated Think spec.
+2. Sets status to **Plan** before running the agent.
+3. Defines the steps, files, tests, and docs.
+4. Validates the plan against Think.
+5. Links the versioned plan to the work item.
+6. Records automated approval and hands off to [Code](./stage-code#delivery-pipeline), unless review was requested.
+
+**Stops at:** requested review, failed validation, or handoff to Code. Status stays **Plan** until Code starts. Report unresolved failures to a developer; unrelated queued work can continue.
 
 ## Exit gate
 
 A work item leaves Plan and enters [4 — Code](./stage-code) only when:
 
-1. the file scope is defined, and every in-scope file is covered by an implementation step, with no out-of-scope files added,
-2. every acceptance criterion is observable, and each one is covered by a step and a test,
+1. every in-scope file has a step; no step touches an out-of-scope file,
+2. every criterion is observable and covered by a step and a test,
 3. each ordered step lists its files, action, new code, verification command, and bootable check,
 4. open questions are answered, and assumptions are recorded,
 5. any change that a revert cannot undo has its own reverse step,
-6. the blast radius tier from Think still holds for the file scope. If the plan touches more than Think assumed, such as authentication, data, or a public contract, the tier is raised and the required human validation changes with it,
-7. the Developer has reviewed and approved the plan.
+6. the risk tier and validation requirements match the final scope,
+7. the plan passes deterministic validation and its automated approval is recorded.

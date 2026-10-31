@@ -9,84 +9,75 @@ pageClass: page-stage-cyan
   <span class="stage-hero-desc">Validation par jalons déterministes et auto-remédiation par les agents</span>
 </div>
 
-La qualité n’est ni une phase tardive ni un marathon humain de relecture ligne par ligne. Dans l’Agentic Software Factory, Prove est l’étape qui combine **un réseau dense de contrôles déterministes pour l’auto-validation de l’IA** et une **validation humaine minimale** afin de garantir avec confiance que le logiciel généré est correct, sûr et aligné sur l’intention du client.
+Prove relance les contrôles en CI propre. Un agent indépendant vérifie l’intention, le comportement et la sécurité. Les changements validés peuvent fusionner automatiquement, sans signature humaine.
 
 ## Objectif
 
 | Entrée | Sortie | Responsable |
 |---|---|---|
-| La pull request issue de [4 — Code](./stage-code), déjà au vert dans la boucle de l’agent | Une pull request ayant franchi tous les contrôles en CI et disposant d’une validation humaine enregistrée au niveau exigé par son rayon d’impact, prête à être mise en production | Développeur |
+| Une demande de fusion ayant passé les contrôles de [Code](./stage-code) | Résultats CI, évaluation indépendante et preuves de risque autorisant la fusion automatique | Développeur, responsable de l’automatisation |
 
 ## Pourquoi les contrôles déterministes remplacent la revue de code manuelle {#why-deterministic-controls-replace-manual-code-review}
 
-Lorsque le code est généré de manière autonome par l’IA, demander à des humains de relire manuellement la syntaxe ligne par ligne est un anti-patron dangereux :
-- **Fatigue du relecteur** : les humains qui survolent de volumineux diffs passent à côté de défauts logiques subtils et d’hypothèses hallucinées.
-- **Goulot d’étranglement cognitif** : la vélocité de livraison retombe à la vitesse de la lecture manuelle.
-- **Fausse sécurité** : un « LGTM » (*Looks good to me*) n’apporte aucune garantie réelle.
-
-L’Agentic Software Factory résout ce problème en transférant la charge de vérification vers des **contrôles déterministes denses et objectifs** qui s’exécutent en boucle fermée, réservant l’attention humaine exclusivement à l’intention métier de haut niveau et aux frontières de sécurité.
+La revue manuelle ne suit pas le rythme des changements générés et peut manquer des défauts. Utilisez des contrôles exécutables et une évaluation indépendante. Les personnes interviennent sur les échecs non résolus ou les tentatives épuisées.
 
 ## Le harnais de contrôles déterministes
 
-Les contrôles déterministes sont binaires : ils réussissent ou échouent avec une certitude absolue. Aucune approximation probabiliste n’est permise.
-
-La plupart des contrôles s’exécutent également plus tôt, dans la propre boucle de l’agent lors de [4 — Code](./stage-code), de sorte que les échecs sont généralement corrigés avant même que la pull request n’existe. L’étape Prove les réexécute sur la pull request, dans un environnement propre, comme filet de sécurité. Elle exécute aussi les contrôles qui n’ont lieu qu’en CI. Chaque contrôle est détaillé dans [Contrôles déterministes](./deterministic-controls).
+Les contrôles renvoient succès ou échec. La plupart ont déjà tourné dans [Code](./stage-code) ; Prove les relance en CI propre et ajoute les contrôles propres à la CI. Voir [Contrôles déterministes](./deterministic-controls).
 
 ### Les contrôles déterministes
 
-| Contrôle | Type | Exécution | Ce qu’il prouve |
+| Contrôle | Type | Exécution | Ce qu’il vérifie |
 |---|---|---|---|
-| **Réexécution CI propre (*Clean CI Re-run*)** | Jalon (*Gate*) | CI dans un environnement vierge | Réexécute le build, le typage, le linter ainsi que les tests unitaires et d’intégration de [4 — Code](./stage-code) là où l’agent ne peut pas influencer le résultat |
-| **Vérification des tests de critères** | Jalon (*Gate*) | Exécuteur de tests | Prouve que chaque critère d’acceptation du dossier Plan possède une assertion qui passe |
-| **Compatibilité des contrats et schémas** | Contrat (*Contract*) | OpenAPI / JSON Schema / Pact | Garantit que les interfaces publiques et les contrats consommateurs ne sont jamais rompus silencieusement |
-| **Seuil de tests de mutation (*Mutation Testing*)** | Jalon (*Gate*) | Exécuteur de tests de mutation | **Prouve la qualité des tests eux-mêmes** : injecte des mutants dans le code ; les tests doivent les détecter et les éliminer |
-| **Tests d’API** | Contrat (*Contract*) | Tests d’API HTTP (par ex. Supertest) | Prouve que chaque point de terminaison renvoie les codes de statut et réponses convenus, pour des requêtes valides comme invalides |
-| **Tests de fuzzing** | Sonde (*Probe*) | Fuzzing d’API depuis la spécification OpenAPI (par ex. RESTler) | Prouve que l’API gère les entrées inattendues et malformées sans erreur serveur ni crash |
-| **Tests de base de données** | Jalon (*Gate*) | Assertions SQL sur une base migrée (par ex. PostgreSQL avec Liquibase) | Prouve que le schéma et les migrations se comportent comme spécifié : lectures, écritures, archivage et historique d’audit |
-| **Tests de bout en bout (E2E)** | Sonde (*Probe*) | Tests navigateur de parcours utilisateurs réels (par ex. Playwright) | Prouve que les parcours principaux fonctionnent du point de vue de l’utilisateur, sur l’application en cours d’exécution |
-| **Sécurité et Policy-as-Code** | Garde (*Guard*) | Semgrep / Trivy / OPA Conftest, protection des secrets et des pushs | Vérifie l’absence de CVE connues, de secrets et de violations de politiques. La protection des secrets s’exécute aussi au commit dans Code et est de nouveau appliquée ici en CI |
-| **Smoke tests de prévisualisation** | Sonde (*Probe*) | Environnement éphémère de prévisualisation | Prouve que l’application démarre, route le trafic et répond aux vérifications d’état (*health checks*) |
+| **Réexécution CI propre** | Jalon | CI dans un environnement vierge | Relance build, typage, lint et tests de [Code](./stage-code), hors du contrôle de l’agent |
+| **Vérification des critères** | Jalon | Exécuteur de tests | Chaque critère du Plan a une assertion qui passe |
+| **Compatibilité des contrats et schémas** | Contrat | OpenAPI / JSON Schema / Pact | Les interfaces ne cassent pas silencieusement les consommateurs |
+| **Tests de mutation** | Jalon | Exécuteur de mutations | Les tests détectent les défauts injectés |
+| **Tests d’API** | Contrat | Tests HTTP, par ex. Supertest | Statuts et réponses respectent le contrat, sur requêtes valides et invalides |
+| **Tests de fuzzing** | Sonde | Fuzzing OpenAPI, par ex. RESTler | Les entrées malformées ne provoquent ni erreur serveur ni crash |
+| **Tests de base de données** | Jalon | Assertions SQL sur une base migrée | Lectures, écritures, migrations, archivage et audit respectent la spécification |
+| **Tests E2E** | Sonde | Tests navigateur, par ex. Playwright | Les parcours principaux fonctionnent sur l’application |
+| **Sécurité et Policy-as-Code** | Garde | Semgrep / Trivy / OPA Conftest, protection des secrets | Recherche les vulnérabilités connues, secrets et violations. Les secrets sont aussi vérifiés au commit |
+| **Smoke tests** | Sonde | Prévisualisation éphémère | Démarrage, routage et points de santé fonctionnent |
 
-Les tests d’API, de fuzzing, de base de données et E2E sont générés avec le code, tout comme les tests unitaires, et s’exécutent contre une véritable pile applicative en cours d’exécution ou une base de données migrée. La vérification des tests de critères et les tests de mutation garantissent leur fiabilité en prouvant qu’ils couvrent bien les critères d’acceptation et qu’ils interceptent de vrais défauts.
+Générez les tests d’API, de fuzzing, de base de données et E2E avec le code. Exécutez-les sur une pile réelle ou une base migrée. Vérifiez la couverture des critères et utilisez les mutations pour mesurer la détection des défauts injectés.
 
 ## Auto-remédiation par l’agent
 
-Si un jalon déterministe échoue en CI, l’agent IA est automatiquement déclenché avec les diagnostics d’erreur. L’agent :
-1. lit la sortie du jalon en échec, telle qu’une erreur de réexécution propre, un critère d’acceptation non couvert, un mutant survivant ou une rupture de contrat,
-2. diagnostique le défaut exact,
-3. corrige le code de manière autonome. Il ne peut jamais affaiblir ni ignorer un contrôle déterministe pour obtenir un succès,
-4. commite la correction et relance le harnais déterministe.
+Lorsqu’un contrôle CI échoue, l’agent :
+1. lit les diagnostics,
+2. trouve et corrige le défaut sans modifier ni contourner les contrôles,
+3. commite la correction et relance les vérifications.
 
-Ce cycle se répète automatiquement jusqu’à ce que chaque contrôle déterministe passe, ou que la limite de boucle de correction fixée dans [4 — Code](./stage-code) soit atteinte et que le développeur intervienne. Les humains ne sont jamais sollicités pour dépanner de banales erreurs de compilation ou de formatage.
+Répéter jusqu’au succès ou à la [limite de tentatives](./stage-code). Ensuite, escalader à un développeur.
 
 ## Où l’IA est utilisée
 
-Les contrôles déterministes tranchent. L’IA écrit les suites de tests et effectue le travail de réparation.
+Les contrôles tranchent succès/échec. L’IA écrit les tests, corrige le code et réalise l’évaluation indépendante.
 
 | Tâche | Rôle de l’IA | Rôle humain |
 |---|---|---|
 | **Diagnostic des échecs** | Lire la sortie du jalon en échec et localiser le défaut | Aucun pour les échecs courants |
 | **Remédiation** | Réécrire le code pour satisfaire le jalon, dans la limite de la boucle de correction, sans jamais affaiblir un contrôle | Intervenir uniquement lorsque la limite est atteinte |
-| **Suites de tests** | Écrire et maintenir les tests d’API, de fuzzing, de base de données et E2E exécutés par les contrôles | Confirmer que les tests couvrent les critères d’acceptation |
+| **Suites de tests** | Écrire et maintenir les suites ; les contrôles vérifient la couverture des critères | Intervenir si la couverture ne peut pas être établie |
 
-## Validation humaine minimale {#minimum-human-validation}
+## Évaluation automatisée indépendante {#minimum-human-validation}
 
-Une fois que tous les contrôles déterministes sont au vert, la pull request entre en **Validation humaine minimale**.
-Les relecteurs **ne lisent pas la syntaxe ligne par ligne**. La validation humaine se concentre strictement sur trois questions précises :
+Un agent Prove indépendant consigne les preuves répondant à trois questions :
 
 1. **Intention du client** : cette fonctionnalité livre-t-elle fidèlement ce que le client a demandé lors de la réunion ?
 2. **Expérience comportementale** : l’environnement de prévisualisation en direct a-t-il l’apparence, le comportement et l’ergonomie attendus ?
 3. **Sécurité et rayon d’impact** : le changement respecte-t-il les contraintes opérationnelles et dispose-t-il d’un chemin de rollback propre ?
 
-### Validation humaine pondérée par le risque
+### Validation automatisée pondérée par le risque
 
-Le niveau de validation humaine requis pour un changement dépend de son rayon d’impact (*blast radius*), classifié lors de [2 — Think](./stage-think) et revérifié lors de [3 — Plan](./stage-plan) au regard du périmètre de fichiers. Les paliers (Faible, Moyen, Élevé, Critique) et la validation exigée pour chacun sont définis dans [Gouvernance](./governance#blast-radius-and-required-human-validation).
+Les preuves requises dépendent du rayon d’impact, classifié dans [2 — Think](./stage-think) puis vérifié dans [3 — Plan](./stage-plan). Tous les niveaux peuvent continuer automatiquement ; Élevé et Critique conservent la vérification du rollback et Critique exige un déploiement progressif, selon [Gouvernance](./governance#blast-radius-and-required-human-validation).
 
 ## La règle des bugs
 
 Chaque défaut en production doit donner lieu à une nouvelle vérification ou à un nouveau contrôle automatisé (un cas de test en échec, une règle de linter plus stricte, un validateur de schéma ou un nouveau garde) commité avant le correctif. L’agent IA corrige ensuite le code pour satisfaire cette nouvelle vérification ou ce nouveau contrôle, afin que le bug ne puisse jamais réapparaître silencieusement.
 
-## Primitives dans le Contexte persistant
+## Agents et skills {#primitives-dans-le-contexte-persistant}
 
 L’étape Prove s’appuie sur des primitives de vérification déterministe publiées par [coding-pal](https://alten-group.github.io/coding-pal/) :
 
@@ -102,18 +93,40 @@ L’étape Prove s’appuie sur des primitives de vérification déterministe pu
 ### Intégrité, sécurité et sondes comportementales
 - Une compétence **control-guard** protège le harnais lui-même : elle détecte et rejette toute PR qui abaisse les seuils de test, désactive des workflows ou modifie des fichiers de contrôle protégés, tout en appliquant la règle des bugs.
 - Les compétences **secret-guard** et **dependency-guard** vérifient l’absence totale de jetons ou clés codés en dur et s’assurent que les nouveaux paquets respectent les politiques de licence et de vulnérabilités.
-- Une compétence **preview-smoke** sonde le déploiement éphémère en cours d’exécution pour vérifier le démarrage, le routage HTTP et les *health checks* avant la validation humaine.
+- Une compétence **preview-smoke** vérifie le démarrage, le routage HTTP et les *health checks* du déploiement éphémère avant fusion.
 
-### Pipeline et approbation humaine
-- Une compétence **pr-record** valide que les approbations humaines enregistrées correspondent au palier de rayon d’impact déterminé dans Think et Plan.
+### Pipeline et approbation automatisée
+- Une compétence **pr-record** valide les résultats automatisés, les preuves de rollback et les références de déploiement progressif selon le niveau fixé dans Think et Plan, sans les présenter comme des signatures humaines.
 - Un modèle de workflow **verification-pipeline** fournit le squelette CI en environnement propre qui exécute les jalons dans l’ordre.
 
 Consultez le [guide Prove de coding-pal](https://alten-group.github.io/coding-pal/guide/domain-prove).
+
+## Pipeline de livraison
+
+Le pipeline Prove valide une demande de fusion existante avant qu’elle puisse être fusionnée, selon les [déclencheurs et points de revue communs](./platform-rails#declencheurs-points-de-revue-et-statuts) :
+
+1. Positionne le statut de phase sur **Prove** (ou **Release** sur un tableau combiné) avant le début de la validation ; cela ne signifie pas que le changement a passé les contrôles.
+2. Exécute les contrôles sur les spécifications, le périmètre, les secrets, les dépendances, les tests, les builds, les critères d’acceptation et les métadonnées de demande de fusion.
+3. Lance l’agent Prove pour évaluer l’implémentation et rédiger un dossier de validation.
+4. Si les contrôles échouent, applique des corrections automatiques et réessaie jusqu’à la limite configurée, **5 tentatives dans le socle de la factory**, puis demande l’intervention d’un développeur.
+5. Consigne le verdict automatisé et ses preuves et autorise la fusion lorsque tous les contrôles et évaluations passent, à tous les niveaux d’impact.
+
+Après validation, la plateforme fusionne et supprime la branche selon la politique de livraison. Elle transmet la révision et les preuves à [Release](./stage-release#pipelines-de-publication-et-de-deploiement).
+
+Positionnez **Done** seulement au point de fin convenu : fusion, publication ou déploiement.
+
+**Point d’arrêt :** revue demandée, passage à Release ou échec non résolu. Atteindre la limite bloque la fusion. Un échec de livraison ultérieur n’annule pas une fusion ; appliquez la politique de reprise.
+
+::: warning L’autonomie n’est pas une dérogation
+Tous les niveaux peuvent fusionner automatiquement, mais contrôles, évaluation indépendante, rollback, politique de déploiement et limites restent appliqués. Ne fabriquez pas de signature et ne contournez pas les protections.
+:::
+
+**La réussite de Prove ne prouve pas à elle seule la publication ou le déploiement en production.** Suivez ces résultats dans leurs propres pipelines.
 
 ## Jalon de sortie
 
 Un changement quitte Prove et entre dans [Release](./stage-release) lorsque :
 
 1. chaque contrôle déterministe est au vert,
-2. la validation humaine minimale est enregistrée au niveau exigé par le rayon d’impact,
+2. l’évaluation automatisée indépendante et les preuves du niveau d’impact sont consignées,
 3. pour les changements à rayon d’impact Élevé et Critique, le mécanisme de rollback désigné dans [Think](./stage-think) est configuré et validé.

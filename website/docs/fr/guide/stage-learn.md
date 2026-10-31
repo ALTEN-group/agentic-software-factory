@@ -9,7 +9,7 @@ pageClass: page-stage-gray
   <span class="stage-hero-desc">Analyse de télémétrie et surveillance prédictive</span>
 </div>
 
-L’étape qui referme la boucle du modèle opérationnel. Elle observe les effets d’une mise en production, ouvre des tickets de backlog pour ce qu’elle détecte et réinjecte ses enseignements dans le Contexte persistant et les Contrôles déterministes.
+Learn observe les résultats en production, ouvre des tickets et améliore le contexte et les contrôles.
 
 ## Objectif
 
@@ -29,7 +29,7 @@ L’étape qui referme la boucle du modèle opérationnel. Elle observe les effe
 
 ## Surveillance prédictive
 
-L’IA surveille la télémétrie de production en continu, et pas uniquement après un incident. Elle compare les signaux en direct aux lignes de base apprises ainsi qu’à la métrique de résultat engagée dans le ticket de backlog de [1 — Triage](./stage-triage), et signale les anomalies et tendances défavorables (dérive du taux d’erreur, approche de la saturation, glissement des coûts) avant que les clients ne s’en aperçoivent.
+L’IA compare la télémétrie aux références et à la métrique de [Triage](./stage-triage). Elle signale les anomalies et dégradations : hausse des erreurs, saturation ou dérive des coûts.
 
 | Étape | Ce qui se passe | Qui décide |
 |---|---|---|
@@ -49,7 +49,7 @@ Chaque élément de travail ayant défini une métrique de résultat est examin�
 | **Non concluante** | Aucun mouvement détectable | Décider : itérer une fois ou supprimer |
 | **Invalidée** | La métrique n’a pas bougé ou a évolué dans le mauvais sens | Supprimer la fonctionnalité, documenter l’enseignement |
 
-Les fonctionnalités invalidées sont **supprimées**. Conserver des fonctionnalités mortes constitue la forme de dette technique la plus coûteuse dans une base de code accélérée par l’IA, car chaque passe de génération future doit raisonner autour d’elles.
+**Supprimez les fonctionnalités invalidées.** Le code mort complique chaque changement futur.
 
 ## Incidents
 
@@ -61,12 +61,12 @@ Les fonctionnalités invalidées sont **supprimées**. Conserver des fonctionnal
 
 ## Durcissement des Contrôles déterministes
 
-Pour chaque défaut, rollback ou quasi-incident (*near-miss*), on pose également la question : qu’est-ce qui a atteint la production alors qu’un contrôle aurait dû l’intercepter ?
+Pour chaque défaut, rollback ou quasi-incident, demandez : **quel contrôle aurait dû l’intercepter ?**
 
 - Une vérification manquait → ajouter un **garde** (*guard*), un **jalon** (*gate*), un **contrat** (*contract*) ou une **sonde** (*probe*).
 - Un signal est arrivé trop tard → ajouter une **sonde** plus précoce.
 
-## Primitives dans le Contexte persistant
+## Agents et skills {#primitives-dans-le-contexte-persistant}
 
 L’étape Learn referme la boucle de rétroaction du développement en s’appuyant sur des primitives publiées par [coding-pal](https://alten-group.github.io/coding-pal/) :
 

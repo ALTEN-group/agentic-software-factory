@@ -2,17 +2,15 @@
 
 <EnablerBlock type="persistent-context" />
 
-Le Contexte persistant est la connaissance de l’organisation structurée sous une forme directement exploitable par une IA. C’est l’investissement à plus fort effet de levier de l’Agentic Software Factory.
+Le Contexte persistant est le savoir versionné qui guide les agents : règles, tâches, workflows et décisions passées.
 
 ## Pourquoi
 
-Un modèle d’IA n’a aucune mémoire innée de votre base de code, de vos conventions ou de vos décisions. Chaque session repart de zéro. Sans Contexte persistant, chaque développeur réexplique indéfiniment les mêmes règles.
-
-Dans un modèle opérationnel où **les développeurs ne codent pas manuellement** et où **l’IA écrit 100 % de l’implémentation**, le Contexte persistant devient le véritable « code source » de l’organisation.
+Les agents ont besoin de conventions et de décisions réutilisables. Consignez-les une fois plutôt que de les répéter dans chaque conversation.
 
 ## Primitives
 
-Le Contexte persistant repose sur quatre types de fichiers : les **instructions** (règles permanentes), les **prompts** (tâches réutilisables), les **compétences (*skills*)** (workflows multi-étapes) et les **agents** (spécialistes). La manière dont chacun est chargé, quand les utiliser et comment les rédiger sont détaillés dans [l’architecture du Contexte persistant de coding-pal](https://alten-group.github.io/coding-pal/guide/persistent-context).
+Quatre types de fichiers guident les agents : **instructions** (règles), **prompts** (tâches), **skills** (workflows) et **agents** (spécialistes). Voir [coding-pal](https://alten-group.github.io/coding-pal/guide/persistent-context) pour savoir quand et comment les utiliser.
 [coding-pal](https://alten-group.github.io/coding-pal/) publie également des catalogues d’[instructions](https://alten-group.github.io/coding-pal/guide/catalog-instructions), de [prompts](https://alten-group.github.io/coding-pal/guide/catalog-prompts), de [compétences (*skills*)](https://alten-group.github.io/coding-pal/guide/catalog-skills) et d’[agents](https://alten-group.github.io/coding-pal/guide/catalog-agents).
 
 ## Le Contexte persistant à travers les étapes

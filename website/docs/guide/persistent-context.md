@@ -2,22 +2,15 @@
 
 <EnablerBlock type="persistent-context" />
 
-Persistent Context is the organization's knowledge in a form an AI can consume. It is the
-highest-leverage investment in the Agentic Software Factory.
+Persistent Context is versioned knowledge that guides AI agents: rules, tasks, workflows, and past decisions.
 
 ## Why
 
-An AI model has no memory of your codebase, your conventions, or your decisions. Every session starts
-from zero. Without Persistent Context, each Developer re-explains the same things forever.
-
-In an operating model where **developers do not code** and **AI writes 100% of the implementation**,
-Persistent Context is the primary "code" of the organization.
+Agents need your conventions and decisions in a reusable form. Commit them once instead of repeating them in every chat.
 
 ## Primitives
 
-Persistent Context is built from four kinds of file: **instructions** (standing rules), **prompts** (reusable tasks),
-**skills** (multi-step workflows), and **agents** (specialists). How each one is loaded, which to use when, and how to
-write them is explained in [coding-pal's Persistent Context architecture](https://alten-group.github.io/coding-pal/guide/persistent-context).
+Four file types guide agents: **instructions** (rules), **prompts** (tasks), **skills** (workflows), and **agents** (specialists). See [coding-pal](https://alten-group.github.io/coding-pal/guide/persistent-context) for when and how to use each.
 [coding-pal](https://alten-group.github.io/coding-pal/) also publishes catalogs of
 [instructions](https://alten-group.github.io/coding-pal/guide/catalog-instructions),
 [prompts](https://alten-group.github.io/coding-pal/guide/catalog-prompts),

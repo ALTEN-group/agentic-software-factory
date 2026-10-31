@@ -57,7 +57,7 @@ const block = computed(() => {
       title: isFr.value ? '🧠 Contexte persistant' : '🧠 Persistent Context',
       lines: [
         { y: 41, text: isFr.value ? 'Instructions, prompts,' : 'Instructions, prompts,' },
-        { y: 54, text: isFr.value ? 'primitives de skills & agents' : 'skills & agents primitives' },
+        { y: 54, text: isFr.value ? 'skills et agents' : 'skills and agents' },
       ],
     }
   }

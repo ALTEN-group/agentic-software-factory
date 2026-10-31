@@ -9,9 +9,9 @@ pageClass: page-stage-blue
   <span class="stage-hero-desc">Déploiement automatisé, réversible à chaque étape</span>
 </div>
 
-L’étape Release livre en toute sécurité un changement qui a franchi l’étape Prove. Le changement est déployé automatiquement sur un environnement de test, puis en production. En production, il est exposé progressivement aux utilisateurs, et chaque étape peut être annulée rapidement en cas de problème.
+Release livre un changement après réussite de Prove. Déployez automatiquement en staging, puis progressivement en production.
 
-Déployer et mettre en service (*releaser*) sont deux choses distinctes. Déployer consiste à pousser le nouveau code en production, désactivé. Mettre en service consiste à l’activer pour les utilisateurs, d’abord pour quelques-uns, puis pour tout le monde.
+**Déployer** place le code en production, désactivé. **Mettre en service** l’active progressivement pour les utilisateurs. Prévoyez la reprise avant le déploiement.
 
 ## Objectif
 
@@ -64,7 +64,7 @@ Le *feature flag* `enable` constitue la véritable décision de mise en service.
 
 ## Règles de déploiement progressif (*rollout*)
 
-Le pipeline de déploiement applique quelques règles fixes à chaque étape. Ce sont des fonctionnalités standard des outils de livraison progressive, et aucune IA n’intervient dans ces décisions.
+Les outils de déploiement appliquent des règles fixes à chaque étape. L’IA ne décide pas de la promotion ni du rollback.
 
 | Règle | Ce qu’elle vérifie | Effet |
 |---|---|---|
@@ -87,25 +87,54 @@ Tout changement ayant un rayon d’impact **Élevé** ou **Critique** voit son m
 
 ## Où l’IA est utilisée
 
-L’IA ne joue aucun rôle dans le déroulement de l’étape Release elle-même. Les notes de version (*release notes*) et le journal des modifications (*changelog*) sont rédigés à partir des pull requests fusionnées durant l’étape Code, et un développeur les approuve. Le déploiement progressif s’exécute sur des outils de déploiement standard, sans intervention de l’IA.
+L’IA prépare versions, dossiers, notes de version et changelogs. Les contrôles autorisent la publication ; les outils décident de promouvoir, suspendre ou annuler. Les personnes traitent les échecs non résolus, sans signature systématique.
 
-## Primitives dans le Contexte persistant
+## Agents et skills {#primitives-dans-le-contexte-persistant}
 
 L’étape Release sépare la déclaration de l’exécution, en s’appuyant sur des primitives publiées par [coding-pal](https://alten-group.github.io/coding-pal/) :
 
 ### Primitives de déclaration et de planification
 - Un agent **Release Planner** synthétise le rayon d’impact et le rollback issus de `think.md`, le périmètre de fichiers de `plan.md` et la métrique de résultat de `triage.md` au sein de la déclaration `release.md`.
-- Une instruction **release** impose les standards de mise en production : déployer n’est pas mettre en service, le *feature flag* incarne la décision d’ouverture, les releases sont strictement bornées aux tickets principaux (évitant les lots volumineux inutiles), les artefacts sont immuables et versionnés, et l’approbation DevOps est requise avant le tag.
+- Une instruction **release** impose les standards : déployer n’est pas mettre en service, les feature flags contrôlent l’exposition, les livraisons restent bornées, les artefacts sont immuables et l’autorisation automatisée est consignée avant le tag.
 
 ### Compétences de jalon déterministe et de déploiement
-- Une compétence **release-plan (validator)** (`validate-release.mjs`) contrôle de façon déterministe la déclaration : elle prouve la parité du palier de risque avec Think et Plan, vérifie la progression stricte des paliers de pourcentage canary, valide les seuils de santé (taux d’erreur, latence, saturation) et vérifie le mécanisme de rollback.
-- Une compétence **release-plan (evaluator)** (`evaluate-rollout.mjs`) lit les métriques d’observabilité en direct pendant le déploiement pour calculer de manière déterministe la décision **promote** (promouvoir), **hold** (suspendre) ou **rollback** (revenir en arrière), sans aucune intervention de l’IA.
+- Un **validateur release-plan** (`validate-release.mjs`) vérifie le risque, les pourcentages de déploiement, les seuils de santé et le rollback.
+- Un **évaluateur release-plan** (`evaluate-rollout.mjs`) utilise les métriques en direct pour renvoyer **promote**, **hold** ou **rollback**.
 
 ### Infrastructure de pipeline et dossiers
 - Le **dossier Release** (`specs/issue-<n>/release.md`) définit les étapes de déploiement progressif, les fenêtres d’observation, les seuils et la métrique de résultat pour Learn.
-- Un **modèle de workflow de release** (`release.yml`) fournit le pipeline GitHub Actions de déploiement progressif (tag d’artefact, smoke check en staging, paliers canary et exécution automatisée du rollback).
+- Un **modèle de workflow de release** fournit le squelette CI/CD de déploiement progressif (tag d’artefact, smoke check en staging, paliers canary et exécution automatisée du rollback), adapté à la plateforme de l’équipe.
 
 Consultez le [guide Release de coding-pal](https://alten-group.github.io/coding-pal/guide/domain-release).
+
+## Pipelines de publication et de déploiement
+
+Publication et déploiement utilisent la révision et les preuves de [Prove](./stage-prove#pipeline-de-livraison), sur toute plateforme CI/CD. Appliquez les [règles de statut communes](./platform-rails#declencheurs-points-de-revue-et-statuts). Publier un package ou la documentation ne signifie pas que le déploiement en production est terminé.
+
+### Publier un package ou un artefact
+
+Un pipeline de publication distribue un package, une image de conteneur ou un autre artefact de livraison préparé et versionné :
+
+1. Vérifie la révision, la version, le tag et les preuves.
+2. Construit et teste l’artefact, ou vérifie un build immuable existant.
+3. Vérifie la documentation, les métadonnées, le contenu et la provenance.
+4. Choisit le registre et le canal ; effectue une simulation si possible.
+5. Publie sauf en mode vérification seule, confirme la disponibilité et notifie les consommateurs.
+
+**Point d’arrêt :** simulation, publication confirmée, pause demandée ou échec. Ce pipeline n’implémente ni ne fusionne de changement.
+
+**Une validation réussie ne signifie pas publié.** Consignez la version et le résultat du registre avant Done si la publication est requise. Puis [reprenez le travail dépendant](./stage-think#reprise-apres-une-livraison-amont).
+
+### Déployer la documentation
+
+Un pipeline documentaire construit et déploie le site associé à la révision livrée :
+
+1. Restaure la révision livrée et construit le code nécessaire à la documentation.
+2. Installe les dépendances du site, construit et valide la documentation.
+3. Stocke le site généré sous forme d’artefact de déploiement versionné.
+4. Déploie automatiquement vers l’hébergement configuré après réussite des contrôles d’environnement, puis vérifie la disponibilité.
+
+**Point d’arrêt :** un déploiement documentaire vérifié, une pause explicitement demandée ou un échec de build/déploiement. Ce pipeline est distinct de la validation des changements et de la publication ; la politique de livraison détermine son déclencheur et si son résultat est requis pour terminer le travail.
 
 ## Jalon de sortie
 

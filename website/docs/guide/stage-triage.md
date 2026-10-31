@@ -9,26 +9,25 @@ pageClass: page-stage-yellow
   <span class="stage-hero-desc">Candidate needs qualified into requirements, scored &amp; prioritized in the backlog</span>
 </div>
 
-Where captured demand becomes the **requirements backlog**. Triage turns candidate needs from [0 — Meet](./stage-meet) and other sources into qualified business requirements enriched with system context and evidence. AI scores them, and the Product Owner validates and prioritizes the resulting backlog issues.
+Triage turns needs from [Meet](./stage-meet) and other sources into evidence-linked backlog issues. AI checks and scores them; the Product Owner sets priorities.
 
 ## Purpose
 
 | Input | Output | Owner |
 |---|---|---|
-| Candidate needs and evidence from [0 — Meet](./stage-meet) and other demand sources + **Persistent Context** (domain glossary, existing specifications, product scope) | A prioritized requirements backlog: evidence-linked backlog issues with qualified business requirements, system mappings, an early risk estimate, and a completed scorecard | Product Owner |
+| Needs and evidence from [Meet](./stage-meet) or other sources, plus Persistent Context | Ranked issues with evidence, affected systems, early risks, and scores | Product Owner |
 
 ## From evidence to backlog issue
 
-Triage bridges raw client dialogue from [0 — Meet](./stage-meet) and executable acceptance criteria in [3 — Plan](./stage-plan). It evaluates each candidate need against current product scope and architecture so only grounded, well-scoped requirements enter the backlog. AI uses Persistent Context and repository information to:
+AI checks each need against the product scope, repository, and Persistent Context:
 
-1. **Qualify and map the requirement** against existing capabilities, specifications, domain concepts, and architecture boundaries.
-2. **Estimate impact** by identifying affected systems, early risk, and unknowns. The blast radius tier is set later, in [2 — Think](./stage-think).
-3. **Draft the backlog issue** in a standard format, state the business requirement clearly, link it to its source evidence, and prefill the scorecard fields. The Product Owner can review the scores and determines priority.
+1. **Map the need** to existing capabilities, specs, and boundaries.
+2. **Estimate impact** and flag unknowns. [Think](./stage-think) sets the formal risk tier later.
+3. **Draft an issue** with the requirement, source evidence, and scores. The Product Owner sets priority.
 
 ## The backlog issue
 
-Every business need that survives analysis becomes a qualified **business requirement**, logged as one **backlog issue** in the squad's issue tracker. Together, these issues form the squad's **requirements backlog**.
-The issue captures *what* is required and *why*, grounded in verbatim evidence; [2 — Think](./stage-think) decides *how* to satisfy the requirement architecturally, and [3 — Plan](./stage-plan) translates it into testable acceptance criteria.
+Create one issue per qualified need. It states **what** is needed and **why**, with source evidence. [Think](./stage-think) chooses **how**; [Plan](./stage-plan) defines the steps and acceptance tests.
 
 | Field | Content |
 |---|---|
@@ -69,7 +68,7 @@ priority.
 
 AI never decides which client problem matters most.
 
-## Primitives in Persistent Context
+## Agents and skills {#primitives-in-persistent-context}
 
 Triage runs on the primitives published by [coding-pal](https://alten-group.github.io/coding-pal/):
 
@@ -104,6 +103,5 @@ A requirement leaves Triage when its backlog issue has:
 3. a completed scorecard row,
 4. an explicit decision: *todo*, *explore*, *later*, or *no*.
 
-`no` is recorded with its rationale. Rejected requirements build institutional memory and guide future
-client discussions. The weekly review that works through the ranked requirements backlog is described in [Cadence](./cadence).
+Record why an issue is marked `no` so it is not reconsidered without new evidence. Review ranked issues using the [weekly cadence](./cadence).
 Only a `todo` decision, set by the Product Owner, starts [2 — Think](./stage-think).

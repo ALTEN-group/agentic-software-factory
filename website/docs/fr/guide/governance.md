@@ -1,16 +1,18 @@
 # ⚖️ Gouvernance
 
-Qui décide, et ce que l’IA est autorisée à faire. La vitesse découle de la clarté des droits de décision ; l’Agentic Software Factory les rend donc explicites : les squads n’attendent jamais une autorisation dont elles n’avaient pas besoin, et ne prennent jamais une décision qui ne leur appartient pas. L’IA est traitée comme une capacité de production à part entière : dotée d’un responsable, versionnée, budgétée et auditée.
+Les agents décident et exécutent selon des règles consignées. Des personnes nommées sont responsables de ces règles, budgets et résultats.
 
 ## Qui décide
 
 ### Règle par défaut
 
-**La squad décide**, sauf si la décision figure dans le tableau ci-dessous.
+**Tous les changements peuvent être autonomes**, y compris les API publiques, schémas, changements de sécurité et niveaux Élevé et Critique. Les personnes interviennent sur les échecs non résolus ou les tentatives épuisées. Les pauses de revue sont facultatives et doivent être demandées.
+
+Les responsables ci-dessous sont **garants des règles, pas approbateurs obligatoires**. Les décisions automatisées consignent l’agent, la date, les options, les preuves et les conséquences, sans prétendre à une signature humaine.
 
 ### Tableau de décision
 
-| Décision | Décidé par | Consulté | Enregistré sous forme de |
+| Décision | Responsable | Consulté en cas d’exception | Enregistré sous forme de |
 |---|---|---|---|
 | Quoi construire ensuite dans le cadre du résultat convenu | Product Owner | Squad, clients | Ligne de *scorecard* |
 | Lancer ou non une expérimentation | Product Owner | Architecte | Entrée dans le registre des hypothèses |
@@ -29,29 +31,29 @@ Qui décide, et ce que l’IA est autorisée à faire. La vitesse découle de la
 
 N’escaladez qu’en cas de : conflit inter-squads, exposition de sécurité, obligation de conformité, engagement externe ou impact budgétaire. Une escalade énonce la décision à prendre, les options, la recommandation et la date à laquelle le silence vaut adoption de la recommandation.
 
-### Rayon d’impact et validation humaine requise {#blast-radius-and-required-human-validation}
+### Rayon d’impact et validation automatisée requise {#blast-radius-and-required-human-validation}
 
-Le poids d’une décision est déterminé par son rayon d’impact (*blast radius*) et par la difficulté à revenir en arrière. Le rayon d’impact est classifié une première fois lors de [2 — Think](./stage-think), puis vérifié à nouveau lors de [3 — Plan](./stage-plan) au regard du périmètre de fichiers. Il fixe ensuite le niveau de validation humaine exigé lors de [5 — Prove](./stage-prove).
+Le rayon d’impact décrit la portée et la réversibilité d’un changement. [Think](./stage-think) fixe le niveau ; [Plan](./stage-plan) le vérifie. Il détermine les preuves requises dans [Prove](./stage-prove), pas qui doit signer.
 
-| Rayon d’impact | Critères | Validation humaine requise |
+| Rayon d’impact | Critères | Validation automatisée requise |
 |---|---|---|
-| **Faible (*Low*)** | Refactoring interne, évolution de schéma non cassante, modification de texte couverte par des tests déterministes au vert | **Fusion automatique (*Auto-merge*)** dès que tous les contrôles sont au vert, ou validation développeur en un clic |
-| **Moyen (*Medium*)** | Nouveau point de terminaison public, ajout au schéma, intégration avec un fournisseur externe | **Validation simple** : le développeur vérifie l’intention du client et l’environnement de prévisualisation |
-| **Élevé (*High*)** | Authentification, permissions, facturation, traitement de données personnelles (PII), migration de données | **Double validation** : le développeur + l’architecte vérifient l’intention métier, les frontières d’accès et le mécanisme de rollback |
-| **Critique (*Critical*)** | Migration de données irréversible, rupture d’un contrat public, changement d’infrastructure | **Approbation conjointe** : l’architecte + le Product Owner approuvent la continuité d’activité et un déploiement progressif |
+| **Faible (*Low*)** | Refactoring interne, schéma non cassant, modification de texte | Contrôles au vert et évaluation indépendante de l’intention, du comportement et de la sécurité |
+| **Moyen (*Medium*)** | API publique, ajout au schéma, intégration externe | Preuves du niveau Faible et contrôles de contrat et d’intégration adaptés |
+| **Élevé (*High*)** | Authentification, permissions, facturation, PII, migration | Contrôles des frontières d’accès et de sécurité, avec preuves de rollback vérifié |
+| **Critique (*Critical*)** | Migration irréversible, contrat public cassant, infrastructure | Preuves du niveau Élevé, relevé de décision, contrôles de continuité et déploiement progressif validé |
 
 ### Interdiction de la revue de code ligne par ligne
 
-**La revue manuelle de la syntaxe du code ligne par ligne est interdite en tant que jalon de validation.** Tout ce qui peut être évalué automatiquement est appliqué par les vérifications automatisées et les [Contrôles déterministes](./deterministic-controls). La revue humaine se limite strictement à la **Validation humaine minimale**, décrite dans [5 — Prove](./stage-prove#minimum-human-validation).
+**La revue manuelle ligne par ligne n’est pas un jalon autorisé.** Utilisez les vérifications et [contrôles automatisés](./deterministic-controls). [Prove](./stage-prove#minimum-human-validation) évalue indépendamment l’intention, le comportement et la sécurité. La revue humaine est facultative ou traite les exceptions.
 
 ## Responsabilité (*Accountability*)
 
-L’IA exécute le processus au maximum de ses capacités : transcription des réunions, extraction des besoins métier, génération de 100 % du code et validation déterministe avec auto-remédiation par les agents. **La responsabilité finale incombe toujours à une personne nommée**, en particulier pour :
+L’IA exécute le processus avec validation et auto-remédiation. **La responsabilité finale incombe toujours à une personne nommée**, sans exiger d’approbation manuelle de chaque exécution. Les responsables restent garants :
 
-- l’acceptation finale de tout changement fusionné,
+- des objectifs et politiques d’acceptation automatique des changements,
 - tout engagement envers le client et le choix du problème à résoudre,
-- la validation de l’intention métier et des invariants de sécurité (**Validation humaine minimale**),
-- tout changement sensible pour la sécurité, y compris l’approbation des frontières de sécurité, de conformité et d’architecture à fort rayon d’impact,
+- des contrôles et preuves de validation de l’intention métier et des invariants de sécurité,
+- des frontières de sécurité, de conformité et d’architecture, y compris les décisions automatisées Élevées/Critiques,
 - toute modification des modèles, prompts ou agents ayant un impact sur la confiance ou la conformité,
 - la résolution de tout incident et les actions post-mortem associées.
 

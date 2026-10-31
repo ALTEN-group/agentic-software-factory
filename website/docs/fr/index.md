@@ -5,7 +5,7 @@ pageClass: is-home
 hero:
   name: Agentic Software Factory
   text: Modèle opérationnel pour la livraison pilotée par l’IA
-  tagline: Exploiter l’IA sur l’ensemble du cycle de vie logiciel — de la réunion client jusqu’à la mise en production.
+  tagline: De la réunion client à la production, avec une IA autonome et des contrôles automatisés.
   actions:
     - theme: brand
       text: Commencer
@@ -14,20 +14,20 @@ hero:
 features:
   - icon: 🎙️
     title: Développement piloté par les réunions
-    details: "L’Agentic Software Factory repose sur le Meeting-Driven Development : le cycle de développement débute dès la réunion client et s’écoule de manière autonome via la génération par IA jusqu’à la mise en production."
+    details: Les échanges clients deviennent des besoins liés à leurs preuves, puis suivent le parcours de livraison.
   - icon: ⚡
     title: Génération de code autonome
-    details: Les agents IA génèrent de façon autonome le code, les tests et la documentation, tandis que les développeurs spécifient, structurent le contexte et construisent des contrôles déterministes.
+    details: L’IA écrit le code, les tests et la documentation. Les personnes définissent les objectifs et sont garantes du contexte et des contrôles.
   - icon: 🛡️
     title: Boucles rapides, contrôles indépendants
-    details: Les agents itèrent rapidement face aux compilateurs, vérificateurs de types, linters et tests. Des contrôles déterministes (tests de contrat, tests de mutation, scans de sécurité) valident ensuite le résultat de manière indépendante, avec auto-remédiation par l’agent en cas d’échec.
+    details: Les agents exécutent builds, tests et contrôles de sécurité, puis corrigent les échecs dans la limite de tentatives.
   - icon: 🎯
-    title: Validation humaine minimale
-    details: Élimine la fatigue des revues de syntaxe ligne par ligne. La validation humaine se concentre strictement sur l’intention métier, le résultat client et les invariants de sécurité.
+    title: Validation autonome
+    details: Les contrôles et un agent indépendant évaluent l’intention, le comportement et la sécurité. Les personnes interviennent sur les échecs non résolus, sans signature systématique.
   - icon: 🧠
     title: Contexte persistant
-    details: Les instructions, prompts, skills et agents sont des artefacts versionnés dans le dépôt, alimentant les modèles avec les conventions exactes du projet plutôt qu’avec des prompts approximatifs.
+    details: Les instructions, prompts, skills et agents versionnés rendent les règles du dépôt accessibles à chaque session.
   - icon: ↩️
     title: Sûr par conception, réversible à chaque étape
-    details: Le déploiement est automatisé et chaque étape peut être annulée, pour que livrer plus vite ne signifie jamais prendre plus de risques.
+    details: Le déploiement automatisé prévoit des contrôles de santé, une exposition progressive et un plan de reprise.
 ---
