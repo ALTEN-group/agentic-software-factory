@@ -455,10 +455,11 @@ function canEnterColumn(ticket, nextColIndex) {
   if (nextColIndex === 1 || nextColIndex === 2 || nextColIndex === 6) {
     return true;
   }
-  // Entering Code (col 3) from Plan requires the entire Code -> Prove -> Release delivery
-  // pipeline (cols 3, 4, 5) to be free and the ticket to be #1 at the head of the Plan FIFO queue
+  // Entering Code (col 3) from Plan requires the Code -> Prove delivery lock
+  // (cols 3, 4) to be free (unlocked as soon as PR merges and enters Release)
+  // and the ticket to be #1 at the head of the Plan FIFO queue
   if (nextColIndex === 3) {
-    if (colOccupied[3] || colOccupied[4] || colOccupied[5]) {
+    if (colOccupied[3] || colOccupied[4]) {
       return false;
     }
     return planFifoQueue.length > 0 && planFifoQueue[0].id === ticket.id;
@@ -1338,7 +1339,7 @@ onBeforeUnmount(() => {
                     </span>
 
                     <span v-if="!ticket.inFlight && ticket.colIndex === 6" class="gh-done-pill">
-                      ✓ {{ ticket.prNumber }} · {{ ticket.releaseTag }}
+                      ✓ {{ ticket.releaseTag }}
                     </span>
                   </div>
 
