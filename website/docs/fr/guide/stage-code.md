@@ -129,11 +129,11 @@ Le pipeline Code implémente le plan et ouvre une demande de fusion (pull reques
 3. Crée la branche, implémente le plan et prépare le dossier de demande de fusion.
 4. Exécute tests, build, contrôles de périmètre et vérifications de préparation de livraison applicables.
 5. Pousse la branche et crée ou met à jour la demande de fusion.
-6. Si un point de revue humaine a été demandé, conserve le statut **Code** et signale la pause. Sinon, transmet les spécifications et la référence de demande de fusion à [Prove](./stage-prove#pipeline-de-livraison).
+6. Transmet les spécifications et la référence de demande de fusion à [Prove](./stage-prove#pipeline-de-livraison) pour l’exécution des contrôles en CI propre et la revue de code indépendante.
 
-**Point d’arrêt :** revue demandée ou passage à Prove. **Code ne fusionne pas.** Le statut reste **Code** pendant la revue.
+**Point d’arrêt :** passage à Prove ou échec d’implémentation non résolu. **Code ne fusionne pas.**
 
-Après revue, reprenez la demande existante à Prove. Le statut change au démarrage de Prove. Signalez les échecs non résolus à un développeur ; le travail indépendant peut continuer.
+Signalez les échecs non résolus à un développeur ; le travail indépendant en file peut continuer.
 
 ## Jalon de sortie
 

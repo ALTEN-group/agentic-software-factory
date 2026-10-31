@@ -6,20 +6,20 @@ pageClass: page-stage-cyan
 
 <div class="stage-hero-banner banner-cyan">
   <span class="stage-hero-badge">STAGE 5</span>
-  <span class="stage-hero-desc">Deterministic gate validation &amp; agent auto-remediation</span>
+  <span class="stage-hero-desc">Deterministic gate validation, automated code review &amp; agent auto-remediation</span>
 </div>
 
-Prove reruns controls in clean CI. An independent agent checks intent, behaviour, and safety. Passing changes can merge automatically, without human sign-off.
+Prove reruns controls in clean CI and performs an independent automated code review. A separate Prove agent reviews the pull request diff and checks intent, behaviour, architecture compliance, and safety. Passing changes can merge automatically, without routine human sign-off.
 
 ## Purpose
 
 | Input | Output | Owner |
 |---|---|---|
-| A change request that passed [Code](./stage-code) checks | CI results, independent assessment, and risk-tier evidence allowing automatic merge | Developer (accountable for automation) |
+| A change request that passed [Code](./stage-code) checks | CI results, independent code review &amp; assessment, and risk-tier evidence allowing automatic merge | Developer (accountable for automation) |
 
-## Why deterministic controls replace manual code review
+## Why deterministic controls and agent review replace manual code review
 
-Manual review cannot keep up with generated changes and can miss defects. Use executable checks and independent agent assessment. People intervene on unresolved failures or exhausted retries.
+Manual line-by-line review cannot keep up with generated changes and can miss subtle defects. Prove combines executable deterministic controls with an independent agent code review that inspects the diff against [Persistent Context](./persistent-context) rules, [Plan](./stage-plan) boundaries, and security invariants. People intervene only on unresolved failures, exhausted retries, or explicitly requested review checkpoints.
 
 ## The deterministic control harness
 
@@ -53,17 +53,18 @@ Repeat until all checks pass or the [retry limit](./stage-code) is reached. Then
 
 ## Where AI is used
 
-Controls decide pass/fail. AI writes tests, repairs code, and performs the independent assessment.
+Controls decide pass/fail. AI writes tests, repairs code, and performs the independent code review and assessment.
 
 | Task | AI role | Human role |
 |---|---|---|
+| **Automated code review** | Review the pull request diff against architecture boundaries, Persistent Context rules, and security invariants | Intervene only on unresolved findings or requested review checkpoints |
 | **Failure diagnosis** | Read the failing gate output and locate the fault | None for routine failures |
 | **Remediation** | Rewrite the code to satisfy the gate, within the fix-loop limit, never weakening a control | Intervene only when the limit is reached |
 | **Test suites** | Write and maintain suites; controls verify acceptance-criteria coverage | Intervene if coverage cannot be established |
 
-## Independent automated assessment {#minimum-human-validation}
+## Independent code review and automated assessment {#minimum-human-validation}
 
-An independent Prove agent records evidence for three questions:
+An independent Prove agent reviews the pull request and records evidence for three questions:
 
 1. **Client Intent**: Does this feature faithfully deliver what the client requested in the meeting?
 2. **Behavioral Experience**: Does the live preview environment look, behave, and feel right?
@@ -110,9 +111,9 @@ The Prove pipeline validates an existing change request before it can be merged,
 
 1. Sets the work item's phase status to **Prove** (or **Release** on a combined board) before validation starts; this does not mean the change has passed.
 2. Runs checks covering specs, scope, secrets, dependencies, tests, builds, acceptance criteria, and change-request metadata.
-3. Runs the Prove agent to assess the implementation and write a validation record.
+3. Runs the Prove agent to perform an independent code review, assess the implementation, and write a validation record.
 4. If checks fail, runs automatic fixes and retries up to the configured limit, **5 attempts in the factory baseline**, then requests developer intervention.
-5. Records the evidence-backed automated verdict and authorizes merge when all required controls and assessments pass, at every blast radius.
+5. Records the evidence-backed automated verdict and authorizes merge when all required controls, code review checks, and assessments pass, at every blast radius.
 
 After validation, the platform merges and removes the branch according to delivery policy. It passes the revision and evidence to [Release](./stage-release#publication-and-deployment-pipelines).
 

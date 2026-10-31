@@ -132,11 +132,11 @@ The Code pipeline implements the plan and opens a change request (pull request o
 3. Creates the branch, implements the plan, and prepares the change-request record.
 4. Runs tests, build, scope checks, and applicable release-readiness checks.
 5. Pushes the branch and creates or updates the change request.
-6. If a human review checkpoint was requested, keeps the status at **Code** and records the review pause. Otherwise, passes the specifications and change-request reference to [Prove](./stage-prove#delivery-pipeline).
+6. Passes the specifications and change-request reference to [Prove](./stage-prove#delivery-pipeline) for clean-CI controls and independent code review.
 
-**Stops at:** requested review or handoff to Prove. **Code does not merge.** Status stays **Code** during review.
+**Stops at:** handoff to Prove or unresolved implementation failure. **Code does not merge.**
 
-After review, resume the existing change request at Prove. Status changes when Prove starts. Report unresolved failures to a developer; unrelated queued work can continue.
+Report unresolved failures to a developer; unrelated queued work can continue.
 
 ## Exit gate
 

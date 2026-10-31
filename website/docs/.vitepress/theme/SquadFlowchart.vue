@@ -1,7 +1,7 @@
 <template>
   <div class="squad-flowchart-container">
     <svg
-      viewBox="60 0 800 760"
+      viewBox="60 0 800 662"
       class="squad-flowchart-svg"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
@@ -11,6 +11,10 @@
         <linearGradient v-for="c in colors" :id="'sq' + c.id" :key="c.id" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" :stop-color="c.from" />
           <stop offset="100%" :stop-color="c.to" />
+        </linearGradient>
+        <linearGradient id="sqPipeGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#6366f1" />
+          <stop offset="100%" stop-color="#8b5cf6" />
         </linearGradient>
         <marker
           id="sqArrow"
@@ -29,7 +33,7 @@
       <path
         v-for="(s, i) in stages.slice(0, -1)"
         :key="'a' + i"
-        :d="`M ${cx} ${rowY(i) + 54} V ${rowY(i + 1) - 7}`"
+        :d="`M ${cx} ${rowY(i) + blockH} V ${rowY(i + 1) - 7}`"
         class="sq-pipe"
         marker-end="url(#sqArrow)"
       />
@@ -37,7 +41,7 @@
       <!-- Who does the job, per group of stages -->
       <g v-for="g in groups" :key="g.from">
         <path
-          :d="`M ${blockX - 8} ${rowY(g.from)} H ${blockX - 18} V ${rowY(g.to) + 54} H ${blockX - 8}`"
+          :d="`M ${blockX - 8} ${rowY(g.from)} H ${blockX - 18} V ${rowY(g.to) + blockH} H ${blockX - 8}`"
           class="sq-bracket"
           :stroke="roles[g.role].color"
         />
@@ -78,7 +82,7 @@
             <rect
               v-if="s.highlight"
               :width="blockW + 8"
-              height="62"
+              :height="blockH + 8"
               x="-4"
               y="-4"
               rx="13"
@@ -90,7 +94,7 @@
             />
             <rect
               :width="blockW"
-              height="54"
+              :height="blockH"
               rx="10"
               :fill="'url(#sq' + s.color + ')'"
               :stroke="strokes[s.color]"
@@ -151,13 +155,13 @@ const strokes = {
 }
 
 const stages = computed(() => [
-  { title: '🎙️ 0 — Meet', sub: isFr.value ? 'Dialogue client & découverte' : 'Client dialogue & discovery', page: 'stage-meet', color: 'orange', highlight: true },
+  { title: '🎙️ 0 — Meet', sub: isFr.value ? 'Dialogue client & découverte' : 'Client dialogue & discovery', page: 'stage-meet', color: 'blue', highlight: true },
   { title: '🎯 1 — Triage', sub: isFr.value ? 'Besoins métier classés en tickets backlog' : 'Business needs ranked as backlog issues', page: 'stage-triage', color: 'yellow' },
   { title: '💡 2 — Think', sub: isFr.value ? 'Options, compromis & décisions' : 'Options, trade-offs & decisions', page: 'stage-think', color: 'pink', highlight: true },
   { title: '📋 3 — Plan', sub: isFr.value ? 'Découpage, périmètre & critères' : 'Breakdown, scope & criteria', page: 'stage-plan', color: 'indigo' },
   { title: '⚡ 4 — Code', sub: isFr.value ? 'Boucles itératives rapides' : 'Fast iterative loops', page: 'stage-code', color: 'core' },
   { title: '✅ 5 — Prove', sub: isFr.value ? 'Gardes, jalons, contrats & sondes' : 'Guards, gates, contracts & probes', page: 'stage-prove', color: 'cyan' },
-  { title: '🚀 6 — Release', sub: isFr.value ? 'Déploiement automatisé' : 'Automated deployment', page: 'stage-release', color: 'blue' },
+  { title: '🚀 6 — Release', sub: isFr.value ? 'Déploiement automatisé' : 'Automated deployment', page: 'stage-release', color: 'orange' },
   { title: '📈 7 — Learn', sub: isFr.value ? 'QA ou supervision' : 'QA or monitoring', page: 'stage-learn', color: 'gray' },
 ])
 
@@ -166,22 +170,25 @@ const enablers = computed(() => [
   { icon: '📦', lines: ['Forge'], page: 'forge', h: 40 },
   { icon: '🛡️', lines: isFr.value ? ['Contrôles', 'déterministes'] : ['Deterministic', 'Controls'], page: 'deterministic-controls', h: 58 },
 ])
-const enablerGap = 12
+const enablerGap = 10
 
 const chipW = 130
 const chipH = 44
 const blockX = 250
 const blockW = 250
+const blockH = 54
+const rowGap = 26
+const rowStep = blockH + rowGap
 const cx = blockX + blockW / 2
 const enX = 520
 const enW = 170
 
-const rowY = (i) => 40 + i * 92
-const enablerTop = 270
+const rowY = (i) => 24 + i * rowStep
+const enablerTop = 218
 const enablerY = (i) => enablerTop + enablers.value.slice(0, i).reduce((sum, e) => sum + e.h + enablerGap, 0)
 const enablerEnd = computed(() => enablerY(enablers.value.length - 1) + enablers.value[enablers.value.length - 1].h)
 const enablerMid = computed(() => (enablerY(0) + enablerEnd.value) / 2)
-const mid = (g) => (rowY(g.from) + rowY(g.to) + 54) / 2
+const mid = (g) => (rowY(g.from) + rowY(g.to) + blockH) / 2
 </script>
 
 <style scoped>
@@ -200,7 +207,7 @@ const mid = (g) => (rowY(g.from) + rowY(g.to) + 54) / 2
 }
 
 .sq-pipe {
-  stroke: #818cf8;
+  stroke: url(#sqPipeGrad);
   stroke-width: 3px;
   stroke-linecap: round;
   fill: none;

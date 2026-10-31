@@ -1,7 +1,7 @@
 <template>
   <div class="enabler-block-container">
     <svg
-      viewBox="-8 -8 246 78"
+      viewBox="-8 -8 246 82"
       class="enabler-block-svg"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
@@ -17,7 +17,7 @@
       <g class="flow-node node-green">
         <rect
           width="230"
-          height="62"
+          height="66"
           rx="10"
           class="node-rect rect-green"
           :fill="`url(#enablerGreenCard-${type})`"
@@ -53,17 +53,17 @@ const isFr = computed(() => lang.value === 'fr')
 const block = computed(() => {
   if (props.type === 'persistent-context') {
     return {
-      titleY: 24,
+      titleY: 25,
       title: isFr.value ? '🧠 Contexte persistant' : '🧠 Persistent Context',
       lines: [
-        { y: 41, text: isFr.value ? 'Instructions, prompts,' : 'Instructions, prompts,' },
-        { y: 54, text: isFr.value ? 'skills et agents' : 'skills and agents' },
+        { y: 42, text: isFr.value ? 'Instructions, prompts,' : 'Instructions, prompts,' },
+        { y: 55, text: isFr.value ? 'skills et agents' : 'skills and agents' },
       ],
     }
   }
   if (props.type === 'deterministic-controls') {
     return {
-      titleY: 27,
+      titleY: 28,
       title: isFr.value ? '🛡️ Contrôles déterministes' : '🛡️ Deterministic Controls',
       lines: [
         { y: 47, text: isFr.value ? 'Gardes, jalons, contrats & sondes' : 'Guards, gates, contracts & probes' },
@@ -71,11 +71,11 @@ const block = computed(() => {
     }
   }
   return {
-    titleY: 24,
+    titleY: 25,
     title: '📦 Forge',
     lines: [
-      { y: 41, text: isFr.value ? 'Code réutilisable :' : 'Reusable code:' },
-      { y: 54, text: isFr.value ? 'fonctions, librairies, services' : 'functions, libraries, services' },
+      { y: 42, text: isFr.value ? 'Code réutilisable :' : 'Reusable code:' },
+      { y: 55, text: isFr.value ? 'fonctions, librairies, services' : 'functions, libraries, services' },
     ],
   }
 })

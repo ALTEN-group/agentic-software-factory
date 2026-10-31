@@ -132,19 +132,19 @@
 
       <!-- Loop 2: 7 — Learn back to Persistent Context (Outer Left) -->
       <path
-        d="M 360 698 H 70 V 258 H 87"
+        d="M 360 726 H 70 V 247 H 87"
         class="feedback-path green-feedback"
         marker-end="url(#flowArrowGreen)"
       />
-      <text x="300" y="706" class="flow-label green-text">{{ isFr ? 'Enrichit' : 'Enriches' }}</text>
+      <text x="300" y="734" class="flow-label green-text">{{ isFr ? 'Enrichit' : 'Enriches' }}</text>
 
       <!-- Loop 3: 7 — Learn back to Deterministic Controls (Inner Left) -->
       <path
-        d="M 360 684 H 82 V 342 H 87"
+        d="M 360 712 H 82 V 339 H 87"
         class="feedback-path green-feedback"
         marker-end="url(#flowArrowGreen)"
       />
-      <text x="300" y="677" class="flow-label green-text">{{ isFr ? 'Renforce' : 'Hardens' }}</text>
+      <text x="300" y="705" class="flow-label green-text">{{ isFr ? 'Renforce' : 'Hardens' }}</text>
 
       <!-- ============================================================== -->
       <!-- CONNECTIONS FROM GREEN BLOCKS INTO DELIVERY STAGES             -->
@@ -152,267 +152,114 @@
 
       <!-- Weekly audit -> 4 — Code -->
       <path
-        d="M 675 426 H 647"
+        d="M 675 431 H 647"
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
 
       <!-- Weekly audit -> 1 — Triage (own inner corridor) -->
       <path
-        d="M 905 421 H 912 Q 920 421 920 413 V 172 Q 920 164 912 164 H 647"
+        d="M 905 431 H 912 Q 920 431 920 423 V 178 Q 920 170 912 170 H 647"
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
-      <text x="784" y="157" class="flow-label grey-text">{{ isFr ? 'Ouvre des tickets' : 'Opens issues' }}</text>
+      <text x="784" y="163" class="flow-label grey-text">{{ isFr ? 'Ouvre des tickets' : 'Opens issues' }}</text>
 
       <!-- 7 — Learn -> 1 — Triage (Outer right corridor, opens backlog issues) -->
       <path
-        d="M 640 691 H 935 V 153 Q 935 145 927 145 H 647"
+        d="M 640 707 H 935 V 159 Q 935 151 927 151 H 647"
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
-      <text x="784" y="138" class="flow-label grey-text">{{ isFr ? 'Ouvre des tickets' : 'Opens issues' }}</text>
+      <text x="784" y="144" class="flow-label grey-text">{{ isFr ? 'Ouvre des tickets' : 'Opens issues' }}</text>
 
       <!-- Support ticketing tool -> 1 — Triage (above the Learn corridor) -->
       <path
-        d="M 790 86 V 126 H 647"
+        d="M 790 96 V 132 H 647"
         class="audit-connector"
         marker-end="url(#flowArrowGrey)"
       />
-      <text x="718" y="119" class="flow-label grey-text">{{ isFr ? 'Ouvre des tickets' : 'Opens issues' }}</text>
+      <text x="718" y="125" class="flow-label grey-text">{{ isFr ? 'Ouvre des tickets' : 'Opens issues' }}</text>
 
-      <!-- Persistent Context -> shared trunk (left) feeding 0 — Meet, 1 — Triage, 2 — Think, 3 — Plan, 4 — Code, 5 — Prove, 6 — Release, 7 — Learn -->
+      <!-- Persistent Context & Deterministic Controls <-> shared trunk (left) feeding 0 — Meet through 7 — Learn -->
       <path
-        d="M 325 342 H 340"
+        d="M 325 247 H 340"
         class="green-connector"
         marker-start="url(#flowArrowGreen)"
       />
       <path
-        d="M 340 58 V 670"
+        d="M 325 339 H 340"
+        class="green-connector"
+        marker-start="url(#flowArrowGreen)"
+      />
+      <path
+        d="M 340 63 V 707"
         class="green-connector"
       />
       <path
-        d="M 340 58 H 353"
-        class="green-connector"
-        marker-end="url(#flowArrowGreen)"
-      />
-      <path
-        d="M 340 145 H 353"
-        class="green-connector"
-        marker-end="url(#flowArrowGreen)"
-      />
-      <path
-        d="M 340 235 H 353"
-        class="green-connector"
-        marker-end="url(#flowArrowGreen)"
-      />
-      <path
-        d="M 340 327 H 353"
-        class="green-connector"
-        marker-end="url(#flowArrowGreen)"
-      />
-      <path
-        d="M 340 412 H 353"
-        class="green-connector"
-        marker-end="url(#flowArrowGreen)"
-      />
-      <path
-        d="M 340 515 H 353"
-        class="green-connector"
-        marker-end="url(#flowArrowGreen)"
-      />
-      <path
-        d="M 340 604 H 353"
-        class="green-connector"
-        marker-end="url(#flowArrowGreen)"
-      />
-      <path
-        d="M 340 670 H 353"
+        v-for="row in 8"
+        :key="`left-trunk-${row}`"
+        :d="`M 340 ${rowCenterY(row - 1)} H 353`"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
 
       <!-- The Forge -> shared trunk (right) feeding 2 — Think, 3 — Plan, 4 — Code -->
       <path
-        d="M 660 235 V 404"
+        d="M 660 247 V 412"
         class="green-connector"
       />
       <path
-        d="M 660 404 H 647"
+        d="M 660 412 H 647"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
       />
       <path
-        d="M 675 327 H 647"
+        d="M 675 339 H 647"
         class="green-connector"
         marker-start="url(#flowArrowGreen)"
         marker-end="url(#flowArrowGreen)"
       />
       <path
-        d="M 660 235 H 647"
+        d="M 660 247 H 647"
         class="green-connector"
         marker-end="url(#flowArrowGreen)"
-      />
-
-      <!-- Persistent Context & Deterministic Controls <-> shared trunk (left): the links go both ways -->
-      <path
-        d="M 325 258 H 340"
-        class="green-connector"
-        marker-start="url(#flowArrowGreen)"
       />
 
       <!-- ============================================================== -->
       <!-- MAIN PIPELINE HIGHWAY (Straight Vertical Down the Center)      -->
       <!-- ============================================================== -->
-
-      <!-- Meeting -> 1 — Triage -->
-      <path d="M 500 96 V 109" class="pipe-highway" marker-end="url(#flowArrowMain)" />
-
-      <!-- 1 — Triage -> 3 — Plan -->
-      <path d="M 500 182 V 197" class="pipe-highway" marker-end="url(#flowArrowMain)" />
-
-      <!-- 2 — Think -> 3 — Plan -->
-      <path d="M 500 270 V 289" class="pipe-highway" marker-end="url(#flowArrowMain)" />
-
-      <!-- 3 — Plan -> 4 — Code -->
-      <path d="M 500 362 V 381" class="pipe-highway" marker-end="url(#flowArrowMain)" />
-
-      <!-- 4 — Code -> 5 — Prove -->
-      <path d="M 500 454 V 477" class="pipe-highway" marker-end="url(#flowArrowMain)" />
-
-      <!-- 5 — Prove -> 6 — Release -->
-      <path d="M 500 550 V 569" class="pipe-highway" marker-end="url(#flowArrowMain)" />
-
-      <!-- 6 — Release -> 7 — Learn -->
-      <path d="M 500 642 V 655" class="pipe-highway" marker-end="url(#flowArrowMain)" />
+      <path
+        v-for="row in 7"
+        :key="`highway-${row}`"
+        :d="`M 500 ${rowY(row - 1) + CARD_HEIGHT} V ${rowY(row) - 7}`"
+        class="pipe-highway"
+        marker-end="url(#flowArrowMain)"
+      />
 
       <!-- ============================================================== -->
-      <!-- INTERACTIVE CARDS & NODES                                      -->
+      <!-- INTERACTIVE CARDS & NODES (Unified height & row grid)          -->
       <!-- ============================================================== -->
-
-      <!-- [ROW 0] Meeting (Origin) -->
-      <a :href="withBase(prefix + '/guide/stage-meet')" class="flow-node-link">
-        <g class="flow-node node-meeting" transform="translate(360, 30)">
-          <rect width="280" height="66" rx="10" class="node-rect rect-orange" />
-          <text x="20" y="26" class="node-title orange-title">🎙️ 0 — Meet</text>
-          <text x="20" y="45" class="node-subtitle">{{ isFr ? 'Dialogue client & découverte' : 'Client dialogue & discovery' }}</text>
-        </g>
-      </a>
-
-      <!-- [ROW 4 - RIGHT] Weekly audit (Exact Level with 4 — Code) -->
-      <a :href="withBase(prefix + '/guide/stage-triage#where-backlog-issues-come-from')" class="flow-node-link">
-        <g class="flow-node node-audit" transform="translate(675, 392)">
-          <rect width="230" height="58" rx="10" class="node-rect rect-audit" />
-          <text x="18" y="22" class="node-title audit-title">{{ isFr ? '⏱️ Audit hebdomadaire' : '⏱️ Weekly audit' }}</text>
-          <text x="18" y="42" class="node-subtitle">{{ isFr ? 'Planifié dans la CI' : 'Scheduled in CI' }}</text>
-        </g>
-      </a>
-
-      <!-- [ROW 0 - RIGHT] Support ticketing tool (feeds Triage) -->
-      <a :href="withBase(prefix + '/guide/stage-triage#where-backlog-issues-come-from')" class="flow-node-link">
-        <g class="flow-node node-audit" transform="translate(675, 30)">
-          <rect width="230" height="56" rx="10" class="node-rect rect-audit" />
-          <text x="18" y="24" class="node-title audit-title">{{ isFr ? '🎧 Tickets de support' : '🎧 Support tickets' }}</text>
-          <text x="18" y="44" class="node-subtitle">{{ isFr ? 'Outil de ticketing support' : 'Support ticketing tool' }}</text>
-        </g>
-      </a>
-
-      <!-- [ROW 1] 1 — Triage -->
-      <a :href="withBase(prefix + '/guide/stage-triage')" class="flow-node-link">
-        <g class="flow-node node-need" transform="translate(360, 116)">
-          <rect width="280" height="66" rx="10" class="node-rect rect-yellow" />
-          <text x="20" y="22" class="node-title yellow-title">🎯 1 — Triage</text>
-          <text x="20" y="38" class="node-subtitle">{{ isFr ? 'Vérifier et classer les besoins,' : 'Check and rank needs,' }}</text>
-          <text x="20" y="51" class="node-subtitle">{{ isFr ? 'créer les tickets' : 'create backlog issues' }}</text>
-        </g>
-      </a>
-
-      <!-- [LEFT] Deterministic Controls (below Persistent Context, feeding the same stages) -->
-      <a :href="withBase(prefix + '/guide/deterministic-controls')" class="flow-node-link">
-        <g class="flow-node node-green" transform="translate(95, 311)">
-          <rect width="230" height="62" rx="10" class="node-rect rect-green" />
-          <text x="18" y="27" class="node-title green-title">{{ isFr ? '🛡️ Contrôles déterministes' : '🛡️ Deterministic Controls' }}</text>
-          <text x="18" y="47" class="node-subtitle green-desc">{{ isFr ? 'Gardes, jalons, contrats & sondes' : 'Guards, gates, contracts & probes' }}</text>
-        </g>
-      </a>
-
-      <!-- [ROW 2 - LEFT] Persistent Context (Exact Level with 4 — Code) -->
-      <a :href="withBase(prefix + '/guide/persistent-context')" class="flow-node-link">
-        <g class="flow-node node-green" transform="translate(95, 227)">
-          <rect width="230" height="62" rx="10" class="node-rect rect-green" />
-          <text x="18" y="24" class="node-title green-title">{{ isFr ? '🧠 Contexte persistant' : '🧠 Persistent Context' }}</text>
-          <text x="18" y="41" class="node-subtitle green-desc">{{ isFr ? 'Instructions, prompts,' : 'Instructions, prompts,' }}</text>
-          <text x="18" y="54" class="node-subtitle green-desc">{{ isFr ? 'skills et agents' : 'skills and agents' }}</text>
-        </g>
-      </a>
-
-      <!-- [ROW 2 - CENTER] 2 — Think -->
-      <a :href="withBase(prefix + '/guide/stage-think')" class="flow-node-link">
-        <g class="flow-node node-think" transform="translate(360, 204)">
-          <rect width="280" height="66" rx="10" class="node-rect rect-pink" />
-          <text x="20" y="24" class="node-title pink-title">💡 2 — Think</text>
-          <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Comparer les options,' : 'Compare options,' }}</text>
-          <text x="20" y="54" class="node-subtitle">{{ isFr ? 'choisir l’approche' : 'choose the approach' }}</text>
-        </g>
-      </a>
-
-      <!-- [ROW 3 - CENTER] 3 — Plan -->
-      <a :href="withBase(prefix + '/guide/stage-plan')" class="flow-node-link">
-        <g class="flow-node node-plan" transform="translate(360, 296)">
-          <rect width="280" height="66" rx="10" class="node-rect rect-indigo" />
-          <text x="20" y="24" class="node-title indigo-title">📋 3 — Plan</text>
-          <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Définir les étapes,' : 'Define steps,' }}</text>
-          <text x="20" y="54" class="node-subtitle">{{ isFr ? 'les fichiers et les tests' : 'files and tests' }}</text>
-        </g>
-      </a>
-
-      <!-- [ROW 3 - CENTER] 4 — Code (Autonomous Agent Core) -->
-      <a :href="withBase(prefix + '/guide/stage-code')" class="flow-node-link">
-        <g class="flow-node node-core" transform="translate(360, 388)">
-          <rect width="280" height="66" rx="10" class="node-rect rect-core" />
-          <text x="20" y="26" class="node-title core-title">⚡ 4 — Code</text>
-          <text x="20" y="44" class="node-subtitle">{{ isFr ? 'Boucles autonomes rapides,' : 'Fast autonomous loops,' }}</text>
-          <text x="20" y="57" class="node-subtitle">{{ isFr ? 'générer, tester & corriger' : 'generate, test & fix until green' }}</text>
-        </g>
-      </a>
-
-      <!-- [ROW 3 - RIGHT] The Forge (Exact Level with 3 — Plan) -->
-      <a :href="withBase(prefix + '/guide/forge')" class="flow-node-link">
-        <g class="flow-node node-green" transform="translate(675, 294)">
-          <rect width="230" height="66" rx="10" class="node-rect rect-green" />
-          <text x="18" y="26" class="node-title green-title">📦 Forge</text>
-          <text x="18" y="44" class="node-subtitle green-desc">{{ isFr ? 'Code réutilisable :' : 'Reusable code:' }}</text>
-          <text x="18" y="57" class="node-subtitle green-desc">{{ isFr ? 'fonctions, librairies, services' : 'functions, libraries, services' }}</text>
-        </g>
-      </a>
-
-      <!-- [ROW 4 - CENTER] 5 — Prove -->
-      <a :href="withBase(prefix + '/guide/stage-prove')" class="flow-node-link">
-        <g class="flow-node node-proof" transform="translate(360, 484)">
-          <rect width="280" height="66" rx="10" class="node-rect rect-cyan" />
-          <text x="20" y="24" class="node-title cyan-title">✅ 5 — Prove</text>
-          <text x="20" y="41" class="node-subtitle">{{ isFr ? 'Relancer les contrôles,' : 'Rerun controls,' }}</text>
-          <text x="20" y="54" class="node-subtitle">{{ isFr ? 'évaluer indépendamment' : 'assess independently' }}</text>
-        </g>
-      </a>
-
-      <!-- [ROW 5 - CENTER] 6 — Release -->
-      <a :href="withBase(prefix + '/guide/stage-release')" class="flow-node-link">
-        <g class="flow-node node-release" transform="translate(360, 576)">
-          <rect width="280" height="66" rx="10" class="node-rect rect-blue" />
-          <text x="20" y="21" class="node-title blue-title">🚀 6 — Release</text>
-          <text x="20" y="36" class="node-subtitle">{{ isFr ? 'Déploiement automatisé,' : 'Automated deployment,' }}</text>
-          <text x="20" y="48" class="node-subtitle">{{ isFr ? 'réversible à chaque étape' : 'reversible at any step' }}</text>
-        </g>
-      </a>
-
-      <!-- [ROW 6 - CENTER] 7 — Learn -->
-      <a :href="withBase(prefix + '/guide/stage-learn')" class="flow-node-link">
-        <g class="flow-node node-learn" transform="translate(360, 662)">
-          <rect width="280" height="66" rx="10" class="node-rect rect-gray" />
-          <text x="20" y="22" class="node-title gray-title">📈 7 — Learn</text>
-          <text x="20" y="38" class="node-subtitle">{{ isFr ? 'Analyse de télémétrie &' : 'Telemetry analysis &' }}</text>
-          <text x="20" y="51" class="node-subtitle">{{ isFr ? 'supervision prédictive' : 'predictive monitoring' }}</text>
+      <a
+        v-for="node in nodes"
+        :key="node.id"
+        :href="withBase(prefix + node.href)"
+        class="flow-node-link"
+      >
+        <g :class="['flow-node', node.nodeClass]" :transform="`translate(${node.x}, ${node.y})`">
+          <rect :width="node.width" :height="CARD_HEIGHT" rx="10" :class="['node-rect', node.rectClass]" />
+          <text
+            :x="node.textX"
+            :y="node.lines.length === 1 ? 28 : 25"
+            :class="['node-title', node.titleClass]"
+          >{{ node.title }}</text>
+          <text
+            v-for="(line, lineIdx) in node.lines"
+            :key="lineIdx"
+            :x="node.textX"
+            :y="node.lines.length === 1 ? 47 : (lineIdx === 0 ? 42 : 55)"
+            :class="['node-subtitle', node.subtitleClass]"
+          >{{ line }}</text>
         </g>
       </a>
     </svg>
@@ -426,6 +273,234 @@ import { useData, withBase } from 'vitepress'
 const { lang } = useData()
 const isFr = computed(() => lang.value === 'fr')
 const prefix = computed(() => (isFr.value ? '/fr' : ''))
+
+const CARD_HEIGHT = 66
+const ROW_GAP = 26
+const ROW_STEP = CARD_HEIGHT + ROW_GAP
+const START_Y = 30
+
+const LEFT_X = 95
+const CENTER_X = 360
+const RIGHT_X = 675
+
+const SIDE_WIDTH = 230
+const CENTER_WIDTH = 280
+
+function rowY(row) {
+  return START_Y + row * ROW_STEP
+}
+
+function rowCenterY(row) {
+  return rowY(row) + CARD_HEIGHT / 2
+}
+
+const nodes = computed(() => [
+  // Center column (Stages 0 to 7)
+  {
+    id: 'meet',
+    href: '/guide/stage-meet',
+    x: CENTER_X,
+    y: rowY(0),
+    width: CENTER_WIDTH,
+    textX: 20,
+    nodeClass: 'node-meeting',
+    rectClass: 'rect-blue',
+    titleClass: 'blue-title',
+    subtitleClass: '',
+    title: '🎙️ 0 — Meet',
+    lines: [isFr.value ? 'Dialogue client & découverte' : 'Client dialogue & discovery'],
+  },
+  {
+    id: 'triage',
+    href: '/guide/stage-triage',
+    x: CENTER_X,
+    y: rowY(1),
+    width: CENTER_WIDTH,
+    textX: 20,
+    nodeClass: 'node-need',
+    rectClass: 'rect-yellow',
+    titleClass: 'yellow-title',
+    subtitleClass: '',
+    title: '🎯 1 — Triage',
+    lines: isFr.value
+      ? ['Vérifier et classer les besoins,', 'créer les tickets']
+      : ['Check and rank needs,', 'create backlog issues'],
+  },
+  {
+    id: 'think',
+    href: '/guide/stage-think',
+    x: CENTER_X,
+    y: rowY(2),
+    width: CENTER_WIDTH,
+    textX: 20,
+    nodeClass: 'node-think',
+    rectClass: 'rect-pink',
+    titleClass: 'pink-title',
+    subtitleClass: '',
+    title: '💡 2 — Think',
+    lines: isFr.value
+      ? ['Comparer les options,', 'choisir l’approche']
+      : ['Compare options,', 'choose the approach'],
+  },
+  {
+    id: 'plan',
+    href: '/guide/stage-plan',
+    x: CENTER_X,
+    y: rowY(3),
+    width: CENTER_WIDTH,
+    textX: 20,
+    nodeClass: 'node-plan',
+    rectClass: 'rect-indigo',
+    titleClass: 'indigo-title',
+    subtitleClass: '',
+    title: '📋 3 — Plan',
+    lines: isFr.value
+      ? ['Définir les étapes,', 'les fichiers et les tests']
+      : ['Define steps,', 'files and tests'],
+  },
+  {
+    id: 'code',
+    href: '/guide/stage-code',
+    x: CENTER_X,
+    y: rowY(4),
+    width: CENTER_WIDTH,
+    textX: 20,
+    nodeClass: 'node-core',
+    rectClass: 'rect-core',
+    titleClass: 'core-title',
+    subtitleClass: '',
+    title: '⚡ 4 — Code',
+    lines: isFr.value
+      ? ['Boucles autonomes rapides,', 'générer, tester & corriger']
+      : ['Fast autonomous loops,', 'generate, test & fix until green'],
+  },
+  {
+    id: 'prove',
+    href: '/guide/stage-prove',
+    x: CENTER_X,
+    y: rowY(5),
+    width: CENTER_WIDTH,
+    textX: 20,
+    nodeClass: 'node-proof',
+    rectClass: 'rect-cyan',
+    titleClass: 'cyan-title',
+    subtitleClass: '',
+    title: '✅ 5 — Prove',
+    lines: isFr.value
+      ? ['Relancer les contrôles, revue', 'et évaluer indépendamment']
+      : ['Rerun controls, review', 'and assess independently'],
+  },
+  {
+    id: 'release',
+    href: '/guide/stage-release',
+    x: CENTER_X,
+    y: rowY(6),
+    width: CENTER_WIDTH,
+    textX: 20,
+    nodeClass: 'node-release',
+    rectClass: 'rect-orange',
+    titleClass: 'orange-title',
+    subtitleClass: '',
+    title: '🚀 6 — Release',
+    lines: isFr.value
+      ? ['Déploiement automatisé,', 'réversible à chaque étape']
+      : ['Automated deployment,', 'reversible at any step'],
+  },
+  {
+    id: 'learn',
+    href: '/guide/stage-learn',
+    x: CENTER_X,
+    y: rowY(7),
+    width: CENTER_WIDTH,
+    textX: 20,
+    nodeClass: 'node-learn',
+    rectClass: 'rect-gray',
+    titleClass: 'gray-title',
+    subtitleClass: '',
+    title: '📈 7 — Learn',
+    lines: isFr.value
+      ? ['Analyse de télémétrie &', 'supervision prédictive']
+      : ['Telemetry analysis &', 'predictive monitoring'],
+  },
+
+  // Left column (Row 2 & Row 3 — same 66px height & 26px gap)
+  {
+    id: 'persistent-context',
+    href: '/guide/persistent-context',
+    x: LEFT_X,
+    y: rowY(2),
+    width: SIDE_WIDTH,
+    textX: 18,
+    nodeClass: 'node-green',
+    rectClass: 'rect-green',
+    titleClass: 'green-title',
+    subtitleClass: 'green-desc',
+    title: isFr.value ? '🧠 Contexte persistant' : '🧠 Persistent Context',
+    lines: isFr.value
+      ? ['Instructions, prompts,', 'skills et agents']
+      : ['Instructions, prompts,', 'skills and agents'],
+  },
+  {
+    id: 'deterministic-controls',
+    href: '/guide/deterministic-controls',
+    x: LEFT_X,
+    y: rowY(3),
+    width: SIDE_WIDTH,
+    textX: 18,
+    nodeClass: 'node-green',
+    rectClass: 'rect-green',
+    titleClass: 'green-title',
+    subtitleClass: 'green-desc',
+    title: isFr.value ? '🛡️ Contrôles déterministes' : '🛡️ Deterministic Controls',
+    lines: [isFr.value ? 'Gardes, jalons, contrats & sondes' : 'Guards, gates, contracts & probes'],
+  },
+
+  // Right column (Row 0, Row 3 & Row 4 — same 66px height & 26px gap)
+  {
+    id: 'support-tickets',
+    href: '/guide/stage-triage#where-backlog-issues-come-from',
+    x: RIGHT_X,
+    y: rowY(0),
+    width: SIDE_WIDTH,
+    textX: 18,
+    nodeClass: 'node-audit',
+    rectClass: 'rect-audit',
+    titleClass: 'audit-title',
+    subtitleClass: '',
+    title: isFr.value ? '🎧 Tickets de support' : '🎧 Support tickets',
+    lines: [isFr.value ? 'Outil de ticketing support' : 'Support ticketing tool'],
+  },
+  {
+    id: 'forge',
+    href: '/guide/forge',
+    x: RIGHT_X,
+    y: rowY(3),
+    width: SIDE_WIDTH,
+    textX: 18,
+    nodeClass: 'node-green',
+    rectClass: 'rect-green',
+    titleClass: 'green-title',
+    subtitleClass: 'green-desc',
+    title: '📦 Forge',
+    lines: isFr.value
+      ? ['Code réutilisable :', 'fonctions, librairies, services']
+      : ['Reusable code:', 'functions, libraries, services'],
+  },
+  {
+    id: 'weekly-audit',
+    href: '/guide/stage-triage#where-backlog-issues-come-from',
+    x: RIGHT_X,
+    y: rowY(4),
+    width: SIDE_WIDTH,
+    textX: 18,
+    nodeClass: 'node-audit',
+    rectClass: 'rect-audit',
+    titleClass: 'audit-title',
+    subtitleClass: '',
+    title: isFr.value ? '⏱️ Audit hebdomadaire' : '⏱️ Weekly audit',
+    lines: [isFr.value ? 'Planifié dans la CI' : 'Scheduled in CI'],
+  },
+])
 </script>
 
 <style scoped>
@@ -653,7 +728,7 @@ const prefix = computed(() => (isFr.value ? '/fr' : ''))
 }
 
 .node-meeting:hover .node-rect {
-  filter: drop-shadow(0 4px 16px rgba(249, 115, 22, 0.5));
+  filter: drop-shadow(0 4px 16px rgba(14, 165, 233, 0.5));
 }
 
 .node-need:hover .node-rect {
@@ -681,7 +756,7 @@ const prefix = computed(() => (isFr.value ? '/fr' : ''))
 }
 
 .node-release:hover .node-rect {
-  filter: drop-shadow(0 4px 16px rgba(14, 165, 233, 0.5));
+  filter: drop-shadow(0 4px 16px rgba(249, 115, 22, 0.5));
 }
 
 .node-learn:hover .node-rect {

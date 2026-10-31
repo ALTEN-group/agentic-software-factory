@@ -6,20 +6,20 @@ pageClass: page-stage-cyan
 
 <div class="stage-hero-banner banner-cyan">
   <span class="stage-hero-badge">ÉTAPE 5</span>
-  <span class="stage-hero-desc">Validation par jalons déterministes et auto-remédiation par les agents</span>
+  <span class="stage-hero-desc">Validation par jalons déterministes, revue de code automatisée et auto-remédiation par les agents</span>
 </div>
 
-Prove relance les contrôles en CI propre. Un agent indépendant vérifie l’intention, le comportement et la sécurité. Les changements validés peuvent fusionner automatiquement, sans signature humaine.
+Prove relance les contrôles en CI propre et réalise une revue de code automatisée indépendante. Un agent Prove distinct inspecte le diff de la pull request et vérifie l’intention, le comportement, la conformité architecturale et la sécurité. Les changements validés peuvent fusionner automatiquement, sans signature humaine de routine.
 
 ## Objectif
 
 | Entrée | Sortie | Responsable |
 |---|---|---|
-| Une demande de fusion ayant passé les contrôles de [Code](./stage-code) | Résultats CI, évaluation indépendante et preuves de risque autorisant la fusion automatique | Développeur, responsable de l’automatisation |
+| Une demande de fusion ayant passé les contrôles de [Code](./stage-code) | Résultats CI, revue de code et évaluation indépendantes, et preuves de risque autorisant la fusion automatique | Développeur, responsable de l’automatisation |
 
-## Pourquoi les contrôles déterministes remplacent la revue de code manuelle {#why-deterministic-controls-replace-manual-code-review}
+## Pourquoi les contrôles déterministes et la revue par agent remplacent la revue de code manuelle {#why-deterministic-controls-replace-manual-code-review}
 
-La revue manuelle ne suit pas le rythme des changements générés et peut manquer des défauts. Utilisez des contrôles exécutables et une évaluation indépendante. Les personnes interviennent sur les échecs non résolus ou les tentatives épuisées.
+La revue manuelle ligne par ligne ne suit pas le rythme des changements générés et peut manquer des défauts subtils. Prove combine des contrôles déterministes exécutables avec une revue de code indépendante par agent qui inspecte le diff au regard des règles du [Contexte persistant](./persistent-context), des frontières du [Plan](./stage-plan) et des invariants de sécurité. Les personnes interviennent uniquement sur les échecs non résolus, les tentatives épuisées ou les points de revue explicitement demandés.
 
 ## Le harnais de contrôles déterministes
 
@@ -53,17 +53,18 @@ Répéter jusqu’au succès ou à la [limite de tentatives](./stage-code). Ensu
 
 ## Où l’IA est utilisée
 
-Les contrôles tranchent succès/échec. L’IA écrit les tests, corrige le code et réalise l’évaluation indépendante.
+Les contrôles tranchent succès/échec. L’IA écrit les tests, corrige le code et réalise la revue de code et l’évaluation indépendantes.
 
 | Tâche | Rôle de l’IA | Rôle humain |
 |---|---|---|
+| **Revue de code automatisée** | Inspecter le diff de la pull request au regard des frontières d’architecture, des règles du Contexte persistant et des invariants de sécurité | Intervenir uniquement sur les écarts non résolus ou les points de revue demandés |
 | **Diagnostic des échecs** | Lire la sortie du jalon en échec et localiser le défaut | Aucun pour les échecs courants |
 | **Remédiation** | Réécrire le code pour satisfaire le jalon, dans la limite de la boucle de correction, sans jamais affaiblir un contrôle | Intervenir uniquement lorsque la limite est atteinte |
 | **Suites de tests** | Écrire et maintenir les suites ; les contrôles vérifient la couverture des critères | Intervenir si la couverture ne peut pas être établie |
 
-## Évaluation automatisée indépendante {#minimum-human-validation}
+## Revue de code indépendante et évaluation automatisée {#minimum-human-validation}
 
-Un agent Prove indépendant consigne les preuves répondant à trois questions :
+Un agent Prove indépendant passe en revue la pull request et consigne les preuves répondant à trois questions :
 
 1. **Intention du client** : cette fonctionnalité livre-t-elle fidèlement ce que le client a demandé lors de la réunion ?
 2. **Expérience comportementale** : l’environnement de prévisualisation en direct a-t-il l’apparence, le comportement et l’ergonomie attendus ?
@@ -107,9 +108,9 @@ Le pipeline Prove valide une demande de fusion existante avant qu’elle puisse 
 
 1. Positionne le statut de phase sur **Prove** (ou **Release** sur un tableau combiné) avant le début de la validation ; cela ne signifie pas que le changement a passé les contrôles.
 2. Exécute les contrôles sur les spécifications, le périmètre, les secrets, les dépendances, les tests, les builds, les critères d’acceptation et les métadonnées de demande de fusion.
-3. Lance l’agent Prove pour évaluer l’implémentation et rédiger un dossier de validation.
+3. Lance l’agent Prove pour réaliser une revue de code indépendante, évaluer l’implémentation et rédiger un dossier de validation.
 4. Si les contrôles échouent, applique des corrections automatiques et réessaie jusqu’à la limite configurée, **5 tentatives dans le socle de la factory**, puis demande l’intervention d’un développeur.
-5. Consigne le verdict automatisé et ses preuves et autorise la fusion lorsque tous les contrôles et évaluations passent, à tous les niveaux d’impact.
+5. Consigne le verdict automatisé et ses preuves et autorise la fusion lorsque tous les contrôles, revues de code et évaluations passent, à tous les niveaux d’impact.
 
 Après validation, la plateforme fusionne et supprime la branche selon la politique de livraison. Elle transmet la révision et les preuves à [Release](./stage-release#pipelines-de-publication-et-de-deploiement).
 

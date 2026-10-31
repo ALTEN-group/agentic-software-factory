@@ -67,7 +67,7 @@
             <line class="eq-bar bar-1" x1="12" y1="58" x2="12" y2="22" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round" />
             <line class="eq-bar bar-2" x1="21" y1="58" x2="21" y2="14" stroke="#60A5FA" stroke-width="2.5" stroke-linecap="round" />
             <line class="eq-bar bar-3" x1="30" y1="58" x2="30" y2="30" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round" />
-            <text x="21" y="66" fill="#93C5FD" font-size="5.8" font-family="monospace" font-weight="600" letter-spacing="0.04em" text-anchor="middle">MEETING</text>
+            <text x="21" y="66" fill="#93C5FD" font-size="5.8" font-family="monospace" font-weight="600" letter-spacing="0.04em" text-anchor="middle">MEET</text>
           </g>
 
           <!-- Connection Conduit: Intake to Core -->
@@ -191,7 +191,7 @@
             <!-- Hexagonal Verification Seal -->
             <polygon class="proof-hex" points="21,18 32,24 32,38 21,44 10,38 10,24" fill="#065F46" fill-opacity="0.4" stroke="#10B981" stroke-width="1.8" />
             <path d="M16 31 L20 35 L27 27" stroke="#34D399" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-            <text x="21" y="56" fill="#34D399" font-size="6.5" font-family="monospace" text-anchor="middle">PROOF</text>
+            <text x="21" y="56" fill="#34D399" font-size="6.5" font-family="monospace" text-anchor="middle">PROVE</text>
             <text x="21" y="65" fill="#94A3B8" font-size="5" font-family="monospace" text-anchor="middle">VERIFIED</text>
           </g>
 
@@ -202,29 +202,34 @@
 
       <!-- Bottom Pipeline Stream Ticker -->
       <div class="pipeline-ticker">
-        <div class="ticker-step step-need">
+        <div class="ticker-step step-triage">
           <span class="step-num">1</span>
-          <span class="step-name">NEED</span>
+          <span class="step-name">TRIAGE</span>
+        </div>
+        <div class="ticker-arrow">→</div>
+        <div class="ticker-step step-think">
+          <span class="step-num">2</span>
+          <span class="step-name">THINK</span>
         </div>
         <div class="ticker-arrow">→</div>
         <div class="ticker-step step-plan">
-          <span class="step-num">2</span>
+          <span class="step-num">3</span>
           <span class="step-name">PLAN</span>
         </div>
         <div class="ticker-arrow">→</div>
         <div class="ticker-step step-code active">
-          <span class="step-num">3</span>
-          <span class="step-name">CODE</span>
-        </div>
-        <div class="ticker-arrow">→</div>
-        <div class="ticker-step step-proof verified">
           <span class="step-num">4</span>
-          <span class="step-name">PROOF</span>
+          <span class="step-name">CODE</span>
         </div>
         <div class="ticker-arrow">→</div>
         <div class="ticker-step step-release">
           <span class="step-num">5</span>
           <span class="step-name">RELEASE</span>
+        </div>
+        <div class="ticker-arrow">→</div>
+        <div class="ticker-step step-done verified">
+          <span class="step-num">6</span>
+          <span class="step-name">DONE</span>
         </div>
       </div>
     </div>
@@ -442,25 +447,29 @@
   transition: color 0.2s ease;
 }
 
-/* 1 NEED: Warm Amber / Discovery */
-.ticker-step.step-need .step-num { color: #f59e0b; }
-.ticker-step.step-need .step-name { color: #fbbf24; }
+/* 1 TRIAGE: Warm Amber / Backlog Intake */
+.ticker-step.step-triage .step-num { color: #d29922; }
+.ticker-step.step-triage .step-name { color: #fbbf24; }
 
-/* 2 PLAN: Electric Indigo / Planning & Spec */
-.ticker-step.step-plan .step-num { color: #818cf8; }
-.ticker-step.step-plan .step-name { color: #a5b4fc; }
+/* 2 THINK: Pink / Architecture & Specification */
+.ticker-step.step-think .step-num { color: #db61a2; }
+.ticker-step.step-think .step-name { color: #f472b6; }
 
-/* 3 CODE: Cyan / Autonomous Execution */
-.ticker-step.step-code .step-num { color: #38bdf8; }
-.ticker-step.step-code .step-name { color: #38bdf8; text-shadow: 0 0 6px rgba(56, 189, 248, 0.6); }
+/* 3 PLAN: Blue / Implementation Steps */
+.ticker-step.step-plan .step-num { color: #2f81f7; }
+.ticker-step.step-plan .step-name { color: #60a5fa; }
 
-/* 4 PROOF: Emerald / Deterministic Verification */
-.ticker-step.step-proof .step-num { color: #34d399; }
-.ticker-step.step-proof .step-name { color: #34d399; }
+/* 4 CODE: Purple / Autonomous Execution */
+.ticker-step.step-code .step-num { color: #8957e5; }
+.ticker-step.step-code .step-name { color: #a78bfa; text-shadow: 0 0 6px rgba(137, 87, 229, 0.6); }
 
-/* 5 RELEASE: Violet-Fuchsia / Production Rollout */
-.ticker-step.step-release .step-num { color: #c084fc; }
-.ticker-step.step-release .step-name { color: #e879f9; }
+/* 5 RELEASE: Orange / Prove & Publish */
+.ticker-step.step-release .step-num { color: #db6d28; }
+.ticker-step.step-release .step-name { color: #fb923c; }
+
+/* 6 DONE: Emerald / Completed */
+.ticker-step.step-done .step-num { color: #3fb950; }
+.ticker-step.step-done .step-name { color: #34d399; }
 
 .ticker-arrow {
   font-size: 9px;

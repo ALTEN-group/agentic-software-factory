@@ -1,10 +1,10 @@
 ---
-pageClass: page-stage-blue
+pageClass: page-stage-orange
 ---
 
 # 🚀 6 — Release
 
-<div class="stage-hero-banner banner-blue">
+<div class="stage-hero-banner banner-orange">
   <span class="stage-hero-badge">STAGE 6</span>
   <span class="stage-hero-desc">Automated deployment, reversible at any step</span>
 </div>
@@ -51,7 +51,7 @@ flowchart TB
   PROG -.->|"threshold breached"| BACK
 
   classDef start fill:#4338ca,stroke:#6366f1,color:#ffffff
-  classDef step fill:#0369a1,stroke:#0ea5e9,color:#ffffff
+  classDef step fill:#c2410c,stroke:#f97316,color:#ffffff
   classDef done fill:#047857,stroke:#10b981,color:#ffffff
   classDef back fill:#b45309,stroke:#f59e0b,color:#ffffff
   class MERGE start

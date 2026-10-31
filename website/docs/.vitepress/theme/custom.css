@@ -648,7 +648,7 @@
   font-weight: 500;
 }
 
-/* Stage 0 - Orange */
+/* Stage 6 (Release) - Orange */
 .page-stage-orange .VPDoc h1:first-of-type {
   border-left: 4px solid #f97316;
   padding-left: 14px;
@@ -760,7 +760,7 @@
   color: #ffffff;
 }
 
-/* Stage 5 - Blue */
+/* Stage 0 (Meet) - Blue */
 .page-stage-blue .VPDoc h1:first-of-type {
   border-left: 4px solid #0ea5e9;
   padding-left: 14px;
@@ -877,4 +877,23 @@
   border-color: var(--vp-c-brand-1);
   background: var(--vp-c-brand-soft);
 }
+
+/* ==========================================================================
+   Bottom CTA Actions on Home Page
+   ========================================================================== */
+
+.home-bottom-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 8px 24px 0;
+  margin: -6px auto 0;
+  max-width: 1152px;
+}
+
+.home-bottom-actions .action {
+  flex-shrink: 0;
+  padding: 6px;
+}
+
 

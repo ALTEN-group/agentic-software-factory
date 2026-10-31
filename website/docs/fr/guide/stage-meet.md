@@ -1,10 +1,10 @@
 ---
-pageClass: page-stage-orange
+pageClass: page-stage-blue
 ---
 
 # 🎙️ 0 — Meet
 
-<div class="stage-hero-banner banner-orange">
+<div class="stage-hero-banner banner-blue">
   <span class="stage-hero-badge">ÉTAPE 0</span>
   <span class="stage-hero-desc">Dialogue client &amp; découverte</span>
 </div>
