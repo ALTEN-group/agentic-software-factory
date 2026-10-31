@@ -1035,8 +1035,8 @@ onBeforeUnmount(() => {
           <span class="eyebrow-dot" />
           <span>{{
             isFr
-              ? 'USINE LOGICIELLE EN DIRECT'
-              : 'LIVE FACTORY IN ACTION'
+              ? 'USINE LOGICIELLE AGENTIQUE EN ACTION'
+              : 'AGENTIC FACTORY IN ACTION'
           }}</span>
         </div>
         <h2 class="showcase-title">
