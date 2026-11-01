@@ -108,6 +108,13 @@ const INITIAL_TICKETS = [
     prNumber: '#36',
     thinkContent: 'Ray hit invariants',
     planContent: 'right-triangle.ts',
+    costs: {
+      think: 0.05,
+      plan: 0.07,
+      code: 0.18,
+      prove: 0.09,
+      release: 0.03,
+    },
     steps: {
       think: ['Analyzing 2D geometry scope...', '# Think: spec & ray hit invariants ✓'],
       plan: ['Mapping src/shapes/right-triangle.ts...', '# Plan: steps & Jest suite validated ✓'],
@@ -128,6 +135,15 @@ const INITIAL_TICKETS = [
     planContent: 'src/quality.ts + Jest',
     proveFailContent: 'FPS spike assertion',
     proveFixContent: 'FPS spike test fixed',
+    costs: {
+      think: 0.06,
+      plan: 0.08,
+      code: 0.21,
+      proveFail: 0.08,
+      codeFix: 0.11,
+      prove: 0.09,
+      release: 0.03,
+    },
     steps: {
       think: ['Defining frame-time thresholds...', '# Think: hysteresis & scale ceiling ✓'],
       plan: ['Planning src/quality.ts & exports...', '# Plan: unit tests & docs verified ✓'],
@@ -146,6 +162,13 @@ const INITIAL_TICKETS = [
     prNumber: '#29',
     thinkContent: 'World bounds & dirty',
     planContent: 'src/scene/node.ts',
+    costs: {
+      think: 0.05,
+      plan: 0.06,
+      code: 0.16,
+      prove: 0.08,
+      release: 0.03,
+    },
     steps: {
       think: ['Inspecting SceneGraph dirty flags...', '# Think: world matrix stamp spec ✓'],
       plan: ['Planning src/scene/node.ts updates...', '# Plan: frustum & bounds tests ready ✓'],
@@ -166,6 +189,15 @@ const INITIAL_TICKETS = [
     planContent: 'src/scene.ts + CCD',
     proveFailContent: 'Null filter crash',
     proveFixContent: 'Filter guard verified',
+    costs: {
+      think: 0.05,
+      plan: 0.07,
+      code: 0.19,
+      proveFail: 0.07,
+      codeFix: 0.09,
+      prove: 0.08,
+      release: 0.03,
+    },
     steps: {
       think: ['Specifying zero-alloc filter API...', '# Think: spatial query predicate ✓'],
       plan: ['Planning src/scene.ts & raycast...', '# Plan: CCD & triangle tests defined ✓'],
@@ -184,6 +216,13 @@ const INITIAL_TICKETS = [
     prNumber: '#12',
     thinkContent: 'Door open SFX state',
     planContent: 'door audio + sim.test',
+    costs: {
+      think: 0.04,
+      plan: 0.05,
+      code: 0.12,
+      prove: 0.06,
+      release: 0.02,
+    },
     steps: {
       think: ['Tracing secret room trigger event...', '# Think: move SFX to door open state ✓'],
       plan: ['Planning door audio hook & sim test...', '# Plan: levels.test & sim.test scope ✓'],
@@ -199,11 +238,11 @@ const INITIAL_TICKETS = [
 // Code -> Prove -> Release shares a single FIFO delivery lock (1 ticket at a time until Done).
 const STAGE_DURATIONS = {
   triageWait: 0.4,
-  think: 2.8,
-  plan: 3.0,
+  think: 1.8,
+  plan: 1.8,
   code: 1.8,
   prove: 1.8,
-  release: 1.6,
+  release: 1.8,
 };
 const FLIGHT_DURATION = 0.58;
 const SPAWN_STAGGER = 0.36; // Issues enter Triage 1 by 1 at the start of the cycle
@@ -289,6 +328,7 @@ rootBoardNode.computeWorldMatrix(boardSceneGraph);
 const colWidths = reactive(COLUMNS.map(() => 180));
 const columnCounts = reactive([0, 0, 0, 0, 0, 0, 0]);
 const totalRunningWorkflows = ref(0);
+const totalCycleCostText = ref('$0.00');
 
 const activeWorkflows = reactive(
   WORKFLOW_STAGES.map((st) => ({
@@ -347,6 +387,17 @@ const tickets = reactive(
     showPlan: false,
     showProveFail: false,
     showProveFix: false,
+    costUsd: 0,
+    costText: '$0.00',
+    showCostPill: false,
+    thinkCostLabel: `+$${t.costs.think.toFixed(2)}`,
+    planCostLabel: `+$${t.costs.plan.toFixed(2)}`,
+    proveFailCostLabel: t.costs.proveFail
+      ? `+$${(t.costs.code + t.costs.proveFail).toFixed(2)}`
+      : '',
+    proveFixCostLabel: t.costs.codeFix
+      ? `+$${(t.costs.codeFix + t.costs.prove).toFixed(2)}`
+      : '',
     progressPct: '6%',
     cardWidth: '180px',
     opacityCss: '0',
@@ -499,6 +550,94 @@ function computeTicketStepText(ticket, fr) {
   return ticket.stageProgress < 0.58 ? stepPair[0] : stepPair[1];
 }
 
+function computeTicketCumulativeCost(ticket) {
+  const c = ticket.costs;
+  if (!c || !ticket.spawned) return 0;
+
+  const col = ticket.colIndex;
+  const target = ticket.targetColIndex;
+  const fly = ticket.inFlight;
+  const prog = ticket.stageProgress;
+
+  // Triage (before entering Think)
+  if (col === 0 && (!fly || target === 0)) {
+    return 0;
+  }
+
+  // Think (col 1)
+  if (col === 1 && !fly) {
+    return c.think * prog;
+  }
+  if (fly && col === 0 && target === 1) {
+    return 0;
+  }
+
+  let total = c.think;
+
+  // Plan (col 2)
+  if (fly && col === 1 && target === 2) {
+    return total;
+  }
+  if (col === 2 && !fly) {
+    return total + c.plan * prog;
+  }
+
+  total += c.plan;
+
+  // Code & Prove (cols 3 & 4, including first-attempt Prove failure & Code retry)
+  if (!ticket.proveFailedOnce) {
+    if (fly && col === 2 && target === 3) {
+      return total;
+    }
+    if (col === 3 && !fly) {
+      return total + c.code * prog;
+    }
+    total += c.code;
+
+    if (fly && col === 3 && target === 4) {
+      return total;
+    }
+    if (col === 4 && !fly) {
+      if (ticket.willFailProveOnce) {
+        const failRatio = Utils.clamp(prog / 0.84, 0, 1);
+        return total + (c.proveFail || c.prove) * failRatio;
+      }
+      return total + c.prove * prog;
+    }
+    total += c.prove;
+  } else {
+    // Ticket already failed Prove once -> accrued initial Code + Prove-fail cost
+    total += c.code + (c.proveFail || 0);
+
+    // Flying back from Prove (4) to Code (3)
+    if (fly && col === 4 && target === 3) {
+      return total;
+    }
+    if (col === 3 && !fly) {
+      return total + (c.codeFix || 0) * prog;
+    }
+    total += c.codeFix || 0;
+
+    if (fly && col === 3 && target === 4) {
+      return total;
+    }
+    if (col === 4 && !fly) {
+      return total + c.prove * prog;
+    }
+    total += c.prove;
+  }
+
+  // Release (col 5) & Done (col 6)
+  if (fly && col === 4 && target === 5) {
+    return total;
+  }
+  if (col === 5 && !fly) {
+    return total + c.release * prog;
+  }
+
+  return total + c.release;
+}
+
 function syncSceneGraphAndViewStates() {
   const fr = isFr.value;
 
@@ -507,6 +646,7 @@ function syncSceneGraphAndViewStates() {
 
   let fifoWaitingForProve = 0;
   let fifoWaitingForRelease = 0;
+  let cycleCostSum = 0;
 
   // 2. Sync each ticket's world transform and derived UI flags
   for (let i = 0; i < tickets.length; i++) {
@@ -553,6 +693,13 @@ function syncSceneGraphAndViewStates() {
     ticket.stepText = computeTicketStepText(ticket, fr);
     ticket.progressPct = `${Math.max(6, Math.round(ticket.stageProgress * 100))}%`;
 
+    const currentCost = computeTicketCumulativeCost(ticket);
+    ticket.costUsd = currentCost;
+    ticket.costText = `$${currentCost.toFixed(2)}`;
+    ticket.showCostPill =
+      ticket.colIndex >= 1 || (ticket.inFlight && ticket.targetColIndex >= 1);
+    cycleCostSum += currentCost;
+
     ticket.showThink =
       ticket.colIndex >= 2 ||
       (ticket.inFlight && ticket.targetColIndex >= 2) ||
@@ -580,6 +727,8 @@ function syncSceneGraphAndViewStates() {
         ticket.colIndex >= 5 ||
         (ticket.colIndex === 4 && !ticket.inFlight && ticket.stageProgress >= 0.95));
   }
+
+  totalCycleCostText.value = `$${cycleCostSum.toFixed(2)}`;
 
   // 3. Sync top Autonomous Pipelines telemetry strip using @1pizzateam/spock NumArray
   let runningTotal = 0;
@@ -1142,9 +1291,15 @@ onBeforeUnmount(() => {
 
         <!-- Live Autonomous Pipeline Telemetry Strip -->
         <div class="gh-actions-strip">
-          <div class="actions-strip-label">
-            <span class="actions-live-dot" :class="{ active: totalRunningWorkflows > 0 }" />
-            <span>{{ isFr ? 'PIPELINES AUTONOMES' : 'AUTONOMOUS PIPELINES' }}</span>
+          <div class="actions-strip-meta">
+            <div class="actions-strip-label">
+              <span class="actions-live-dot" :class="{ active: totalRunningWorkflows > 0 }" />
+              <span>{{ isFr ? 'PIPELINES AUTONOMES' : 'AUTONOMOUS PIPELINES' }}</span>
+            </div>
+            <div class="actions-cost-pill">
+              <span class="actions-cost-label">💰 {{ isFr ? 'COÛT IA' : 'AI COST' }}</span>
+              <span class="actions-cost-value">{{ totalCycleCostText }}</span>
+            </div>
           </div>
           <div class="actions-runners-grid">
             <div
@@ -1268,7 +1423,7 @@ onBeforeUnmount(() => {
                   </span>
                 </div>
 
-                <!-- Card Top Row: Issue Icon + Repo #Number -->
+                <!-- Card Top Row: Issue Icon + Repo #Number + Top-Right Cumulative AI Cost -->
                 <div class="gh-card-top">
                   <div class="gh-card-issue-id">
                     <!-- Open Issue Icon (Green circle-dot) vs Closed Completed Icon (Purple check-circle) -->
@@ -1295,8 +1450,19 @@ onBeforeUnmount(() => {
                       <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-1.5 0a6.5 6.5 0 1 0-13 0 6.5 6.5 0 0 0 13 0Z" />
                     </svg>
                     <span class="gh-card-repo">{{ ticket.repo }} {{ ticket.number }}</span>
-                    <span class="gh-card-dots">•••</span>
                   </div>
+                  <span
+                    v-if="ticket.showCostPill"
+                    class="gh-cost-pill"
+                    :title="
+                      isFr
+                        ? 'Champ GitHub Project : Coût IA cumulé'
+                        : 'GitHub Project field: Cumulative AI Cost'
+                    "
+                  >
+                    {{ ticket.costText }}
+                  </span>
+                  <span v-else class="gh-card-dots">•••</span>
                 </div>
 
                 <!-- Card Issue Title -->
@@ -1309,18 +1475,22 @@ onBeforeUnmount(() => {
                   <div v-if="ticket.showThink" class="gh-enriched-block enriched-think">
                     <span class="gh-enriched-tag"># Think ✓</span>
                     <span class="gh-enriched-text">{{ ticket.thinkContent }}</span>
+                    <span class="gh-enriched-cost">{{ ticket.thinkCostLabel }}</span>
                   </div>
                   <div v-if="ticket.showPlan" class="gh-enriched-block enriched-plan">
                     <span class="gh-enriched-tag"># Plan ✓</span>
                     <span class="gh-enriched-text">{{ ticket.planContent }}</span>
+                    <span class="gh-enriched-cost">{{ ticket.planCostLabel }}</span>
                   </div>
                   <div v-if="ticket.showProveFail" class="gh-enriched-block enriched-prove-fail">
                     <span class="gh-enriched-tag"># Error ✗</span>
                     <span class="gh-enriched-text">{{ ticket.proveFailContent }}</span>
+                    <span class="gh-enriched-cost">{{ ticket.proveFailCostLabel }}</span>
                   </div>
                   <div v-else-if="ticket.showProveFix" class="gh-enriched-block enriched-prove-fix">
                     <span class="gh-enriched-tag"># Fixed ✓</span>
                     <span class="gh-enriched-text">{{ ticket.proveFixContent }}</span>
+                    <span class="gh-enriched-cost">{{ ticket.proveFixCostLabel }}</span>
                   </div>
                 </div>
 
@@ -1651,6 +1821,14 @@ onBeforeUnmount(() => {
   flex-wrap: wrap;
 }
 
+.actions-strip-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
 .actions-strip-label {
   display: flex;
   align-items: center;
@@ -1661,6 +1839,32 @@ onBeforeUnmount(() => {
   letter-spacing: 0.06em;
   color: #8b949e;
   white-space: nowrap;
+}
+
+.actions-cost-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.32);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 9.5px;
+  line-height: 14px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.actions-cost-label {
+  font-weight: 600;
+  color: #7dd3fc;
+  letter-spacing: 0.03em;
+}
+
+.actions-cost-value {
+  font-weight: 700;
+  color: #f0f9ff;
 }
 
 .actions-live-dot {
@@ -2049,6 +2253,7 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 5px;
   min-width: 0;
+  overflow: hidden;
 }
 
 .gh-issue-icon.open {
@@ -2066,12 +2271,14 @@ onBeforeUnmount(() => {
   color: #8b949e;
   font-weight: 500;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .gh-card-dots {
   font-size: 10px;
   color: #6e7681;
-  margin-left: 2px;
+  flex-shrink: 0;
 }
 
 .gh-card-title {
@@ -2177,6 +2384,24 @@ onBeforeUnmount(() => {
   text-overflow: ellipsis;
 }
 
+.gh-enriched-cost {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 8.5px;
+  font-weight: 600;
+  color: #8b949e;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.enriched-prove-fail .gh-enriched-cost {
+  color: #fcd34d;
+}
+
+.enriched-prove-fix .gh-enriched-cost {
+  color: #86efac;
+}
+
 .gh-card-footer {
   display: flex;
   flex-direction: column;
@@ -2253,6 +2478,26 @@ onBeforeUnmount(() => {
   background: rgba(63, 185, 80, 0.14);
   border: 1px solid rgba(63, 185, 80, 0.35);
   padding: 0 6px;
+  border-radius: 999px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.gh-cost-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 16px;
+  margin-left: auto;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  font-size: 9.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #7dd3fc;
+  background: rgba(56, 189, 248, 0.14);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  padding: 0 5px;
   border-radius: 999px;
   line-height: 1;
   white-space: nowrap;
