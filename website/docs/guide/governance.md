@@ -77,7 +77,7 @@ processing agreement.
 ## Cost
 
 Model spend is attributed per squad and reviewed weekly. A workflow whose cost exceeds the value it
-creates is redesigned or retired — cheaper models, tighter context, or no AI at all.
+creates is redesigned or retired — cheaper models, tighter context, or no AI at all. See [Cost Management](./cost-management).
 
 ## Violations
 

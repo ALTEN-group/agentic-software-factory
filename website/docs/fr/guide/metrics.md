@@ -32,11 +32,10 @@ Les métriques de flux mesurent la livraison de bout en bout. Mesurez aussi chaq
 |---|---|
 | **Temps passé** | Combien de temps prend cette sous-tâche pour un élément de travail ? |
 | **Itérations** | Combien de tentatives faut-il pour obtenir un résultat correct ? |
-| **Coût** | Combien dépense le modèle pour un élément de travail ? |
 | **Intervention humaine** | À quelle fréquence une personne doit-elle intervenir ? |
 | **Succès au premier passage** | À quelle fréquence le résultat est-il bon dès la première tentative ? |
 
-Utilisez les horodatages existants des tickets, branches, demandes de fusion et exécutions CI, pas de chronomètre manuel. Les graphiques ci-dessous sont illustratifs.
+Utilisez les horodatages existants des tickets, branches, demandes de fusion et exécutions CI, pas de chronomètre manuel. Pour la consommation de tokens, l’attribution des coûts et le ROI financier, voir [Gestion des coûts](./cost-management). Les graphiques ci-dessous sont illustratifs.
 
 ### Création de tests automatisés (Code)
 
@@ -131,7 +130,6 @@ Les mêmes cibles que celles des métriques de flux s’appliquent. La vue par c
 | **Délai de validation automatisée** | Temps entre les contrôles au vert et le verdict Prove consigné | Une hausse révèle une évaluation lente ou des preuves manquantes ; suivez les pauses humaines demandées séparément |
 | **Part assistée par étape** | Part des livrables de chaque étape produite avec l’IA | Usage concentré uniquement dans l’étape 4 — Code |
 | **Taux de pertinence du contexte (*Context hit rate*)** | Sessions pour lesquelles le Contexte persistant commité a suffi | Une baisse signale des artefacts manquants ou obsolètes |
-| **Coût par changement fusionné** | Dépense en modèles / changements fusionnés | Pics de coût sans réduction correspondante du *lead time* |
 
 ## Métriques de résultat (*Outcome metrics*)
 

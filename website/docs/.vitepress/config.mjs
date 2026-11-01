@@ -95,6 +95,7 @@ export default withMermaid(defineConfig({
               { text: '🗓️ Cadence', link: '/guide/cadence' },
               { text: '⚖️ Governance', link: '/guide/governance' },
               { text: '📊 Metrics', link: '/guide/metrics' },
+              { text: '💰 Cost Management', link: '/guide/cost-management' },
             ],
           },
           {
@@ -151,6 +152,7 @@ export default withMermaid(defineConfig({
               { text: '🗓️ Cadence', link: '/fr/guide/cadence' },
               { text: '⚖️ Gouvernance', link: '/fr/guide/governance' },
               { text: '📊 Métriques', link: '/fr/guide/metrics' },
+              { text: '💰 Gestion des coûts', link: '/fr/guide/cost-management' },
             ],
           },
           {

@@ -32,11 +32,10 @@ Flow metrics measure delivery end to end. Also measure individual AI tasks, such
 |---|---|
 | **Time spent** | How long does this subtask take for one work item? |
 | **Iterations** | How many attempts does it take to get it right? |
-| **Cost** | How much does the model spend for one work item? |
 | **Human intervention** | How often does a person have to step in? |
 | **First-pass success** | How often is it right the first time? |
 
-Use existing issue, branch, change-request, and CI timestamps—not manual timers. The charts below are illustrative.
+Use existing issue, branch, change-request, and CI timestamps—not manual timers. For token spend, attribution, and financial ROI, see [Cost Management](./cost-management). The charts below are illustrative.
 
 ### Automated test creation (Code)
 
@@ -131,7 +130,6 @@ The same targets as the flow metrics apply. The use case view shows which part o
 | **Automated validation turnaround** | Time from the deterministic pass to the recorded Prove verdict | Rising indicates a slow assessment or missing evidence; track requested human checkpoints separately |
 | **Assisted share per stage** | Share of each stage's output produced with AI | Output concentrated in 4 — Code only |
 | **Context hit rate** | Sessions where committed Persistent Context was sufficient | Falling indicates artifacts missing or stale |
-| **Cost per merged change** | Model spend / merged changes | Cost spikes without a matching lead time reduction |
 
 ## Outcome metrics
 

@@ -72,7 +72,7 @@ Seuls les outils figurant sur la liste homologuée peuvent être utilisés avec 
 
 ## Coût
 
-Les dépenses liées aux modèles sont imputées par squad et passées en revue chaque semaine. Tout workflow dont le coût dépasse la valeur créée est repensé ou retiré — modèles plus économiques, contexte plus ciblé, ou suppression de l’IA lorsque celle-ci n’est pas pertinente.
+Les dépenses liées aux modèles sont imputées par squad et passées en revue chaque semaine. Tout workflow dont le coût dépasse la valeur créée est repensé ou retiré — modèles plus économiques, contexte plus ciblé, ou suppression de l’IA lorsque celle-ci n’est pas pertinente. Voir [Gestion des coûts](./cost-management).
 
 ## Violations
 
