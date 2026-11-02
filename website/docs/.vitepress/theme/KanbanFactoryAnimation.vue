@@ -135,6 +135,7 @@ const INITIAL_TICKETS = [
     planContent: 'src/quality.ts + Jest',
     proveFailContent: 'FPS spike assertion',
     proveFixContent: 'FPS spike test fixed',
+    maxProveFailures: 1,
     costs: {
       think: 0.06,
       plan: 0.08,
@@ -188,13 +189,16 @@ const INITIAL_TICKETS = [
     thinkContent: 'Zero-alloc filter API',
     planContent: 'src/scene.ts + CCD',
     proveFailContent: 'Null filter crash',
+    proveFail2Content: 'CCD raycast bounds fail',
     proveFixContent: 'Filter guard verified',
+    maxProveFailures: 2,
     costs: {
       think: 0.05,
       plan: 0.07,
       code: 0.19,
       proveFail: 0.07,
       codeFix: 0.09,
+      proveFail2: 0.08,
       prove: 0.08,
       release: 0.03,
     },
@@ -359,9 +363,11 @@ const tickets = reactive(
     hasTriggerLabel: false,
     triggerTime: 1.85 + index * TICKET_STAGGER,
     planCompletedAt: 0,
-    willFailProveOnce: index === 1 || index === 3,
+    maxProveFailures: t.maxProveFailures || 0,
+    proveFailCount: 0,
     proveFailedOnce: false,
     isProveFailing: false,
+    isStoppedForDev: false,
     proveFailTimer: 0,
     shakeOffsetX: 0,
     // Spatial coordinates & slot targets (px) driven by RoostR & Spock
@@ -386,6 +392,7 @@ const tickets = reactive(
     showThink: false,
     showPlan: false,
     showProveFail: false,
+    showProveFail2: false,
     showProveFix: false,
     costUsd: 0,
     costText: '$0.00',
@@ -394,6 +401,9 @@ const tickets = reactive(
     planCostLabel: `+$${t.costs.plan.toFixed(2)}`,
     proveFailCostLabel: t.costs.proveFail
       ? `+$${(t.costs.code + t.costs.proveFail).toFixed(2)}`
+      : '',
+    proveFail2CostLabel: t.costs.proveFail2
+      ? `+$${((t.costs.codeFix || 0) + t.costs.proveFail2).toFixed(2)}`
       : '',
     proveFixCostLabel: t.costs.codeFix
       ? `+$${(t.costs.codeFix + t.costs.prove).toFixed(2)}`
@@ -463,7 +473,10 @@ function recomputeBoardLayoutAndQueues() {
     const t = tickets[i];
     t.planFifoRank = 0;
     const effectiveCol = t.inFlight ? t.targetColIndex : t.colIndex;
-    colOccupied[effectiveCol] = true;
+    // A ticket stopped for developer help in Prove stays on the board but releases the FIFO runner lock
+    if (!t.isStoppedForDev) {
+      colOccupied[effectiveCol] = true;
+    }
 
     if (t.spawned) {
       colBuckets[effectiveCol].push(t);
@@ -523,7 +536,17 @@ function canEnterColumn(ticket, nextColIndex) {
 }
 
 function computeTicketStepText(ticket, fr) {
+  if (ticket.colIndex === 4 && ticket.isStoppedForDev) {
+    return fr
+      ? '🛑 Erreur 2/2 · Appel développeur'
+      : '🛑 Error 2/2 · Calling developer';
+  }
   if (ticket.colIndex === 4 && ticket.isProveFailing) {
+    if (ticket.proveFailCount >= 1) {
+      return fr
+        ? '🛑 ÉCHEC 2/2 · ARRÊT & APPEL DEV'
+        : '🛑 ERROR 2/2 · STOP & CALL DEV';
+    }
     return fr ? '⚠ ÉCHEC PROVE · RETOUR → CODE' : '⚠ GATE FAILED · RETRY → CODE';
   }
   if (ticket.colIndex === 3 && ticket.proveFailedOnce) {
@@ -584,8 +607,8 @@ function computeTicketCumulativeCost(ticket) {
 
   total += c.plan;
 
-  // Code & Prove (cols 3 & 4, including first-attempt Prove failure & Code retry)
-  if (!ticket.proveFailedOnce) {
+  // Code & Prove (cols 3 & 4, including first-attempt Prove failure, Code retry & second Prove failure)
+  if (ticket.proveFailCount === 0) {
     if (fly && col === 2 && target === 3) {
       return total;
     }
@@ -598,7 +621,7 @@ function computeTicketCumulativeCost(ticket) {
       return total;
     }
     if (col === 4 && !fly) {
-      if (ticket.willFailProveOnce) {
+      if (ticket.maxProveFailures > 0) {
         const failRatio = Utils.clamp(prog / 0.84, 0, 1);
         return total + (c.proveFail || c.prove) * failRatio;
       }
@@ -606,7 +629,7 @@ function computeTicketCumulativeCost(ticket) {
     }
     total += c.prove;
   } else {
-    // Ticket already failed Prove once -> accrued initial Code + Prove-fail cost
+    // Ticket already failed Prove at least once -> accrued initial Code + Prove-fail cost
     total += c.code + (c.proveFail || 0);
 
     // Flying back from Prove (4) to Code (3)
@@ -621,7 +644,14 @@ function computeTicketCumulativeCost(ticket) {
     if (fly && col === 3 && target === 4) {
       return total;
     }
+    if (ticket.isStoppedForDev || ticket.proveFailCount >= 2) {
+      return total + (c.proveFail2 || c.prove);
+    }
     if (col === 4 && !fly) {
+      if (ticket.maxProveFailures >= 2) {
+        const failRatio = Utils.clamp(prog / 0.84, 0, 1);
+        return total + (c.proveFail2 || c.prove) * failRatio;
+      }
       return total + c.prove * prog;
     }
     total += c.prove;
@@ -666,23 +696,32 @@ function syncSceneGraphAndViewStates() {
     ticket.transformStyle = `translate3d(${scratchWorldPos.x.toFixed(1)}px, ${scratchWorldPos.y.toFixed(1)}px, ${scratchWorldPos.z.toFixed(1)}px) scale(${ticket.scale.toFixed(3)}) rotate(${ticket.tiltDeg.toFixed(2)}deg)`;
 
     const waitingDownstreamFifo =
-      (ticket.colIndex === 3 || ticket.colIndex === 4) && ticket.stageProgress >= 1;
-    if (ticket.spawned && !ticket.inFlight) {
+      !ticket.isStoppedForDev &&
+      (ticket.colIndex === 3 || ticket.colIndex === 4) &&
+      ticket.stageProgress >= 1;
+    if (ticket.spawned && !ticket.inFlight && !ticket.isStoppedForDev) {
       if (ticket.colIndex === 3 && ticket.stageProgress >= 1) fifoWaitingForProve++;
       if (ticket.colIndex === 4 && ticket.stageProgress >= 1) fifoWaitingForRelease++;
     }
 
     ticket.isQueuedFifo =
-      !ticket.inFlight && (ticket.planFifoRank > 0 || waitingDownstreamFifo);
+      !ticket.inFlight && !ticket.isStoppedForDev && (ticket.planFifoRank > 0 || waitingDownstreamFifo);
     ticket.isProcessing =
       !ticket.inFlight &&
       !ticket.isProveFailing &&
+      !ticket.isStoppedForDev &&
       ticket.colIndex >= 1 &&
       ticket.colIndex <= 5 &&
       ticket.planFifoRank === 0 &&
       !waitingDownstreamFifo;
 
-    if (!ticket.inFlight && ticket.colIndex === 4 && ticket.isProveFailing) {
+    if (
+      !ticket.inFlight &&
+      ticket.colIndex === 4 &&
+      (ticket.isStoppedForDev || (ticket.isProveFailing && ticket.proveFailCount >= 1))
+    ) {
+      ticket.stageColor = '#f85149';
+    } else if (!ticket.inFlight && ticket.colIndex === 4 && ticket.isProveFailing) {
       ticket.stageColor = '#f59e0b';
     } else if (ticket.inFlight && ticket.targetColIndex < ticket.colIndex) {
       ticket.stageColor = '#f59e0b';
@@ -710,10 +749,18 @@ function syncSceneGraphAndViewStates() {
       (ticket.inFlight && ticket.targetColIndex >= 3) ||
       (ticket.colIndex === 2 && !ticket.inFlight && ticket.stageProgress >= 1);
 
+    const showFail2 =
+      Boolean(ticket.proveFail2Content) &&
+      (ticket.isStoppedForDev ||
+        ticket.proveFailCount >= 2 ||
+        (ticket.isProveFailing && ticket.proveFailCount >= 1));
+    ticket.showProveFail2 = showFail2;
+
     const showFail =
+      !showFail2 &&
       Boolean(ticket.proveFailContent) &&
       (ticket.isProveFailing ||
-        (ticket.proveFailedOnce &&
+        (ticket.proveFailCount === 1 &&
           ((ticket.inFlight && ticket.targetColIndex <= 4) ||
             ticket.colIndex === 3 ||
             (ticket.colIndex === 4 && ticket.stageProgress < 0.95))));
@@ -721,8 +768,9 @@ function syncSceneGraphAndViewStates() {
 
     ticket.showProveFix =
       !showFail &&
+      !showFail2 &&
       Boolean(ticket.proveFixContent) &&
-      ticket.proveFailedOnce &&
+      ticket.proveFailCount === 1 &&
       ((ticket.inFlight && ticket.targetColIndex >= 5) ||
         ticket.colIndex >= 5 ||
         (ticket.colIndex === 4 && !ticket.inFlight && ticket.stageProgress >= 0.95));
@@ -737,10 +785,15 @@ function syncSceneGraphAndViewStates() {
     const stCol = wf.colIndex;
     stageProgressSamples.length = 0;
     let primary = null;
+    let stoppedHere = null;
 
     for (let i = 0; i < tickets.length; i++) {
       const t = tickets[i];
       if (!t.spawned) continue;
+      if (t.isStoppedForDev && t.colIndex === stCol) {
+        stoppedHere = t;
+        continue;
+      }
       const isRunningHere =
         stCol >= 2 && stCol <= 4
           ? (!t.inFlight && t.colIndex === stCol && t.stageProgress < 1) ||
@@ -758,18 +811,23 @@ function syncSceneGraphAndViewStates() {
     runningTotal += runningCount;
     const avgProgress = runningCount > 0 ? NumArray.average(stageProgressSamples) : 0;
     const isFailing = wf.id === 'prove' && Boolean(primary && primary.isProveFailing);
+    const isSecondFail = isFailing && Boolean(primary && primary.proveFailCount >= 1);
 
     let activeBadge = null;
     if (!wf.isFifo && runningCount > 1) {
       activeBadge = fr ? `${runningCount} en parallèle` : `${runningCount} in parallel`;
     } else if (primary) {
-      if (isFailing) {
+      if (isSecondFail) {
+        activeBadge = fr ? '🛑 ERREUR 2/2 · APPEL DEV' : '🛑 ERROR 2/2 · CALL DEV';
+      } else if (isFailing) {
         activeBadge = fr ? '⚠ ÉCHEC · RETOUR → CODE' : '⚠ GATE FAILED · RETRY → CODE';
       } else if (wf.id === 'code' && primary.proveFailedOnce) {
         activeBadge = `${primary.repo} ${primary.number} ↺`;
       } else {
         activeBadge = `${primary.repo} ${primary.number}`;
       }
+    } else if (stoppedHere) {
+      activeBadge = '🛑 needs:developer';
     }
 
     let queuedCount = 0;
@@ -777,7 +835,7 @@ function syncSceneGraphAndViewStates() {
     else if (wf.id === 'prove') queuedCount = fifoWaitingForProve;
     else if (wf.id === 'release') queuedCount = fifoWaitingForRelease;
 
-    wf.color = isFailing ? '#f59e0b' : wf.baseColor;
+    wf.color = isSecondFail ? '#f85149' : isFailing ? '#f59e0b' : wf.baseColor;
     wf.isFailing = isFailing;
     wf.modeLabel = wf.isFifo ? 'FIFO' : fr ? 'PARALLÈLE' : 'PARALLEL';
     wf.runningCount = runningCount;
@@ -825,8 +883,10 @@ function resetSimulation() {
     ticket.hasTriggerLabel = false;
     ticket.triggerTime = 1.85 + index * TICKET_STAGGER;
     ticket.planCompletedAt = 0;
+    ticket.proveFailCount = 0;
     ticket.proveFailedOnce = false;
     ticket.isProveFailing = false;
+    ticket.isStoppedForDev = false;
     ticket.proveFailTimer = 0;
     ticket.shakeOffsetX = 0;
     ticket.tiltDeg = 0;
@@ -901,10 +961,12 @@ function updateSimulation(rawDt) {
     }
   }
 
-  // Check if all tickets have reached Done (colIndex === 6 and not inFlight)
+  // Check if all tickets have reached Done (colIndex === 6 and not inFlight) or halted for developer help
   let allDone = true;
   for (let i = 0; i < tickets.length; i++) {
-    if (tickets[i].colIndex !== 6 || tickets[i].inFlight) {
+    const t = tickets[i];
+    const isTerminal = (t.colIndex === 6 && !t.inFlight) || t.isStoppedForDev;
+    if (!isTerminal) {
       allDone = false;
       break;
     }
@@ -1015,14 +1077,15 @@ function updateSimulation(rawDt) {
     const nextScale = prefersReducedMotion.value ? 1 : Utils.damp(ticket.scale, 1, 14, dt);
     ticket.opacity = prefersReducedMotion.value ? 1 : Utils.damp(ticket.opacity, 1, 16, dt);
 
-    // 4. Advance pipeline stage progress if triggered and not yet in Done
-    if (ticket.colIndex > 0 || ticket.hasTriggerLabel) {
+    // 4. Advance pipeline stage progress if triggered and not yet in Done or stopped for developer help
+    if (!ticket.isStoppedForDev && (ticket.colIndex > 0 || ticket.hasTriggerLabel)) {
       if (ticket.colIndex < 6) {
         const duration = getStageDuration(ticket, ticket.colIndex);
 
-        // Simulate designated issues (LoopR.js #14 & BumpR.js #19) failing the Prove stage on first attempt,
-        // returning to Code with an # Error ✗ report, and passing Prove on the retry.
-        if (ticket.colIndex === 4 && ticket.willFailProveOnce && !ticket.proveFailedOnce) {
+        // Simulate designated issues failing Prove:
+        // - LoopR.js #14 (maxProveFailures = 1): fails once -> returns to Code -> fixes -> passes Prove on retry
+        // - BumpR.js #19 (maxProveFailures = 2): fails once -> returns to Code -> retries -> fails a 2nd time in Prove -> stops & calls for developer help (needs:developer)
+        if (ticket.colIndex === 4 && ticket.proveFailCount < ticket.maxProveFailures) {
           const failProgressCutoff = 0.84;
           const failTimeCutoff = duration * failProgressCutoff;
           if (!ticket.isProveFailing) {
@@ -1040,11 +1103,19 @@ function updateSimulation(rawDt) {
             }
             if (ticket.proveFailTimer >= 1.15) {
               ticket.isProveFailing = false;
+              ticket.proveFailCount += 1;
               ticket.proveFailedOnce = true;
               ticket.proveFailTimer = 0;
               ticket.shakeOffsetX = 0;
-              startFlightToColumn(ticket, 3);
-              continue;
+
+              if (ticket.proveFailCount >= 2) {
+                // Second failure in Prove: stop automatic remediation, apply needs:developer, and release FIFO lock
+                ticket.isStoppedForDev = true;
+                recomputeBoardLayoutAndQueues();
+              } else {
+                startFlightToColumn(ticket, 3);
+                continue;
+              }
             }
           }
         } else {
@@ -1403,7 +1474,11 @@ onBeforeUnmount(() => {
                 class="gh-ticket-card"
                 :class="{
                   'is-flying': ticket.inFlight,
-                  'is-prove-failing': !ticket.inFlight && ticket.isProveFailing,
+                  'is-prove-failing':
+                    !ticket.inFlight && ticket.isProveFailing && ticket.proveFailCount === 0,
+                  'is-prove-failing-2':
+                    !ticket.inFlight && ticket.isProveFailing && ticket.proveFailCount >= 1,
+                  'is-stopped-dev': !ticket.inFlight && ticket.isStoppedForDev,
                   'is-processing': ticket.isProcessing,
                   'is-queued-fifo': ticket.isQueuedFifo,
                   'is-done': !ticket.inFlight && ticket.colIndex === 6,
@@ -1416,10 +1491,24 @@ onBeforeUnmount(() => {
                 }"
               >
                 <!-- Hazard Banner Overlay on Prove Gate Failure -->
-                <div v-if="!ticket.inFlight && ticket.isProveFailing" class="gh-card-fail-banner">
-                  <span class="gh-fail-banner-icon">⚠</span>
+                <div
+                  v-if="!ticket.inFlight && ticket.isProveFailing"
+                  class="gh-card-fail-banner"
+                  :class="{ 'is-second-fail': ticket.proveFailCount >= 1 }"
+                >
+                  <span class="gh-fail-banner-icon">{{
+                    ticket.proveFailCount >= 1 ? '🛑' : '⚠'
+                  }}</span>
                   <span class="gh-fail-banner-text">
-                    {{ isFr ? 'ÉCHEC PROVE · RETOUR → CODE' : 'GATE FAILED · RETRY → CODE' }}
+                    {{
+                      ticket.proveFailCount >= 1
+                        ? isFr
+                          ? 'ERREUR 2/2 · ARRÊT & APPEL DEV'
+                          : 'ERROR 2/2 · STOP & CALL DEV'
+                        : isFr
+                          ? 'ÉCHEC PROVE · RETOUR → CODE'
+                          : 'GATE FAILED · RETRY → CODE'
+                    }}
                   </span>
                 </div>
 
@@ -1482,7 +1571,12 @@ onBeforeUnmount(() => {
                     <span class="gh-enriched-text">{{ ticket.planContent }}</span>
                     <span class="gh-enriched-cost">{{ ticket.planCostLabel }}</span>
                   </div>
-                  <div v-if="ticket.showProveFail" class="gh-enriched-block enriched-prove-fail">
+                  <div v-if="ticket.showProveFail2" class="gh-enriched-block enriched-prove-fail-2">
+                    <span class="gh-enriched-tag"># Error 2 ✗</span>
+                    <span class="gh-enriched-text">{{ ticket.proveFail2Content }}</span>
+                    <span class="gh-enriched-cost">{{ ticket.proveFail2CostLabel }}</span>
+                  </div>
+                  <div v-else-if="ticket.showProveFail" class="gh-enriched-block enriched-prove-fail">
                     <span class="gh-enriched-tag"># Error ✗</span>
                     <span class="gh-enriched-text">{{ ticket.proveFailContent }}</span>
                     <span class="gh-enriched-cost">{{ ticket.proveFailCostLabel }}</span>
@@ -1494,17 +1588,24 @@ onBeforeUnmount(() => {
                   </div>
                 </div>
 
-                <!-- Card Bottom Row: Priority Pill + 4-release Label + Live Pipeline Runner -->
+                <!-- Card Bottom Row: Priority Pill + 4-release / needs:developer Label + Live Pipeline Runner -->
                 <div class="gh-card-footer">
                   <div class="gh-card-pills">
                     <span
+                      v-if="!ticket.isStoppedForDev"
                       class="gh-priority-pill"
                       :class="ticket.priority === 'High' ? 'priority-high' : 'priority-medium'"
                     >
                       {{ ticket.priority }}
                     </span>
 
-                    <span v-if="ticket.hasTriggerLabel && ticket.colIndex < 6" class="gh-trigger-pill">
+                    <span v-if="ticket.isStoppedForDev" class="gh-needs-dev-pill">
+                      needs:developer
+                    </span>
+                    <span
+                      v-else-if="ticket.hasTriggerLabel && ticket.colIndex < 6"
+                      class="gh-trigger-pill"
+                    >
                       4-release
                     </span>
 
@@ -1519,7 +1620,14 @@ onBeforeUnmount(() => {
                     class="gh-card-pipeline"
                   >
                     <div class="gh-card-pipeline-row">
-                      <span v-if="ticket.isProveFailing" class="gh-fail-dot" />
+                      <span
+                        v-if="
+                          ticket.isStoppedForDev ||
+                          (ticket.isProveFailing && ticket.proveFailCount >= 1)
+                        "
+                        class="gh-stop-dot"
+                      />
+                      <span v-else-if="ticket.isProveFailing" class="gh-fail-dot" />
                       <span
                         v-else-if="ticket.isProcessing"
                         class="gh-mini-spinner"
@@ -1529,7 +1637,13 @@ onBeforeUnmount(() => {
                       <span v-else class="gh-fifo-wait-dot" />
                       <span
                         class="gh-card-step-text"
-                        :class="{ 'is-failing-text': ticket.isProveFailing }"
+                        :class="{
+                          'is-stopped-text':
+                            ticket.isStoppedForDev ||
+                            (ticket.isProveFailing && ticket.proveFailCount >= 1),
+                          'is-failing-text':
+                            ticket.isProveFailing && ticket.proveFailCount === 0,
+                        }"
                       >
                         {{ ticket.stepText }}
                       </span>
@@ -2189,6 +2303,29 @@ onBeforeUnmount(() => {
   z-index: 15;
 }
 
+.gh-ticket-card.is-prove-failing-2 {
+  border-color: #f85149;
+  border-width: 1.5px;
+  background: repeating-linear-gradient(
+      -45deg,
+      rgba(248, 81, 73, 0.2),
+      rgba(248, 81, 73, 0.2) 9px,
+      rgba(22, 27, 34, 0.96) 9px,
+      rgba(22, 27, 34, 0.96) 18px
+    ),
+    #161b22;
+  box-shadow: 0 0 0 1px rgba(248, 81, 73, 0.5), 0 8px 24px -2px rgba(248, 81, 73, 0.6);
+  z-index: 15;
+}
+
+.gh-ticket-card.is-stopped-dev {
+  border-color: #f85149;
+  border-width: 1.5px;
+  background: linear-gradient(180deg, rgba(248, 81, 73, 0.12) 0%, rgba(22, 27, 34, 0.98) 100%),
+    #161b22;
+  box-shadow: 0 0 0 1px rgba(248, 81, 73, 0.35), 0 6px 18px -4px rgba(248, 81, 73, 0.45);
+}
+
 .gh-card-fail-banner {
   position: absolute;
   top: 26px;
@@ -2211,6 +2348,13 @@ onBeforeUnmount(() => {
   text-transform: uppercase;
   white-space: nowrap;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.75), 0 0 12px rgba(245, 158, 11, 0.65);
+}
+
+.gh-card-fail-banner.is-second-fail {
+  background: linear-gradient(90deg, #dc2626 0%, #ef4444 50%, #dc2626 100%);
+  border-color: #fecaca;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.8), 0 0 14px rgba(248, 81, 73, 0.75);
 }
 
 .gh-fail-banner-icon {
@@ -2344,6 +2488,13 @@ onBeforeUnmount(() => {
   border-left-color: #fbbf24;
 }
 
+.gh-enriched-block.enriched-prove-fail-2 {
+  background: rgba(248, 81, 73, 0.2);
+  border: 1px solid rgba(248, 81, 73, 0.45);
+  border-left-width: 2.5px;
+  border-left-color: #f85149;
+}
+
 .gh-enriched-block.enriched-prove-fix {
   border-left-color: #3fb950;
   background: rgba(63, 185, 80, 0.12);
@@ -2371,6 +2522,14 @@ onBeforeUnmount(() => {
   color: #fde68a;
 }
 
+.enriched-prove-fail-2 .gh-enriched-tag {
+  color: #ff7b72;
+}
+
+.enriched-prove-fail-2 .gh-enriched-text {
+  color: #fecaca;
+}
+
 .enriched-prove-fix .gh-enriched-tag {
   color: #3fb950;
 }
@@ -2396,6 +2555,10 @@ onBeforeUnmount(() => {
 
 .enriched-prove-fail .gh-enriched-cost {
   color: #fcd34d;
+}
+
+.enriched-prove-fail-2 .gh-enriched-cost {
+  color: #fca5a5;
 }
 
 .enriched-prove-fix .gh-enriched-cost {
@@ -2463,6 +2626,25 @@ onBeforeUnmount(() => {
   border-radius: 999px;
   line-height: 1;
   white-space: nowrap;
+}
+
+.gh-needs-dev-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  font-size: 9px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+  color: #fecaca;
+  background: rgba(248, 81, 73, 0.22);
+  border: 1px solid rgba(248, 81, 73, 0.65);
+  padding: 0 6px;
+  border-radius: 999px;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 0 8px rgba(248, 81, 73, 0.3);
 }
 
 .gh-done-pill {
@@ -2554,6 +2736,15 @@ onBeforeUnmount(() => {
   flex-shrink: 0;
 }
 
+.gh-stop-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f85149;
+  box-shadow: 0 0 7px #f85149;
+  flex-shrink: 0;
+}
+
 .gh-card-step-text {
   flex: 1;
   min-width: 0;
@@ -2568,6 +2759,11 @@ onBeforeUnmount(() => {
 
 .gh-card-step-text.is-failing-text {
   color: #fde68a;
+  font-weight: 700;
+}
+
+.gh-card-step-text.is-stopped-text {
+  color: #fca5a5;
   font-weight: 700;
 }
 
