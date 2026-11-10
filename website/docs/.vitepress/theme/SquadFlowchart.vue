@@ -169,6 +169,7 @@ const enablers = computed(() => [
   { icon: '🧠', lines: [isFr.value ? 'Contexte persistant' : 'Persistent Context'], page: 'persistent-context', h: 40 },
   { icon: '📦', lines: ['Forge'], page: 'forge', h: 40 },
   { icon: '🛡️', lines: isFr.value ? ['Contrôles', 'déterministes'] : ['Deterministic', 'Controls'], page: 'deterministic-controls', h: 58 },
+  { icon: '⏱️', lines: [isFr.value ? 'Audit hebdomadaire' : 'Weekly audit'], page: 'stage-triage#where-backlog-issues-come-from', h: 40 },
 ])
 const enablerGap = 10
 
