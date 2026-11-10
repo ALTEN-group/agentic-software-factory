@@ -9,9 +9,9 @@ L’Agentic Software Factory est un **modèle de livraison pilotée par l’IA**
 
 <DeliveryFlowchart />
 
-Le flux de travail s’écoule de haut en bas. Les blocs verts (Contexte persistant, Contrôles déterministes et la Forge) alimentent les étapes qu’ils soutiennent. Un audit hebdomadaire ainsi que l’étape Learn peuvent ouvrir de nouveaux tickets dans Triage, ce qui referme la boucle.
+Le flux de travail s’écoule de haut en bas. Les blocs verts du harness (Contexte persistant, Contrôles déterministes et la Forge) alimentent les étapes qu’ils soutiennent. Un audit hebdomadaire ainsi que l’étape Learn peuvent ouvrir de nouveaux tickets dans Triage, ce qui referme la boucle.
 
-## Les trois fondations
+## Le Harness
 
 - **[Contexte persistant](./persistent-context)** : instructions, prompts, skills et agents versionnés dans le dépôt qui ancrent le comportement de l’IA.
 - **[Forge](./forge)** : fonctions, bibliothèques et services éprouvés que les agents réutilisent au lieu de réécrire la même logique.

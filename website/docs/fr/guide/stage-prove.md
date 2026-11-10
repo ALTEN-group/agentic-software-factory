@@ -21,7 +21,7 @@ Prove relance les contrôles en CI propre et réalise une revue de code automati
 
 La revue manuelle ligne par ligne ne suit pas le rythme des changements générés et peut manquer des défauts subtils. Prove combine des contrôles déterministes exécutables avec une revue de code indépendante par agent qui inspecte le diff au regard des règles du [Contexte persistant](./persistent-context), des frontières du [Plan](./stage-plan) et des invariants de sécurité. Les personnes interviennent uniquement sur les échecs non résolus, les tentatives épuisées ou les points de revue explicitement demandés.
 
-## Le harnais de contrôles déterministes
+## Le harness de contrôles déterministes
 
 Les contrôles renvoient succès ou échec. La plupart ont déjà tourné dans [Code](./stage-code) ; Prove les relance en CI propre et ajoute les contrôles propres à la CI. Voir [Contrôles déterministes](./deterministic-controls).
 
@@ -92,13 +92,13 @@ L’étape Prove s’appuie sur des primitives de vérification déterministe pu
 - Une compétence **contract-compat** vérifie que les contrats d’API publiques, les schémas et les formats de messages restent rétrocompatibles avec les consommateurs.
 
 ### Intégrité, sécurité et sondes comportementales
-- Une compétence **control-guard** protège le harnais lui-même : elle détecte et rejette toute PR qui abaisse les seuils de test, désactive des workflows ou modifie des fichiers de contrôle protégés, tout en appliquant la règle des bugs.
+- Une compétence **control-guard** protège le harness lui-même : elle détecte et rejette toute PR qui abaisse les seuils de test, désactive des workflows ou modifie des fichiers de contrôle protégés, tout en appliquant la règle des bugs.
 - Les compétences **secret-guard** et **dependency-guard** vérifient l’absence totale de jetons ou clés codés en dur et s’assurent que les nouveaux paquets respectent les politiques de licence et de vulnérabilités.
 - Une compétence **preview-smoke** vérifie le démarrage, le routage HTTP et les *health checks* du déploiement éphémère avant fusion.
 
 ### Pipeline et approbation automatisée
 - Une compétence **pr-record** valide les résultats automatisés, les preuves de rollback et les références de déploiement progressif selon le niveau fixé dans Think et Plan, sans les présenter comme des signatures humaines.
-- Un modèle de workflow **verification-pipeline** fournit le squelette CI en environnement propre qui exécute les jalons dans l’ordre.
+- Un modèle de workflow **verification-pipeline** fournit le harness CI en environnement propre qui exécute les jalons dans l’ordre.
 
 Consultez le [guide Prove de coding-pal](https://alten-group.github.io/coding-pal/guide/domain-prove).
 

@@ -53,8 +53,8 @@
         </g>
       </g>
 
-      <!-- Enablers: the green blocks of the operating model, owned by the architect -->
-      <text :x="enX + enW / 2" :y="enablerY(0) - 14" class="sq-section">{{ isFr ? 'Fondations' : 'Enablers' }}</text>
+      <!-- Harness: the green blocks of the operating model, owned by the architect -->
+      <text :x="enX + enW / 2" :y="enablerY(0) - 14" class="sq-section">Harness</text>
       <a v-for="(e, i) in enablers" :key="e.page" :href="withBase(prefix + '/guide/' + e.page)" class="sq-link">
         <g :transform="`translate(${enX}, ${enablerY(i)})`" class="sq-node">
           <rect :width="enW" :height="e.h" rx="10" fill="url(#sqgreen)" stroke="#10b981" stroke-width="1.8" />

@@ -79,7 +79,7 @@ export default withMermaid(defineConfig({
             ],
           },
           {
-            text: 'Enablers',
+            text: 'Harness',
             items: [
               { text: '🛤️ Platform Rails', link: '/guide/platform-rails' },
               { text: '🧰 Tooling', link: '/guide/tooling' },
@@ -136,7 +136,7 @@ export default withMermaid(defineConfig({
             ],
           },
           {
-            text: 'Fondations',
+            text: 'Harness',
             items: [
               { text: '🛤️ Rails de plateforme', link: '/fr/guide/platform-rails' },
               { text: '🧰 Outillage', link: '/fr/guide/tooling' },

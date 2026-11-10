@@ -101,7 +101,7 @@ Prove runs on deterministic verification primitives published by [coding-pal](ht
 
 ### Pipeline & Automated Approval
 - A **pr-record** skill validates automated assessment results, rollback evidence, and staged rollout references according to the tier determined in Think and Plan. It never presents automation as human sign-off.
-- A **verification-pipeline** workflow template provides the clean-room CI skeleton that executes the gates in order.
+- A **verification-pipeline** workflow template provides the clean-room CI harness that executes the gates in order.
 
 See the [coding-pal Prove guide](https://alten-group.github.io/coding-pal/guide/domain-prove).
 

@@ -1013,7 +1013,7 @@ function updateSimulation(rawDt) {
       }
     }
 
-    // 1. Trigger 4-release label in Triage
+    // 1. Trigger 5-release label in Triage
     if (ticket.colIndex === 0 && !ticket.hasTriggerLabel && elapsedCycleTime >= ticket.triggerTime) {
       ticket.hasTriggerLabel = true;
       ticket.stageTimer = 0;
@@ -1588,7 +1588,7 @@ onBeforeUnmount(() => {
                   </div>
                 </div>
 
-                <!-- Card Bottom Row: Priority Pill + 4-release / needs:developer Label + Live Pipeline Runner -->
+                <!-- Card Bottom Row: Priority Pill + 5-release / needs:developer Label + Live Pipeline Runner -->
                 <div class="gh-card-footer">
                   <div class="gh-card-pills">
                     <span
@@ -1606,7 +1606,7 @@ onBeforeUnmount(() => {
                       v-else-if="ticket.hasTriggerLabel && ticket.colIndex < 6"
                       class="gh-trigger-pill"
                     >
-                      4-release
+                      5-release
                     </span>
 
                     <span v-if="!ticket.inFlight && ticket.colIndex === 6" class="gh-done-pill">

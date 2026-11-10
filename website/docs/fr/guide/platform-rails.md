@@ -14,7 +14,7 @@ Les rails distribuent [la Forge](./forge), le [Contexte persistant](./persistent
 
 ### Pipeline de livraison
 
-Chaque dépôt reçoit le même squelette de vérification : des vérifications et contrôles automatisés dans la boucle de l’agent, puis à nouveau ces mêmes vérifications et contrôles dans la CI.
+Chaque dépôt reçoit le même harness de vérification : des vérifications et contrôles automatisés dans le harness de l’agent, puis à nouveau ces mêmes vérifications et contrôles dans la CI.
 
 Les pages des étapes décrivent les pipelines de [Think](./stage-think#pipeline-de-livraison), [Plan](./stage-plan#pipeline-de-livraison), [Code](./stage-code#pipeline-de-livraison), [Prove](./stage-prove#pipeline-de-livraison) et de [publication/déploiement](./stage-release#pipelines-de-publication-et-de-deploiement). Le même parcours peut fonctionner sur toute plateforme d’hébergement Git et de CI/CD.
 

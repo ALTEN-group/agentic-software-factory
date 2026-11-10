@@ -9,10 +9,10 @@ The Agentic Software Factory is an **operating model for AI-driven delivery**, f
 
 <DeliveryFlowchart />
 
-Work flows from top to bottom. The green blocks (Persistent Context, Deterministic Controls and the Forge) feed
+Work flows from top to bottom. The green harness blocks (Persistent Context, Deterministic Controls and the Forge) feed
 the stages they support. A weekly audit and the Learn stage can open new issues in Triage, which closes the loop.
 
-## The three enablers
+## The Harness
 
 - **[Persistent Context](./persistent-context)**: committed instructions, prompts, skills, and agents that ground the AI.
 - **[Forge](./forge)**: proven functions, libraries, and services that agents reuse instead of rebuilding the same logic.

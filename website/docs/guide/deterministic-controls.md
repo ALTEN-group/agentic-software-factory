@@ -28,25 +28,25 @@ Both are deterministic: a script returns pass or fail, never an opinion. They di
 |---|---|---|
 | **What** | Compiler and build, type checks, linters, and automated tests generated with the code | Guards, gates, contracts, and probes |
 | **Purpose** | Prove the code works | Prove the change is safe to merge and release |
-| **Where they run** | In the agent's own loop in [4 — Code](./stage-code), then again in the CI on the pull request in [5 — Prove](./stage-prove) | The same two places |
+| **Where they run** | In the agent harness in [4 — Code](./stage-code), then again in the CI on the pull request in [5 — Prove](./stage-prove) | The same two places |
 | **Can the agent change them?** | The agent writes the tests, so it can edit them | The rules and scripts are fixed, and the agent runs them but does not change them. Generated test suites are held to account by Criteria Test Verification and Mutation Testing |
 
-Run checks in the agent loop for fast fixes. Repeat them in clean CI, with CI-only controls such as preview smoke tests.
+Run checks in the agent harness for fast fixes. Repeat them in clean CI, with CI-only controls such as preview smoke tests.
 
 ## The controls
 
 | Control | Type | Runs in | Enforcement | Purpose |
 |---|---|---|---|---|
-| **Secret & Push Protection** | Guard | Agent loop, commit time, and CI | Platform git hooks & CI | Blocks commits containing credentials, tokens, or private keys immediately |
-| **Policy-as-Code** | Guard | Agent loop and CI | Open Policy Agent (OPA) / Conftest | Enforces infrastructure, security, and cloud configuration rules deterministically |
-| **License & SAST Scan** | Guard | Agent loop and CI | Semgrep / Snyk / Trivy | Blocks unauthorized open-source licenses and known vulnerable dependencies |
+| **Secret & Push Protection** | Guard | Agent harness, commit time, and CI | Platform git hooks & CI | Blocks commits containing credentials, tokens, or private keys immediately |
+| **Policy-as-Code** | Guard | Agent harness and CI | Open Policy Agent (OPA) / Conftest | Enforces infrastructure, security, and cloud configuration rules deterministically |
+| **License & SAST Scan** | Guard | Agent harness and CI | Semgrep / Snyk / Trivy | Blocks unauthorized open-source licenses and known vulnerable dependencies |
 | **Clean CI Re-run** | Gate | CI (backstop) | CI in a clean environment | Repeats the checks and controls on the pull request, where the agent cannot influence the result |
-| **Criteria Test Verification** | Gate | Agent loop and CI | Test runner | Proves that 100% of acceptance criteria from the Plan record have passing assertions |
-| **Mutation Testing Bar** | Gate | Agent loop and CI | Stryker / Mutmut | Proves that generated test suites are meaningful and actually catch injected defects |
-| **Contract & Schema Compatibility** | Contract | Agent loop and CI | OpenAPI / JSON Schema / Pact | Proves that changes do not break external consumers or downstream APIs |
-| **API Tests** | Contract | Agent loop and CI | HTTP API tests (for example Supertest) | Proves each endpoint returns the agreed status codes and responses |
+| **Criteria Test Verification** | Gate | Agent harness and CI | Test runner | Proves that 100% of acceptance criteria from the Plan record have passing assertions |
+| **Mutation Testing Bar** | Gate | Agent harness and CI | Stryker / Mutmut | Proves that generated test suites are meaningful and actually catch injected defects |
+| **Contract & Schema Compatibility** | Contract | Agent harness and CI | OpenAPI / JSON Schema / Pact | Proves that changes do not break external consumers or downstream APIs |
+| **API Tests** | Contract | Agent harness and CI | HTTP API tests (for example Supertest) | Proves each endpoint returns the agreed status codes and responses |
 | **Fuzz Tests** | Probe | CI (preview) | API fuzzing from the OpenAPI spec (for example RESTler) | Proves the API handles unexpected and malformed input without errors or crashes |
-| **Database Tests** | Gate | Agent loop and CI | SQL assertions against a migrated database | Proves the schema and migrations behave as specified |
+| **Database Tests** | Gate | Agent harness and CI | SQL assertions against a migrated database | Proves the schema and migrations behave as specified |
 | **E2E Tests** | Probe | CI (preview) | Browser tests of real user journeys (for example Playwright) | Proves the main journeys work on the running application |
 | **Preview Smoke Tests** | Probe | CI (preview) | Ephemeral preview | Proves the application starts, routes traffic, and responds to health checks |
 

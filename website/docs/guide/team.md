@@ -11,7 +11,7 @@ A squad owns a customer outcome from client meeting to production.
 AI writes specifications, code, tests, and documentation. A **Product Engineer** combines product and development responsibilities:
 
 - **No manual coders**: AI agents generate 100% of code, tests, and documentation.
-- **Product Engineer**: Owns **Meet** through **Prove**, leads client conversations, sets priorities, and maintains context and delivery automation.
+- **Product Engineer**: Owns **Meet** through **Prove**, leads client conversations, sets priorities, and maintains context and the delivery harness.
   - **Meet**: Understand the client's problem and desired outcome.
   - **Think**: Set the constraints that guide AI decisions.
 - **Client empathy**: Keep the client's intent clear throughout delivery.
@@ -22,10 +22,10 @@ A typical squad has one or two Product Engineers. Architecture, DevOps, and QA a
 
 | Member | Primary Focus | Role in Meeting-Driven Development |
 |---|---|---|
-| **Product Engineer** | Meet, Triage, Think, Plan, Code, and Prove | Leads client dialogue, defines value and priorities, owns the delivery automation, and resolves escalated failures |
+| **Product Engineer** | Meet, Triage, Think, Plan, Code, and Prove | Leads client dialogue, defines value and priorities, steers delivery through the harness, and resolves escalated failures |
 | **QA and maintainer** | Quality and production support | Runs Learn: watches QA and production, handles incidents, and reports what monitoring finds; shared across squads |
 | **DevOps** | Automated deployment and pipeline | Runs Release: automated deployment; shared across squads |
-| **Architect** | The enablers: Platform Rails, Persistent Context, Deterministic Controls, and the Forge | Owns system constraints, decision policy, and risk controls; agents execute architectural decisions autonomously and escalate unresolved failures |
+| **Architect** | The harness: Platform Rails, Persistent Context, Deterministic Controls, and the Forge | Owns system constraints, decision policy, and risk controls; agents execute architectural decisions autonomously and escalate unresolved failures |
 
 ## Boundaries
 

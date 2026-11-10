@@ -14,7 +14,7 @@ The rails distribute [the Forge](./forge), [Persistent Context](./persistent-con
 
 ### Delivery pipeline
 
-Every repository gets the same verification skeleton: automated checks and controls in the agent's loop, then the same checks and controls again in the CI.
+Every repository gets the same verification harness: automated checks and controls in the agent harness, then the same checks and controls again in the CI.
 
 The stage pages describe the delivery pipeline for [Think](./stage-think#delivery-pipeline), [Plan](./stage-plan#delivery-pipeline), [Code](./stage-code#delivery-pipeline), [Prove](./stage-prove#delivery-pipeline), and [publication/deployment](./stage-release#publication-and-deployment-pipelines). The same flow can run on any Git hosting and CI/CD platform.
 
