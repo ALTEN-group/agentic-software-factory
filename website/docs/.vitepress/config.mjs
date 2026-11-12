@@ -96,6 +96,7 @@ export default withMermaid(defineConfig({
               { text: '⚖️ Governance', link: '/guide/governance' },
               { text: '📊 Metrics', link: '/guide/metrics' },
               { text: '💰 Cost Management', link: '/guide/cost-management' },
+              { text: '🌱 Green IT', link: '/guide/green-it' },
             ],
           },
           {
@@ -153,6 +154,7 @@ export default withMermaid(defineConfig({
               { text: '⚖️ Gouvernance', link: '/fr/guide/governance' },
               { text: '📊 Métriques', link: '/fr/guide/metrics' },
               { text: '💰 Gestion des coûts', link: '/fr/guide/cost-management' },
+              { text: '🌱 Green IT', link: '/fr/guide/green-it' },
             ],
           },
           {
