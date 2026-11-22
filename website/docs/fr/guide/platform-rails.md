@@ -18,6 +18,8 @@ Chaque dépôt reçoit le même harness de vérification : des vérifications et
 
 Les pages des étapes décrivent les pipelines de [Think](./stage-think#pipeline-de-livraison), [Plan](./stage-plan#pipeline-de-livraison), [Code](./stage-code#pipeline-de-livraison), [Prove](./stage-prove#pipeline-de-livraison) et de [publication/déploiement](./stage-release#pipelines-de-publication-et-de-deploiement). Le même parcours peut fonctionner sur toute plateforme d’hébergement Git et de CI/CD.
 
+**Implémentation de référence.** Le [guide Delivery Pipeline de coding-pal](https://alten-group.github.io/coding-pal/guide/delivery-pipeline) documente l’implémentation GitHub Actions qui fait tourner les services de la Forge (Megadex, Foxnox, Gatelin) : labels d’étape, statuts du tableau Project, chaîne à flux unique, trains de release par jalon, PR de release avec images de conteneur, et audits hebdomadaires.
+
 #### Déclencheurs, points de revue et statuts
 
 **Les déclencheurs lancent le travail ; les statuts indiquent sa progression.** Un déclencheur peut être une action, un label, un appel API ou un lancement manuel. Un changement de statut ne lance le pipeline que si cela est configuré.

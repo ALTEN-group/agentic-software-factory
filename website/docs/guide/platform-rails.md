@@ -18,6 +18,8 @@ Every repository gets the same verification harness: automated checks and contro
 
 The stage pages describe the delivery pipeline for [Think](./stage-think#delivery-pipeline), [Plan](./stage-plan#delivery-pipeline), [Code](./stage-code#delivery-pipeline), [Prove](./stage-prove#delivery-pipeline), and [publication/deployment](./stage-release#publication-and-deployment-pipelines). The same flow can run on any Git hosting and CI/CD platform.
 
+**Reference implementation.** The [coding-pal Delivery Pipeline guide](https://alten-group.github.io/coding-pal/guide/delivery-pipeline) documents the GitHub Actions implementation that runs the Forge services (Megadex, Foxnox, Gatelin): stage labels, Project board statuses, the single-flight chain, milestone release trains, the release PR with container images, and the weekly audits.
+
 #### Triggers, checkpoints, and status
 
 **Triggers start work; statuses report progress.** Triggers can be actions, labels, API calls, or manual launches. A board-status change starts work only if configured to do so.
