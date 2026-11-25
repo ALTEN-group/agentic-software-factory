@@ -1,6 +1,6 @@
 # Agentic Software Factory
 
-The modern operating model for software development using AI at maximum capability.
+Headless, event-driven agentic software factory.
 
 The Agentic Software Factory is an **operating model**. It describes how ALTEN builds and runs
 software with **AI leveraged across the entire process** — from the client meeting to production release:

@@ -10,7 +10,7 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`
 
 export default withMermaid(defineConfig({
   title: 'Agentic Software Factory',
-  description: 'AI-driven software delivery, from client meeting to production.',
+  description: 'Headless, event-driven agentic software factory.',
   base,
   vite: {
     server: {
@@ -57,7 +57,7 @@ export default withMermaid(defineConfig({
     root: {
       label: 'English',
       lang: 'en',
-      description: 'AI-driven software delivery, from client meeting to production.',
+      description: 'Headless, event-driven agentic software factory.',
       themeConfig: {
         sidebar: [
           {
@@ -115,7 +115,7 @@ export default withMermaid(defineConfig({
     fr: {
       label: 'Français',
       lang: 'fr',
-      description: 'La livraison logicielle pilotée par l’IA, de la réunion client à la production.',
+      description: 'Usine logicielle agentique, headless et pilotée par les événements.',
       themeConfig: {
         sidebar: [
           {
