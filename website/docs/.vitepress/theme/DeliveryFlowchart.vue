@@ -497,8 +497,8 @@ const nodes = computed(() => [
     rectClass: 'rect-green',
     titleClass: 'green-title',
     subtitleClass: 'green-desc',
-    title: isFr.value ? '⏱️ Audit hebdomadaire' : '⏱️ Weekly audit',
-    lines: [isFr.value ? 'Planifié dans la CI' : 'Scheduled in CI'],
+    title: isFr.value ? '⏱️ Contrôles itératifs' : '⏱️ Iterative controls',
+    lines: ['Audits'],
   },
 ])
 </script>
