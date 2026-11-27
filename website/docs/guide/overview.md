@@ -2,7 +2,8 @@
 
 The Agentic Software Factory is a **headless, event-driven agentic software factory**. An operating model for AI-driven delivery, from client meeting to production. It defines who owns each outcome, how agents work, and which checks allow a change to ship.
 
-- **Headless & Event-Driven**: stages are triggered automatically by events without manual IDE prompting.
+- **Headless**: runs in background environments without requiring an interactive IDE or graphical interface.
+- **Event-Driven**: stages are triggered automatically by events without manual IDE prompting.
 - **Agentic**: AI agents implement, test, and fix changes autonomously.
 - **Software Factory**: each change follows repeatable stages with clear exit checks.
 

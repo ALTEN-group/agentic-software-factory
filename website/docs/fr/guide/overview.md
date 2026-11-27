@@ -2,7 +2,8 @@
 
 L’Agentic Software Factory est une **usine logicielle agentique, headless et pilotée par les événements** — un modèle opérationnel de livraison pilotée par l’IA, de la réunion client à la production. Il définit les responsabilités, le travail des agents et les contrôles requis pour livrer.
 
-- **Headless et pilotée par les événements** : les étapes sont déclenchées automatiquement par des événements sans intervention manuelle dans un IDE.
+- **Headless** : fonctionne en arrière-plan sans nécessiter d’IDE interactif ni d’interface graphique.
+- **Pilotée par les événements** : les étapes sont déclenchées automatiquement par des événements sans intervention manuelle dans un IDE.
 - **Agentic** : les agents IA implémentent, testent et corrigent de manière autonome.
 - **Software Factory** : chaque changement suit des étapes reproductibles avec des critères de sortie clairs.
 
